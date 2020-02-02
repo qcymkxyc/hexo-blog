@@ -1,0 +1,720 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>YOLOV3总结</title>
+    <url>/2020/01/29/YOLOV3%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p>总的来说,YOLO V3针对V2的改进并不多,有以下几点: </p>
+<ol>
+<li><p>网络结构的改变</p>
+<blockquote>
+<p>YOLO V3采用Darknet-53 的网络结构,整个网络采用全卷积结构,相比于ResNet-152和ResNet-101强很多,速度也更快</p>
+</blockquote>
+</li>
+<li><p>Anchor Box</p>
+<blockquote>
+<p>由于 YOLO V1和V2 都对小目标支持不好,所以,V3在这上面作出了改进,对大中小目标分别进行处理,大目标的Feature Map缩小,中小目标的Feature Map呈放大</p>
+<p>V3的Anchor Box一共9个,大中小各3个</p>
+</blockquote>
+</li>
+<li><p>Loss Function</p>
+<blockquote>
+<p>V3不再用softmax,而是用logistic(即对每一类做logistic),其目的还是对应V2中出现</p>
+</blockquote>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>目标检测</category>
+      </categories>
+      <tags>
+        <tag>目标检测</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>KCF目标跟踪测试</title>
+    <url>/2020/01/27/KCF%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E6%B5%8B%E8%AF%95/</url>
+    <content><![CDATA[
+        <style>.bbplayer{width: 100%; height: 500px; margin: auto}</style>
+        <div class="bbplayer">
+        <iframe class="bbplayer" src="//player.bilibili.com/player.html?aid=85098088&page=1&high_quality=1&danmaku=true" allowfullscreen="allowfullscreen" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
+        </div>
+        ]]></content>
+      <categories>
+        <category>目标跟踪</category>
+      </categories>
+      <tags>
+        <tag>目标跟踪</tag>
+        <tag>Demo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mAP的计算总结</title>
+    <url>/2019/12/19/mAP%E7%9A%84%E8%AE%A1%E7%AE%97/</url>
+    <content><![CDATA[<p>mAP是目标检测中最为常见的指标,要了解mAP(mean Average Precision),就必须了解recall和precision(目标检测中这两个指标的计算和略有机器学习不同)</p>
+<table>
+<thead>
+<tr>
+<th align="right">真\预</th>
+<th align="center">正</th>
+<th align="left">负</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">正</td>
+<td align="center">TP</td>
+<td align="left">FN</td>
+</tr>
+<tr>
+<td align="right">负</td>
+<td align="center">FP</td>
+<td align="left">TN</td>
+</tr>
+</tbody></table>
+<p>首先,在进行目标检测时,预测出一个BBox,和对应某类i的概率$P_i$,给出一个阈值$t$,即可以判断出预测是否是这一类,即判定上表中在第一列还是第二列.</p>
+<p>然后,对于上一部中分到第一列的,计算BBox和Ground Truth的IOU,大于0.5的标为TP,小于为FP.最后,对于1中第二列的标为FN.</p>
+<p>根据公式:</p>
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable displaystyle="true">
+    <mlabeledtr>
+      <mtd id="mjx-eqn-1_1">
+        <mtext>(1)</mtext>
+      </mtd>
+      <mtd>
+        <mrow>
+          <mo>{</mo>
+          <mtable columnalign="left left" rowspacing=".2em" columnspacing="1em" displaystyle="false">
+            <mtr>
+              <mtd>
+                <mi>R</mi>
+                <mo>=</mo>
+                <mi>T</mi>
+                <mi>P</mi>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mo>/</mo>
+                </mrow>
+                <mo stretchy="false">(</mo>
+                <mi>T</mi>
+                <mi>P</mi>
+                <mo>+</mo>
+                <mi>F</mi>
+                <mi>N</mi>
+                <mo stretchy="false">)</mo>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd>
+                <mi>P</mi>
+                <mo>=</mo>
+                <mi>T</mi>
+                <mi>P</mi>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mo>/</mo>
+                </mrow>
+                <mo stretchy="false">(</mo>
+                <mi>F</mi>
+                <mi>P</mi>
+                <mo>+</mo>
+                <mi>T</mi>
+                <mi>P</mi>
+                <mo stretchy="false">)</mo>
+              </mtd>
+            </mtr>
+          </mtable>
+          <mo fence="true" stretchy="true" symmetric="true"></mo>
+        </mrow>
+      </mtd>
+    </mlabeledtr>
+  </mtable>
+</math>
+
+
+
+<!--
+$$
+\begin{cases} R = TP/(TP+FN) \\ P=TP/(FP + TP)\end{cases}
+$$
+
+
+
+-->
+
+<p>对于上述给定的阈值t,逐渐减小,可形成多组RP数据对,在坐标上绘制,其与坐标轴围成的面积即为AP值.</p>
+]]></content>
+      <categories>
+        <category>目标检测</category>
+      </categories>
+      <tags>
+        <tag>目标检测</tag>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>YOLO9000总结</title>
+    <url>/2019/10/29/YOLO9000%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p>YOLO9000备忘</p>
+<h2 id="Better"><a href="#Better" class="headerlink" title="Better:"></a>Better:</h2><ol>
+<li><p>Batch Normalization</p>
+</li>
+<li><p>高分辨率:即用高分辨率图片,文中用$448 \times 448$</p>
+</li>
+<li><p>使用Anchor Box</p>
+<blockquote>
+<p>YOLO V2在使用Anchor Box之后,每一个Anchor Boox包含预测类别+5(4个位置,一个置信度)为数据,文中的Feature Map为$13 \times 13$,5个Anchor Box,20个类别,输出维数就为$13 \times 13 \times 5 \times 25$</p>
+<p>并且,V2的Anchor Box不是手动设置的,而是用训练集上的Ground Truth聚类的,所用的衡量标准为$1 - IOU(box,centroid)$</p>
+</blockquote>
+</li>
+<li><p>约束预测边框位置</p>
+<blockquote>
+<p>V1 预测的Box中随意,中心可以是任意位置,者造成训练时尤其是初期不稳定,V2在位置上包一层sigmoid函数,是的中心落在Feature Map的方框内,这样更稳定.</p>
+</blockquote>
+</li>
+<li><p>细分类特征(即加入PassThrough层)</p>
+<blockquote>
+<p>Pass Through层类似做步数为2的Pooling,按照相同位置组合成4个块,最后再在通道上叠加,比如上一层的输出为$26 \times 26 \times 512$,拆分成$4 \times 13 \times 13 \times 512$ 最后组成$13 \times 13 \times 3072$</p>
+</blockquote>
+<p><img src="/2019/10/29/YOLO9000%E6%80%BB%E7%BB%93/passthrough1.jpg" alt></p>
+<p><img src="/2019/10/29/YOLO9000%E6%80%BB%E7%BB%93/passthrough2.jpg" alt></p>
+</li>
+<li><p>多尺度训练</p>
+<blockquote>
+<p>即以不同的尺寸进行训练</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="Faster"><a href="#Faster" class="headerlink" title="Faster:"></a>Faster:</h2><p>采用Darknet-19网络结构</p>
+<h2 id="Stronger-YOLO-9000"><a href="#Stronger-YOLO-9000" class="headerlink" title="Stronger(YOLO 9000)"></a>Stronger(YOLO 9000)</h2><p>为了能识别9000个目标,构建了一个WordTree,与一般的softmax不同的是类别本身和气父节点均需标记为1.比如Dog,在Animal位置也需标记为1.</p>
+<p><img src="/2019/10/29/YOLO9000%E6%80%BB%E7%BB%93/WordTree.png" alt="&#39;WordTree&#39;"></p>
+<p>在预测时,一个类别的概率为根节点到该节点所有概率的乘积,如<br>$$<br>P(Hunting Dog)=p(Hunting Dog|Dog, Animal)P(Dog| Animal)<br>$$<br>其中,由于Animal处于根节点有$P(Animal)=1$</p>
+<p>注:在实际计算绝对概率时,并不会真的计算每一个子节点的概率,而是采用贪婪算法,当从根节点项子节点走时,如果小于阈值,则不在向下走了.</p>
+]]></content>
+      <categories>
+        <category>目标检测</category>
+      </categories>
+      <tags>
+        <tag>目标检测</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>YOLO V1总结</title>
+    <url>/2019/10/23/YOLOV1%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p>YOLO v1的总结,备忘</p>
+<h2 id="网络设计"><a href="#网络设计" class="headerlink" title="网络设计"></a>网络设计</h2><p>YOLO算法的设计理念是将图像分成$s \times s$的网络结构,每个网格分别来判定是否目标在其中,这其中运用了用卷积层来代替全连接层,这项技术是Idea的关键.所以最终的结果是</p>
+<p>$$s \times  s \times(B \times 5 + C)$$</p>
+<p>其中,B表示BBox的个数,C代表类别个数,5表示(x,y,w,h,confidence)</p>
+<h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><p>由于YOLO算法是将图像切割成方格并预测的思想,所以对图像的输入尺寸并不敏感.</p>
+<p>在输出方面,如下图所示:</p>
+<p><img src="/2019/10/23/YOLOV1%E6%80%BB%E7%BB%93/YOLOV1%E7%BB%93%E6%9E%84.jpg" alt></p>
+<ol>
+<li>Feature Map中的一个值给出一个预测,为何输出中却是两个BBox?</li>
+</ol>
+<blockquote>
+<p>YOLO由3类标签组成:类别,置信度,BBox位置.其中Feature Map中的一个值有两个BBox,而仅有一个One-Hot类别向量.之所以用两个BBox,文中的解释是:两个BBox用结果好的那个,另一个舍去,这样总好过仅用一个BBox的结果.</p>
+<p>那么,怎么样判定哪一个BBox结果好呢,答案是IOU,即$IOU_{pred}^{truth}$,选择IOU大的那个</p>
+</blockquote>
+<ol start="2">
+<li>训练集中的confidence如何确定?</li>
+</ol>
+<blockquote>
+<p>在1中可以得到$IOU_{pred}^{truth}$,如果该Feature Map值中有物体,则为IOU,否则为0.</p>
+<p>$$ confidenc标签=\begin{cases} IOU_{pred}^{truth},&amp;有物体\ 0,&amp;无物体 \end{cases}$$</p>
+<p>值得说明的是,两个BBox,一个为$IOU_{pred}^{truth}$,另一个的confidence也为0</p>
+</blockquote>
+<ol start="3">
+<li>LOSS函数</li>
+</ol>
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable displaystyle="true">
+    <mlabeledtr>
+      <mtd id="mjx-eqn-1">
+        <mtext>(1)</mtext>
+      </mtd>
+      <mtd>
+        <mi>L</mi>
+        <mi>o</mi>
+        <mi>s</mi>
+        <mi>s</mi>
+        <mo>=</mo>
+        <msub>
+          <mi>&#x03BB;<!-- λ --></mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>c</mi>
+            <mi>o</mi>
+            <mi>o</mi>
+            <mi>r</mi>
+            <mi>d</mi>
+          </mrow>
+        </msub>
+        <munderover>
+          <mo>&#x2211;<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mo>=</mo>
+            <mn>0</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <msup>
+              <mi>S</mi>
+              <mn>2</mn>
+            </msup>
+          </mrow>
+        </munderover>
+        <munderover>
+          <mo>&#x2211;<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+            <mo>=</mo>
+            <mn>0</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>B</mi>
+          </mrow>
+        </munderover>
+        <mstyle mathsize="1.2em">
+          <msubsup>
+            <mn>1</mn>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>i</mi>
+              <mi>j</mi>
+            </mrow>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>o</mi>
+              <mi>b</mi>
+              <mi>j</mi>
+            </mrow>
+          </msubsup>
+          <mo stretchy="false">[</mo>
+          <mo stretchy="false">(</mo>
+          <msub>
+            <mi>x</mi>
+            <mi>i</mi>
+          </msub>
+          <mo>&#x2212;<!-- − --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mover>
+              <msub>
+                <mi>x</mi>
+                <mi>i</mi>
+              </msub>
+              <mo stretchy="false">&#x005E;<!-- ^ --></mo>
+            </mover>
+          </mrow>
+          <msup>
+            <mo stretchy="false">)</mo>
+            <mn>2</mn>
+          </msup>
+          <mo>+</mo>
+          <mo stretchy="false">(</mo>
+          <msub>
+            <mi>y</mi>
+            <mi>i</mi>
+          </msub>
+          <mo>&#x2212;<!-- − --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mover>
+              <msub>
+                <mi>y</mi>
+                <mi>i</mi>
+              </msub>
+              <mo stretchy="false">&#x005E;<!-- ^ --></mo>
+            </mover>
+          </mrow>
+          <msup>
+            <mo stretchy="false">)</mo>
+            <mn>2</mn>
+          </msup>
+          <mo stretchy="false">]</mo>
+          <mo>+</mo>
+        </mstyle>
+        <mspace linebreak="newline">
+        <msub>
+          <mi>&#x03BB;<!-- λ --></mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>c</mi>
+            <mi>o</mi>
+            <mi>o</mi>
+            <mi>r</mi>
+            <mi>d</mi>
+          </mrow>
+        </msub>
+        <munderover>
+          <mo>&#x2211;<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mo>=</mo>
+            <mn>0</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <msup>
+              <mi>S</mi>
+              <mn>2</mn>
+            </msup>
+          </mrow>
+        </munderover>
+        <munderover>
+          <mo>&#x2211;<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+            <mo>=</mo>
+            <mn>0</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>B</mi>
+          </mrow>
+        </munderover>
+        <mstyle mathsize="1.2em">
+          <msubsup>
+            <mn>1</mn>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>i</mi>
+              <mi>j</mi>
+            </mrow>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>o</mi>
+              <mi>b</mi>
+              <mi>j</mi>
+            </mrow>
+          </msubsup>
+          <mo stretchy="false">[</mo>
+          <mo stretchy="false">(</mo>
+          <msqrt>
+            <msub>
+              <mi>w</mi>
+              <mi>i</mi>
+            </msub>
+          </msqrt>
+          <mo>&#x2212;<!-- − --></mo>
+          <msqrt>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mover>
+                <msub>
+                  <mi>w</mi>
+                  <mi>i</mi>
+                </msub>
+                <mo stretchy="false">&#x005E;<!-- ^ --></mo>
+              </mover>
+            </mrow>
+          </msqrt>
+          <msup>
+            <mo stretchy="false">)</mo>
+            <mn>2</mn>
+          </msup>
+          <mo>+</mo>
+        </mstyle>
+        <mspace linebreak="newline">
+        <mo stretchy="false">(</mo>
+        <msqrt>
+          <msub>
+            <mi>h</mi>
+            <mi>i</mi>
+          </msub>
+        </msqrt>
+        <mo>&#x2212;<!-- − --></mo>
+        <msqrt>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mover>
+              <msub>
+                <mi>h</mi>
+                <mi>i</mi>
+              </msub>
+              <mo stretchy="false">&#x005E;<!-- ^ --></mo>
+            </mover>
+          </mrow>
+        </msqrt>
+        <msup>
+          <mo stretchy="false">)</mo>
+          <mn>2</mn>
+        </msup>
+        <mo stretchy="false">]</mo>
+        <mo>+</mo>
+        <munderover>
+          <mo>&#x2211;<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mo>=</mo>
+            <mn>0</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>S</mi>
+          </mrow>
+        </munderover>
+        <munderover>
+          <mo>&#x2211;<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+            <mo>=</mo>
+            <mn>0</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>B</mi>
+          </mrow>
+        </munderover>
+        <mstyle mathsize="1.2em">
+          <msubsup>
+            <mn>1</mn>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>i</mi>
+              <mi>j</mi>
+            </mrow>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>o</mi>
+              <mi>b</mi>
+              <mi>j</mi>
+            </mrow>
+          </msubsup>
+          <mo stretchy="false">(</mo>
+          <msub>
+            <mi>c</mi>
+            <mi>i</mi>
+          </msub>
+          <mo>&#x2212;<!-- − --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mover>
+              <msub>
+                <mi>c</mi>
+                <mi>i</mi>
+              </msub>
+              <mo stretchy="false">&#x005E;<!-- ^ --></mo>
+            </mover>
+          </mrow>
+          <msup>
+            <mo stretchy="false">)</mo>
+            <mn>2</mn>
+          </msup>
+          <mo>+</mo>
+        </mstyle>
+        <mspace linebreak="newline">
+        <msub>
+          <mi>&#x03BB;<!-- λ --></mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>n</mi>
+            <mi>o</mi>
+            <mi>o</mi>
+            <mi>b</mi>
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <munderover>
+          <mo>&#x2211;<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mo>=</mo>
+            <mn>0</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>S</mi>
+          </mrow>
+        </munderover>
+        <munderover>
+          <mo>&#x2211;<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+            <mo>=</mo>
+            <mn>0</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>B</mi>
+          </mrow>
+        </munderover>
+        <mstyle mathsize="1.2em">
+          <msubsup>
+            <mn>1</mn>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>i</mi>
+              <mi>j</mi>
+            </mrow>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>n</mi>
+              <mi>o</mi>
+              <mi>o</mi>
+              <mi>b</mi>
+              <mi>j</mi>
+            </mrow>
+          </msubsup>
+          <mo stretchy="false">(</mo>
+          <msub>
+            <mi>c</mi>
+            <mi>i</mi>
+          </msub>
+          <mo>&#x2212;<!-- − --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mover>
+              <msub>
+                <mi>c</mi>
+                <mi>i</mi>
+              </msub>
+              <mo stretchy="false">&#x005E;<!-- ^ --></mo>
+            </mover>
+          </mrow>
+          <msup>
+            <mo stretchy="false">)</mo>
+            <mn>2</mn>
+          </msup>
+          <mo>+</mo>
+        </mstyle>
+        <mspace linebreak="newline">
+        <munderover>
+          <mo>&#x2211;<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mo>=</mo>
+            <mn>0</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <msup>
+              <mi>S</mi>
+              <mn>2</mn>
+            </msup>
+          </mrow>
+        </munderover>
+        <mstyle mathsize="1.2em">
+          <msubsup>
+            <mn>1</mn>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>i</mi>
+              <mi>j</mi>
+            </mrow>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>o</mi>
+              <mi>b</mi>
+              <mi>j</mi>
+            </mrow>
+          </msubsup>
+          <munder>
+            <mo>&#x2211;<!-- ∑ --></mo>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>C</mi>
+              <mo>&#x2208;<!-- ∈ --></mo>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mi>c</mi>
+                <mi>l</mi>
+                <mi>a</mi>
+                <mi>s</mi>
+                <mi>s</mi>
+              </mrow>
+            </mrow>
+          </munder>
+          <mo stretchy="false">[</mo>
+          <msub>
+            <mi>p</mi>
+            <mi>i</mi>
+          </msub>
+          <mo stretchy="false">(</mo>
+          <mi>c</mi>
+          <mo stretchy="false">)</mo>
+          <mo>&#x2212;<!-- − --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mover>
+              <msub>
+                <mi>p</mi>
+                <mi>i</mi>
+              </msub>
+              <mo stretchy="false">&#x005E;<!-- ^ --></mo>
+            </mover>
+          </mrow>
+          <mo stretchy="false">(</mo>
+          <mi>c</mi>
+          <mo stretchy="false">)</mo>
+          <msup>
+            <mo stretchy="false">]</mo>
+            <mn>2</mn>
+          </msup>
+        </mstyle>
+      </mspace></mspace></mspace></mspace></mtd>
+    </mlabeledtr>
+  </mtable>
+</math>
+
+<!-- 以下公式hexo无法换行,用以下公式生成MathML,粘贴在上面
+$$
+Loss=\lambda_{coord}\sum_{i=0}^{S^2}\sum_{j=0}^{B}\large 1_{ij}^{obj}[(x_i-\hat{x_i})^2+(y_i-\hat{y_i})^2] + \\
+\lambda_{coord}\sum_{i=0}^{S^2}\sum_{j=0}^{B}\large 1_{ij}^{obj}[(\sqrt{w_i}-\sqrt{\hat{w_i}})^2+\\
+(\sqrt{h_i}-\sqrt{\hat{h_i}})^2]+ \sum_{i=0}^{S}\sum_{j=0}^{B} \large 1_{ij}^{obj} (c_i-\hat{c_i})^2 + \\ 
+\lambda_{noobj}\sum_{i=0}^{S}\sum_{j=0}^{B} \large 1_{ij}^{noobj} (c_i-\hat{c_i})^2 +\\
+\sum_{i=0}^{S^2}\large 1_{ij}^{obj}\sum_{C\in{class}}[p_i(c)-\hat{p_i}(c)]^2
+$$
+-->
+
+<p>YOLO 算法的LOSS是一个L2 LOSS</p>
+<h2 id="预测"><a href="#预测" class="headerlink" title="预测"></a>预测</h2><p>对于模型得出的$S\times S \times 2$个BBox</p>
+<blockquote>
+<ol>
+<li><p>先用NMS得出一系列BBox(依据是confidence)</p>
+</li>
+<li><p>再在这些框中选最大概率的类别</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="优点以及缺点"><a href="#优点以及缺点" class="headerlink" title="优点以及缺点"></a>优点以及缺点</h2><blockquote>
+<p>优点:</p>
+<ol>
+<li>速度快</li>
+<li>End-2-End</li>
+</ol>
+<p>缺点: </p>
+<ol>
+<li><p>小物体效果不好</p>
+</li>
+<li><p>定位不准确    </p>
+</li>
+</ol>
+</blockquote>
+]]></content>
+      <categories>
+        <category>目标检测</category>
+      </categories>
+      <tags>
+        <tag>目标检测</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>人物背景抠图</title>
+    <url>/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/</url>
+    <content><![CDATA[<h2 id="示例图片"><a href="#示例图片" class="headerlink" title="示例图片"></a>示例图片</h2><p>免冠照人物背景抠图实现,先展示一下示例结果:</p>
+<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E5%8E%9F%E5%A7%8B%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87.png" alt></p>
+<p>人物背景抠图后:</p>
+<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%9B%BF%E6%8D%A2%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87.png" alt></p>
+<h2 id="执行步骤"><a href="#执行步骤" class="headerlink" title="执行步骤"></a>执行步骤</h2><h3 id="将RGB空间转换为HSV空间"><a href="#将RGB空间转换为HSV空间" class="headerlink" title="将RGB空间转换为HSV空间"></a>将RGB空间转换为HSV空间</h3><p>首先需要统计出背景(蓝色部分)的颜色范围,这里将RGB空间转换为HSV空间,然后只用H分量统计,就可以统计出蓝色背景的大概范围:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line">blue_photo_hsv = cv2.cvtColor(blue_photo,cv2.COLOR_RGB2HSV)</span><br><span class="line">h_ele = blue_photo_hsv[:,:,<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+
+<h3 id="做H分量的统计"><a href="#做H分量的统计" class="headerlink" title="做H分量的统计"></a>做H分量的统计</h3><p>为了简单起见,这里截取上1/6的部分图像</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line">%matplotlib inline</span><br><span class="line"></span><br><span class="line">sns.set_style(<span class="string">"darkgrid"</span>)</span><br><span class="line"></span><br><span class="line">w,h,_= blue_photo_hsv.shape</span><br><span class="line">hist_bins = plt.hist(blue_photo_hsv[:int(w/<span class="number">6</span>),:,<span class="number">0</span>].flatten(),bins = <span class="number">60</span>)</span><br></pre></td></tr></table></figure>
+
+<p>直方图统计结果:</p>
+<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E7%9B%B4%E6%96%B9%E5%9B%BE%E7%BB%93%E6%9E%9C.png" alt></p>
+<h3 id="掩膜"><a href="#掩膜" class="headerlink" title="掩膜"></a>掩膜</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">lower_h = hist_bins[<span class="number">1</span>][hist_bins[<span class="number">0</span>].argmax()]</span><br><span class="line">bins_interval = hist_bins[<span class="number">1</span>][<span class="number">1</span>] - hist_bins[<span class="number">1</span>][<span class="number">0</span>]</span><br><span class="line">upper_h = lower_h + <span class="number">1</span> * bins_interval</span><br><span class="line">lower = np.array([lower_h,<span class="number">43</span>,<span class="number">46</span>])</span><br><span class="line">upper = np.array([upper_h,<span class="number">256</span>,<span class="number">256</span>])</span><br><span class="line"></span><br><span class="line">mask = cv2.inRange(blue_photo_hsv, lower,upper)</span><br><span class="line">plt.imshow(mask)</span><br></pre></td></tr></table></figure>
+
+<p>掩膜结果:</p>
+<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%8E%A9%E8%86%9C%E7%BB%93%E6%9E%9C.png" alt="&#39;掩膜结果&#39;"></p>
+<h3 id="腐蚀和膨胀"><a href="#腐蚀和膨胀" class="headerlink" title="腐蚀和膨胀"></a>腐蚀和膨胀</h3><p>腐蚀的目的是去除分割线周围的噪声,膨胀是填补掩膜结果中的小空白.这里的腐蚀和膨胀的模板都是用的3*3</p>
+<p>腐蚀:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 取反</span></span><br><span class="line">mask = <span class="number">255</span> - mask</span><br><span class="line"><span class="comment"># 边长</span></span><br><span class="line">side_len = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">kernel = np.ones((side_len,side_len))</span><br><span class="line">erode_img = cv2.erode(mask,kernel,iterations = <span class="number">1</span>)</span><br><span class="line">erode_img.shape</span><br><span class="line">plt.imshow(erode_img)</span><br></pre></td></tr></table></figure>
+
+<p>腐蚀后结果:</p>
+<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E8%85%90%E8%9A%80%E5%90%8E.png" alt="&#39;腐蚀后结果&#39;"></p>
+<p>膨胀:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">side_len =<span class="number">3</span></span><br><span class="line"></span><br><span class="line">kernel = np.ones((side_len,side_len))</span><br><span class="line">dilate_img = cv2.dilate(erode_img,kernel,iterations = <span class="number">1</span>)</span><br><span class="line">plt.imshow(dilate_img)</span><br></pre></td></tr></table></figure>
+
+<p>膨胀后:</p>
+<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E8%86%A8%E8%83%80%E5%90%8E.png" alt="&#39;膨胀后&#39;"></p>
+<h3 id="替换背景"><a href="#替换背景" class="headerlink" title="替换背景"></a>替换背景</h3><p>一旦替换模板比较准确,人物背景抠图就比较容易了.下面是背景图:</p>
+<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E8%83%8C%E6%99%AF%E5%9B%BE.png" alt="&#39;背景图&#39;"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">n_row,n_col = dilate_img.shape</span><br><span class="line"></span><br><span class="line">start_coor = [<span class="number">10</span>,<span class="number">10</span>]</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> range(n_row):</span><br><span class="line">    <span class="keyword">for</span> col <span class="keyword">in</span> range(n_col):</span><br><span class="line">        <span class="keyword">if</span> dilate_img[row][col] == <span class="number">255</span>:</span><br><span class="line">            back_img[start_coor[<span class="number">0</span>] + row][start_coor[<span class="number">1</span>] + col] = blue_photo[row][col]</span><br><span class="line"></span><br><span class="line">plt.imshow(back_img)</span><br></pre></td></tr></table></figure>
+
+<p>根据模板替换后:</p>
+<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%9B%BF%E6%8D%A2%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87-1580097685097.png" alt="&#39;人物背景抠图后&#39;"></p>
+<p>最后根据原有的图片尺寸切割出结果图像就可以实现替换了.</p>
+<h2 id="多图测试"><a href="#多图测试" class="headerlink" title="多图测试"></a>多图测试</h2><p>网上爬取了十张大小不一图像测试,缩放到200*150(如有侵权请告知,谢谢).</p>
+<p>原图像:</p>
+<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%95%88%E6%9E%9C%E5%8E%9F%E5%9B%BE%E5%83%8F-1580099162567.png" alt></p>
+<p>替换后:</p>
+<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%95%88%E6%9E%9C%E5%9B%BE-1580099178206.png" alt></p>
+]]></content>
+      <categories>
+        <category>图像处理</category>
+      </categories>
+      <tags>
+        <tag>Demo</tag>
+        <tag>图像处理</tag>
+      </tags>
+  </entry>
+</search>
