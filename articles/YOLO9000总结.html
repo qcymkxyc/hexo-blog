@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Demo,图像处理," />
+  <meta name="keywords" content="目标检测," />
 
 
 
@@ -81,29 +81,21 @@
 
 
 
-<meta name="description" content="示例图片免冠照人物背景抠图实现,先展示一下示例结果:  人物背景抠图后:  执行步骤将RGB空间转换为HSV空间首先需要统计出背景(蓝色部分)的颜色范围,这里将RGB空间转换为HSV空间,然后只用H分量统计,就可以统计出蓝色背景的大概范围: 1234import cv2blue_photo_hsv &#x3D; cv2.cvtColor(blue_photo,cv2.COLOR_RGB2HSV)h_ele">
+<meta name="description" content="YOLO9000备忘 Better: Batch Normalization  高分辨率:即用高分辨率图片,文中用$448 \times 448$  使用Anchor Box  YOLO V2在使用Anchor Box之后,每一个Anchor Boox包含预测类别+5(4个位置,一个置信度)为数据,文中的Feature Map为$13 \times 13$,5个Anchor Box,20个类别,输">
 <meta property="og:type" content="article">
-<meta property="og:title" content="人物背景抠图">
-<meta property="og:url" content="http://blog.zhangqi2019.top/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/index.html">
+<meta property="og:title" content="YOLO9000总结">
+<meta property="og:url" content="http://blog.zhangqi2019.top/articles/YOLO9000%E6%80%BB%E7%BB%93.html">
 <meta property="og:site_name" content="拍栏听雨个人博客">
-<meta property="og:description" content="示例图片免冠照人物背景抠图实现,先展示一下示例结果:  人物背景抠图后:  执行步骤将RGB空间转换为HSV空间首先需要统计出背景(蓝色部分)的颜色范围,这里将RGB空间转换为HSV空间,然后只用H分量统计,就可以统计出蓝色背景的大概范围: 1234import cv2blue_photo_hsv &#x3D; cv2.cvtColor(blue_photo,cv2.COLOR_RGB2HSV)h_ele">
-<meta property="og:image" content="http://blog.zhangqi2019.top/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E5%8E%9F%E5%A7%8B%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87.png">
-<meta property="og:image" content="http://blog.zhangqi2019.top/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%9B%BF%E6%8D%A2%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87.png">
-<meta property="og:image" content="http://blog.zhangqi2019.top/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E7%9B%B4%E6%96%B9%E5%9B%BE%E7%BB%93%E6%9E%9C.png">
-<meta property="og:image" content="http://blog.zhangqi2019.top/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%8E%A9%E8%86%9C%E7%BB%93%E6%9E%9C.png">
-<meta property="og:image" content="http://blog.zhangqi2019.top/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E8%85%90%E8%9A%80%E5%90%8E.png">
-<meta property="og:image" content="http://blog.zhangqi2019.top/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E8%86%A8%E8%83%80%E5%90%8E.png">
-<meta property="og:image" content="http://blog.zhangqi2019.top/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E8%83%8C%E6%99%AF%E5%9B%BE.png">
-<meta property="og:image" content="http://blog.zhangqi2019.top/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%9B%BF%E6%8D%A2%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87-1580097685097.png">
-<meta property="og:image" content="http://blog.zhangqi2019.top/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%95%88%E6%9E%9C%E5%8E%9F%E5%9B%BE%E5%83%8F-1580099162567.png">
-<meta property="og:image" content="http://blog.zhangqi2019.top/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%95%88%E6%9E%9C%E5%9B%BE-1580099178206.png">
-<meta property="article:published_time" content="2019-09-27T03:01:54.000Z">
-<meta property="article:modified_time" content="2020-01-29T07:55:15.093Z">
+<meta property="og:description" content="YOLO9000备忘 Better: Batch Normalization  高分辨率:即用高分辨率图片,文中用$448 \times 448$  使用Anchor Box  YOLO V2在使用Anchor Box之后,每一个Anchor Boox包含预测类别+5(4个位置,一个置信度)为数据,文中的Feature Map为$13 \times 13$,5个Anchor Box,20个类别,输">
+<meta property="og:image" content="http://blog.zhangqi2019.top/2019/10/29/YOLO9000%E6%80%BB%E7%BB%93/passthrough1.jpg">
+<meta property="og:image" content="http://blog.zhangqi2019.top/2019/10/29/YOLO9000%E6%80%BB%E7%BB%93/passthrough2.jpg">
+<meta property="og:image" content="http://blog.zhangqi2019.top/2019/10/29/YOLO9000%E6%80%BB%E7%BB%93/WordTree.png">
+<meta property="article:published_time" content="2019-10-29T02:37:40.000Z">
+<meta property="article:modified_time" content="2020-01-29T07:55:47.813Z">
 <meta property="article:author" content="拍栏听雨">
-<meta property="article:tag" content="Demo">
-<meta property="article:tag" content="图像处理">
+<meta property="article:tag" content="目标检测">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://blog.zhangqi2019.top/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E5%8E%9F%E5%A7%8B%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87.png">
+<meta name="twitter:image" content="http://blog.zhangqi2019.top/2019/10/29/YOLO9000%E6%80%BB%E7%BB%93/passthrough1.jpg">
 
 
 
@@ -133,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://blog.zhangqi2019.top/2019/09/27/人物背景抠图/"/>
+  <link rel="canonical" href="http://blog.zhangqi2019.top/articles/YOLO9000总结.html"/>
 
 
 
 
 
-  <title>人物背景抠图 | 拍栏听雨个人博客</title>
+  <title>YOLO9000总结 | 拍栏听雨个人博客</title>
   
 
 
@@ -324,7 +316,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.zhangqi2019.top/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/">
+    <link itemprop="mainEntityOfPage" href="http://blog.zhangqi2019.top/articles/YOLO9000%E6%80%BB%E7%BB%93.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="拍栏听雨">
@@ -341,7 +333,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">人物背景抠图</h2>
+          <h2 class="post-title" itemprop="name headline">YOLO9000总结</h2>
         
 
         <div class="post-meta">
@@ -353,8 +345,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-27T11:01:54+08:00">
-                2019-09-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-29T10:37:40+08:00">
+                2019-10-29
               </time>
             
 
@@ -376,8 +368,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" itemprop="url" rel="index">
-                    <span itemprop="name">图像处理</span>
+                  <a href="/categories/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">目标检测</span>
                   </a>
                 </span>
 
@@ -394,8 +386,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/" itemprop="commentCount"></span>
+                <a href="/articles/YOLO9000%E6%80%BB%E7%BB%93.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/articles/YOLO9000%E6%80%BB%E7%BB%93.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -423,45 +415,41 @@
       
 
       
-        <h2 id="示例图片"><a href="#示例图片" class="headerlink" title="示例图片"></a>示例图片</h2><p>免冠照人物背景抠图实现,先展示一下示例结果:</p>
-<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E5%8E%9F%E5%A7%8B%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87.png" alt></p>
-<p>人物背景抠图后:</p>
-<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%9B%BF%E6%8D%A2%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87.png" alt></p>
-<h2 id="执行步骤"><a href="#执行步骤" class="headerlink" title="执行步骤"></a>执行步骤</h2><h3 id="将RGB空间转换为HSV空间"><a href="#将RGB空间转换为HSV空间" class="headerlink" title="将RGB空间转换为HSV空间"></a>将RGB空间转换为HSV空间</h3><p>首先需要统计出背景(蓝色部分)的颜色范围,这里将RGB空间转换为HSV空间,然后只用H分量统计,就可以统计出蓝色背景的大概范围:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line">blue_photo_hsv = cv2.cvtColor(blue_photo,cv2.COLOR_RGB2HSV)</span><br><span class="line">h_ele = blue_photo_hsv[:,:,<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
-
-<h3 id="做H分量的统计"><a href="#做H分量的统计" class="headerlink" title="做H分量的统计"></a>做H分量的统计</h3><p>为了简单起见,这里截取上1/6的部分图像</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line">%matplotlib inline</span><br><span class="line"></span><br><span class="line">sns.set_style(<span class="string">"darkgrid"</span>)</span><br><span class="line"></span><br><span class="line">w,h,_= blue_photo_hsv.shape</span><br><span class="line">hist_bins = plt.hist(blue_photo_hsv[:int(w/<span class="number">6</span>),:,<span class="number">0</span>].flatten(),bins = <span class="number">60</span>)</span><br></pre></td></tr></table></figure>
-
-<p>直方图统计结果:</p>
-<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E7%9B%B4%E6%96%B9%E5%9B%BE%E7%BB%93%E6%9E%9C.png" alt></p>
-<h3 id="掩膜"><a href="#掩膜" class="headerlink" title="掩膜"></a>掩膜</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">lower_h = hist_bins[<span class="number">1</span>][hist_bins[<span class="number">0</span>].argmax()]</span><br><span class="line">bins_interval = hist_bins[<span class="number">1</span>][<span class="number">1</span>] - hist_bins[<span class="number">1</span>][<span class="number">0</span>]</span><br><span class="line">upper_h = lower_h + <span class="number">1</span> * bins_interval</span><br><span class="line">lower = np.array([lower_h,<span class="number">43</span>,<span class="number">46</span>])</span><br><span class="line">upper = np.array([upper_h,<span class="number">256</span>,<span class="number">256</span>])</span><br><span class="line"></span><br><span class="line">mask = cv2.inRange(blue_photo_hsv, lower,upper)</span><br><span class="line">plt.imshow(mask)</span><br></pre></td></tr></table></figure>
-
-<p>掩膜结果:</p>
-<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%8E%A9%E8%86%9C%E7%BB%93%E6%9E%9C.png" alt="&#39;掩膜结果&#39;"></p>
-<h3 id="腐蚀和膨胀"><a href="#腐蚀和膨胀" class="headerlink" title="腐蚀和膨胀"></a>腐蚀和膨胀</h3><p>腐蚀的目的是去除分割线周围的噪声,膨胀是填补掩膜结果中的小空白.这里的腐蚀和膨胀的模板都是用的3*3</p>
-<p>腐蚀:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 取反</span></span><br><span class="line">mask = <span class="number">255</span> - mask</span><br><span class="line"><span class="comment"># 边长</span></span><br><span class="line">side_len = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">kernel = np.ones((side_len,side_len))</span><br><span class="line">erode_img = cv2.erode(mask,kernel,iterations = <span class="number">1</span>)</span><br><span class="line">erode_img.shape</span><br><span class="line">plt.imshow(erode_img)</span><br></pre></td></tr></table></figure>
-
-<p>腐蚀后结果:</p>
-<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E8%85%90%E8%9A%80%E5%90%8E.png" alt="&#39;腐蚀后结果&#39;"></p>
-<p>膨胀:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">side_len =<span class="number">3</span></span><br><span class="line"></span><br><span class="line">kernel = np.ones((side_len,side_len))</span><br><span class="line">dilate_img = cv2.dilate(erode_img,kernel,iterations = <span class="number">1</span>)</span><br><span class="line">plt.imshow(dilate_img)</span><br></pre></td></tr></table></figure>
-
-<p>膨胀后:</p>
-<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E8%86%A8%E8%83%80%E5%90%8E.png" alt="&#39;膨胀后&#39;"></p>
-<h3 id="替换背景"><a href="#替换背景" class="headerlink" title="替换背景"></a>替换背景</h3><p>一旦替换模板比较准确,人物背景抠图就比较容易了.下面是背景图:</p>
-<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E8%83%8C%E6%99%AF%E5%9B%BE.png" alt="&#39;背景图&#39;"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">n_row,n_col = dilate_img.shape</span><br><span class="line"></span><br><span class="line">start_coor = [<span class="number">10</span>,<span class="number">10</span>]</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> range(n_row):</span><br><span class="line">    <span class="keyword">for</span> col <span class="keyword">in</span> range(n_col):</span><br><span class="line">        <span class="keyword">if</span> dilate_img[row][col] == <span class="number">255</span>:</span><br><span class="line">            back_img[start_coor[<span class="number">0</span>] + row][start_coor[<span class="number">1</span>] + col] = blue_photo[row][col]</span><br><span class="line"></span><br><span class="line">plt.imshow(back_img)</span><br></pre></td></tr></table></figure>
-
-<p>根据模板替换后:</p>
-<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%9B%BF%E6%8D%A2%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87-1580097685097.png" alt="&#39;人物背景抠图后&#39;"></p>
-<p>最后根据原有的图片尺寸切割出结果图像就可以实现替换了.</p>
-<h2 id="多图测试"><a href="#多图测试" class="headerlink" title="多图测试"></a>多图测试</h2><p>网上爬取了十张大小不一图像测试,缩放到200*150(如有侵权请告知,谢谢).</p>
-<p>原图像:</p>
-<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%95%88%E6%9E%9C%E5%8E%9F%E5%9B%BE%E5%83%8F-1580099162567.png" alt></p>
-<p>替换后:</p>
-<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%95%88%E6%9E%9C%E5%9B%BE-1580099178206.png" alt></p>
+        <p>YOLO9000备忘</p>
+<h2 id="Better"><a href="#Better" class="headerlink" title="Better:"></a>Better:</h2><ol>
+<li><p>Batch Normalization</p>
+</li>
+<li><p>高分辨率:即用高分辨率图片,文中用$448 \times 448$</p>
+</li>
+<li><p>使用Anchor Box</p>
+<blockquote>
+<p>YOLO V2在使用Anchor Box之后,每一个Anchor Boox包含预测类别+5(4个位置,一个置信度)为数据,文中的Feature Map为$13 \times 13$,5个Anchor Box,20个类别,输出维数就为$13 \times 13 \times 5 \times 25$</p>
+<p>并且,V2的Anchor Box不是手动设置的,而是用训练集上的Ground Truth聚类的,所用的衡量标准为$1 - IOU(box,centroid)$</p>
+</blockquote>
+</li>
+<li><p>约束预测边框位置</p>
+<blockquote>
+<p>V1 预测的Box中随意,中心可以是任意位置,者造成训练时尤其是初期不稳定,V2在位置上包一层sigmoid函数,是的中心落在Feature Map的方框内,这样更稳定.</p>
+</blockquote>
+</li>
+<li><p>细分类特征(即加入PassThrough层)</p>
+<blockquote>
+<p>Pass Through层类似做步数为2的Pooling,按照相同位置组合成4个块,最后再在通道上叠加,比如上一层的输出为$26 \times 26 \times 512$,拆分成$4 \times 13 \times 13 \times 512$ 最后组成$13 \times 13 \times 3072$</p>
+</blockquote>
+<p><img src="/2019/10/29/YOLO9000%E6%80%BB%E7%BB%93/passthrough1.jpg" alt></p>
+<p><img src="/2019/10/29/YOLO9000%E6%80%BB%E7%BB%93/passthrough2.jpg" alt></p>
+</li>
+<li><p>多尺度训练</p>
+<blockquote>
+<p>即以不同的尺寸进行训练</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="Faster"><a href="#Faster" class="headerlink" title="Faster:"></a>Faster:</h2><p>采用Darknet-19网络结构</p>
+<h2 id="Stronger-YOLO-9000"><a href="#Stronger-YOLO-9000" class="headerlink" title="Stronger(YOLO 9000)"></a>Stronger(YOLO 9000)</h2><p>为了能识别9000个目标,构建了一个WordTree,与一般的softmax不同的是类别本身和气父节点均需标记为1.比如Dog,在Animal位置也需标记为1.</p>
+<p><img src="/2019/10/29/YOLO9000%E6%80%BB%E7%BB%93/WordTree.png" alt="&#39;WordTree&#39;"></p>
+<p>在预测时,一个类别的概率为根节点到该节点所有概率的乘积,如<br>$$<br>P(Hunting Dog)=p(Hunting Dog|Dog, Animal)P(Dog| Animal)<br>$$<br>其中,由于Animal处于根节点有$P(Animal)=1$</p>
+<p>注:在实际计算绝对概率时,并不会真的计算每一个子节点的概率,而是采用贪婪算法,当从根节点项子节点走时,如果小于阈值,则不在向下走了.</p>
 
       
     </div>
@@ -479,9 +467,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Demo/" rel="tag"><i class="fa fa-tag"></i> Demo</a>
-          
-            <a href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> 图像处理</a>
+            <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" rel="tag"><i class="fa fa-tag"></i> 目标检测</a>
           
         </div>
       
@@ -494,14 +480,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/articles/YOLOV1%E6%80%BB%E7%BB%93.html" rel="next" title="YOLO V1总结">
+                <i class="fa fa-chevron-left"></i> YOLO V1总结
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/10/23/YOLOV1%E6%80%BB%E7%BB%93/" rel="prev" title="YOLO V1总结">
-                YOLO V1总结 <i class="fa fa-chevron-right"></i>
+              <a href="/articles/mAP%E7%9A%84%E8%AE%A1%E7%AE%97.html" rel="prev" title="mAP的计算总结">
+                mAP的计算总结 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -708,7 +698,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#示例图片"><span class="nav-number">1.</span> <span class="nav-text">示例图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行步骤"><span class="nav-number">2.</span> <span class="nav-text">执行步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#将RGB空间转换为HSV空间"><span class="nav-number">2.1.</span> <span class="nav-text">将RGB空间转换为HSV空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#做H分量的统计"><span class="nav-number">2.2.</span> <span class="nav-text">做H分量的统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#掩膜"><span class="nav-number">2.3.</span> <span class="nav-text">掩膜</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#腐蚀和膨胀"><span class="nav-number">2.4.</span> <span class="nav-text">腐蚀和膨胀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替换背景"><span class="nav-number">2.5.</span> <span class="nav-text">替换背景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多图测试"><span class="nav-number">3.</span> <span class="nav-text">多图测试</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Better"><span class="nav-number">1.</span> <span class="nav-text">Better:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Faster"><span class="nav-number">2.</span> <span class="nav-text">Faster:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stronger-YOLO-9000"><span class="nav-number">3.</span> <span class="nav-text">Stronger(YOLO 9000)</span></a></li></ol></div>
             
 
           </div>
@@ -1286,5 +1276,5 @@ var jiathis_config={
 
   
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"live2d-widget-model-wanko"},"display":{"position":"right","width":200,"height":350},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</body>
 </html>

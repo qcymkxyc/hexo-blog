@@ -81,19 +81,17 @@
 
 
 
-<meta name="description" content="YOLO v1的总结,备忘 网络设计YOLO算法的设计理念是将图像分成$s \times s$的网络结构,每个网格分别来判定是否目标在其中,这其中运用了用卷积层来代替全连接层,这项技术是Idea的关键.所以最终的结果是 $$s \times  s \times(B \times 5 + C)$$ 其中,B表示BBox的个数,C代表类别个数,5表示(x,y,w,h,confidence) 训练由于Y">
+<meta name="description" content="总的来说,YOLO V3针对V2的改进并不多,有以下几点:   网络结构的改变  YOLO V3采用Darknet-53 的网络结构,整个网络采用全卷积结构,相比于ResNet-152和ResNet-101强很多,速度也更快   Anchor Box  由于 YOLO V1和V2 都对小目标支持不好,所以,V3在这上面作出了改进,对大中小目标分别进行处理,大目标的Feature Map缩小,中小目">
 <meta property="og:type" content="article">
-<meta property="og:title" content="YOLO V1总结">
-<meta property="og:url" content="http://blog.zhangqi2019.top/2019/10/23/YOLOV1%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:title" content="YOLOV3总结">
+<meta property="og:url" content="http://blog.zhangqi2019.top/articles/YOLOV3%E6%80%BB%E7%BB%93.html">
 <meta property="og:site_name" content="拍栏听雨个人博客">
-<meta property="og:description" content="YOLO v1的总结,备忘 网络设计YOLO算法的设计理念是将图像分成$s \times s$的网络结构,每个网格分别来判定是否目标在其中,这其中运用了用卷积层来代替全连接层,这项技术是Idea的关键.所以最终的结果是 $$s \times  s \times(B \times 5 + C)$$ 其中,B表示BBox的个数,C代表类别个数,5表示(x,y,w,h,confidence) 训练由于Y">
-<meta property="og:image" content="http://blog.zhangqi2019.top/2019/10/23/YOLOV1%E6%80%BB%E7%BB%93/YOLOV1%E7%BB%93%E6%9E%84.jpg">
-<meta property="article:published_time" content="2019-10-23T03:28:20.000Z">
-<meta property="article:modified_time" content="2020-01-29T07:55:30.905Z">
+<meta property="og:description" content="总的来说,YOLO V3针对V2的改进并不多,有以下几点:   网络结构的改变  YOLO V3采用Darknet-53 的网络结构,整个网络采用全卷积结构,相比于ResNet-152和ResNet-101强很多,速度也更快   Anchor Box  由于 YOLO V1和V2 都对小目标支持不好,所以,V3在这上面作出了改进,对大中小目标分别进行处理,大目标的Feature Map缩小,中小目">
+<meta property="article:published_time" content="2020-01-29T07:14:08.000Z">
+<meta property="article:modified_time" content="2020-01-29T07:25:29.655Z">
 <meta property="article:author" content="拍栏听雨">
 <meta property="article:tag" content="目标检测">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://blog.zhangqi2019.top/2019/10/23/YOLOV1%E6%80%BB%E7%BB%93/YOLOV1%E7%BB%93%E6%9E%84.jpg">
 
 
 
@@ -123,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://blog.zhangqi2019.top/2019/10/23/YOLOV1总结/"/>
+  <link rel="canonical" href="http://blog.zhangqi2019.top/articles/YOLOV3总结.html"/>
 
 
 
 
 
-  <title>YOLO V1总结 | 拍栏听雨个人博客</title>
+  <title>YOLOV3总结 | 拍栏听雨个人博客</title>
   
 
 
@@ -314,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.zhangqi2019.top/2019/10/23/YOLOV1%E6%80%BB%E7%BB%93/">
+    <link itemprop="mainEntityOfPage" href="http://blog.zhangqi2019.top/articles/YOLOV3%E6%80%BB%E7%BB%93.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="拍栏听雨">
@@ -331,7 +329,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">YOLO V1总结</h2>
+          <h2 class="post-title" itemprop="name headline">YOLOV3总结</h2>
         
 
         <div class="post-meta">
@@ -343,8 +341,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-23T11:28:20+08:00">
-                2019-10-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-29T15:14:08+08:00">
+                2020-01-29
               </time>
             
 
@@ -384,8 +382,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/10/23/YOLOV1%E6%80%BB%E7%BB%93/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/10/23/YOLOV1%E6%80%BB%E7%BB%93/" itemprop="commentCount"></span>
+                <a href="/articles/YOLOV3%E6%80%BB%E7%BB%93.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/articles/YOLOV3%E6%80%BB%E7%BB%93.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -413,467 +411,25 @@
       
 
       
-        <p>YOLO v1的总结,备忘</p>
-<h2 id="网络设计"><a href="#网络设计" class="headerlink" title="网络设计"></a>网络设计</h2><p>YOLO算法的设计理念是将图像分成$s \times s$的网络结构,每个网格分别来判定是否目标在其中,这其中运用了用卷积层来代替全连接层,这项技术是Idea的关键.所以最终的结果是</p>
-<p>$$s \times  s \times(B \times 5 + C)$$</p>
-<p>其中,B表示BBox的个数,C代表类别个数,5表示(x,y,w,h,confidence)</p>
-<h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><p>由于YOLO算法是将图像切割成方格并预测的思想,所以对图像的输入尺寸并不敏感.</p>
-<p>在输出方面,如下图所示:</p>
-<p><img src="/2019/10/23/YOLOV1%E6%80%BB%E7%BB%93/YOLOV1%E7%BB%93%E6%9E%84.jpg" alt></p>
+        <p>总的来说,YOLO V3针对V2的改进并不多,有以下几点: </p>
 <ol>
-<li>Feature Map中的一个值给出一个预测,为何输出中却是两个BBox?</li>
-</ol>
+<li><p>网络结构的改变</p>
 <blockquote>
-<p>YOLO由3类标签组成:类别,置信度,BBox位置.其中Feature Map中的一个值有两个BBox,而仅有一个One-Hot类别向量.之所以用两个BBox,文中的解释是:两个BBox用结果好的那个,另一个舍去,这样总好过仅用一个BBox的结果.</p>
-<p>那么,怎么样判定哪一个BBox结果好呢,答案是IOU,即$IOU_{pred}^{truth}$,选择IOU大的那个</p>
+<p>YOLO V3采用Darknet-53 的网络结构,整个网络采用全卷积结构,相比于ResNet-152和ResNet-101强很多,速度也更快</p>
 </blockquote>
-<ol start="2">
-<li>训练集中的confidence如何确定?</li>
-</ol>
+</li>
+<li><p>Anchor Box</p>
 <blockquote>
-<p>在1中可以得到$IOU_{pred}^{truth}$,如果该Feature Map值中有物体,则为IOU,否则为0.</p>
-<p>$$ confidenc标签=\begin{cases} IOU_{pred}^{truth},&amp;有物体\ 0,&amp;无物体 \end{cases}$$</p>
-<p>值得说明的是,两个BBox,一个为$IOU_{pred}^{truth}$,另一个的confidence也为0</p>
+<p>由于 YOLO V1和V2 都对小目标支持不好,所以,V3在这上面作出了改进,对大中小目标分别进行处理,大目标的Feature Map缩小,中小目标的Feature Map呈放大</p>
+<p>V3的Anchor Box一共9个,大中小各3个</p>
 </blockquote>
-<ol start="3">
-<li>LOSS函数</li>
-</ol>
-<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-  <mtable displaystyle="true">
-    <mlabeledtr>
-      <mtd id="mjx-eqn-1">
-        <mtext>(1)</mtext>
-      </mtd>
-      <mtd>
-        <mi>L</mi>
-        <mi>o</mi>
-        <mi>s</mi>
-        <mi>s</mi>
-        <mo>=</mo>
-        <msub>
-          <mi>&#x03BB;<!-- λ --></mi>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>c</mi>
-            <mi>o</mi>
-            <mi>o</mi>
-            <mi>r</mi>
-            <mi>d</mi>
-          </mrow>
-        </msub>
-        <munderover>
-          <mo>&#x2211;<!-- ∑ --></mo>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>i</mi>
-            <mo>=</mo>
-            <mn>0</mn>
-          </mrow>
-          <mrow class="MJX-TeXAtom-ORD">
-            <msup>
-              <mi>S</mi>
-              <mn>2</mn>
-            </msup>
-          </mrow>
-        </munderover>
-        <munderover>
-          <mo>&#x2211;<!-- ∑ --></mo>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>j</mi>
-            <mo>=</mo>
-            <mn>0</mn>
-          </mrow>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>B</mi>
-          </mrow>
-        </munderover>
-        <mstyle mathsize="1.2em">
-          <msubsup>
-            <mn>1</mn>
-            <mrow class="MJX-TeXAtom-ORD">
-              <mi>i</mi>
-              <mi>j</mi>
-            </mrow>
-            <mrow class="MJX-TeXAtom-ORD">
-              <mi>o</mi>
-              <mi>b</mi>
-              <mi>j</mi>
-            </mrow>
-          </msubsup>
-          <mo stretchy="false">[</mo>
-          <mo stretchy="false">(</mo>
-          <msub>
-            <mi>x</mi>
-            <mi>i</mi>
-          </msub>
-          <mo>&#x2212;<!-- − --></mo>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mover>
-              <msub>
-                <mi>x</mi>
-                <mi>i</mi>
-              </msub>
-              <mo stretchy="false">&#x005E;<!-- ^ --></mo>
-            </mover>
-          </mrow>
-          <msup>
-            <mo stretchy="false">)</mo>
-            <mn>2</mn>
-          </msup>
-          <mo>+</mo>
-          <mo stretchy="false">(</mo>
-          <msub>
-            <mi>y</mi>
-            <mi>i</mi>
-          </msub>
-          <mo>&#x2212;<!-- − --></mo>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mover>
-              <msub>
-                <mi>y</mi>
-                <mi>i</mi>
-              </msub>
-              <mo stretchy="false">&#x005E;<!-- ^ --></mo>
-            </mover>
-          </mrow>
-          <msup>
-            <mo stretchy="false">)</mo>
-            <mn>2</mn>
-          </msup>
-          <mo stretchy="false">]</mo>
-          <mo>+</mo>
-        </mstyle>
-        <mspace linebreak="newline">
-        <msub>
-          <mi>&#x03BB;<!-- λ --></mi>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>c</mi>
-            <mi>o</mi>
-            <mi>o</mi>
-            <mi>r</mi>
-            <mi>d</mi>
-          </mrow>
-        </msub>
-        <munderover>
-          <mo>&#x2211;<!-- ∑ --></mo>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>i</mi>
-            <mo>=</mo>
-            <mn>0</mn>
-          </mrow>
-          <mrow class="MJX-TeXAtom-ORD">
-            <msup>
-              <mi>S</mi>
-              <mn>2</mn>
-            </msup>
-          </mrow>
-        </munderover>
-        <munderover>
-          <mo>&#x2211;<!-- ∑ --></mo>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>j</mi>
-            <mo>=</mo>
-            <mn>0</mn>
-          </mrow>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>B</mi>
-          </mrow>
-        </munderover>
-        <mstyle mathsize="1.2em">
-          <msubsup>
-            <mn>1</mn>
-            <mrow class="MJX-TeXAtom-ORD">
-              <mi>i</mi>
-              <mi>j</mi>
-            </mrow>
-            <mrow class="MJX-TeXAtom-ORD">
-              <mi>o</mi>
-              <mi>b</mi>
-              <mi>j</mi>
-            </mrow>
-          </msubsup>
-          <mo stretchy="false">[</mo>
-          <mo stretchy="false">(</mo>
-          <msqrt>
-            <msub>
-              <mi>w</mi>
-              <mi>i</mi>
-            </msub>
-          </msqrt>
-          <mo>&#x2212;<!-- − --></mo>
-          <msqrt>
-            <mrow class="MJX-TeXAtom-ORD">
-              <mover>
-                <msub>
-                  <mi>w</mi>
-                  <mi>i</mi>
-                </msub>
-                <mo stretchy="false">&#x005E;<!-- ^ --></mo>
-              </mover>
-            </mrow>
-          </msqrt>
-          <msup>
-            <mo stretchy="false">)</mo>
-            <mn>2</mn>
-          </msup>
-          <mo>+</mo>
-        </mstyle>
-        <mspace linebreak="newline">
-        <mo stretchy="false">(</mo>
-        <msqrt>
-          <msub>
-            <mi>h</mi>
-            <mi>i</mi>
-          </msub>
-        </msqrt>
-        <mo>&#x2212;<!-- − --></mo>
-        <msqrt>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mover>
-              <msub>
-                <mi>h</mi>
-                <mi>i</mi>
-              </msub>
-              <mo stretchy="false">&#x005E;<!-- ^ --></mo>
-            </mover>
-          </mrow>
-        </msqrt>
-        <msup>
-          <mo stretchy="false">)</mo>
-          <mn>2</mn>
-        </msup>
-        <mo stretchy="false">]</mo>
-        <mo>+</mo>
-        <munderover>
-          <mo>&#x2211;<!-- ∑ --></mo>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>i</mi>
-            <mo>=</mo>
-            <mn>0</mn>
-          </mrow>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>S</mi>
-          </mrow>
-        </munderover>
-        <munderover>
-          <mo>&#x2211;<!-- ∑ --></mo>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>j</mi>
-            <mo>=</mo>
-            <mn>0</mn>
-          </mrow>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>B</mi>
-          </mrow>
-        </munderover>
-        <mstyle mathsize="1.2em">
-          <msubsup>
-            <mn>1</mn>
-            <mrow class="MJX-TeXAtom-ORD">
-              <mi>i</mi>
-              <mi>j</mi>
-            </mrow>
-            <mrow class="MJX-TeXAtom-ORD">
-              <mi>o</mi>
-              <mi>b</mi>
-              <mi>j</mi>
-            </mrow>
-          </msubsup>
-          <mo stretchy="false">(</mo>
-          <msub>
-            <mi>c</mi>
-            <mi>i</mi>
-          </msub>
-          <mo>&#x2212;<!-- − --></mo>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mover>
-              <msub>
-                <mi>c</mi>
-                <mi>i</mi>
-              </msub>
-              <mo stretchy="false">&#x005E;<!-- ^ --></mo>
-            </mover>
-          </mrow>
-          <msup>
-            <mo stretchy="false">)</mo>
-            <mn>2</mn>
-          </msup>
-          <mo>+</mo>
-        </mstyle>
-        <mspace linebreak="newline">
-        <msub>
-          <mi>&#x03BB;<!-- λ --></mi>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>n</mi>
-            <mi>o</mi>
-            <mi>o</mi>
-            <mi>b</mi>
-            <mi>j</mi>
-          </mrow>
-        </msub>
-        <munderover>
-          <mo>&#x2211;<!-- ∑ --></mo>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>i</mi>
-            <mo>=</mo>
-            <mn>0</mn>
-          </mrow>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>S</mi>
-          </mrow>
-        </munderover>
-        <munderover>
-          <mo>&#x2211;<!-- ∑ --></mo>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>j</mi>
-            <mo>=</mo>
-            <mn>0</mn>
-          </mrow>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>B</mi>
-          </mrow>
-        </munderover>
-        <mstyle mathsize="1.2em">
-          <msubsup>
-            <mn>1</mn>
-            <mrow class="MJX-TeXAtom-ORD">
-              <mi>i</mi>
-              <mi>j</mi>
-            </mrow>
-            <mrow class="MJX-TeXAtom-ORD">
-              <mi>n</mi>
-              <mi>o</mi>
-              <mi>o</mi>
-              <mi>b</mi>
-              <mi>j</mi>
-            </mrow>
-          </msubsup>
-          <mo stretchy="false">(</mo>
-          <msub>
-            <mi>c</mi>
-            <mi>i</mi>
-          </msub>
-          <mo>&#x2212;<!-- − --></mo>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mover>
-              <msub>
-                <mi>c</mi>
-                <mi>i</mi>
-              </msub>
-              <mo stretchy="false">&#x005E;<!-- ^ --></mo>
-            </mover>
-          </mrow>
-          <msup>
-            <mo stretchy="false">)</mo>
-            <mn>2</mn>
-          </msup>
-          <mo>+</mo>
-        </mstyle>
-        <mspace linebreak="newline">
-        <munderover>
-          <mo>&#x2211;<!-- ∑ --></mo>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mi>i</mi>
-            <mo>=</mo>
-            <mn>0</mn>
-          </mrow>
-          <mrow class="MJX-TeXAtom-ORD">
-            <msup>
-              <mi>S</mi>
-              <mn>2</mn>
-            </msup>
-          </mrow>
-        </munderover>
-        <mstyle mathsize="1.2em">
-          <msubsup>
-            <mn>1</mn>
-            <mrow class="MJX-TeXAtom-ORD">
-              <mi>i</mi>
-              <mi>j</mi>
-            </mrow>
-            <mrow class="MJX-TeXAtom-ORD">
-              <mi>o</mi>
-              <mi>b</mi>
-              <mi>j</mi>
-            </mrow>
-          </msubsup>
-          <munder>
-            <mo>&#x2211;<!-- ∑ --></mo>
-            <mrow class="MJX-TeXAtom-ORD">
-              <mi>C</mi>
-              <mo>&#x2208;<!-- ∈ --></mo>
-              <mrow class="MJX-TeXAtom-ORD">
-                <mi>c</mi>
-                <mi>l</mi>
-                <mi>a</mi>
-                <mi>s</mi>
-                <mi>s</mi>
-              </mrow>
-            </mrow>
-          </munder>
-          <mo stretchy="false">[</mo>
-          <msub>
-            <mi>p</mi>
-            <mi>i</mi>
-          </msub>
-          <mo stretchy="false">(</mo>
-          <mi>c</mi>
-          <mo stretchy="false">)</mo>
-          <mo>&#x2212;<!-- − --></mo>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mover>
-              <msub>
-                <mi>p</mi>
-                <mi>i</mi>
-              </msub>
-              <mo stretchy="false">&#x005E;<!-- ^ --></mo>
-            </mover>
-          </mrow>
-          <mo stretchy="false">(</mo>
-          <mi>c</mi>
-          <mo stretchy="false">)</mo>
-          <msup>
-            <mo stretchy="false">]</mo>
-            <mn>2</mn>
-          </msup>
-        </mstyle>
-      </mspace></mspace></mspace></mspace></mtd>
-    </mlabeledtr>
-  </mtable>
-</math>
-
-<!-- 以下公式hexo无法换行,用以下公式生成MathML,粘贴在上面
-$$
-Loss=\lambda_{coord}\sum_{i=0}^{S^2}\sum_{j=0}^{B}\large 1_{ij}^{obj}[(x_i-\hat{x_i})^2+(y_i-\hat{y_i})^2] + \\
-\lambda_{coord}\sum_{i=0}^{S^2}\sum_{j=0}^{B}\large 1_{ij}^{obj}[(\sqrt{w_i}-\sqrt{\hat{w_i}})^2+\\
-(\sqrt{h_i}-\sqrt{\hat{h_i}})^2]+ \sum_{i=0}^{S}\sum_{j=0}^{B} \large 1_{ij}^{obj} (c_i-\hat{c_i})^2 + \\ 
-\lambda_{noobj}\sum_{i=0}^{S}\sum_{j=0}^{B} \large 1_{ij}^{noobj} (c_i-\hat{c_i})^2 +\\
-\sum_{i=0}^{S^2}\large 1_{ij}^{obj}\sum_{C\in{class}}[p_i(c)-\hat{p_i}(c)]^2
-$$
--->
-
-<p>YOLO 算法的LOSS是一个L2 LOSS</p>
-<h2 id="预测"><a href="#预测" class="headerlink" title="预测"></a>预测</h2><p>对于模型得出的$S\times S \times 2$个BBox</p>
+</li>
+<li><p>Loss Function</p>
 <blockquote>
-<ol>
-<li><p>先用NMS得出一系列BBox(依据是confidence)</p>
-</li>
-<li><p>再在这些框中选最大概率的类别</p>
-</li>
-</ol>
+<p>V3不再用softmax,而是用logistic(即对每一类做logistic),其目的还是对应V2中出现</p>
 </blockquote>
-<h2 id="优点以及缺点"><a href="#优点以及缺点" class="headerlink" title="优点以及缺点"></a>优点以及缺点</h2><blockquote>
-<p>优点:</p>
-<ol>
-<li>速度快</li>
-<li>End-2-End</li>
-</ol>
-<p>缺点: </p>
-<ol>
-<li><p>小物体效果不好</p>
-</li>
-<li><p>定位不准确    </p>
 </li>
 </ol>
-</blockquote>
 
       
     </div>
@@ -904,8 +460,8 @@ $$
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/" rel="next" title="人物背景抠图">
-                <i class="fa fa-chevron-left"></i> 人物背景抠图
+              <a href="/articles/KCF%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E6%B5%8B%E8%AF%95.html" rel="next" title="KCF目标跟踪测试">
+                <i class="fa fa-chevron-left"></i> KCF目标跟踪测试
               </a>
             
           </div>
@@ -914,8 +470,8 @@ $$
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/10/29/YOLO9000%E6%80%BB%E7%BB%93/" rel="prev" title="YOLO9000总结">
-                YOLO9000总结 <i class="fa fa-chevron-right"></i>
+              <a href="/articles/DogDetection.html" rel="prev" title="用YOLO3实现犬种实时检测">
+                用YOLO3实现犬种实时检测 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -997,17 +553,8 @@ var jiathis_config={
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1112,22 +659,6 @@ var jiathis_config={
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#网络设计"><span class="nav-number">1.</span> <span class="nav-text">网络设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练"><span class="nav-number">2.</span> <span class="nav-text">训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预测"><span class="nav-number">3.</span> <span class="nav-text">预测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优点以及缺点"><span class="nav-number">4.</span> <span class="nav-text">优点以及缺点</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -1700,5 +1231,5 @@ var jiathis_config={
 
   
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"live2d-widget-model-wanko"},"display":{"position":"right","width":200,"height":350},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</body>
 </html>

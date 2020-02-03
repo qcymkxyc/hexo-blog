@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>用YOLO3实现犬种实时检测</title>
-    <url>/2020/02/02/DogDetection/</url>
+    <url>//articles/DogDetection.html</url>
     <content><![CDATA[<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>利用YOLO v3实现的犬种实时检测的一次记录,下面是检测结果:</p>
 <h3 id="单个大目标"><a href="#单个大目标" class="headerlink" title="单个大目标:"></a>单个大目标:</h3>
         <style>.bbplayer{width: 100%; height: 500px; margin: auto}</style>
@@ -19,7 +19,7 @@
         
 
 <p>FPS大概12左右(!-_- ,显卡1060)</p>
-<h3 id="测试集结果"><a href="#测试集结果" class="headerlink" title="测试集结果:"></a>测试集结果:</h3><p><img src="/2020/02/02/DogDetection/combine_image_result.jpg" alt></p>
+<h3 id="测试集结果"><a href="#测试集结果" class="headerlink" title="测试集结果:"></a>测试集结果:</h3><p><img src="/DogDetection/combine_image_result.jpg" alt></p>
 <p>上图中蓝色的框表示Ground Truth,红色的框表示Bounding Box</p>
 <h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>数据来自于ImageNet的<a href="http://vision.stanford.edu/aditya86/ImageNetDogs" target="_blank" rel="noopener">ImageNetDogs</a>,共有120个犬种,20580张图片</p>
 <p>由于这里仅是用于检测狗,所以我这里把所有的犬种合为一类,也就是说,class仅有dog一个标签,在yolo v3中对应一个logistic</p>
@@ -50,9 +50,9 @@
 <p>这里的Accuracy是每个Ground Truth和聚点的平均IOU</p>
 </blockquote>
 <p><strong>对应的9个Anchor Box散点图(没错,这真的是聚类的结果)</strong></p>
-<p><img src="/2020/02/02/DogDetection/AnchorBox%E8%81%9A%E7%B1%BB.png" alt></p>
+<p><img src="/DogDetection/AnchorBox%E8%81%9A%E7%B1%BB.png" alt></p>
 <h3 id="训练-1"><a href="#训练-1" class="headerlink" title="训练"></a>训练</h3><p>在台式机上跑了大概两天.但loss一直降不下来,一直维持在17左右.(我怀疑这可能和图片的质量有关,在测试集的示例可以看到,有些样本是没有标记框的,这可能导致loss降不下来,后面总结部分我会详细说明)</p>
-<p><img src="/2020/02/02/DogDetection/val_loss.png" alt></p>
+<p><img src="/DogDetection/val_loss.png" alt></p>
 <p>在训练后期,学习率调小至1e-8,但对loss都没什么影响,最多减小0.5左右</p>
 <h2 id="问题总结以及改进"><a href="#问题总结以及改进" class="headerlink" title="问题总结以及改进"></a>问题总结以及改进</h2><h3 id="关于Anchor-Box聚类"><a href="#关于Anchor-Box聚类" class="headerlink" title="关于Anchor Box聚类"></a>关于Anchor Box聚类</h3><blockquote>
 <p>很多博客上说Anchor Box的聚类对最终结果的影响不大,但是在这个数据集上,聚类的效果挺明显的(可能是数据集本身的差异),下面是用源生的yolo3下的Anchor Box(这个应该是VOC数据集的Anchor Box)训练的结果:</p>
@@ -73,9 +73,9 @@
 </ol>
 <blockquote>
 <p>这可能和数据本身的质量有关,因为数据集本身是针对不同的犬种进行标注,并不是对”狗”这个种类进行标注,所以导致有些图片缺少标记框,比如下面几张图片数据:</p>
-<p><img src="/2020/02/02/DogDetection/14.jpg" alt></p>
-<p><img src="/2020/02/02/DogDetection/24.jpg" alt></p>
-<p><img src="/2020/02/02/DogDetection/206.jpg" alt></p>
+<p><img src="/DogDetection/14.jpg" alt></p>
+<p><img src="/DogDetection/24.jpg" alt></p>
+<p><img src="/DogDetection/206.jpg" alt></p>
 <p>一旦模型检测出没有标记的狗,就相当于训练数据”告诉”模型检测是错误的,所以,loss居高不下.另外,这也反过来影响模型的表现,此时模型已经不知道孰对孰错了.</p>
 <p>所以,要想降低loss,需要对数据进行重新标注,理论上loss应该会下降.</p>
 </blockquote>
@@ -87,9 +87,9 @@
 </blockquote>
 <h3 id="侧面目标效果差"><a href="#侧面目标效果差" class="headerlink" title="侧面目标效果差"></a>侧面目标效果差</h3><blockquote>
 <p> 侧面目标检测效果很差,很多时候检测不出或者置信度很低(这其实在测试视频中也有所反应):</p>
-<p><img src="/2020/02/02/DogDetection/12.jpg" alt></p>
-<p><img src="/2020/02/02/DogDetection/26.jpg" alt></p>
-<p><img src="/2020/02/02/DogDetection/143.jpg" alt></p>
+<p><img src="/DogDetection/12.jpg" alt></p>
+<p><img src="/DogDetection/26.jpg" alt></p>
+<p><img src="/DogDetection/143.jpg" alt></p>
 <p>可能是由于数据集中侧面图片比较少的关系,需要在原有数据集上对侧面图片做上采样(比如Mix Up,加噪声等).总之,就是增加这类图片的数据量,再放入模型训练.</p>
 </blockquote>
 ]]></content>
@@ -103,7 +103,7 @@
   </entry>
   <entry>
     <title>YOLOV3总结</title>
-    <url>/2020/01/29/YOLOV3%E6%80%BB%E7%BB%93/</url>
+    <url>//articles/YOLOV3%E6%80%BB%E7%BB%93.html</url>
     <content><![CDATA[<p>总的来说,YOLO V3针对V2的改进并不多,有以下几点: </p>
 <ol>
 <li><p>网络结构的改变</p>
@@ -133,7 +133,7 @@
   </entry>
   <entry>
     <title>KCF目标跟踪测试</title>
-    <url>/2020/01/27/KCF%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E6%B5%8B%E8%AF%95/</url>
+    <url>//articles/KCF%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E6%B5%8B%E8%AF%95.html</url>
     <content><![CDATA[
         <style>.bbplayer{width: 100%; height: 500px; margin: auto}</style>
         <div class="bbplayer">
@@ -150,7 +150,7 @@
   </entry>
   <entry>
     <title>mAP的计算总结</title>
-    <url>/2019/12/19/mAP%E7%9A%84%E8%AE%A1%E7%AE%97/</url>
+    <url>//articles/mAP%E7%9A%84%E8%AE%A1%E7%AE%97.html</url>
     <content><![CDATA[<p>mAP是目标检测中最为常见的指标,要了解mAP(mean Average Precision),就必须了解recall和precision(目标检测中这两个指标的计算和略有机器学习不同)</p>
 <table>
 <thead>
@@ -251,7 +251,7 @@ $$
   </entry>
   <entry>
     <title>YOLO9000总结</title>
-    <url>/2019/10/29/YOLO9000%E6%80%BB%E7%BB%93/</url>
+    <url>//articles/YOLO9000%E6%80%BB%E7%BB%93.html</url>
     <content><![CDATA[<p>YOLO9000备忘</p>
 <h2 id="Better"><a href="#Better" class="headerlink" title="Better:"></a>Better:</h2><ol>
 <li><p>Batch Normalization</p>
@@ -297,7 +297,7 @@ $$
   </entry>
   <entry>
     <title>YOLO V1总结</title>
-    <url>/2019/10/23/YOLOV1%E6%80%BB%E7%BB%93/</url>
+    <url>//articles/YOLOV1%E6%80%BB%E7%BB%93.html</url>
     <content><![CDATA[<p>YOLO v1的总结,备忘</p>
 <h2 id="网络设计"><a href="#网络设计" class="headerlink" title="网络设计"></a>网络设计</h2><p>YOLO算法的设计理念是将图像分成$s \times s$的网络结构,每个网格分别来判定是否目标在其中,这其中运用了用卷积层来代替全连接层,这项技术是Idea的关键.所以最终的结果是</p>
 <p>$$s \times  s \times(B \times 5 + C)$$</p>
@@ -769,7 +769,7 @@ $$
   </entry>
   <entry>
     <title>人物背景抠图</title>
-    <url>/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/</url>
+    <url>//articles/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE.html</url>
     <content><![CDATA[<h2 id="示例图片"><a href="#示例图片" class="headerlink" title="示例图片"></a>示例图片</h2><p>免冠照人物背景抠图实现,先展示一下示例结果:</p>
 <p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E5%8E%9F%E5%A7%8B%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87.png" alt></p>
 <p>人物背景抠图后:</p>
