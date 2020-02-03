@@ -81,17 +81,23 @@
 
 
 
-<meta name="description" content="效果利用YOLO v3实现的犬种实时检测的一次记录,下面是检测结果: 单个大目标:          .bbplayer{width: 100%; height: 500px; margin: auto}                                      多个小目标:          .bbplayer{width: 100%; height: 500px; margin">
+<meta name="description" content="效果利用YOLO v3实现的犬种实时检测的一次记录,下面是检测结果: 单个大目标:         .bbplayer{width: 100%; height: 500px; margin: auto}                                      多个小目标:         .bbplayer{width: 100%; height: 500px; margin:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用YOLO3实现犬种实时检测">
 <meta property="og:url" content="http://blog.zhangqi2019.top/2020/02/02/DogDetection/index.html">
 <meta property="og:site_name" content="拍栏听雨个人博客">
-<meta property="og:description" content="效果利用YOLO v3实现的犬种实时检测的一次记录,下面是检测结果: 单个大目标:          .bbplayer{width: 100%; height: 500px; margin: auto}                                      多个小目标:          .bbplayer{width: 100%; height: 500px; margin">
+<meta property="og:description" content="效果利用YOLO v3实现的犬种实时检测的一次记录,下面是检测结果: 单个大目标:         .bbplayer{width: 100%; height: 500px; margin: auto}                                      多个小目标:         .bbplayer{width: 100%; height: 500px; margin:">
 <meta property="og:image" content="http://blog.zhangqi2019.top/2020/02/02/DogDetection/combine_image_result.jpg">
 <meta property="og:image" content="http://blog.zhangqi2019.top/2020/02/02/DogDetection/AnchorBox%E8%81%9A%E7%B1%BB.png">
 <meta property="og:image" content="http://blog.zhangqi2019.top/2020/02/02/DogDetection/val_loss.png">
+<meta property="og:image" content="http://blog.zhangqi2019.top/2020/02/02/DogDetection/14.jpg">
+<meta property="og:image" content="http://blog.zhangqi2019.top/2020/02/02/DogDetection/24.jpg">
+<meta property="og:image" content="http://blog.zhangqi2019.top/2020/02/02/DogDetection/206.jpg">
+<meta property="og:image" content="http://blog.zhangqi2019.top/2020/02/02/DogDetection/12.jpg">
+<meta property="og:image" content="http://blog.zhangqi2019.top/2020/02/02/DogDetection/26.jpg">
+<meta property="og:image" content="http://blog.zhangqi2019.top/2020/02/02/DogDetection/143.jpg">
 <meta property="article:published_time" content="2020-02-02T07:36:26.000Z">
-<meta property="article:modified_time" content="2020-02-02T12:49:51.799Z">
+<meta property="article:modified_time" content="2020-02-03T05:00:57.774Z">
 <meta property="article:author" content="拍栏听雨">
 <meta property="article:tag" content="Demo">
 <meta property="article:tag" content="目标检测">
@@ -417,25 +423,22 @@
 
       
         <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>利用YOLO v3实现的犬种实时检测的一次记录,下面是检测结果:</p>
-<p><strong>单个大目标</strong>:</p>
-
+<h3 id="单个大目标"><a href="#单个大目标" class="headerlink" title="单个大目标:"></a>单个大目标:</h3>
         <style>.bbplayer{width: 100%; height: 500px; margin: auto}</style>
         <div class="bbplayer">
         <iframe class="bbplayer" src="//player.bilibili.com/player.html?aid=86257908&page=1&high_quality=1&danmaku=true" allowfullscreen="allowfullscreen" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         
 
-<p><strong>多个小目标</strong>:</p>
-
+<h3 id="多个小目标"><a href="#多个小目标" class="headerlink" title="多个小目标:"></a>多个小目标:</h3>
         <style>.bbplayer{width: 100%; height: 500px; margin: auto}</style>
         <div class="bbplayer">
         <iframe class="bbplayer" src="//player.bilibili.com/player.html?aid=86258451&page=1&high_quality=1&danmaku=true" allowfullscreen="allowfullscreen" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         
 
-<p>FPS大概12左右(!-_- ,1060显卡)</p>
-<p><strong>测试集结果:</strong></p>
-<p><img src="/2020/02/02/DogDetection/combine_image_result.jpg" alt></p>
+<p>FPS大概12左右(!-_- ,显卡1060)</p>
+<h3 id="测试集结果"><a href="#测试集结果" class="headerlink" title="测试集结果:"></a>测试集结果:</h3><p><img src="/2020/02/02/DogDetection/combine_image_result.jpg" alt></p>
 <p>上图中蓝色的框表示Ground Truth,红色的框表示Bounding Box</p>
 <h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>数据来自于ImageNet的<a href="http://vision.stanford.edu/aditya86/ImageNetDogs" target="_blank" rel="noopener">ImageNetDogs</a>,共有120个犬种,20580张图片</p>
 <p>由于这里仅是用于检测狗,所以我这里把所有的犬种合为一类,也就是说,class仅有dog一个标签,在yolo v3中对应一个logistic</p>
@@ -454,7 +457,7 @@
 <h3 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h3><blockquote>
 <p>主要修改yolov3.cfg文件中的配置</p>
 <ul>
-<li>三个不同尺度的输出对应的filter均改为改为18,仅有一类</li>
+<li>三个不同尺度的Feature Map对应的filter均改为改为18,仅有一类</li>
 <li>batch改为8(显存限制)</li>
 <li>random为1.(调整不同尺寸的图片输入,保证效果)</li>
 </ul>
@@ -467,10 +470,47 @@
 </blockquote>
 <p><strong>对应的9个Anchor Box散点图(没错,这真的是聚类的结果)</strong></p>
 <p><img src="/2020/02/02/DogDetection/AnchorBox%E8%81%9A%E7%B1%BB.png" alt></p>
-<h3 id="训练-1"><a href="#训练-1" class="headerlink" title="训练"></a>训练</h3><p>这个没什么好说的,渣显卡跑了大概两天.但loss一直降不下来,一直维持在17左右.(我怀疑这可能和图片的质量有关,在测试集的示例可以看到,有些样本是没有标记框的,这可能导致loss降不下来,后面总结部分我会详细说明)</p>
+<h3 id="训练-1"><a href="#训练-1" class="headerlink" title="训练"></a>训练</h3><p>在台式机上跑了大概两天.但loss一直降不下来,一直维持在17左右.(我怀疑这可能和图片的质量有关,在测试集的示例可以看到,有些样本是没有标记框的,这可能导致loss降不下来,后面总结部分我会详细说明)</p>
 <p><img src="/2020/02/02/DogDetection/val_loss.png" alt></p>
-<p>在训练后期,学习率调小至1e-8,对最终学习效果都没什么影响,最多减小0.5左右</p>
-<h2 id="问题和总结"><a href="#问题和总结" class="headerlink" title="问题和总结"></a>问题和总结</h2><h3 id="关于Anchor-Box聚类"><a href="#关于Anchor-Box聚类" class="headerlink" title="关于Anchor Box聚类"></a>关于Anchor Box聚类</h3><p>很多博客上说Anchor Box的聚类对最终结果的影响不大,</p>
+<p>在训练后期,学习率调小至1e-8,但对loss都没什么影响,最多减小0.5左右</p>
+<h2 id="问题总结以及改进"><a href="#问题总结以及改进" class="headerlink" title="问题总结以及改进"></a>问题总结以及改进</h2><h3 id="关于Anchor-Box聚类"><a href="#关于Anchor-Box聚类" class="headerlink" title="关于Anchor Box聚类"></a>关于Anchor Box聚类</h3><blockquote>
+<p>很多博客上说Anchor Box的聚类对最终结果的影响不大,但是在这个数据集上,聚类的效果挺明显的(可能是数据集本身的差异),下面是用源生的yolo3下的Anchor Box(这个应该是VOC数据集的Anchor Box)训练的结果:</p>
+</blockquote>
+
+        <style>.bbplayer{width: 100%; height: 500px; margin: auto}</style>
+        <div class="bbplayer">
+        <iframe class="bbplayer" src="//player.bilibili.com/player.html?aid=86258451&page=2&high_quality=1&danmaku=true" allowfullscreen="allowfullscreen" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
+        </div>
+        
+
+<blockquote>
+<p>对比开始的<a href="#多个小目标">检测视频</a>,可以看到改进还是挺明显的.</p>
+</blockquote>
+<h3 id="关于模型Loss"><a href="#关于模型Loss" class="headerlink" title="关于模型Loss"></a>关于模型Loss</h3><p>模型loss分两个方面.</p>
+<ol>
+<li>loss下降到一定的数值就难以下降,大概在17左右</li>
+</ol>
+<blockquote>
+<p>这可能和数据本身的质量有关,因为数据集本身是针对不同的犬种进行标注,并不是对”狗”这个种类进行标注,所以导致有些图片缺少标记框,比如下面几张图片数据:</p>
+<p><img src="/2020/02/02/DogDetection/14.jpg" alt></p>
+<p><img src="/2020/02/02/DogDetection/24.jpg" alt></p>
+<p><img src="/2020/02/02/DogDetection/206.jpg" alt></p>
+<p>一旦模型检测出没有标记的狗,就相当于训练数据”告诉”模型检测是错误的,所以,loss居高不下.另外,这也反过来影响模型的表现,此时模型已经不知道孰对孰错了.</p>
+<p>所以,要想降低loss,需要对数据进行重新标注,理论上loss应该会下降.</p>
+</blockquote>
+<ol start="2">
+<li>验证集的loss总是低于训练集的loss</li>
+</ol>
+<blockquote>
+<p>在训练的过程中,验证集的loss总是低于训练集的loss,不知道是何原因,这个问题至今无法解决.</p>
+</blockquote>
+<h3 id="侧面目标效果差"><a href="#侧面目标效果差" class="headerlink" title="侧面目标效果差"></a>侧面目标效果差</h3><blockquote>
+<p> 侧面目标检测效果很差,很多时候检测不出或者置信度很低(这其实在测试视频中也有所反应):</p>
+<p><img src="/2020/02/02/DogDetection/12.jpg" alt></p>
+<p><img src="/2020/02/02/DogDetection/26.jpg" alt></p>
+<p><img src="/2020/02/02/DogDetection/143.jpg" alt></p>
+<p>可能是由于数据集中侧面图片比较少的关系,需要在原有数据集上对侧面图片做上采样(比如Mix Up,加噪声等).总之,就是增加这类图片的数据量,再放入模型训练.</p>
+</blockquote>
 
       
     </div>
@@ -717,7 +757,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#效果"><span class="nav-number">1.</span> <span class="nav-text">效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据集"><span class="nav-number">2.</span> <span class="nav-text">数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">3.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练"><span class="nav-number">4.</span> <span class="nav-text">训练</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#整理数据"><span class="nav-number">4.1.</span> <span class="nav-text">整理数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改配置"><span class="nav-number">4.2.</span> <span class="nav-text">修改配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Anchor-Box聚类"><span class="nav-number">4.3.</span> <span class="nav-text">Anchor Box聚类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练-1"><span class="nav-number">4.4.</span> <span class="nav-text">训练</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题和总结"><span class="nav-number">5.</span> <span class="nav-text">问题和总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于Anchor-Box聚类"><span class="nav-number">5.1.</span> <span class="nav-text">关于Anchor Box聚类</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#效果"><span class="nav-number">1.</span> <span class="nav-text">效果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单个大目标"><span class="nav-number">1.1.</span> <span class="nav-text">单个大目标:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多个小目标"><span class="nav-number">1.2.</span> <span class="nav-text">多个小目标:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试集结果"><span class="nav-number">1.3.</span> <span class="nav-text">测试集结果:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据集"><span class="nav-number">2.</span> <span class="nav-text">数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">3.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练"><span class="nav-number">4.</span> <span class="nav-text">训练</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#整理数据"><span class="nav-number">4.1.</span> <span class="nav-text">整理数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改配置"><span class="nav-number">4.2.</span> <span class="nav-text">修改配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Anchor-Box聚类"><span class="nav-number">4.3.</span> <span class="nav-text">Anchor Box聚类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练-1"><span class="nav-number">4.4.</span> <span class="nav-text">训练</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题总结以及改进"><span class="nav-number">5.</span> <span class="nav-text">问题总结以及改进</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于Anchor-Box聚类"><span class="nav-number">5.1.</span> <span class="nav-text">关于Anchor Box聚类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于模型Loss"><span class="nav-number">5.2.</span> <span class="nav-text">关于模型Loss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#侧面目标效果差"><span class="nav-number">5.3.</span> <span class="nav-text">侧面目标效果差</span></a></li></ol></li></ol></div>
             
 
           </div>
