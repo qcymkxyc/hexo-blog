@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>用YOLO3实现犬种实时检测</title>
-    <url>/2020/02/02/DogDetection/</url>
+    <url>/posts/fa14c502.html/</url>
     <content><![CDATA[<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>利用YOLO v3实现的犬种实时检测的一次记录,下面是检测结果:</p>
 <h3 id="单个大目标"><a href="#单个大目标" class="headerlink" title="单个大目标:"></a>单个大目标:</h3>
         <style>.bbplayer{width: 100%; height: 500px; margin: auto}</style>
@@ -19,7 +19,7 @@
         
 
 <p>FPS大概12左右(!-_- ,显卡1060)</p>
-<h3 id="测试集结果"><a href="#测试集结果" class="headerlink" title="测试集结果:"></a>测试集结果:</h3><p><img src="/2020/02/02/DogDetection/combine_image_result.jpg" alt></p>
+<h3 id="测试集结果"><a href="#测试集结果" class="headerlink" title="测试集结果:"></a>测试集结果:</h3><p><img src="/posts/fa14c502.html/combine_image_result.jpg" alt></p>
 <p>上图中蓝色的框表示Ground Truth,红色的框表示Bounding Box</p>
 <h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>数据来自于ImageNet的<a href="http://vision.stanford.edu/aditya86/ImageNetDogs" target="_blank" rel="noopener">ImageNetDogs</a>,共有120个犬种,20580张图片</p>
 <p>由于这里仅是用于检测狗,所以我这里把所有的犬种合为一类,也就是说,class仅有dog一个标签,在yolo v3中对应一个logistic</p>
@@ -50,9 +50,9 @@
 <p>这里的Accuracy是每个Ground Truth和聚点的平均IOU</p>
 </blockquote>
 <p><strong>对应的9个Anchor Box散点图(没错,这真的是聚类的结果)</strong></p>
-<p><img src="/2020/02/02/DogDetection/AnchorBox%E8%81%9A%E7%B1%BB.png" alt></p>
+<p><img src="/posts/fa14c502.html/AnchorBox%E8%81%9A%E7%B1%BB.png" alt></p>
 <h3 id="训练-1"><a href="#训练-1" class="headerlink" title="训练"></a>训练</h3><p>在台式机上跑了大概两天.但loss一直降不下来,一直维持在17左右.(我怀疑这可能和图片的质量有关,在测试集的示例可以看到,有些样本是没有标记框的,这可能导致loss降不下来,后面总结部分我会详细说明)</p>
-<p><img src="/2020/02/02/DogDetection/val_loss.png" alt></p>
+<p><img src="/posts/fa14c502.html/val_loss.png" alt></p>
 <p>在训练后期,学习率调小至1e-8,但对loss都没什么影响,最多减小0.5左右</p>
 <h2 id="问题总结以及改进"><a href="#问题总结以及改进" class="headerlink" title="问题总结以及改进"></a>问题总结以及改进</h2><h3 id="关于Anchor-Box聚类"><a href="#关于Anchor-Box聚类" class="headerlink" title="关于Anchor Box聚类"></a>关于Anchor Box聚类</h3><blockquote>
 <p>很多博客上说Anchor Box的聚类对最终结果的影响不大,但是在这个数据集上,聚类的效果挺明显的(可能是数据集本身的差异),下面是用源生的yolo3下的Anchor Box(这个应该是VOC数据集的Anchor Box)训练的结果:</p>
@@ -73,9 +73,9 @@
 </ol>
 <blockquote>
 <p>这可能和数据本身的质量有关,因为数据集本身是针对不同的犬种进行标注,并不是对”狗”这个种类进行标注,所以导致有些图片缺少标记框,比如下面几张图片数据:</p>
-<p><img src="/2020/02/02/DogDetection/14.jpg" alt></p>
-<p><img src="/2020/02/02/DogDetection/24.jpg" alt></p>
-<p><img src="/2020/02/02/DogDetection/206.jpg" alt></p>
+<p><img src="/posts/fa14c502.html/14.jpg" alt></p>
+<p><img src="/posts/fa14c502.html/24.jpg" alt></p>
+<p><img src="/posts/fa14c502.html/206.jpg" alt></p>
 <p>一旦模型检测出没有标记的狗,就相当于训练数据”告诉”模型检测是错误的,所以,loss居高不下.另外,这也反过来影响模型的表现,此时模型已经不知道孰对孰错了.</p>
 <p>所以,要想降低loss,需要对数据进行重新标注,理论上loss应该会下降.</p>
 </blockquote>
@@ -87,9 +87,9 @@
 </blockquote>
 <h3 id="侧面目标效果差"><a href="#侧面目标效果差" class="headerlink" title="侧面目标效果差"></a>侧面目标效果差</h3><blockquote>
 <p> 侧面目标检测效果很差,很多时候检测不出或者置信度很低(这其实在测试视频中也有所反应):</p>
-<p><img src="/2020/02/02/DogDetection/12.jpg" alt></p>
-<p><img src="/2020/02/02/DogDetection/26.jpg" alt></p>
-<p><img src="/2020/02/02/DogDetection/143.jpg" alt></p>
+<p><img src="/posts/fa14c502.html/12.jpg" alt></p>
+<p><img src="/posts/fa14c502.html/26.jpg" alt></p>
+<p><img src="/posts/fa14c502.html/143.jpg" alt></p>
 <p>可能是由于数据集中侧面图片比较少的关系,需要在原有数据集上对侧面图片做上采样(比如Mix Up,加噪声等).总之,就是增加这类图片的数据量,再放入模型训练.</p>
 </blockquote>
 ]]></content>
@@ -97,13 +97,13 @@
         <category>目标检测</category>
       </categories>
       <tags>
-        <tag>Demo</tag>
         <tag>目标检测</tag>
+        <tag>Demo</tag>
       </tags>
   </entry>
   <entry>
     <title>YOLOV3总结</title>
-    <url>/2020/01/29/YOLOV3%E6%80%BB%E7%BB%93/</url>
+    <url>/posts/69cad793.html/</url>
     <content><![CDATA[<p>总的来说,YOLO V3针对V2的改进并不多,有以下几点: </p>
 <ol>
 <li><p>网络结构的改变</p>
@@ -133,7 +133,7 @@
   </entry>
   <entry>
     <title>KCF目标跟踪测试</title>
-    <url>/2020/01/27/KCF%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E6%B5%8B%E8%AF%95/</url>
+    <url>/posts/849e7948.html/</url>
     <content><![CDATA[
         <style>.bbplayer{width: 100%; height: 500px; margin: auto}</style>
         <div class="bbplayer">
@@ -144,13 +144,13 @@
         <category>目标跟踪</category>
       </categories>
       <tags>
-        <tag>目标跟踪</tag>
         <tag>Demo</tag>
+        <tag>目标跟踪</tag>
       </tags>
   </entry>
   <entry>
     <title>mAP的计算总结</title>
-    <url>/2019/12/19/mAP%E7%9A%84%E8%AE%A1%E7%AE%97/</url>
+    <url>/posts/b8ba7454.html/</url>
     <content><![CDATA[<p>mAP是目标检测中最为常见的指标,要了解mAP(mean Average Precision),就必须了解recall和precision(目标检测中这两个指标的计算和略有机器学习不同)</p>
 <table>
 <thead>
@@ -251,7 +251,7 @@ $$
   </entry>
   <entry>
     <title>YOLO9000总结</title>
-    <url>/2019/10/29/YOLO9000%E6%80%BB%E7%BB%93/</url>
+    <url>/posts/5ca973ed.html/</url>
     <content><![CDATA[<p>YOLO9000备忘</p>
 <h2 id="Better"><a href="#Better" class="headerlink" title="Better:"></a>Better:</h2><ol>
 <li><p>Batch Normalization</p>
@@ -273,8 +273,8 @@ $$
 <blockquote>
 <p>Pass Through层类似做步数为2的Pooling,按照相同位置组合成4个块,最后再在通道上叠加,比如上一层的输出为$26 \times 26 \times 512$,拆分成$4 \times 13 \times 13 \times 512$ 最后组成$13 \times 13 \times 3072$</p>
 </blockquote>
-<p><img src="/2019/10/29/YOLO9000%E6%80%BB%E7%BB%93/passthrough1.jpg" alt></p>
-<p><img src="/2019/10/29/YOLO9000%E6%80%BB%E7%BB%93/passthrough2.jpg" alt></p>
+<p><img src="/posts/5ca973ed.html/passthrough1.jpg" alt></p>
+<p><img src="/posts/5ca973ed.html/passthrough2.jpg" alt></p>
 </li>
 <li><p>多尺度训练</p>
 <blockquote>
@@ -284,7 +284,7 @@ $$
 </ol>
 <h2 id="Faster"><a href="#Faster" class="headerlink" title="Faster:"></a>Faster:</h2><p>采用Darknet-19网络结构</p>
 <h2 id="Stronger-YOLO-9000"><a href="#Stronger-YOLO-9000" class="headerlink" title="Stronger(YOLO 9000)"></a>Stronger(YOLO 9000)</h2><p>为了能识别9000个目标,构建了一个WordTree,与一般的softmax不同的是类别本身和气父节点均需标记为1.比如Dog,在Animal位置也需标记为1.</p>
-<p><img src="/2019/10/29/YOLO9000%E6%80%BB%E7%BB%93/WordTree.png" alt="&#39;WordTree&#39;"></p>
+<p><img src="/posts/5ca973ed.html/WordTree.png" alt="&#39;WordTree&#39;"></p>
 <p>在预测时,一个类别的概率为根节点到该节点所有概率的乘积,如<br>$$<br>P(Hunting Dog)=p(Hunting Dog|Dog, Animal)P(Dog| Animal)<br>$$<br>其中,由于Animal处于根节点有$P(Animal)=1$</p>
 <p>注:在实际计算绝对概率时,并不会真的计算每一个子节点的概率,而是采用贪婪算法,当从根节点项子节点走时,如果小于阈值,则不在向下走了.</p>
 ]]></content>
@@ -297,14 +297,14 @@ $$
   </entry>
   <entry>
     <title>YOLO V1总结</title>
-    <url>/2019/10/23/YOLOV1%E6%80%BB%E7%BB%93/</url>
+    <url>/posts/16c1a0a5.html/</url>
     <content><![CDATA[<p>YOLO v1的总结,备忘</p>
 <h2 id="网络设计"><a href="#网络设计" class="headerlink" title="网络设计"></a>网络设计</h2><p>YOLO算法的设计理念是将图像分成$s \times s$的网络结构,每个网格分别来判定是否目标在其中,这其中运用了用卷积层来代替全连接层,这项技术是Idea的关键.所以最终的结果是</p>
 <p>$$s \times  s \times(B \times 5 + C)$$</p>
 <p>其中,B表示BBox的个数,C代表类别个数,5表示(x,y,w,h,confidence)</p>
 <h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><p>由于YOLO算法是将图像切割成方格并预测的思想,所以对图像的输入尺寸并不敏感.</p>
 <p>在输出方面,如下图所示:</p>
-<p><img src="/2019/10/23/YOLOV1%E6%80%BB%E7%BB%93/YOLOV1%E7%BB%93%E6%9E%84.jpg" alt></p>
+<p><img src="/posts/16c1a0a5.html/YOLOV1%E7%BB%93%E6%9E%84.jpg" alt></p>
 <ol>
 <li>Feature Map中的一个值给出一个预测,为何输出中却是两个BBox?</li>
 </ol>
@@ -769,11 +769,11 @@ $$
   </entry>
   <entry>
     <title>人物背景抠图</title>
-    <url>/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/</url>
+    <url>/posts/10cdf8fe.html/</url>
     <content><![CDATA[<h2 id="示例图片"><a href="#示例图片" class="headerlink" title="示例图片"></a>示例图片</h2><p>免冠照人物背景抠图实现,先展示一下示例结果:</p>
-<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E5%8E%9F%E5%A7%8B%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87.png" alt></p>
+<p><img src="/posts/10cdf8fe.html/%E5%8E%9F%E5%A7%8B%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87.png" alt></p>
 <p>人物背景抠图后:</p>
-<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%9B%BF%E6%8D%A2%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87.png" alt></p>
+<p><img src="/posts/10cdf8fe.html/%E6%9B%BF%E6%8D%A2%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87.png" alt></p>
 <h2 id="执行步骤"><a href="#执行步骤" class="headerlink" title="执行步骤"></a>执行步骤</h2><h3 id="将RGB空间转换为HSV空间"><a href="#将RGB空间转换为HSV空间" class="headerlink" title="将RGB空间转换为HSV空间"></a>将RGB空间转换为HSV空间</h3><p>首先需要统计出背景(蓝色部分)的颜色范围,这里将RGB空间转换为HSV空间,然后只用H分量统计,就可以统计出蓝色背景的大概范围:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line">blue_photo_hsv = cv2.cvtColor(blue_photo,cv2.COLOR_RGB2HSV)</span><br><span class="line">h_ele = blue_photo_hsv[:,:,<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
 
@@ -781,34 +781,34 @@ $$
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line">%matplotlib inline</span><br><span class="line"></span><br><span class="line">sns.set_style(<span class="string">"darkgrid"</span>)</span><br><span class="line"></span><br><span class="line">w,h,_= blue_photo_hsv.shape</span><br><span class="line">hist_bins = plt.hist(blue_photo_hsv[:int(w/<span class="number">6</span>),:,<span class="number">0</span>].flatten(),bins = <span class="number">60</span>)</span><br></pre></td></tr></table></figure>
 
 <p>直方图统计结果:</p>
-<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E7%9B%B4%E6%96%B9%E5%9B%BE%E7%BB%93%E6%9E%9C.png" alt></p>
+<p><img src="/posts/10cdf8fe.html/%E7%9B%B4%E6%96%B9%E5%9B%BE%E7%BB%93%E6%9E%9C.png" alt></p>
 <h3 id="掩膜"><a href="#掩膜" class="headerlink" title="掩膜"></a>掩膜</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">lower_h = hist_bins[<span class="number">1</span>][hist_bins[<span class="number">0</span>].argmax()]</span><br><span class="line">bins_interval = hist_bins[<span class="number">1</span>][<span class="number">1</span>] - hist_bins[<span class="number">1</span>][<span class="number">0</span>]</span><br><span class="line">upper_h = lower_h + <span class="number">1</span> * bins_interval</span><br><span class="line">lower = np.array([lower_h,<span class="number">43</span>,<span class="number">46</span>])</span><br><span class="line">upper = np.array([upper_h,<span class="number">256</span>,<span class="number">256</span>])</span><br><span class="line"></span><br><span class="line">mask = cv2.inRange(blue_photo_hsv, lower,upper)</span><br><span class="line">plt.imshow(mask)</span><br></pre></td></tr></table></figure>
 
 <p>掩膜结果:</p>
-<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%8E%A9%E8%86%9C%E7%BB%93%E6%9E%9C.png" alt="&#39;掩膜结果&#39;"></p>
+<p><img src="/posts/10cdf8fe.html/%E6%8E%A9%E8%86%9C%E7%BB%93%E6%9E%9C.png" alt="&#39;掩膜结果&#39;"></p>
 <h3 id="腐蚀和膨胀"><a href="#腐蚀和膨胀" class="headerlink" title="腐蚀和膨胀"></a>腐蚀和膨胀</h3><p>腐蚀的目的是去除分割线周围的噪声,膨胀是填补掩膜结果中的小空白.这里的腐蚀和膨胀的模板都是用的3*3</p>
 <p>腐蚀:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 取反</span></span><br><span class="line">mask = <span class="number">255</span> - mask</span><br><span class="line"><span class="comment"># 边长</span></span><br><span class="line">side_len = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">kernel = np.ones((side_len,side_len))</span><br><span class="line">erode_img = cv2.erode(mask,kernel,iterations = <span class="number">1</span>)</span><br><span class="line">erode_img.shape</span><br><span class="line">plt.imshow(erode_img)</span><br></pre></td></tr></table></figure>
 
 <p>腐蚀后结果:</p>
-<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E8%85%90%E8%9A%80%E5%90%8E.png" alt="&#39;腐蚀后结果&#39;"></p>
+<p><img src="/posts/10cdf8fe.html/%E8%85%90%E8%9A%80%E5%90%8E.png" alt="&#39;腐蚀后结果&#39;"></p>
 <p>膨胀:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">side_len =<span class="number">3</span></span><br><span class="line"></span><br><span class="line">kernel = np.ones((side_len,side_len))</span><br><span class="line">dilate_img = cv2.dilate(erode_img,kernel,iterations = <span class="number">1</span>)</span><br><span class="line">plt.imshow(dilate_img)</span><br></pre></td></tr></table></figure>
 
 <p>膨胀后:</p>
-<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E8%86%A8%E8%83%80%E5%90%8E.png" alt="&#39;膨胀后&#39;"></p>
+<p><img src="/posts/10cdf8fe.html/%E8%86%A8%E8%83%80%E5%90%8E.png" alt="&#39;膨胀后&#39;"></p>
 <h3 id="替换背景"><a href="#替换背景" class="headerlink" title="替换背景"></a>替换背景</h3><p>一旦替换模板比较准确,人物背景抠图就比较容易了.下面是背景图:</p>
-<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E8%83%8C%E6%99%AF%E5%9B%BE.png" alt="&#39;背景图&#39;"></p>
+<p><img src="/posts/10cdf8fe.html/%E8%83%8C%E6%99%AF%E5%9B%BE.png" alt="&#39;背景图&#39;"></p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">n_row,n_col = dilate_img.shape</span><br><span class="line"></span><br><span class="line">start_coor = [<span class="number">10</span>,<span class="number">10</span>]</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> range(n_row):</span><br><span class="line">    <span class="keyword">for</span> col <span class="keyword">in</span> range(n_col):</span><br><span class="line">        <span class="keyword">if</span> dilate_img[row][col] == <span class="number">255</span>:</span><br><span class="line">            back_img[start_coor[<span class="number">0</span>] + row][start_coor[<span class="number">1</span>] + col] = blue_photo[row][col]</span><br><span class="line"></span><br><span class="line">plt.imshow(back_img)</span><br></pre></td></tr></table></figure>
 
 <p>根据模板替换后:</p>
-<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%9B%BF%E6%8D%A2%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87-1580097685097.png" alt="&#39;人物背景抠图后&#39;"></p>
+<p><img src="/posts/10cdf8fe.html/%E6%9B%BF%E6%8D%A2%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87-1580097685097.png" alt="&#39;人物背景抠图后&#39;"></p>
 <p>最后根据原有的图片尺寸切割出结果图像就可以实现替换了.</p>
 <h2 id="多图测试"><a href="#多图测试" class="headerlink" title="多图测试"></a>多图测试</h2><p>网上爬取了十张大小不一图像测试,缩放到200*150(如有侵权请告知,谢谢).</p>
 <p>原图像:</p>
-<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%95%88%E6%9E%9C%E5%8E%9F%E5%9B%BE%E5%83%8F-1580099162567.png" alt></p>
+<p><img src="/posts/10cdf8fe.html/%E6%95%88%E6%9E%9C%E5%8E%9F%E5%9B%BE%E5%83%8F-1580099162567.png" alt></p>
 <p>替换后:</p>
-<p><img src="/2019/09/27/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%95%88%E6%9E%9C%E5%9B%BE-1580099178206.png" alt></p>
+<p><img src="/posts/10cdf8fe.html/%E6%95%88%E6%9E%9C%E5%9B%BE-1580099178206.png" alt></p>
 ]]></content>
       <categories>
         <category>图像处理</category>
