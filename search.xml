@@ -99,6 +99,7 @@
       <tags>
         <tag>目标检测</tag>
         <tag>Demo</tag>
+        <tag>原创</tag>
       </tags>
   </entry>
   <entry>
@@ -129,6 +130,7 @@
       </categories>
       <tags>
         <tag>目标检测</tag>
+        <tag>原创</tag>
       </tags>
   </entry>
   <entry>
@@ -146,6 +148,7 @@
       <tags>
         <tag>Demo</tag>
         <tag>目标跟踪</tag>
+        <tag>原创</tag>
       </tags>
   </entry>
   <entry>
@@ -247,6 +250,7 @@ $$
       <tags>
         <tag>目标检测</tag>
         <tag>机器学习</tag>
+        <tag>原创</tag>
       </tags>
   </entry>
   <entry>
@@ -290,6 +294,7 @@ $$
 ]]></content>
       <categories>
         <category>目标检测</category>
+        <category>原创</category>
       </categories>
       <tags>
         <tag>目标检测</tag>
@@ -765,6 +770,7 @@ $$
       </categories>
       <tags>
         <tag>目标检测</tag>
+        <tag>原创</tag>
       </tags>
   </entry>
   <entry>
@@ -816,6 +822,7 @@ $$
       <tags>
         <tag>Demo</tag>
         <tag>图像处理</tag>
+        <tag>原创</tag>
       </tags>
   </entry>
 </search>
