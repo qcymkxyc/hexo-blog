@@ -35,6 +35,7 @@
 <h2 id="前景和背景颜色相近问题"><a href="#前景和背景颜色相近问题" class="headerlink" title="前景和背景颜色相近问题"></a>前景和背景颜色相近问题</h2><blockquote>
 <p>这个问题并没有想到解决办法,Grab Cut对于此类问题效果并不理想.或许利用Selective Search中的动态阈值来修正前景和背景效果会比较好,但我并没有尝试过.</p>
 </blockquote>
+<p>如果你有什么想法或者解决思路,请在下方留言.</p>
 ]]></content>
       <categories>
         <category>图像处理</category>
