@@ -1,6 +1,247 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hough变换</title>
+    <url>/posts/e9f2d7e8.html/</url>
+    <content><![CDATA[<h1 id="霍夫变换"><a href="#霍夫变换" class="headerlink" title="霍夫变换"></a>霍夫变换</h1><h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ol>
+<li>笛卡尔坐标系中多点共线，在Hough空间中表现如何</li>
+<li>在Hough变换中，如何保证多点共线，即保证共线的原理是什么</li>
+<li>霍夫变换的大体流程</li>
+</ol>
+<h2 id="霍夫变换原理"><a href="#霍夫变换原理" class="headerlink" title="霍夫变换原理"></a>霍夫变换原理</h2><p>对于笛卡尔坐标系中的一条线$y=kx+b$,可以转换成霍夫空间下的一个点（霍夫空间是以$k$和$b$为坐标），如下图所示：</p>
+<p><img src="/posts/e9f2d7e8.html/1085343-20170424185145272-8035578-1584177392001.png" alt></p>
+<p>那么，对于笛卡尔坐标系中的一个点$(x_1,y_1)$，则转换为霍夫空间下的一条线，如下图所示：</p>
+<p><img src="/posts/e9f2d7e8.html/1085343-20170424185846412-1947419957-1584177461604.png" alt></p>
+<p><strong>它表示经过改点的所有直线</strong></p>
+<p>那么，在笛卡尔坐标系中经过两点的直线，表现为在霍夫空间下两条直线的交点：</p>
+<p><img src="/posts/e9f2d7e8.html/1085343-20170424190504412-864862338-1584177533599.png" alt></p>
+<p>三点共线在霍夫空间中表现为三条线相交于一点：</p>
+<img src="/posts/e9f2d7e8.html/1085343-20170424213944022-348637873.png" style="zoom:80%;">
+
+<p><strong>再次引申，如果多个点共线，那么在Hough空间中表现为多条线相交于一点</strong></p>
+<p><strong>如果一条线是垂直于x轴的，那么该线在Hough空间中无法表示（此时为$\infty$）</strong>，所以这里将k和q表示的Hough空间转换为极坐标，如下：</p>
+<p><img src="/posts/e9f2d7e8.html/1085343-20170424215910740-145827126.png" alt></p>
+<p>同以<em>k</em>和<em>q</em> 组成的Hough空间，三点共线表示为三线相交，以下是两个Hough空间的对比图：</p>
+<p><img src="/posts/e9f2d7e8.html/1085343-20170424221329412-431224652-1584178146121.png" alt></p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><ol>
+<li><p>首先，获取一个二值化图像</p>
+</li>
+<li><p>建立一个矩阵$H$，行为$p$的所有取值，列为$\theta$（$\theta$的取值范围为(-90,180)）</p>
+</li>
+<li><p>遍历图像中的所有边缘点，得到该点的坐标$(x,y)$，再遍历$\theta$的取值，通过公式$p=xcos{\theta}+ysin{\theta}$ 得到$p$,用伪代码表示为：</p>
+<figure class="highlight gml"><table><tr><td class="code"><pre><span class="line">For each edge Point(<span class="symbol">x</span>,<span class="symbol">y</span>):</span><br><span class="line">	For theta in range(<span class="number">-90</span>,<span class="number">180</span>):</span><br><span class="line">		p = <span class="symbol">x</span> * <span class="built_in">cos</span>(theta) + <span class="symbol">y</span> * <span class="built_in">sin</span>(theta)</span><br><span class="line">		H(theta,p) += <span class="number">1</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在$H$中找出最大的n个值即找出n条直线</p>
+</li>
+</ol>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<p><a href="https://www.cnblogs.com/php-rearch/p/6760683.html" target="_blank" rel="noopener">https://www.cnblogs.com/php-rearch/p/6760683.html</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>图像处理</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>图像处理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>DTW距离</title>
+    <url>/posts/4df0af7c.html/</url>
+    <content><![CDATA[<h2 id="DTW距离"><a href="#DTW距离" class="headerlink" title="DTW距离"></a>DTW距离</h2><h3 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h3><ol>
+<li>DTW的作用</li>
+<li>DTW的大致流程</li>
+</ol>
+<h3 id="DTW距离-1"><a href="#DTW距离-1" class="headerlink" title="DTW距离"></a>DTW距离</h3><blockquote>
+<p>DTW全称Dynamic Time Warping，用于衡量两个不同长度的两个序列的距离</p>
+</blockquote>
+<ol>
+<li>构造匹配矩阵</li>
+</ol>
+<p>设序列1$Q=q_1,q_2,…,q_n$,序列2$C=c_1,c_2,…,c_m$ ,其中$n\neq m$,然后构造一个$m\times n$的矩阵，矩阵中的值是$q_i$和$c_j$的距离（通常用欧式距离），如下图所示：</p>
+<p><img src="/posts/4df0af7c.html/20130620200852375-1584176187632.jpg" alt></p>
+<ol start="2">
+<li>路径规划限制条件    </li>
+</ol>
+<blockquote>
+<p>即找到一条从左下角到右上角的路径,路径表示为：<br>$$<br>W=w_1,w_2,w_3,…,w_k,…,w_K   \text max(m,n) \leqslant K \leqslant m+n-1<br>$$</p>
+</blockquote>
+<blockquote>
+<p><strong>前置条件</strong></p>
+<p>但是该路径必须满足几个条件：</p>
+<ol>
+<li>边界约束：$w_1=(1,1)$,$w_K=(m,n)$,就是说两条序列的开始点和结束点一定是重合的</li>
+<li>连续性：如果$w_{k-1}= (a’, b’)$，那么对于路径的下一个点$w_k=(a, b)$需要满足 (a-a’) &lt;=1和 (b-b’) &lt;=1。就是说序列上的每一个点都要计算距离</li>
+<li>单调性： 如果$w_{k-1}= (a’, b’)$，那么对于路径的下一个点$w_{k}=(a, b)$需要满足0&lt;=(a-a’)和0&lt;= (b-b’)。也就是说不能回头连接算距离</li>
+</ol>
+<p><strong>以上三个约束其实就一个目的，限定路径只能往这几个方向走，且只能走一步。</strong></p>
+<p><img src="/posts/4df0af7c.html/20130620200949125-1584176277643.jpg" alt></p>
+</blockquote>
+<ol start="3">
+<li><p>路劲规划</p>
+<blockquote>
+<p>即找到权重和最小路径</p>
+</blockquote>
+</li>
+</ol>
+<p>最后使用动态规划实现计算DTW距离，在上图中找到一条路径实现距离之和最小（从$w_1=(1,1)$开始,$w_K=(m,n)$结束），公式表示为：<br>$$<br>DTW（Q，C）=min（\sqrt{\sum_{k=1}^K{w_k}}）<br>$$<br>有时候为了增加路径长度的惩罚，路径可以表示为：<br>$$<br>DTW（Q，C）=min（\left(\sqrt{\sum_{k=1}^K{w_k}} \right)/K）<br>$$</p>
+<blockquote>
+<p>参考：<a href="https://blog.csdn.net/qq_40006058/article/details/79992255" target="_blank" rel="noopener">https://blog.csdn.net/qq_40006058/article/details/79992255</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>距离</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LBP特征</title>
+    <url>/posts/edf1298.html/</url>
+    <content><![CDATA[<h2 id="LBP特征"><a href="#LBP特征" class="headerlink" title="LBP特征"></a>LBP特征</h2><h3 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h3><ul>
+<li>LBP特征的流程</li>
+<li>LBP特征的改进点在哪里，解决了什么问题</li>
+</ul>
+<h3 id="LBP特征-1"><a href="#LBP特征-1" class="headerlink" title="LBP特征"></a>LBP特征</h3><blockquote>
+<p>LBP特征用于提取纹理特征</p>
+</blockquote>
+<ol>
+<li><p>将图像切分block，比如切分成16*16</p>
+</li>
+<li><p>对每个block内以3*3为单位，提取LBP特征</p>
+<p>​    对比3*3的方格中周围的值和中间的值，如果周围的值大于中间的值，则表示为1，反之则表示为0，公式表示如下：<br>$$<br>img(i,j)=\begin{cases} 0, &amp; img(i,j)&gt;=img(center) \ 1, &amp; img(i,j)&lt;img(center)\end{cases}<br>$$<br><img src="/posts/edf1298.html/14596362-7ea1a8cd7c2757f7-1584175992695.png" alt></p>
+<p>上述操作得到一个二进制表格，从左上角开始逆时针排列得到一个二进制数，将该二进制数转换为十进制数即为该cell的LBP特征</p>
+<blockquote>
+<p><strong>改进点：</strong>为了保证LBP特征的旋转不变性，转换为二进制特征的方式改为跳数，即如果上一个数和下一个数不同（即一个是0，一个是1），则算为1，否则为0，用公式表示为：</p>
+</blockquote>
+<p>$$<br>cell(i)=\begin{cases} 1,&amp; cell(i-1) \neq cell(i) \ 0, &amp; cell(i-1) =cell(i) \end{cases} (i\in(2,..,9)<br>$$</p>
+</li>
+</ol>
+<ol start="3">
+<li><p>直方图统计</p>
+<p>由于不同大小的图片得到的LBP特征也不同，所以这里以block为单位进行直方图统计，每个block在统计后进行归一化处理。</p>
+</li>
+<li><p>整幅图的block拉成一条向量即为该图片的LBP特征</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>图像处理</category>
+      </categories>
+      <tags>
+        <tag>图像处理</tag>
+        <tag>特征提取</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Triple网络</title>
+    <url>/posts/d5b27990.html/</url>
+    <content><![CDATA[<h1 id="Triple-Network"><a href="#Triple-Network" class="headerlink" title="Triple Network"></a>Triple Network</h1><h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ol>
+<li>Triple Network和Siamese Network相比哪个效果好</li>
+<li>Triple Network的大体流程</li>
+<li>loss中$\alpha$的作用</li>
+</ol>
+<h2 id="Triple-Network-1"><a href="#Triple-Network-1" class="headerlink" title="Triple Network"></a>Triple Network</h2><blockquote>
+<p>既然Siamese网络是衡量两个样本间的相似度，Triple Network是衡量三个样本间的相似度</p>
+<p>且<strong>Triple Network的效果要好于Siamese Network</strong></p>
+</blockquote>
+<p>Triple Network的主体思想是：</p>
+<blockquote>
+<p>相同类别间的距离尽可能的小，不同类别间的距离尽可能的大</p>
+</blockquote>
+<h3 id="网络结构图："><a href="#网络结构图：" class="headerlink" title="网络结构图："></a>网络结构图：</h3><img src="/posts/d5b27990.html/../../git/note_backup/Triple网络/1338991-20181213135951412-1275320373.png" style="zoom:80%;">
+
+<p><strong>输入解释</strong></p>
+<ul>
+<li>Anchor表示需要衡量的图片（输入）</li>
+<li>Postive表示正类图片</li>
+<li>negative表示负类图片</li>
+</ul>
+<h3 id="Loss函数"><a href="#Loss函数" class="headerlink" title="Loss函数"></a>Loss函数</h3><p>$$<br>L(A,P,N)=max(D_w(A,P)-D_w(A,N)+\alpha,0)<br>$$</p>
+<blockquote>
+<p> $D_w$表示两个输入值在经过子网络后的距离，有：<br> $$<br> D_w(X,Y)=\sqrt{[G_w(X)-G_w(Y)]^2}<br> $$<br> 其中，$G_w$表示经过网络的输出（也就是Embedding层）</p>
+</blockquote>
+<p>对loss函数的理解：</p>
+<blockquote>
+<p>同Siamese网络，$\alpha$的大小直接衡量了学习的难度，$\alpha$越大，则学习的难度越大,要求：<br>$$<br>D_w(A,P) + \alpha \leqslant D_w(A,N)<br>$$</p>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<ul>
+<li><p><a href="https://www.cnblogs.com/Lee-yl/p/10113386.html" target="_blank" rel="noopener">https://www.cnblogs.com/Lee-yl/p/10113386.html</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/koala_tree/article/details/78647528" target="_blank" rel="noopener">https://blog.csdn.net/koala_tree/article/details/78647528</a></p>
+</li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>神经网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Siamese网络</title>
+    <url>/posts/e2e6b321.html/</url>
+    <content><![CDATA[<h1 id="Siamese网络"><a href="#Siamese网络" class="headerlink" title="Siamese网络"></a>Siamese网络</h1><h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ol>
+<li>孪生网络的两个网络结构需要相同吗？权重是否一定要一致？</li>
+<li>孪生网络的大体流程</li>
+<li>在生成的结果中，两个向量的相似程度如何计算？是直接算欧氏距离还是loss</li>
+<li>孪生网络中的loss中m的作用，增大m会有什么影响</li>
+<li>2-Channel的主体思想</li>
+<li>Triple Network的主体思想</li>
+</ol>
+<h2 id="Siamese网络-1"><a href="#Siamese网络-1" class="headerlink" title="Siamese网络"></a>Siamese网络</h2><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><blockquote>
+<p>Siamese适用的情景：</p>
+<ol>
+<li>少样本甚至1个样本的情况（俗称的One-Shot 或者Few-Shot问题）</li>
+<li>分类的类别数不确定</li>
+</ol>
+</blockquote>
+<h3 id="主体思想"><a href="#主体思想" class="headerlink" title="主体思想"></a>主体思想</h3><blockquote>
+<p>样本通过网络编码，量化为一个向量，最后计算向量之间的相似度</p>
+</blockquote>
+<img src="/posts/e2e6b321.html/1338991-20181213123654582-1284082097.png" style="zoom:50%;">
+
+<p>图中，input 1和input 2是需要对比的两个输入，输入可以是图像，可以是文本，甚至可以是数字</p>
+<p>两个输入通过网络之后均形成一个向量，然后对比两个向量的相似程度<strong>（也就是Loss）</strong></p>
+<h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3><p>$$<br>（1-Y）\frac{1}{2}(D_w)^2+(Y)\frac{1}{2}[max(0,m-D_w)^2]<br>$$</p>
+<ul>
+<li><p>其中$D_w$表示两个姐妹子网络输出的欧氏距离,如下：<br>$$<br>D_w=\sqrt{[G_w(X_1)-G_w(X_2)]^2}<br>$$</p>
+</li>
+<li><p>Y为label，如果两个子网络输出相似，则0，否则为1</p>
+</li>
+<li><p>$m$表示边际价值，为一个自己设定的参数。实际上，我的理解是加大学习的难度。<strong>就是说，m越大，则学习的难度越大</strong></p>
+</li>
+</ul>
+<h2 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h2><h3 id="2-Channel"><a href="#2-Channel" class="headerlink" title="2-Channel"></a>2-Channel</h3><blockquote>
+<p>个人认为，2-Channel在结果上可能并不能改进什么，可能在速度上有所改进</p>
+</blockquote>
+<p>2-Channel的主体思想如下：</p>
+<p>将两个输入的图片合成一张，看成是有多个通道的图片，然后一起带入网络中。此时，<strong>两张图片就可以通过CNN一起卷积</strong>，卷积的结果最后代入后面的全连接层，最终输出一个结果。该结果为0表示相同，1表示不同。</p>
+<p><img src="/posts/e2e6b321.html/Siamese%E7%BD%91%E7%BB%9C%5C1338991-20181213130146077-1166762109.png" alt></p>
+<h3 id="Triple-Network"><a href="#Triple-Network" class="headerlink" title="Triple Network"></a>Triple Network</h3><blockquote>
+<p>既然Siamese网络是衡量两个样本间的相似度，Triple Network是衡量三个样本间的相似度</p>
+</blockquote>
+<p>Triple Network笔记：<a href="Triple网络.md">Triple Network </a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<p><a href="https://www.cnblogs.com/Lee-yl/p/10113386.html" target="_blank" rel="noopener">https://www.cnblogs.com/Lee-yl/p/10113386.html</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>神经网络</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Markdown语法手册(转)</title>
     <url>/posts/60b0c1f1.html/</url>
     <content><![CDATA[<h1 id="Cmd-Markdown-简明语法手册"><a href="#Cmd-Markdown-简明语法手册" class="headerlink" title="Cmd Markdown 简明语法手册"></a>Cmd Markdown 简明语法手册</h1><hr>
