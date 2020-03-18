@@ -1,0 +1,1319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>关于numpy中cov函数的理解</title>
+    <url>/posts/b27eab0d.html/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/posts/4a17b156.html/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Hough变换</title>
+    <url>/posts/e9f2d7e8.html/</url>
+    <content><![CDATA[<h1 id="霍夫变换"><a href="#霍夫变换" class="headerlink" title="霍夫变换"></a>霍夫变换</h1><h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ol>
+<li>笛卡尔坐标系中多点共线，在Hough空间中表现如何</li>
+<li>在Hough变换中，如何保证多点共线，即保证共线的原理是什么</li>
+<li>霍夫变换的大体流程</li>
+</ol>
+<h2 id="霍夫变换原理"><a href="#霍夫变换原理" class="headerlink" title="霍夫变换原理"></a>霍夫变换原理</h2><p>对于笛卡尔坐标系中的一条线$y=kx+b$,可以转换成霍夫空间下的一个点（霍夫空间是以$k$和$b$为坐标），如下图所示：</p>
+<p><img src="/posts/e9f2d7e8.html/1085343-20170424185145272-8035578-1584177392001.png" alt></p>
+<p>那么，对于笛卡尔坐标系中的一个点$(x_1,y_1)$，则转换为霍夫空间下的一条线，如下图所示：</p>
+<p><img src="/posts/e9f2d7e8.html/1085343-20170424185846412-1947419957-1584177461604.png" alt></p>
+<p><strong>它表示经过改点的所有直线</strong></p>
+<p>那么，在笛卡尔坐标系中经过两点的直线，表现为在霍夫空间下两条直线的交点：</p>
+<p><img src="/posts/e9f2d7e8.html/1085343-20170424190504412-864862338-1584177533599.png" alt></p>
+<p>三点共线在霍夫空间中表现为三条线相交于一点：</p>
+<img src="/posts/e9f2d7e8.html/1085343-20170424213944022-348637873.png" style="zoom:80%;">
+
+<p><strong>再次引申，如果多个点共线，那么在Hough空间中表现为多条线相交于一点</strong></p>
+<p><strong>如果一条线是垂直于x轴的，那么该线在Hough空间中无法表示（此时为$\infty$）</strong>，所以这里将k和q表示的Hough空间转换为极坐标，如下：</p>
+<p><img src="/posts/e9f2d7e8.html/1085343-20170424215910740-145827126.png" alt></p>
+<p>同以<em>k</em>和<em>q</em> 组成的Hough空间，三点共线表示为三线相交，以下是两个Hough空间的对比图：</p>
+<p><img src="/posts/e9f2d7e8.html/1085343-20170424221329412-431224652-1584178146121.png" alt></p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><ol>
+<li><p>首先，获取一个二值化图像</p>
+</li>
+<li><p>建立一个矩阵$H$，行为$p$的所有取值，列为$\theta$（$\theta$的取值范围为(-90,180)）</p>
+</li>
+<li><p>遍历图像中的所有边缘点，得到该点的坐标$(x,y)$，再遍历$\theta$的取值，通过公式$p=xcos{\theta}+ysin{\theta}$ 得到$p$,用伪代码表示为：</p>
+<figure class="highlight gml"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> each edge Point(<span class="symbol">x</span>,<span class="symbol">y</span>):</span><br><span class="line">	<span class="keyword">for</span> theta in range(<span class="number">-90</span>,<span class="number">180</span>):</span><br><span class="line">		p = <span class="symbol">x</span> * <span class="built_in">cos</span>(theta) + <span class="symbol">y</span> * <span class="built_in">sin</span>(theta)</span><br><span class="line">		H(theta,p) += <span class="number">1</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在$H$中找出最大的n个值即找出n条直线</p>
+</li>
+</ol>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<p><a href="https://www.cnblogs.com/php-rearch/p/6760683.html" target="_blank" rel="noopener">https://www.cnblogs.com/php-rearch/p/6760683.html</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>图像处理</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>图像处理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>DTW距离</title>
+    <url>/posts/4df0af7c.html/</url>
+    <content><![CDATA[<h2 id="DTW距离"><a href="#DTW距离" class="headerlink" title="DTW距离"></a>DTW距离</h2><h3 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h3><ol>
+<li>DTW的作用</li>
+<li>DTW的大致流程</li>
+</ol>
+<h3 id="DTW距离-1"><a href="#DTW距离-1" class="headerlink" title="DTW距离"></a>DTW距离</h3><blockquote>
+<p>DTW全称Dynamic Time Warping，用于衡量两个不同长度的两个序列的距离</p>
+</blockquote>
+<ol>
+<li>构造匹配矩阵</li>
+</ol>
+<p>设序列1$Q=q_1,q_2,…,q_n$,序列2$C=c_1,c_2,…,c_m$ ,其中$n\neq m$,然后构造一个$m\times n$的矩阵，矩阵中的值是$q_i$和$c_j$的距离（通常用欧式距离），如下图所示：</p>
+<p><img src="/posts/4df0af7c.html/20130620200852375-1584176187632.jpg" alt></p>
+<ol start="2">
+<li>路径规划限制条件    </li>
+</ol>
+<blockquote>
+<p>即找到一条从左下角到右上角的路径,路径表示为：<br>$$<br>W=w_1,w_2,w_3,…,w_k,…,w_K   \text max(m,n) \leqslant K \leqslant m+n-1<br>$$</p>
+</blockquote>
+<blockquote>
+<p><strong>前置条件</strong></p>
+<p>但是该路径必须满足几个条件：</p>
+<ol>
+<li>边界约束：$w_1=(1,1)$,$w_K=(m,n)$,就是说两条序列的开始点和结束点一定是重合的</li>
+<li>连续性：如果$w_{k-1}= (a’, b’)$，那么对于路径的下一个点$w_k=(a, b)$需要满足 (a-a’) &lt;=1和 (b-b’) &lt;=1。就是说序列上的每一个点都要计算距离</li>
+<li>单调性： 如果$w_{k-1}= (a’, b’)$，那么对于路径的下一个点$w_{k}=(a, b)$需要满足0&lt;=(a-a’)和0&lt;= (b-b’)。也就是说不能回头连接算距离</li>
+</ol>
+<p><strong>以上三个约束其实就一个目的，限定路径只能往这几个方向走，且只能走一步。</strong></p>
+<p><img src="/posts/4df0af7c.html/20130620200949125-1584176277643.jpg" alt></p>
+</blockquote>
+<ol start="3">
+<li><p>路劲规划</p>
+<blockquote>
+<p>即找到权重和最小路径</p>
+</blockquote>
+</li>
+</ol>
+<p>最后使用动态规划实现计算DTW距离，在上图中找到一条路径实现距离之和最小（从$w_1=(1,1)$开始,$w_K=(m,n)$结束），公式表示为：<br>$$<br>DTW（Q，C）=min（\sqrt{\sum_{k=1}^K{w_k}}）<br>$$<br>有时候为了增加路径长度的惩罚，路径可以表示为：<br>$$<br>DTW（Q，C）=min（\left(\sqrt{\sum_{k=1}^K{w_k}} \right)/K）<br>$$</p>
+<blockquote>
+<p>参考：<a href="https://blog.csdn.net/qq_40006058/article/details/79992255" target="_blank" rel="noopener">https://blog.csdn.net/qq_40006058/article/details/79992255</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>距离</tag>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LBP特征</title>
+    <url>/posts/edf1298.html/</url>
+    <content><![CDATA[<h2 id="LBP特征"><a href="#LBP特征" class="headerlink" title="LBP特征"></a>LBP特征</h2><h3 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h3><ul>
+<li>LBP特征的流程</li>
+<li>LBP特征的改进点在哪里，解决了什么问题</li>
+</ul>
+<h3 id="LBP特征-1"><a href="#LBP特征-1" class="headerlink" title="LBP特征"></a>LBP特征</h3><blockquote>
+<p>LBP特征用于提取纹理特征</p>
+</blockquote>
+<ol>
+<li><p>将图像切分block，比如切分成16*16</p>
+</li>
+<li><p>对每个block内以3*3为单位，提取LBP特征</p>
+<p>​    对比3*3的方格中周围的值和中间的值，如果周围的值大于中间的值，则表示为1，反之则表示为0，公式表示如下：<br>$$<br>img(i,j)=\begin{cases} 0, &amp; img(i,j)&gt;=img(center) \ 1, &amp; img(i,j)&lt;img(center)\end{cases}<br>$$<br><img src="/posts/edf1298.html/14596362-7ea1a8cd7c2757f7-1584175992695.png" alt></p>
+<p>上述操作得到一个二进制表格，从左上角开始逆时针排列得到一个二进制数，将该二进制数转换为十进制数即为该cell的LBP特征</p>
+<blockquote>
+<p><strong>改进点：</strong>为了保证LBP特征的旋转不变性，转换为二进制特征的方式改为跳数，即如果上一个数和下一个数不同（即一个是0，一个是1），则算为1，否则为0，用公式表示为：</p>
+</blockquote>
+<p>$$<br>cell(i)=\begin{cases} 1,&amp; cell(i-1) \neq cell(i) \ 0, &amp; cell(i-1) =cell(i) \end{cases} (i\in(2,..,9)<br>$$</p>
+</li>
+</ol>
+<ol start="3">
+<li><p>直方图统计</p>
+<p>由于不同大小的图片得到的LBP特征也不同，所以这里以block为单位进行直方图统计，每个block在统计后进行归一化处理。</p>
+</li>
+<li><p>整幅图的block拉成一条向量即为该图片的LBP特征</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>图像处理</category>
+      </categories>
+      <tags>
+        <tag>图像处理</tag>
+        <tag>特征提取</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Triple网络</title>
+    <url>/posts/d5b27990.html/</url>
+    <content><![CDATA[<h1 id="Triple-Network"><a href="#Triple-Network" class="headerlink" title="Triple Network"></a>Triple Network</h1><h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ol>
+<li>Triple Network和Siamese Network相比哪个效果好</li>
+<li>Triple Network的大体流程</li>
+<li>loss中$\alpha$的作用</li>
+</ol>
+<h2 id="Triple-Network-1"><a href="#Triple-Network-1" class="headerlink" title="Triple Network"></a>Triple Network</h2><blockquote>
+<p>既然Siamese网络是衡量两个样本间的相似度，Triple Network是衡量三个样本间的相似度</p>
+<p>且<strong>Triple Network的效果要好于Siamese Network</strong></p>
+</blockquote>
+<p>Triple Network的主体思想是：</p>
+<blockquote>
+<p>相同类别间的距离尽可能的小，不同类别间的距离尽可能的大</p>
+</blockquote>
+<h3 id="网络结构图："><a href="#网络结构图：" class="headerlink" title="网络结构图："></a>网络结构图：</h3><img src="/posts/d5b27990.html/../../git/note_backup/Triple网络/1338991-20181213135951412-1275320373.png" style="zoom:80%;">
+
+<p><strong>输入解释</strong></p>
+<ul>
+<li>Anchor表示需要衡量的图片（输入）</li>
+<li>Postive表示正类图片</li>
+<li>negative表示负类图片</li>
+</ul>
+<h3 id="Loss函数"><a href="#Loss函数" class="headerlink" title="Loss函数"></a>Loss函数</h3><p>$$<br>L(A,P,N)=max(D_w(A,P)-D_w(A,N)+\alpha,0)<br>$$</p>
+<blockquote>
+<p> $D_w$表示两个输入值在经过子网络后的距离，有：<br> $$<br> D_w(X,Y)=\sqrt{[G_w(X)-G_w(Y)]^2}<br> $$<br> 其中，$G_w$表示经过网络的输出（也就是Embedding层）</p>
+</blockquote>
+<p>对loss函数的理解：</p>
+<blockquote>
+<p>同Siamese网络，$\alpha$的大小直接衡量了学习的难度，$\alpha$越大，则学习的难度越大,要求：<br>$$<br>D_w(A,P) + \alpha \leqslant D_w(A,N)<br>$$</p>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<ul>
+<li><p><a href="https://www.cnblogs.com/Lee-yl/p/10113386.html" target="_blank" rel="noopener">https://www.cnblogs.com/Lee-yl/p/10113386.html</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/koala_tree/article/details/78647528" target="_blank" rel="noopener">https://blog.csdn.net/koala_tree/article/details/78647528</a></p>
+</li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>神经网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Siamese网络</title>
+    <url>/posts/e2e6b321.html/</url>
+    <content><![CDATA[<h1 id="Siamese网络"><a href="#Siamese网络" class="headerlink" title="Siamese网络"></a>Siamese网络</h1><h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ol>
+<li>孪生网络的两个网络结构需要相同吗？权重是否一定要一致？</li>
+<li>孪生网络的大体流程</li>
+<li>在生成的结果中，两个向量的相似程度如何计算？是直接算欧氏距离还是loss</li>
+<li>孪生网络中的loss中m的作用，增大m会有什么影响</li>
+<li>2-Channel的主体思想</li>
+<li>Triple Network的主体思想</li>
+</ol>
+<h2 id="Siamese网络-1"><a href="#Siamese网络-1" class="headerlink" title="Siamese网络"></a>Siamese网络</h2><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><blockquote>
+<p>Siamese适用的情景：</p>
+<ol>
+<li>少样本甚至1个样本的情况（俗称的One-Shot 或者Few-Shot问题）</li>
+<li>分类的类别数不确定</li>
+</ol>
+</blockquote>
+<h3 id="主体思想"><a href="#主体思想" class="headerlink" title="主体思想"></a>主体思想</h3><blockquote>
+<p>样本通过网络编码，量化为一个向量，最后计算向量之间的相似度</p>
+</blockquote>
+<img src="/posts/e2e6b321.html/1338991-20181213123654582-1284082097.png" style="zoom:50%;">
+
+<p>图中，input 1和input 2是需要对比的两个输入，输入可以是图像，可以是文本，甚至可以是数字</p>
+<p>两个输入通过网络之后均形成一个向量，然后对比两个向量的相似程度<strong>（也就是Loss）</strong></p>
+<h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3><p>$$<br>（1-Y）\frac{1}{2}(D_w)^2+(Y)\frac{1}{2}[max(0,m-D_w)^2]<br>$$</p>
+<ul>
+<li><p>其中$D_w$表示两个姐妹子网络输出的欧氏距离,如下：<br>$$<br>D_w=\sqrt{[G_w(X_1)-G_w(X_2)]^2}<br>$$</p>
+</li>
+<li><p>Y为label，如果两个子网络输出相似，则0，否则为1</p>
+</li>
+<li><p>$m$表示边际价值，为一个自己设定的参数。实际上，我的理解是加大学习的难度。<strong>就是说，m越大，则学习的难度越大</strong></p>
+</li>
+</ul>
+<h2 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h2><h3 id="2-Channel"><a href="#2-Channel" class="headerlink" title="2-Channel"></a>2-Channel</h3><blockquote>
+<p>个人认为，2-Channel在结果上可能并不能改进什么，可能在速度上有所改进</p>
+</blockquote>
+<p>2-Channel的主体思想如下：</p>
+<p>将两个输入的图片合成一张，看成是有多个通道的图片，然后一起带入网络中。此时，<strong>两张图片就可以通过CNN一起卷积</strong>，卷积的结果最后代入后面的全连接层，最终输出一个结果。该结果为0表示相同，1表示不同。</p>
+<p><img src="/posts/e2e6b321.html/Siamese%E7%BD%91%E7%BB%9C%5C1338991-20181213130146077-1166762109.png" alt></p>
+<h3 id="Triple-Network"><a href="#Triple-Network" class="headerlink" title="Triple Network"></a>Triple Network</h3><blockquote>
+<p>既然Siamese网络是衡量两个样本间的相似度，Triple Network是衡量三个样本间的相似度</p>
+</blockquote>
+<p>Triple Network笔记：<a href="Triple网络.md">Triple Network </a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<p><a href="https://www.cnblogs.com/Lee-yl/p/10113386.html" target="_blank" rel="noopener">https://www.cnblogs.com/Lee-yl/p/10113386.html</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>神经网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown语法手册(转)</title>
+    <url>/posts/60b0c1f1.html/</url>
+    <content><![CDATA[<h1 id="Cmd-Markdown-简明语法手册"><a href="#Cmd-Markdown-简明语法手册" class="headerlink" title="Cmd Markdown 简明语法手册"></a>Cmd Markdown 简明语法手册</h1><hr>
+<h3 id="1-斜体和粗体"><a href="#1-斜体和粗体" class="headerlink" title="1. 斜体和粗体"></a>1. 斜体和粗体</h3><p>使用 * 和 ** 表示斜体和粗体。</p>
+<p>示例：</p>
+<p>这是 <em>斜体</em>，这是 <strong>粗体</strong>。</p>
+<h3 id="2-分级标题"><a href="#2-分级标题" class="headerlink" title="2. 分级标题"></a>2. 分级标题</h3><p>使用 === 表示一级标题，使用 — 表示二级标题。</p>
+<p>示例：</p>
+<figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line">这是一个一级标题</span><br><span class="line">============================</span><br><span class="line"></span><br><span class="line">这是一个二级标题</span><br><span class="line">--------------------------------------------------</span><br><span class="line"></span><br><span class="line">### 这是一个三级标题</span><br></pre></td></tr></table></figure>
+
+<p>你也可以选择在行首加井号表示不同级别的标题 (H1-H6)，例如：# H1, ## H2, ### H3，#### H4。</p>
+<h3 id="3-外链接"><a href="#3-外链接" class="headerlink" title="3. 外链接"></a>3. 外链接</h3><p>使用 [描述](链接地址) 为文字增加外链接。</p>
+<p>示例：</p>
+<p>这是去往 <a href="http://ghosertblog.github.com" target="_blank" rel="noopener">本人博客</a> 的链接。</p>
+<h3 id="4-无序列表"><a href="#4-无序列表" class="headerlink" title="4. 无序列表"></a>4. 无序列表</h3><p>使用 *，+，- 表示无序列表。</p>
+<p>示例：</p>
+<ul>
+<li>无序列表项 一</li>
+<li>无序列表项 二</li>
+<li>无序列表项 三</li>
+</ul>
+<h3 id="5-有序列表"><a href="#5-有序列表" class="headerlink" title="5. 有序列表"></a>5. 有序列表</h3><p>使用数字和点表示有序列表。</p>
+<p>示例：</p>
+<ol>
+<li>有序列表项 一</li>
+<li>有序列表项 二</li>
+<li>有序列表项 三</li>
+</ol>
+<h3 id="6-文字引用"><a href="#6-文字引用" class="headerlink" title="6. 文字引用"></a>6. 文字引用</h3><p>使用 &gt; 表示文字引用。</p>
+<p>示例：</p>
+<blockquote>
+<p>野火烧不尽，春风吹又生。</p>
+</blockquote>
+<h3 id="7-行内代码块"><a href="#7-行内代码块" class="headerlink" title="7. 行内代码块"></a>7. 行内代码块</h3><p>使用 `代码` 表示行内代码块。</p>
+<p>示例：</p>
+<p>让我们聊聊 <code>html</code>。</p>
+<h3 id="8-代码块"><a href="#8-代码块" class="headerlink" title="8.  代码块"></a>8.  代码块</h3><p>使用 四个缩进空格 表示代码块。</p>
+<p>示例：</p>
+<pre><code>这是一个代码块，此行左侧有四个不可见的空格。</code></pre><h3 id="9-插入图像"><a href="#9-插入图像" class="headerlink" title="9.  插入图像"></a>9.  插入图像</h3><p>使用 ![描述](图片链接地址) 插入图像。</p>
+<p>示例：</p>
+<p><img src="https://www.zybuluo.com/static/img/my_head.jpg" alt="我的头像"></p>
+<h1 id="Cmd-Markdown-高阶语法手册"><a href="#Cmd-Markdown-高阶语法手册" class="headerlink" title="Cmd Markdown 高阶语法手册"></a>Cmd Markdown 高阶语法手册</h1><h3 id="1-内容目录"><a href="#1-内容目录" class="headerlink" title="1. 内容目录"></a>1. 内容目录</h3><p>在段落中填写 <code>[TOC]</code> 以显示全文内容的目录结构。</p>
+<p>[TOC]</p>
+<h3 id="2-标签分类"><a href="#2-标签分类" class="headerlink" title="2. 标签分类"></a>2. 标签分类</h3><p>在编辑区任意行的列首位置输入以下代码给文稿标签：</p>
+<p>标签： 数学 英语 Markdown</p>
+<p>或者</p>
+<p>Tags： 数学 英语 Markdown</p>
+<h3 id="3-删除线"><a href="#3-删除线" class="headerlink" title="3. 删除线"></a>3. 删除线</h3><p>使用 ~~ 表示删除线。</p>
+<p><del>这是一段错误的文本。</del></p>
+<h3 id="4-注脚"><a href="#4-注脚" class="headerlink" title="4. 注脚"></a>4. 注脚</h3><p>使用 [^keyword] 表示注脚。</p>
+<p>这是一个注脚[^footnote]的样例。</p>
+<p>这是第二个注脚[^footnote2]的样例。</p>
+<h3 id="5-LaTeX-公式"><a href="#5-LaTeX-公式" class="headerlink" title="5. LaTeX 公式"></a>5. LaTeX 公式</h3><p>$ 表示行内公式： </p>
+<p>质能守恒方程可以用一个很简洁的方程式 $E=mc^2$ 来表达。</p>
+<p>$$ 表示整行公式：</p>
+<p>$$\sum_{i=1}^n a_i=0$$</p>
+<p>$$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2 $$</p>
+<p>$$\sum^{j-1}<em>{k=0}{\widehat{\gamma}</em>{kj} z_k}$$</p>
+<p>访问 <a href="http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference" target="_blank" rel="noopener">MathJax</a> 参考更多使用方法。</p>
+<h3 id="6-加强的代码块"><a href="#6-加强的代码块" class="headerlink" title="6. 加强的代码块"></a>6. 加强的代码块</h3><p>支持四十一种编程语言的语法高亮的显示，行号显示。</p>
+<p>非代码示例：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ sudo apt-<span class="builtin-name">get</span> install vim-gnome</span><br></pre></td></tr></table></figure>
+
+<p>Python 示例：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@requires_authorization</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">somefunc</span><span class="params">(param1=<span class="string">''</span>, param2=<span class="number">0</span>)</span>:</span></span><br><span class="line">    <span class="string">'''A docstring'''</span></span><br><span class="line">    <span class="keyword">if</span> param1 &gt; param2: <span class="comment"># interesting</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">'Greater'</span></span><br><span class="line">    <span class="keyword">return</span> (param2 - param1 + <span class="number">1</span>) <span class="keyword">or</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SomeClass</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>message = <span class="string">'''interpreter</span></span><br><span class="line"><span class="string"><span class="meta">... </span>prompt'''</span></span><br></pre></td></tr></table></figure>
+
+<p>JavaScript 示例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* nth element in the fibonacci series.</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param </span>n &gt;= 0</span></span><br><span class="line"><span class="comment">* <span class="doctag">@return </span>the nth element, &gt;= 0.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fib</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">1</span>, b = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">var</span> tmp;</span><br><span class="line">  <span class="keyword">while</span> (--n &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">    tmp = a;</span><br><span class="line">    a += b;</span><br><span class="line">    b = tmp;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.write(fib(<span class="number">10</span>));</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-流程图"><a href="#7-流程图" class="headerlink" title="7. 流程图"></a>7. 流程图</h3><h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">st&#x3D;&gt;start: Start:&gt;https:&#x2F;&#x2F;www.zybuluo.com</span><br><span class="line">io&#x3D;&gt;inputoutput: verification</span><br><span class="line">op&#x3D;&gt;operation: Your Operation</span><br><span class="line">cond&#x3D;&gt;condition: Yes or No?</span><br><span class="line">sub&#x3D;&gt;subroutine: Your Subroutine</span><br><span class="line">e&#x3D;&gt;end</span><br><span class="line"></span><br><span class="line">st-&gt;io-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;sub-&gt;io</span><br></pre></td></tr></table></figure>
+
+<h4 id="更多语法参考：流程图语法参考"><a href="#更多语法参考：流程图语法参考" class="headerlink" title="更多语法参考：流程图语法参考"></a>更多语法参考：<a href="http://adrai.github.io/flowchart.js/" target="_blank" rel="noopener">流程图语法参考</a></h4><h3 id="8-序列图"><a href="#8-序列图" class="headerlink" title="8. 序列图"></a>8. 序列图</h3><h4 id="示例-1"><a href="#示例-1" class="headerlink" title="示例 1"></a>示例 1</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Alice-&gt;Bob: Hello Bob, how are you?</span><br><span class="line">Note right of Bob: Bob thinks</span><br><span class="line">Bob--&gt;Alice: I am good thanks!</span><br></pre></td></tr></table></figure>
+
+<h4 id="示例-2"><a href="#示例-2" class="headerlink" title="示例 2"></a>示例 2</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Title: Here is a title</span><br><span class="line">A-&gt;B: Normal line</span><br><span class="line">B--&gt;C: Dashed line</span><br><span class="line">C-&gt;&gt;D: Open arrow</span><br><span class="line">D--&gt;&gt;A: Dashed open arrow</span><br></pre></td></tr></table></figure>
+
+<h4 id="更多语法参考：序列图语法参考"><a href="#更多语法参考：序列图语法参考" class="headerlink" title="更多语法参考：序列图语法参考"></a>更多语法参考：<a href="http://bramp.github.io/js-sequence-diagrams/" target="_blank" rel="noopener">序列图语法参考</a></h4><h3 id="9-甘特图"><a href="#9-甘特图" class="headerlink" title="9. 甘特图"></a>9. 甘特图</h3><p>甘特图内在思想简单。基本是一条线条图，横轴表示时间，纵轴表示活动（项目），线条表示在整个期间上计划和实际的活动完成情况。它直观地表明任务计划在什么时候进行，及实际进展与计划要求的对比。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">title 项目开发流程</span><br><span class="line">section 项目确定</span><br><span class="line">    需求分析       :a1, 2016-06-22, 3d</span><br><span class="line">    可行性报告     :after a1, 5d</span><br><span class="line">    概念验证       : 5d</span><br><span class="line">section 项目实施</span><br><span class="line">    概要设计      :2016-07-05  , 5d</span><br><span class="line">    详细设计      :2016-07-08, 10d</span><br><span class="line">    编码          :2016-07-15, 10d</span><br><span class="line">    测试          :2016-07-22, 5d</span><br><span class="line">section 发布验收</span><br><span class="line">    发布: 2d</span><br><span class="line">    验收: 3d</span><br></pre></td></tr></table></figure>
+
+<h4 id="更多语法参考：甘特图语法参考"><a href="#更多语法参考：甘特图语法参考" class="headerlink" title="更多语法参考：甘特图语法参考"></a>更多语法参考：<a href="https://knsv.github.io/mermaid/#gant-diagrams" target="_blank" rel="noopener">甘特图语法参考</a></h4><h3 id="10-Mermaid-流程图"><a href="#10-Mermaid-流程图" class="headerlink" title="10. Mermaid 流程图"></a>10. Mermaid 流程图</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">A[Hard edge] --&gt;|Link text| B(Round edge)</span><br><span class="line">B --&gt; C&#123;Decision&#125;</span><br><span class="line">C --&gt;|One| D[Result one]</span><br><span class="line">C --&gt;|Two| E[Result two]</span><br></pre></td></tr></table></figure>
+
+<h4 id="更多语法参考：Mermaid-流程图语法参考"><a href="#更多语法参考：Mermaid-流程图语法参考" class="headerlink" title="更多语法参考：Mermaid 流程图语法参考"></a>更多语法参考：<a href="https://knsv.github.io/mermaid/#flowcharts-basic-syntax" target="_blank" rel="noopener">Mermaid 流程图语法参考</a></h4><h3 id="11-Mermaid-序列图"><a href="#11-Mermaid-序列图" class="headerlink" title="11. Mermaid 序列图"></a>11. Mermaid 序列图</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Alice-&gt;John: Hello John, how are you?</span><br><span class="line">loop every minute</span><br><span class="line">    John--&gt;Alice: Great!</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<h4 id="更多语法参考：Mermaid-序列图语法参考"><a href="#更多语法参考：Mermaid-序列图语法参考" class="headerlink" title="更多语法参考：Mermaid 序列图语法参考"></a>更多语法参考：<a href="https://knsv.github.io/mermaid/#sequence-diagrams" target="_blank" rel="noopener">Mermaid 序列图语法参考</a></h4><h3 id="12-表格支持"><a href="#12-表格支持" class="headerlink" title="12. 表格支持"></a>12. 表格支持</h3><table>
+<thead>
+<tr>
+<th>项目</th>
+<th align="right">价格</th>
+<th align="center">数量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>计算机</td>
+<td align="right">$1600</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td>手机</td>
+<td align="right">$12</td>
+<td align="center">12</td>
+</tr>
+<tr>
+<td>管线</td>
+<td align="right">$1</td>
+<td align="center">234</td>
+</tr>
+</tbody></table>
+<h3 id="13-定义型列表"><a href="#13-定义型列表" class="headerlink" title="13. 定义型列表"></a>13. 定义型列表</h3><dl><dt>名词 1</dt><dd>定义 1（左侧有一个可见的冒号和四个不可见的空格）</dd></dl><dl><dt>代码块 2</dt><dd>这是代码块的定义（左侧有一个可见的冒号和四个不可见的空格）</dd></dl><pre><code>代码块（左侧有八个不可见的空格）</code></pre><h3 id="14-Html-标签"><a href="#14-Html-标签" class="headerlink" title="14. Html 标签"></a>14. Html 标签</h3><p>本站支持在 Markdown 语法中嵌套 Html 标签，譬如，你可以用 Html 写一个纵跨两行的表格：</p>
+<pre><code>&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th rowspan=&quot;2&quot;&gt;值班人员&lt;/th&gt;
+        &lt;th&gt;星期一&lt;/th&gt;
+        &lt;th&gt;星期二&lt;/th&gt;
+        &lt;th&gt;星期三&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;李强&lt;/td&gt;
+        &lt;td&gt;张明&lt;/td&gt;
+        &lt;td&gt;王平&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre><table>
+    <tr>
+        <th rowspan="2">值班人员</th>
+        <th>星期一</th>
+        <th>星期二</th>
+        <th>星期三</th>
+    </tr>
+    <tr>
+        <td>李强</td>
+        <td>张明</td>
+        <td>王平</td>
+    </tr>
+</table>
+
+<h3 id="15-内嵌图标"><a href="#15-内嵌图标" class="headerlink" title="15. 内嵌图标"></a>15. 内嵌图标</h3><p>本站的图标系统对外开放，在文档中输入</p>
+<pre><code>&lt;i class=&quot;icon-weibo&quot;&gt;&lt;/i&gt;</code></pre><p>即显示微博的图标： <i class="icon-weibo icon-2x"></i></p>
+<p>替换 上述 <code>i 标签</code> 内的 <code>icon-weibo</code> 以显示不同的图标，例如：</p>
+<pre><code>&lt;i class=&quot;icon-renren&quot;&gt;&lt;/i&gt;</code></pre><p>即显示人人的图标： <i class="icon-renren icon-2x"></i></p>
+<p>更多的图标和玩法可以参看 <a href="http://fortawesome.github.io/Font-Awesome/3.2.1/icons/" target="_blank" rel="noopener">font-awesome</a> 官方网站。</p>
+<h3 id="16-待办事宜-Todo-列表"><a href="#16-待办事宜-Todo-列表" class="headerlink" title="16. 待办事宜 Todo 列表"></a>16. 待办事宜 Todo 列表</h3><p>使用带有 [ ] 或 [x] （未完成或已完成）项的列表语法撰写一个待办事宜列表，并且支持子列表嵌套以及混用Markdown语法，例如：</p>
+<pre><code>- [ ] **Cmd Markdown 开发**
+    - [ ] 改进 Cmd 渲染算法，使用局部渲染技术提高渲染效率
+    - [ ] 支持以 PDF 格式导出文稿
+    - [x] 新增Todo列表功能 [语法参考](https://github.com/blog/1375-task-lists-in-gfm-issues-pulls-comments)
+    - [x] 改进 LaTex 功能
+        - [x] 修复 LaTex 公式渲染问题
+        - [x] 新增 LaTex 公式编号功能 [语法参考](http://docs.mathjax.org/en/latest/tex.html#tex-eq-numbers)
+- [ ] **七月旅行准备**
+    - [ ] 准备邮轮上需要携带的物品
+    - [ ] 浏览日本免税店的物品
+    - [x] 购买蓝宝石公主号七月一日的船票</code></pre><p>对应显示如下待办事宜 Todo 列表：</p>
+<ul>
+<li><input disabled type="checkbox"> <strong>Cmd Markdown 开发</strong><ul>
+<li><input disabled type="checkbox"> 改进 Cmd 渲染算法，使用局部渲染技术提高渲染效率</li>
+<li><input disabled type="checkbox"> 支持以 PDF 格式导出文稿</li>
+<li><input checked disabled type="checkbox"> 新增Todo列表功能 <a href="https://github.com/blog/1375-task-lists-in-gfm-issues-pulls-comments" target="_blank" rel="noopener">语法参考</a></li>
+<li><input checked disabled type="checkbox"> 改进 LaTex 功能<ul>
+<li><input checked disabled type="checkbox"> 修复 LaTex 公式渲染问题</li>
+<li><input checked disabled type="checkbox"> 新增 LaTex 公式编号功能 <a href="http://docs.mathjax.org/en/latest/tex.html#tex-eq-numbers" target="_blank" rel="noopener">语法参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><input disabled type="checkbox"> <strong>七月旅行准备</strong><ul>
+<li><input disabled type="checkbox"> 准备邮轮上需要携带的物品</li>
+<li><input disabled type="checkbox"> 浏览日本免税店的物品</li>
+<li><input checked disabled type="checkbox"> 购买蓝宝石公主号七月一日的船票</li>
+</ul>
+</li>
+</ul>
+<p>[^footnote]: 这是一个 <em>注脚</em> 的 <strong>文本</strong>。</p>
+<p>[^footnote2]: 这是另一个 <em>注脚</em> 的 <strong>文本</strong>。</p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+        <tag>其他</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>人物背景抠图 (二)</title>
+    <url>/posts/cc52d48c.html/</url>
+    <content><![CDATA[<h1 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h1><h2 id="当前效果"><a href="#当前效果" class="headerlink" title="当前效果"></a>当前效果</h2><p>本文章是对<a href="/posts/10cdf8fe.html/" title="人物背景抠图">人物背景抠图</a>的改进,先看效果图:</p>
+<p><strong>原图像:</strong></p>
+<p><img src="/posts/cc52d48c.html/%E6%95%88%E6%9E%9C%E5%8E%9F%E5%9B%BE%E5%83%8F-1580099162567.png" alt></p>
+<p><strong>本次替换后:</strong></p>
+<p><img src="/posts/cc52d48c.html/%E6%94%B9%E8%BF%9B%E6%95%88%E6%9E%9C.png" alt></p>
+<h2 id="原效果"><a href="#原效果" class="headerlink" title="原效果"></a>原效果</h2><p>对比<a href="/posts/10cdf8fe.html/" title="人物背景抠图">人物背景抠图</a>中的效果:</p>
+<p><img src="/posts/cc52d48c.html/%E6%95%88%E6%9E%9C%E5%9B%BE-1580099178206.png" alt></p>
+<p>可以看到,针对原效果中结果不太好的有明显改进.例如第一行第四张图片,人物的头发处有许多的”空洞”,在改进后得到了填充;第二行第一张图片,原效果背景也有许多”空洞”,改进后有明显改善.</p>
+<h1 id="过程及思路"><a href="#过程及思路" class="headerlink" title="过程及思路"></a>过程及思路</h1><p>事实上,对于这个特定任务,分离前景和背景,前景对象有且仅有一个,从图(数据结构中的图)的角度上看,我只需要找到一个连通域即可,其他的连通域都可以看成是误识别的结果,应该合并成背景.并且,这个前景对应的连通域应该是最大的连通域.下面介绍过程:</p>
+<p>下面是对原图像进行掩膜后的结果(开运算后):</p>
+<p><img src="/posts/cc52d48c.html/%E5%BC%80%E8%BF%90%E7%AE%97%E7%BB%93%E6%9E%9C.png" alt></p>
+<p>可以看到一般效果较好的图片对应的掩膜结果都比较成型,且仅有一个连通域,而效果不好的有多个连通域,通常情况下,最大的连通域就是人物,所以,我们选择最大的连通域作为掩膜结果,下面以第一行第4张图片为例,在得到掩膜结果后我们对连通域编号,并计算每个连通域的大小:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 获取连通图并找出最大连通图</span></span><br><span class="line">contours,hierarchy = cv2.findContours(template_img,cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)</span><br><span class="line">areas = list()</span><br><span class="line"><span class="keyword">for</span> contour <span class="keyword">in</span> contours:</span><br><span class="line">    areas.append(cv2.contourArea(contour))</span><br><span class="line">max_contour_index = np.argmax(areas)</span><br><span class="line">print(<span class="string">"最大连通图: &#123;&#125;"</span>.format(max_contour_index))</span><br></pre></td></tr></table></figure>
+
+<p>在得到每个连通域大小后,找到最大的连通域:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">w,h = template_img.shape</span><br><span class="line">black_back = np.zeros(shape=(w,h,<span class="number">3</span>))</span><br><span class="line">plt.imshow(cv2.drawContours(black_back, contours, max_contour_index, (<span class="number">0</span>, <span class="number">255</span>, <span class="number">255</span>), <span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+
+<p>下面是最大连通域对应的外边框:</p>
+<p><img src="/posts/cc52d48c.html/%E6%9C%80%E5%A4%A7%E8%BF%9E%E9%80%9A%E5%9F%9F.png" alt></p>
+<p>最大连通域中有许多背景空洞,我们需要填充:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">template_img = np.zeros(shape=template_img.shape)</span><br><span class="line">template_img = cv2.fillConvexPoly(template_img,contours[max_contour_index],(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>))</span><br></pre></td></tr></table></figure>
+
+<p>最终结果:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">r_img = replace_img(img,template_img,back_img)</span><br><span class="line">plt.imshow(r_img)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/posts/cc52d48c.html/%E5%8D%95%E5%9B%BE%E6%B5%8B%E8%AF%95.png" alt></p>
+<h1 id="问题及改进思路"><a href="#问题及改进思路" class="headerlink" title="问题及改进思路"></a>问题及改进思路</h1><h2 id="前景和背景边缘问题"><a href="#前景和背景边缘问题" class="headerlink" title="前景和背景边缘问题"></a>前景和背景边缘问题</h2><blockquote>
+<p>如上图,前景和背景是有明显的毛边的.事实上,在之前的步骤中,并没有利用边缘检测技术对边缘修正,或者,现在我们的前景和背景已经大致的分出来了,利用Graph Cut或Grab Cut算法来修正应该更加精准.</p>
+</blockquote>
+<h2 id="前景和背景颜色相近问题"><a href="#前景和背景颜色相近问题" class="headerlink" title="前景和背景颜色相近问题"></a>前景和背景颜色相近问题</h2><blockquote>
+<p>这个问题并没有想到解决办法,Grab Cut对于此类问题效果并不理想.或许利用Selective Search中的动态阈值来修正前景和背景效果会比较好,但我并没有尝试过.</p>
+</blockquote>
+<p>如果你有什么想法或者解决思路,请在下方留言.</p>
+]]></content>
+      <categories>
+        <category>图像处理</category>
+      </categories>
+      <tags>
+        <tag>Demo</tag>
+        <tag>原创</tag>
+        <tag>图像处理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>用YOLO3实现犬种实时检测</title>
+    <url>/posts/fa14c502.html/</url>
+    <content><![CDATA[<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>利用YOLO v3实现的犬种实时检测的一次记录,下面是检测结果:</p>
+<h3 id="单个大目标"><a href="#单个大目标" class="headerlink" title="单个大目标:"></a>单个大目标:</h3>
+        <style>.bbplayer{width: 100%; height: 500px; margin: auto}</style>
+        <div class="bbplayer">
+        <iframe class="bbplayer" src="//player.bilibili.com/player.html?aid=86257908&page=1&high_quality=1&danmaku=true" allowfullscreen="allowfullscreen" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
+        </div>
+        
+
+<h3 id="多个小目标"><a href="#多个小目标" class="headerlink" title="多个小目标:"></a>多个小目标:</h3>
+        <style>.bbplayer{width: 100%; height: 500px; margin: auto}</style>
+        <div class="bbplayer">
+        <iframe class="bbplayer" src="//player.bilibili.com/player.html?aid=86258451&page=1&high_quality=1&danmaku=true" allowfullscreen="allowfullscreen" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
+        </div>
+        
+
+<p>FPS大概12左右(!-_- ,显卡1060)</p>
+<h3 id="测试集结果"><a href="#测试集结果" class="headerlink" title="测试集结果:"></a>测试集结果:</h3><p><img src="/posts/fa14c502.html/combine_image_result.jpg" alt></p>
+<p>上图中蓝色的框表示Ground Truth,红色的框表示Bounding Box</p>
+<h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>数据来自于ImageNet的<a href="http://vision.stanford.edu/aditya86/ImageNetDogs" target="_blank" rel="noopener">ImageNetDogs</a>,共有120个犬种,20580张图片</p>
+<p>由于这里仅是用于检测狗,所以我这里把所有的犬种合为一类,也就是说,class仅有dog一个标签,在yolo v3中对应一个logistic</p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>tensorflow-gpu-1.1.3</li>
+<li>keras-2.1.5</li>
+<li>GTX 1060</li>
+</ul>
+<h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><p>训练模型也是在现有的YOLO v3的基础上做fine-tune,<a href="https://github.com/qqwweee/keras-yolo3" target="_blank" rel="noopener">git仓库地址</a></p>
+<h3 id="整理数据"><a href="#整理数据" class="headerlink" title="整理数据"></a>整理数据</h3><p>即整理出适合模型的输入形式,以txt文件保存,如下,具体代码不再阐述.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data/JEPGImages/n02109961-Eskimo_dog/n02109961_4801.jpg  <span class="number">93</span>,<span class="number">145</span>,<span class="number">218</span>,<span class="number">371</span>,<span class="number">0</span></span><br><span class="line">data/JEPGImages/n02109961-Eskimo_dog/n02109961_20429.jpg  <span class="number">205</span>,<span class="number">78</span>,<span class="number">336</span>,<span class="number">323</span>,<span class="number">0</span></span><br><span class="line">data/JEPGImages/n02109961-Eskimo_dog/n02109961_5080.jpg  <span class="number">170</span>,<span class="number">73</span>,<span class="number">370</span>,<span class="number">374</span>,<span class="number">0</span></span><br><span class="line">data/JEPGImages/n02109961-Eskimo_dog/n02109961_19261.jpg  <span class="number">26</span>,<span class="number">16</span>,<span class="number">473</span>,<span class="number">481</span>,<span class="number">0</span></span><br><span class="line">data/JEPGImages/n02109961-Eskimo_dog/n02109961_5732.jpg  <span class="number">96</span>,<span class="number">79</span>,<span class="number">267</span>,<span class="number">442</span>,<span class="number">0</span></span><br><span class="line">data/JEPGImages/n02109961-Eskimo_dog/n02109961_4952.jpg  <span class="number">12</span>,<span class="number">0</span>,<span class="number">499</span>,<span class="number">374</span>,<span class="number">0</span></span><br><span class="line">data/JEPGImages/n02109961-Eskimo_dog/n02109961_5066.jpg  <span class="number">85</span>,<span class="number">0</span>,<span class="number">330</span>,<span class="number">490</span>,<span class="number">0</span></span><br><span class="line">data/JEPGImages/n02109961-Eskimo_dog/n02109961_3817.jpg  <span class="number">121</span>,<span class="number">111</span>,<span class="number">468</span>,<span class="number">330</span>,<span class="number">0</span></span><br><span class="line">data/JEPGImages/n02109961-Eskimo_dog/n02109961_4369.jpg  <span class="number">249</span>,<span class="number">34</span>,<span class="number">499</span>,<span class="number">333</span>,<span class="number">0</span> <span class="number">37</span>,<span class="number">41</span>,<span class="number">291</span>,<span class="number">334</span>,<span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>格式为(图片地址 GroundTruth1信息 GroundTruth2信息 ..),每个Ground Truth信息为(x_min,y_min,x_max,y_max,classID),即左上角坐标,右下角坐标以及类别ID</p>
+</blockquote>
+<h3 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h3><blockquote>
+<p>主要修改yolov3.cfg文件中的配置</p>
+<ul>
+<li>三个不同尺度的Feature Map对应的filter均改为改为18,仅有一类</li>
+<li>batch改为8(显存限制)</li>
+<li>random为1.(调整不同尺寸的图片输入,保证效果)</li>
+</ul>
+</blockquote>
+<h3 id="Anchor-Box聚类"><a href="#Anchor-Box聚类" class="headerlink" title="Anchor Box聚类"></a>Anchor Box聚类</h3><p>(个人认为这是比较重要的一步,后面会说明),通过kmeans对Ground Truth进行kmeans聚类,以此确定Anchor Box的尺寸.所用的衡量标准$1-IOU(ground truth,centroid)$.其中,$centroid$表示聚点的数值,聚类的结果:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">K anchors:</span><br><span class="line"> [[<span class="number">138</span> <span class="number">178</span>]</span><br><span class="line"> [<span class="number">153</span> <span class="number">322</span>]</span><br><span class="line"> [<span class="number">155</span> <span class="number">189</span>]</span><br><span class="line"> [<span class="number">195</span> <span class="number">246</span>]</span><br><span class="line"> [<span class="number">251</span> <span class="number">174</span>]</span><br><span class="line"> [<span class="number">281</span> <span class="number">309</span>]</span><br><span class="line"> [<span class="number">338</span> <span class="number">295</span>]</span><br><span class="line"> [<span class="number">410</span> <span class="number">331</span>]</span><br><span class="line"> [<span class="number">412</span> <span class="number">222</span>]]</span><br><span class="line">Accuracy: <span class="number">91.20</span>%</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里的Accuracy是每个Ground Truth和聚点的平均IOU</p>
+</blockquote>
+<p><strong>对应的9个Anchor Box散点图(没错,这真的是聚类的结果)</strong></p>
+<p><img src="/posts/fa14c502.html/AnchorBox%E8%81%9A%E7%B1%BB.png" alt></p>
+<h3 id="训练-1"><a href="#训练-1" class="headerlink" title="训练"></a>训练</h3><p>在台式机上跑了大概两天.但loss一直降不下来,一直维持在17左右.(我怀疑这可能和图片的质量有关,在测试集的示例可以看到,有些样本是没有标记框的,这可能导致loss降不下来,后面总结部分我会详细说明)</p>
+<p><img src="/posts/fa14c502.html/val_loss.png" alt></p>
+<p>在训练后期,学习率调小至1e-8,但对loss都没什么影响,最多减小0.5左右</p>
+<h2 id="问题总结以及改进"><a href="#问题总结以及改进" class="headerlink" title="问题总结以及改进"></a>问题总结以及改进</h2><h3 id="关于Anchor-Box聚类"><a href="#关于Anchor-Box聚类" class="headerlink" title="关于Anchor Box聚类"></a>关于Anchor Box聚类</h3><blockquote>
+<p>很多博客上说Anchor Box的聚类对最终结果的影响不大,但是在这个数据集上,聚类的效果挺明显的(可能是数据集本身的差异),下面是用源生的yolo3下的Anchor Box(这个应该是VOC数据集的Anchor Box)训练的结果:</p>
+</blockquote>
+
+        <style>.bbplayer{width: 100%; height: 500px; margin: auto}</style>
+        <div class="bbplayer">
+        <iframe class="bbplayer" src="//player.bilibili.com/player.html?aid=86258451&page=2&high_quality=1&danmaku=true" allowfullscreen="allowfullscreen" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
+        </div>
+        
+
+<blockquote>
+<p>对比开始的<a href="#多个小目标">检测视频</a>,可以看到改进还是挺明显的.</p>
+</blockquote>
+<h3 id="关于模型Loss"><a href="#关于模型Loss" class="headerlink" title="关于模型Loss"></a>关于模型Loss</h3><p>模型loss分两个方面.</p>
+<ol>
+<li>loss下降到一定的数值就难以下降,大概在17左右</li>
+</ol>
+<blockquote>
+<p>这可能和数据本身的质量有关,因为数据集本身是针对不同的犬种进行标注,并不是对”狗”这个种类进行标注,所以导致有些图片缺少标记框,比如下面几张图片数据:</p>
+<p><img src="/posts/fa14c502.html/14.jpg" alt></p>
+<p><img src="/posts/fa14c502.html/24.jpg" alt></p>
+<p><img src="/posts/fa14c502.html/206.jpg" alt></p>
+<p>一旦模型检测出没有标记的狗,就相当于训练数据”告诉”模型检测是错误的,所以,loss居高不下.另外,这也反过来影响模型的表现,此时模型已经不知道孰对孰错了.</p>
+<p>所以,要想降低loss,需要对数据进行重新标注,理论上loss应该会下降.</p>
+</blockquote>
+<ol start="2">
+<li>验证集的loss总是低于训练集的loss</li>
+</ol>
+<blockquote>
+<p>在训练的过程中,验证集的loss总是低于训练集的loss,不知道是何原因,这个问题至今无法解决.</p>
+</blockquote>
+<h3 id="侧面目标效果差"><a href="#侧面目标效果差" class="headerlink" title="侧面目标效果差"></a>侧面目标效果差</h3><blockquote>
+<p> 侧面目标检测效果很差,很多时候检测不出或者置信度很低(这其实在测试视频中也有所反应):</p>
+<p><img src="/posts/fa14c502.html/12.jpg" alt></p>
+<p><img src="/posts/fa14c502.html/26.jpg" alt></p>
+<p><img src="/posts/fa14c502.html/143.jpg" alt></p>
+<p>可能是由于数据集中侧面图片比较少的关系,需要在原有数据集上对侧面图片做上采样(比如Mix Up,加噪声等).总之,就是增加这类图片的数据量,再放入模型训练.</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>目标检测</category>
+      </categories>
+      <tags>
+        <tag>目标检测</tag>
+        <tag>Demo</tag>
+        <tag>原创</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>YOLOV3总结</title>
+    <url>/posts/69cad793.html/</url>
+    <content><![CDATA[<p>总的来说,YOLO V3针对V2的改进并不多,有以下几点: </p>
+<ol>
+<li><p>网络结构的改变</p>
+<blockquote>
+<p>YOLO V3采用Darknet-53 的网络结构,整个网络采用全卷积结构,相比于ResNet-152和ResNet-101强很多,速度也更快</p>
+</blockquote>
+</li>
+<li><p>Anchor Box</p>
+<blockquote>
+<p>由于 YOLO V1和V2 都对小目标支持不好,所以,V3在这上面作出了改进,对大中小目标分别进行处理,大目标的Feature Map缩小,中小目标的Feature Map呈放大</p>
+<p>V3的Anchor Box一共9个,大中小各3个</p>
+</blockquote>
+</li>
+<li><p>Loss Function</p>
+<blockquote>
+<p>V3不再用softmax,而是用logistic(即对每一类做logistic),其目的还是对应V2中出现</p>
+</blockquote>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>目标检测</category>
+      </categories>
+      <tags>
+        <tag>目标检测</tag>
+        <tag>原创</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>KCF目标跟踪测试</title>
+    <url>/posts/849e7948.html/</url>
+    <content><![CDATA[
+        <style>.bbplayer{width: 100%; height: 500px; margin: auto}</style>
+        <div class="bbplayer">
+        <iframe class="bbplayer" src="//player.bilibili.com/player.html?aid=85098088&page=1&high_quality=1&danmaku=true" allowfullscreen="allowfullscreen" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
+        </div>
+        ]]></content>
+      <categories>
+        <category>目标跟踪</category>
+      </categories>
+      <tags>
+        <tag>Demo</tag>
+        <tag>原创</tag>
+        <tag>目标跟踪</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mAP的计算总结</title>
+    <url>/posts/b8ba7454.html/</url>
+    <content><![CDATA[<p>mAP是目标检测中最为常见的指标,要了解mAP(mean Average Precision),就必须了解recall和precision(目标检测中这两个指标的计算和略有机器学习不同)</p>
+<table>
+<thead>
+<tr>
+<th align="right">真\预</th>
+<th align="center">正</th>
+<th align="left">负</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">正</td>
+<td align="center">TP</td>
+<td align="left">FN</td>
+</tr>
+<tr>
+<td align="right">负</td>
+<td align="center">FP</td>
+<td align="left">TN</td>
+</tr>
+</tbody></table>
+<p>首先,在进行目标检测时,预测出一个BBox,和对应某类i的概率$P_i$,给出一个阈值$t$,即可以判断出预测是否是这一类,即判定上表中在第一列还是第二列.</p>
+<p>然后,对于上一部中分到第一列的,计算BBox和Ground Truth的IOU,大于0.5的标为TP,小于为FP.最后,对于1中第二列的标为FN.</p>
+<p>根据公式:</p>
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable displaystyle="true">
+    <mlabeledtr>
+      <mtd id="mjx-eqn-1_1">
+        <mtext>(1)</mtext>
+      </mtd>
+      <mtd>
+        <mrow>
+          <mo>{</mo>
+          <mtable columnalign="left left" rowspacing=".2em" columnspacing="1em" displaystyle="false">
+            <mtr>
+              <mtd>
+                <mi>R</mi>
+                <mo>=</mo>
+                <mi>T</mi>
+                <mi>P</mi>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mo>/</mo>
+                </mrow>
+                <mo stretchy="false">(</mo>
+                <mi>T</mi>
+                <mi>P</mi>
+                <mo>+</mo>
+                <mi>F</mi>
+                <mi>N</mi>
+                <mo stretchy="false">)</mo>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd>
+                <mi>P</mi>
+                <mo>=</mo>
+                <mi>T</mi>
+                <mi>P</mi>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mo>/</mo>
+                </mrow>
+                <mo stretchy="false">(</mo>
+                <mi>F</mi>
+                <mi>P</mi>
+                <mo>+</mo>
+                <mi>T</mi>
+                <mi>P</mi>
+                <mo stretchy="false">)</mo>
+              </mtd>
+            </mtr>
+          </mtable>
+          <mo fence="true" stretchy="true" symmetric="true"></mo>
+        </mrow>
+      </mtd>
+    </mlabeledtr>
+  </mtable>
+</math>
+
+
+
+<!--
+$$
+\begin{cases} R = TP/(TP+FN) \\ P=TP/(FP + TP)\end{cases}
+$$
+
+
+
+-->
+
+<p>对于上述给定的阈值t,逐渐减小,可形成多组RP数据对,在坐标上绘制,其与坐标轴围成的面积即为AP值.</p>
+]]></content>
+      <categories>
+        <category>目标检测</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>目标检测</tag>
+        <tag>原创</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>YOLO9000总结</title>
+    <url>/posts/5ca973ed.html/</url>
+    <content><![CDATA[<p>YOLO9000备忘</p>
+<h2 id="Better"><a href="#Better" class="headerlink" title="Better:"></a>Better:</h2><ol>
+<li><p>Batch Normalization</p>
+</li>
+<li><p>高分辨率:即用高分辨率图片,文中用$448 \times 448$</p>
+</li>
+<li><p>使用Anchor Box</p>
+<blockquote>
+<p>YOLO V2在使用Anchor Box之后,每一个Anchor Boox包含预测类别+5(4个位置,一个置信度)为数据,文中的Feature Map为$13 \times 13$,5个Anchor Box,20个类别,输出维数就为$13 \times 13 \times 5 \times 25$</p>
+<p>并且,V2的Anchor Box不是手动设置的,而是用训练集上的Ground Truth聚类的,所用的衡量标准为$1 - IOU(box,centroid)$</p>
+</blockquote>
+</li>
+<li><p>约束预测边框位置</p>
+<blockquote>
+<p>V1 预测的Box中随意,中心可以是任意位置,者造成训练时尤其是初期不稳定,V2在位置上包一层sigmoid函数,是的中心落在Feature Map的方框内,这样更稳定.</p>
+</blockquote>
+</li>
+<li><p>细分类特征(即加入PassThrough层)</p>
+<blockquote>
+<p>Pass Through层类似做步数为2的Pooling,按照相同位置组合成4个块,最后再在通道上叠加,比如上一层的输出为$26 \times 26 \times 512$,拆分成$4 \times 13 \times 13 \times 512$ 最后组成$13 \times 13 \times 3072$</p>
+</blockquote>
+<p><img src="/posts/5ca973ed.html/passthrough1.jpg" alt></p>
+<p><img src="/posts/5ca973ed.html/passthrough2.jpg" alt></p>
+</li>
+<li><p>多尺度训练</p>
+<blockquote>
+<p>即以不同的尺寸进行训练</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="Faster"><a href="#Faster" class="headerlink" title="Faster:"></a>Faster:</h2><p>采用Darknet-19网络结构</p>
+<h2 id="Stronger-YOLO-9000"><a href="#Stronger-YOLO-9000" class="headerlink" title="Stronger(YOLO 9000)"></a>Stronger(YOLO 9000)</h2><p>为了能识别9000个目标,构建了一个WordTree,与一般的softmax不同的是类别本身和气父节点均需标记为1.比如Dog,在Animal位置也需标记为1.</p>
+<p><img src="/posts/5ca973ed.html/WordTree.png" alt="&#39;WordTree&#39;"></p>
+<p>在预测时,一个类别的概率为根节点到该节点所有概率的乘积,如<br>$$<br>P(Hunting Dog)=p(Hunting Dog|Dog, Animal)P(Dog| Animal)<br>$$<br>其中,由于Animal处于根节点有$P(Animal)=1$</p>
+<p>注:在实际计算绝对概率时,并不会真的计算每一个子节点的概率,而是采用贪婪算法,当从根节点项子节点走时,如果小于阈值,则不在向下走了.</p>
+]]></content>
+      <categories>
+        <category>目标检测</category>
+      </categories>
+      <tags>
+        <tag>目标检测</tag>
+        <tag>原创</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>YOLO V1总结</title>
+    <url>/posts/16c1a0a5.html/</url>
+    <content><![CDATA[<p>YOLO v1的总结,备忘</p>
+<h2 id="网络设计"><a href="#网络设计" class="headerlink" title="网络设计"></a>网络设计</h2><p>YOLO算法的设计理念是将图像分成$s \times s$的网络结构,每个网格分别来判定是否目标在其中,这其中运用了用卷积层来代替全连接层,这项技术是Idea的关键.所以最终的结果是</p>
+<p>$$s \times  s \times(B \times 5 + C)$$</p>
+<p>其中,B表示BBox的个数,C代表类别个数,5表示(x,y,w,h,confidence)</p>
+<h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><p>由于YOLO算法是将图像切割成方格并预测的思想,所以对图像的输入尺寸并不敏感.</p>
+<p>在输出方面,如下图所示:</p>
+<p><img src="/posts/16c1a0a5.html/YOLOV1%E7%BB%93%E6%9E%84.jpg" alt></p>
+<ol>
+<li>Feature Map中的一个值给出一个预测,为何输出中却是两个BBox?</li>
+</ol>
+<blockquote>
+<p>YOLO由3类标签组成:类别,置信度,BBox位置.其中Feature Map中的一个值有两个BBox,而仅有一个One-Hot类别向量.之所以用两个BBox,文中的解释是:两个BBox用结果好的那个,另一个舍去,这样总好过仅用一个BBox的结果.</p>
+<p>那么,怎么样判定哪一个BBox结果好呢,答案是IOU,即$IOU_{pred}^{truth}$,选择IOU大的那个</p>
+</blockquote>
+<ol start="2">
+<li>训练集中的confidence如何确定?</li>
+</ol>
+<blockquote>
+<p>在1中可以得到$IOU_{pred}^{truth}$,如果该Feature Map值中有物体,则为IOU,否则为0.</p>
+<p>$$ confidenc标签=\begin{cases} IOU_{pred}^{truth},&amp;有物体\ 0,&amp;无物体 \end{cases}$$</p>
+<p>值得说明的是,两个BBox,一个为$IOU_{pred}^{truth}$,另一个的confidence也为0</p>
+</blockquote>
+<ol start="3">
+<li>LOSS函数</li>
+</ol>
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable displaystyle="true">
+    <mlabeledtr>
+      <mtd id="mjx-eqn-1">
+        <mtext>(1)</mtext>
+      </mtd>
+      <mtd>
+        <mi>L</mi>
+        <mi>o</mi>
+        <mi>s</mi>
+        <mi>s</mi>
+        <mo>=</mo>
+        <msub>
+          <mi>&#x03BB;<!-- λ --></mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>c</mi>
+            <mi>o</mi>
+            <mi>o</mi>
+            <mi>r</mi>
+            <mi>d</mi>
+          </mrow>
+        </msub>
+        <munderover>
+          <mo>&#x2211;<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mo>=</mo>
+            <mn>0</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <msup>
+              <mi>S</mi>
+              <mn>2</mn>
+            </msup>
+          </mrow>
+        </munderover>
+        <munderover>
+          <mo>&#x2211;<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+            <mo>=</mo>
+            <mn>0</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>B</mi>
+          </mrow>
+        </munderover>
+        <mstyle mathsize="1.2em">
+          <msubsup>
+            <mn>1</mn>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>i</mi>
+              <mi>j</mi>
+            </mrow>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>o</mi>
+              <mi>b</mi>
+              <mi>j</mi>
+            </mrow>
+          </msubsup>
+          <mo stretchy="false">[</mo>
+          <mo stretchy="false">(</mo>
+          <msub>
+            <mi>x</mi>
+            <mi>i</mi>
+          </msub>
+          <mo>&#x2212;<!-- − --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mover>
+              <msub>
+                <mi>x</mi>
+                <mi>i</mi>
+              </msub>
+              <mo stretchy="false">&#x005E;<!-- ^ --></mo>
+            </mover>
+          </mrow>
+          <msup>
+            <mo stretchy="false">)</mo>
+            <mn>2</mn>
+          </msup>
+          <mo>+</mo>
+          <mo stretchy="false">(</mo>
+          <msub>
+            <mi>y</mi>
+            <mi>i</mi>
+          </msub>
+          <mo>&#x2212;<!-- − --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mover>
+              <msub>
+                <mi>y</mi>
+                <mi>i</mi>
+              </msub>
+              <mo stretchy="false">&#x005E;<!-- ^ --></mo>
+            </mover>
+          </mrow>
+          <msup>
+            <mo stretchy="false">)</mo>
+            <mn>2</mn>
+          </msup>
+          <mo stretchy="false">]</mo>
+          <mo>+</mo>
+        </mstyle>
+        <mspace linebreak="newline">
+        <msub>
+          <mi>&#x03BB;<!-- λ --></mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>c</mi>
+            <mi>o</mi>
+            <mi>o</mi>
+            <mi>r</mi>
+            <mi>d</mi>
+          </mrow>
+        </msub>
+        <munderover>
+          <mo>&#x2211;<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mo>=</mo>
+            <mn>0</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <msup>
+              <mi>S</mi>
+              <mn>2</mn>
+            </msup>
+          </mrow>
+        </munderover>
+        <munderover>
+          <mo>&#x2211;<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+            <mo>=</mo>
+            <mn>0</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>B</mi>
+          </mrow>
+        </munderover>
+        <mstyle mathsize="1.2em">
+          <msubsup>
+            <mn>1</mn>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>i</mi>
+              <mi>j</mi>
+            </mrow>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>o</mi>
+              <mi>b</mi>
+              <mi>j</mi>
+            </mrow>
+          </msubsup>
+          <mo stretchy="false">[</mo>
+          <mo stretchy="false">(</mo>
+          <msqrt>
+            <msub>
+              <mi>w</mi>
+              <mi>i</mi>
+            </msub>
+          </msqrt>
+          <mo>&#x2212;<!-- − --></mo>
+          <msqrt>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mover>
+                <msub>
+                  <mi>w</mi>
+                  <mi>i</mi>
+                </msub>
+                <mo stretchy="false">&#x005E;<!-- ^ --></mo>
+              </mover>
+            </mrow>
+          </msqrt>
+          <msup>
+            <mo stretchy="false">)</mo>
+            <mn>2</mn>
+          </msup>
+          <mo>+</mo>
+        </mstyle>
+        <mspace linebreak="newline">
+        <mo stretchy="false">(</mo>
+        <msqrt>
+          <msub>
+            <mi>h</mi>
+            <mi>i</mi>
+          </msub>
+        </msqrt>
+        <mo>&#x2212;<!-- − --></mo>
+        <msqrt>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mover>
+              <msub>
+                <mi>h</mi>
+                <mi>i</mi>
+              </msub>
+              <mo stretchy="false">&#x005E;<!-- ^ --></mo>
+            </mover>
+          </mrow>
+        </msqrt>
+        <msup>
+          <mo stretchy="false">)</mo>
+          <mn>2</mn>
+        </msup>
+        <mo stretchy="false">]</mo>
+        <mo>+</mo>
+        <munderover>
+          <mo>&#x2211;<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mo>=</mo>
+            <mn>0</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>S</mi>
+          </mrow>
+        </munderover>
+        <munderover>
+          <mo>&#x2211;<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+            <mo>=</mo>
+            <mn>0</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>B</mi>
+          </mrow>
+        </munderover>
+        <mstyle mathsize="1.2em">
+          <msubsup>
+            <mn>1</mn>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>i</mi>
+              <mi>j</mi>
+            </mrow>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>o</mi>
+              <mi>b</mi>
+              <mi>j</mi>
+            </mrow>
+          </msubsup>
+          <mo stretchy="false">(</mo>
+          <msub>
+            <mi>c</mi>
+            <mi>i</mi>
+          </msub>
+          <mo>&#x2212;<!-- − --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mover>
+              <msub>
+                <mi>c</mi>
+                <mi>i</mi>
+              </msub>
+              <mo stretchy="false">&#x005E;<!-- ^ --></mo>
+            </mover>
+          </mrow>
+          <msup>
+            <mo stretchy="false">)</mo>
+            <mn>2</mn>
+          </msup>
+          <mo>+</mo>
+        </mstyle>
+        <mspace linebreak="newline">
+        <msub>
+          <mi>&#x03BB;<!-- λ --></mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>n</mi>
+            <mi>o</mi>
+            <mi>o</mi>
+            <mi>b</mi>
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <munderover>
+          <mo>&#x2211;<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mo>=</mo>
+            <mn>0</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>S</mi>
+          </mrow>
+        </munderover>
+        <munderover>
+          <mo>&#x2211;<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+            <mo>=</mo>
+            <mn>0</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>B</mi>
+          </mrow>
+        </munderover>
+        <mstyle mathsize="1.2em">
+          <msubsup>
+            <mn>1</mn>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>i</mi>
+              <mi>j</mi>
+            </mrow>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>n</mi>
+              <mi>o</mi>
+              <mi>o</mi>
+              <mi>b</mi>
+              <mi>j</mi>
+            </mrow>
+          </msubsup>
+          <mo stretchy="false">(</mo>
+          <msub>
+            <mi>c</mi>
+            <mi>i</mi>
+          </msub>
+          <mo>&#x2212;<!-- − --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mover>
+              <msub>
+                <mi>c</mi>
+                <mi>i</mi>
+              </msub>
+              <mo stretchy="false">&#x005E;<!-- ^ --></mo>
+            </mover>
+          </mrow>
+          <msup>
+            <mo stretchy="false">)</mo>
+            <mn>2</mn>
+          </msup>
+          <mo>+</mo>
+        </mstyle>
+        <mspace linebreak="newline">
+        <munderover>
+          <mo>&#x2211;<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mo>=</mo>
+            <mn>0</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <msup>
+              <mi>S</mi>
+              <mn>2</mn>
+            </msup>
+          </mrow>
+        </munderover>
+        <mstyle mathsize="1.2em">
+          <msubsup>
+            <mn>1</mn>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>i</mi>
+              <mi>j</mi>
+            </mrow>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>o</mi>
+              <mi>b</mi>
+              <mi>j</mi>
+            </mrow>
+          </msubsup>
+          <munder>
+            <mo>&#x2211;<!-- ∑ --></mo>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>C</mi>
+              <mo>&#x2208;<!-- ∈ --></mo>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mi>c</mi>
+                <mi>l</mi>
+                <mi>a</mi>
+                <mi>s</mi>
+                <mi>s</mi>
+              </mrow>
+            </mrow>
+          </munder>
+          <mo stretchy="false">[</mo>
+          <msub>
+            <mi>p</mi>
+            <mi>i</mi>
+          </msub>
+          <mo stretchy="false">(</mo>
+          <mi>c</mi>
+          <mo stretchy="false">)</mo>
+          <mo>&#x2212;<!-- − --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mover>
+              <msub>
+                <mi>p</mi>
+                <mi>i</mi>
+              </msub>
+              <mo stretchy="false">&#x005E;<!-- ^ --></mo>
+            </mover>
+          </mrow>
+          <mo stretchy="false">(</mo>
+          <mi>c</mi>
+          <mo stretchy="false">)</mo>
+          <msup>
+            <mo stretchy="false">]</mo>
+            <mn>2</mn>
+          </msup>
+        </mstyle>
+      </mspace></mspace></mspace></mspace></mtd>
+    </mlabeledtr>
+  </mtable>
+</math>
+
+<!-- 以下公式hexo无法换行,用以下公式生成MathML,粘贴在上面
+$$
+Loss=\lambda_{coord}\sum_{i=0}^{S^2}\sum_{j=0}^{B}\large 1_{ij}^{obj}[(x_i-\hat{x_i})^2+(y_i-\hat{y_i})^2] + \\
+\lambda_{coord}\sum_{i=0}^{S^2}\sum_{j=0}^{B}\large 1_{ij}^{obj}[(\sqrt{w_i}-\sqrt{\hat{w_i}})^2+\\
+(\sqrt{h_i}-\sqrt{\hat{h_i}})^2]+ \sum_{i=0}^{S}\sum_{j=0}^{B} \large 1_{ij}^{obj} (c_i-\hat{c_i})^2 + \\ 
+\lambda_{noobj}\sum_{i=0}^{S}\sum_{j=0}^{B} \large 1_{ij}^{noobj} (c_i-\hat{c_i})^2 +\\
+\sum_{i=0}^{S^2}\large 1_{ij}^{obj}\sum_{C\in{class}}[p_i(c)-\hat{p_i}(c)]^2
+$$
+-->
+
+<p>YOLO 算法的LOSS是一个L2 LOSS</p>
+<h2 id="预测"><a href="#预测" class="headerlink" title="预测"></a>预测</h2><p>对于模型得出的$S\times S \times 2$个BBox</p>
+<blockquote>
+<ol>
+<li><p>先用NMS得出一系列BBox(依据是confidence)</p>
+</li>
+<li><p>再在这些框中选最大概率的类别</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="优点以及缺点"><a href="#优点以及缺点" class="headerlink" title="优点以及缺点"></a>优点以及缺点</h2><blockquote>
+<p>优点:</p>
+<ol>
+<li>速度快</li>
+<li>End-2-End</li>
+</ol>
+<p>缺点: </p>
+<ol>
+<li><p>小物体效果不好</p>
+</li>
+<li><p>定位不准确    </p>
+</li>
+</ol>
+</blockquote>
+]]></content>
+      <categories>
+        <category>目标检测</category>
+      </categories>
+      <tags>
+        <tag>目标检测</tag>
+        <tag>原创</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>人物背景抠图</title>
+    <url>/posts/10cdf8fe.html/</url>
+    <content><![CDATA[<h2 id="示例图片"><a href="#示例图片" class="headerlink" title="示例图片"></a>示例图片</h2><p>免冠照人物背景抠图实现,先展示一下示例结果:</p>
+<p><img src="/posts/10cdf8fe.html/%E5%8E%9F%E5%A7%8B%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87.png" alt></p>
+<p>人物背景抠图后:</p>
+<p><img src="/posts/10cdf8fe.html/%E6%9B%BF%E6%8D%A2%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87.png" alt></p>
+<h2 id="执行步骤"><a href="#执行步骤" class="headerlink" title="执行步骤"></a>执行步骤</h2><h3 id="将RGB空间转换为HSV空间"><a href="#将RGB空间转换为HSV空间" class="headerlink" title="将RGB空间转换为HSV空间"></a>将RGB空间转换为HSV空间</h3><p>首先需要统计出背景(蓝色部分)的颜色范围,这里将RGB空间转换为HSV空间,然后只用H分量统计,就可以统计出蓝色背景的大概范围:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line">blue_photo_hsv = cv2.cvtColor(blue_photo,cv2.COLOR_RGB2HSV)</span><br><span class="line">h_ele = blue_photo_hsv[:,:,<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+
+<h3 id="做H分量的统计"><a href="#做H分量的统计" class="headerlink" title="做H分量的统计"></a>做H分量的统计</h3><p>为了简单起见,这里截取上1/6的部分图像</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line">%matplotlib inline</span><br><span class="line"></span><br><span class="line">sns.set_style(<span class="string">"darkgrid"</span>)</span><br><span class="line"></span><br><span class="line">w,h,_= blue_photo_hsv.shape</span><br><span class="line">hist_bins = plt.hist(blue_photo_hsv[:int(w/<span class="number">6</span>),:,<span class="number">0</span>].flatten(),bins = <span class="number">60</span>)</span><br></pre></td></tr></table></figure>
+
+<p>直方图统计结果:</p>
+<p><img src="/posts/10cdf8fe.html/%E7%9B%B4%E6%96%B9%E5%9B%BE%E7%BB%93%E6%9E%9C.png" alt></p>
+<h3 id="掩膜"><a href="#掩膜" class="headerlink" title="掩膜"></a>掩膜</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">lower_h = hist_bins[<span class="number">1</span>][hist_bins[<span class="number">0</span>].argmax()]</span><br><span class="line">bins_interval = hist_bins[<span class="number">1</span>][<span class="number">1</span>] - hist_bins[<span class="number">1</span>][<span class="number">0</span>]</span><br><span class="line">upper_h = lower_h + <span class="number">1</span> * bins_interval</span><br><span class="line">lower = np.array([lower_h,<span class="number">43</span>,<span class="number">46</span>])</span><br><span class="line">upper = np.array([upper_h,<span class="number">256</span>,<span class="number">256</span>])</span><br><span class="line"></span><br><span class="line">mask = cv2.inRange(blue_photo_hsv, lower,upper)</span><br><span class="line">plt.imshow(mask)</span><br></pre></td></tr></table></figure>
+
+<p>掩膜结果:</p>
+<p><img src="/posts/10cdf8fe.html/%E6%8E%A9%E8%86%9C%E7%BB%93%E6%9E%9C.png" alt="&#39;掩膜结果&#39;"></p>
+<h3 id="腐蚀和膨胀"><a href="#腐蚀和膨胀" class="headerlink" title="腐蚀和膨胀"></a>腐蚀和膨胀</h3><p>腐蚀的目的是去除分割线周围的噪声,膨胀是填补掩膜结果中的小空白.这里的腐蚀和膨胀的模板都是用的3*3</p>
+<p>腐蚀:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 取反</span></span><br><span class="line">mask = <span class="number">255</span> - mask</span><br><span class="line"><span class="comment"># 边长</span></span><br><span class="line">side_len = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">kernel = np.ones((side_len,side_len))</span><br><span class="line">erode_img = cv2.erode(mask,kernel,iterations = <span class="number">1</span>)</span><br><span class="line">erode_img.shape</span><br><span class="line">plt.imshow(erode_img)</span><br></pre></td></tr></table></figure>
+
+<p>腐蚀后结果:</p>
+<p><img src="/posts/10cdf8fe.html/%E8%85%90%E8%9A%80%E5%90%8E.png" alt="&#39;腐蚀后结果&#39;"></p>
+<p>膨胀:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">side_len =<span class="number">3</span></span><br><span class="line"></span><br><span class="line">kernel = np.ones((side_len,side_len))</span><br><span class="line">dilate_img = cv2.dilate(erode_img,kernel,iterations = <span class="number">1</span>)</span><br><span class="line">plt.imshow(dilate_img)</span><br></pre></td></tr></table></figure>
+
+<p>膨胀后:</p>
+<p><img src="/posts/10cdf8fe.html/%E8%86%A8%E8%83%80%E5%90%8E.png" alt="&#39;膨胀后&#39;"></p>
+<h3 id="替换背景"><a href="#替换背景" class="headerlink" title="替换背景"></a>替换背景</h3><p>一旦替换模板比较准确,人物背景抠图就比较容易了.下面是背景图:</p>
+<p><img src="/posts/10cdf8fe.html/%E8%83%8C%E6%99%AF%E5%9B%BE.png" alt="&#39;背景图&#39;"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">n_row,n_col = dilate_img.shape</span><br><span class="line"></span><br><span class="line">start_coor = [<span class="number">10</span>,<span class="number">10</span>]</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> range(n_row):</span><br><span class="line">    <span class="keyword">for</span> col <span class="keyword">in</span> range(n_col):</span><br><span class="line">        <span class="keyword">if</span> dilate_img[row][col] == <span class="number">255</span>:</span><br><span class="line">            back_img[start_coor[<span class="number">0</span>] + row][start_coor[<span class="number">1</span>] + col] = blue_photo[row][col]</span><br><span class="line"></span><br><span class="line">plt.imshow(back_img)</span><br></pre></td></tr></table></figure>
+
+<p>根据模板替换后:</p>
+<p><img src="/posts/10cdf8fe.html/%E6%9B%BF%E6%8D%A2%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87-1580097685097.png" alt="&#39;人物背景抠图后&#39;"></p>
+<p>最后根据原有的图片尺寸切割出结果图像就可以实现替换了.</p>
+<h2 id="多图测试"><a href="#多图测试" class="headerlink" title="多图测试"></a>多图测试</h2><p>网上爬取了十张大小不一图像测试,缩放到200*150(如有侵权请告知,谢谢).</p>
+<p>原图像:</p>
+<p><img src="/posts/10cdf8fe.html/%E6%95%88%E6%9E%9C%E5%8E%9F%E5%9B%BE%E5%83%8F-1580099162567.png" alt></p>
+<p>替换后:</p>
+<p><img src="/posts/10cdf8fe.html/%E6%95%88%E6%9E%9C%E5%9B%BE-1580099178206.png" alt></p>
+]]></content>
+      <categories>
+        <category>图像处理</category>
+      </categories>
+      <tags>
+        <tag>Demo</tag>
+        <tag>原创</tag>
+        <tag>图像处理</tag>
+      </tags>
+  </entry>
+</search>
