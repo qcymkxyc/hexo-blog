@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>零散知识总结</title>
+    <url>/posts/88a0752d.html/</url>
+    <content><![CDATA[<h2 id="FAR以及FRR"><a href="#FAR以及FRR" class="headerlink" title="FAR以及FRR"></a>FAR以及FRR</h2><h3 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h3><blockquote>
+<ul>
+<li>FAR和FRR的全分别叫什么</li>
+<li>FAR和FRR表示什么意义</li>
+<li>FAR和FRR的如何计算</li>
+</ul>
+</blockquote>
+<h3 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h3><blockquote>
+<p>FAR和FRR是做指纹识别、人脸识别、手写识别等的常用指标，他们的全名如下</p>
+<ul>
+<li><p>误识率（FAR，false acceptance rate）</p>
+</li>
+<li><p>拒识率（FRR，false rejection rate）</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="计算方式"><a href="#计算方式" class="headerlink" title="计算方式"></a>计算方式</h3><p>对于匹配的结果又以下几种可能：</p>
+<p><img src="/posts/88a0752d.html/F:%5Czq%5Cblog%5Csource_posts%5C%E9%9B%B6%E9%A3%9F%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93%5C%E6%8C%87%E7%BA%B9%E5%8C%B9%E9%85%8D-1584601149727.png" alt></p>
+<p>其中，<em>=&gt;</em>表示模型的识别结果。</p>
+<p>$$<br>误识率（FAR）=\frac{不同的人=&gt;相同的人}{（不同的人=&gt;相同的人） + （不同的人 =&gt;不同的人）}<br>$$</p>
+<p>$$<br>拒识率（FRR）=\frac{相同的人=&gt;不同的人}{（相同的人=&gt;不同的人+相同的人=&gt;相同的人）}<br>$$</p>
+<h3 id="表示的意义"><a href="#表示的意义" class="headerlink" title="表示的意义"></a>表示的意义</h3><blockquote>
+<p>误识率（FAR）：<strong>度量的是他人可以冒充本人的程度</strong>，这个值越高，表示他人模仿本人更容易</p>
+<p>拒识率（FRR）：度量的是对本人一致性的衡量</p>
+</blockquote>
+<p><strong>在实际项目中，通常误识率比拒识率重要</strong>，因为拒识率即使较高，在指纹识别时可以多打几次。但若误识率较高，他人就能轻易冒充本人的指纹，所造成的麻烦会大得多。</p>
+]]></content>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>指标计算</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>关于numpy中cov函数的理解</title>
     <url>/posts/b27eab0d.html/</url>
     <content><![CDATA[]]></content>
