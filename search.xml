@@ -1,6 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>对Pearson，Spearman，协方差等相关性的总结</title>
+    <url>/posts/75634b1e.html/</url>
+    <content><![CDATA[<h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><blockquote>
+<ol>
+<li>在numpy中协方差矩阵是以行计算还是以列计算</li>
+<li>在numpy中计算协方差是有偏的还是无偏的</li>
+<li>Pearson相关度和协方差的区别</li>
+<li>什么时候适合用spearman相关度</li>
+<li>spearman相似度计算的流程</li>
+</ol>
+</blockquote>
+<h2 id="协方差"><a href="#协方差" class="headerlink" title="协方差"></a>协方差</h2><p>首先说最简单的——协方差，协方差的计算比较简单：<br>$$<br>Cov(x,y)=E[(x-\overline{x})\cdot(y-\overline{y})]<br>$$<br>或者将 $x$ 和$y$的协方差表示为,设$x$和$y$均为<strong>维度为n的向量</strong>，则两个向量的协方差可以表示为：<br>$$<br>Cov(x,y)=\frac{1}{n}\sum_{i=1}^{n}{(x_i-\overline{x})(y_i-\overline{y})}<br>$$<br>对于一个矩阵如何计算向量呢，在numpy中，是将矩阵<strong>以行为单位看成是一个feature</strong>（即一行一个feature），计算相关性（<strong>所以，在计算特征的相关度时需要transform一下</strong>）。并且，在numpy中计算方差基本都是使用无偏估计（也就是自由度为1）。下面是演示代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">x = np.arange(<span class="number">12</span>).reshape(<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line">print(np.cov(x))</span><br></pre></td></tr></table></figure>
+
+<p>结果为：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">[[<span class="number">1.66666667</span> <span class="number">1.66666667</span> <span class="number">1.66666667</span>]</span><br><span class="line"> [<span class="number">1.66666667</span> <span class="number">1.66666667</span> <span class="number">1.66666667</span>]</span><br><span class="line"> [<span class="number">1.66666667</span> <span class="number">1.66666667</span> <span class="number">1.66666667</span>]]</span><br></pre></td></tr></table></figure>
+
+<p>总结一下：</p>
+<ol>
+<li>numpy的协方差矩阵计算是以行为单位计算</li>
+<li>在计算协方差时是用$n-1$计算的</li>
+</ol>
+<h2 id="Pearson相关性"><a href="#Pearson相关性" class="headerlink" title="Pearson相关性"></a>Pearson相关性</h2><p><strong>Pearson相关度可以看成是归一化后的协方差</strong>，公式为：<br>$$<br>Pearson_correlation = \frac{cov(x,y)}{\sqrt{cov(x,x)*cov(y,y)}}<br>$$</p>
+<h2 id="Spearman相关性"><a href="#Spearman相关性" class="headerlink" title="Spearman相关性"></a>Spearman相关性</h2><blockquote>
+<p> Spearman主要是用于测量两个时间距离的相似度，因为如果用Pearson相似度测量两个时间序列的相似度，数字的序列性将无法体现。</p>
+</blockquote>
+<h3 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h3><ol>
+<li>对两个序列（向量）进行排序，获取每个数字在序列中的个数，例如$x=[12,2,7,90]$得到的结果为$rankx=[3,1,2,4]$</li>
+<li>对两个序列排序的结果进行pearson相似度的计算</li>
+</ol>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<ul>
+<li><a href="https://www.cnblogs.com/weiyinfu/p/10693445.html" target="_blank" rel="noopener">https://www.cnblogs.com/weiyinfu/p/10693445.html</a></li>
+<li><a href="https://blog.csdn.net/lambsnow/article/details/79972145" target="_blank" rel="noopener">https://blog.csdn.net/lambsnow/article/details/79972145</a></li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>相似度</tag>
+        <tag>距离度量</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>对曼哈顿、马氏距离、闵可夫斯基距离的总结</title>
+    <url>/posts/348aa22b.html/</url>
+    <content><![CDATA[<h2 id="Queston"><a href="#Queston" class="headerlink" title="Queston"></a>Queston</h2><blockquote>
+<ol>
+<li>欧氏距离和曼哈顿距离的在几何上的区别</li>
+</ol>
+</blockquote>
+<h2 id="闵可夫斯基距离"><a href="#闵可夫斯基距离" class="headerlink" title="闵可夫斯基距离"></a>闵可夫斯基距离</h2><p>曼哈顿距离和欧式距离可以看成是特殊的闵可夫斯基距离。</p>
+<p>设有两个向量$P=(x_1,x_2,…,x_n)$和$Q=(y_1,y_2,..,y_n)$,则两个向量的欧式距离和曼哈顿距离可以分别表示为：<br>$$<br>\left(\sum_{i=1}^{n}{(x_i-y_i)}^2\right)^{\frac{1}{2}}<br>$$</p>
+<p>$$<br>\sum_{i=1}^{n}{|x_i-y_i|}<br>$$</p>
+<p>而闵可夫斯基距离表示为：<br>$$<br>\left(\sum_{i=1}^{n}{|x_i-y_i|}^p\right)^{\frac{1}{p}}<br>$$<br>所以，欧式距离和曼哈顿距离可以表示成特殊的闵可夫斯基距离，关于曼哈顿距离和欧氏距离的区别网上有一张形象的图，如下图所示：</p>
+<p><img src="/posts/348aa22b.html/20140423145904625.jpg" alt></p>
+<p><strong>图中，绿线表示欧氏距离，红蓝黄三条线表示曼哈顿距离</strong></p>
+<h2 id="马氏距离"><a href="#马氏距离" class="headerlink" title="马氏距离"></a>马氏距离</h2><blockquote>
+<p>马氏距离可以看成是欧式距离的一种改良，他在欧氏距离的基础上考虑了特征（维度）的相关性，对于数据集的距离衡量也更加合理。</p>
+</blockquote>
+<p>对于数据集中的两个点，A和B。A和B对于聚点中心的欧氏距离都相同，但可以明显的看出A点是一个离群点，而B不是。</p>
+<p><img src="/posts/348aa22b.html/v2-3cee35b79d272dda86e2604c160934ee_720w.jpg" alt></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<ul>
+<li><p><a href="https://blog.csdn.net/eric41050808/article/details/24365765" target="_blank" rel="noopener">https://blog.csdn.net/eric41050808/article/details/24365765</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/5706a108a0c6" target="_blank" rel="noopener">https://www.jianshu.com/p/5706a108a0c6</a></p>
+</li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/46626607" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/46626607</a></p>
+</li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>距离度量</tag>
+        <tag>指标</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>零散知识总结</title>
     <url>/posts/88a0752d.html/</url>
     <content><![CDATA[<h2 id="FAR以及FRR"><a href="#FAR以及FRR" class="headerlink" title="FAR以及FRR"></a>FAR以及FRR</h2><h3 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h3><blockquote>
@@ -37,11 +123,6 @@
         <tag>机器学习</tag>
         <tag>指标计算</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>关于numpy中cov函数的理解</title>
-    <url>/posts/b27eab0d.html/</url>
-    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>Hough变换</title>
@@ -85,8 +166,8 @@
         <category>图像处理</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>图像处理</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -152,8 +233,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>距离</tag>
         <tag>机器学习</tag>
+        <tag>距离</tag>
       </tags>
   </entry>
   <entry>
@@ -623,9 +704,9 @@
         <category>目标检测</category>
       </categories>
       <tags>
+        <tag>目标检测</tag>
         <tag>Demo</tag>
         <tag>原创</tag>
-        <tag>目标检测</tag>
       </tags>
   </entry>
   <entry>
@@ -655,8 +736,8 @@
         <category>目标检测</category>
       </categories>
       <tags>
-        <tag>原创</tag>
         <tag>目标检测</tag>
+        <tag>原创</tag>
       </tags>
   </entry>
   <entry>
@@ -672,9 +753,9 @@
         <category>目标跟踪</category>
       </categories>
       <tags>
-        <tag>目标跟踪</tag>
         <tag>Demo</tag>
         <tag>原创</tag>
+        <tag>目标跟踪</tag>
       </tags>
   </entry>
   <entry>
@@ -774,9 +855,9 @@ $$
         <category>目标检测</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
-        <tag>原创</tag>
         <tag>目标检测</tag>
+        <tag>原创</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -822,8 +903,8 @@ $$
         <category>目标检测</category>
       </categories>
       <tags>
-        <tag>原创</tag>
         <tag>目标检测</tag>
+        <tag>原创</tag>
       </tags>
   </entry>
   <entry>
@@ -1295,8 +1376,8 @@ $$
         <category>目标检测</category>
       </categories>
       <tags>
-        <tag>原创</tag>
         <tag>目标检测</tag>
+        <tag>原创</tag>
       </tags>
   </entry>
   <entry>
