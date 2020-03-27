@@ -91,7 +91,7 @@
 <meta property="og:image" content="http://blog.zhangqi2019.top/posts/5ca973ed.html/passthrough2.jpg">
 <meta property="og:image" content="http://blog.zhangqi2019.top/posts/5ca973ed.html/WordTree.png">
 <meta property="article:published_time" content="2019-10-29T02:37:40.000Z">
-<meta property="article:modified_time" content="2020-03-27T01:40:45.421Z">
+<meta property="article:modified_time" content="2020-03-27T01:50:51.787Z">
 <meta property="article:author" content="拍栏听雨">
 <meta property="article:tag" content="目标检测，机器学习">
 <meta name="twitter:card" content="summary">
@@ -441,10 +441,10 @@
 </li>
 <li><p>约束预测边框位置</p>
 <blockquote>
-<p>V1 预测的Box中随意,中心可以是任意位置,者造成训练时尤其是初期不稳定,V2在位置上包一层sigmoid函数,是的中心落在Feature Map的方框内,这样更稳定.</p>
+<p>V1 预测的Box中随意,中心可以是任意位置,者造成训练时尤其是初期不稳定,V2在位置上包一层$sigmoid$函数,是的中心落在Feature Map的方框内,这样更稳定.</p>
 </blockquote>
 </li>
-<li><p>细分类特征(即加入PassThrough层)</p>
+<li><p>细分类特征(即加入Pass Through层)</p>
 <blockquote>
 <p>Pass Through层类似做步数为2的Pooling,按照相同位置组合成4个块,最后再在通道上叠加,比如上一层的输出为$26 \times 26 \times 512$,拆分成$4 \times 13 \times 13 \times 512$ 最后组成$13 \times 13 \times 3072$</p>
 </blockquote>
@@ -458,7 +458,7 @@
 </li>
 </ol>
 <h2 id="Faster"><a href="#Faster" class="headerlink" title="Faster:"></a>Faster:</h2><p>采用Darknet-19网络结构</p>
-<h2 id="Stronger-YOLO-9000"><a href="#Stronger-YOLO-9000" class="headerlink" title="Stronger(YOLO 9000)"></a>Stronger(YOLO 9000)</h2><p>为了能识别9000个目标,构建了一个WordTree,与一般的softmax不同的是类别本身和气父节点均需标记为1.比如Dog,在Animal位置也需标记为1.</p>
+<h2 id="Stronger-YOLO-9000"><a href="#Stronger-YOLO-9000" class="headerlink" title="Stronger(YOLO 9000)"></a>Stronger(YOLO 9000)</h2><p>为了能识别9000个目标,构建了一个WordTree,与一般的$softmax$不同的是类别本身和气父节点均需标记为1.比如Dog,在Animal位置也需标记为1.</p>
 <p><img src="/posts/5ca973ed.html/WordTree.png" alt="&#39;WordTree&#39;"></p>
 <p>在预测时,一个类别的概率为根节点到该节点所有概率的乘积,如<br>$$<br>P(Hunting Dog)=p(Hunting Dog|Dog, Animal)P(Dog| Animal)<br>$$<br>其中,由于Animal处于根节点有$P(Animal)=1$</p>
 <p>注:在实际计算绝对概率时,并不会真的计算每一个子节点的概率,而是采用贪婪算法,当从根节点项子节点走时,如果小于阈值,则不在向下走了.</p>
