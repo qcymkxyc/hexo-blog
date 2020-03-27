@@ -33,7 +33,10 @@
 <h3 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h3><p>用第三步得到的权重和$v^i$进行加权计算，如下图所示：</p>
 <p><img src="/posts/d9717497.html/11864412-c0d9670deb5a794c.png" alt></p>
 <p>所得的结果$b^1$就是$a^1$对应的结果</p>
-<h2 id="Multi-Head-Attention"><a href="#Multi-Head-Attention" class="headerlink" title="Multi Head Attention"></a>Multi Head Attention</h2><pre><code>&gt;之所以会用Multi Head，文中的理由是会分成多个子空间，可以让Multi Head关注不同方面的信息    </code></pre><p>Multi Head Attention的流程如下：</p>
+<h2 id="Multi-Head-Attention"><a href="#Multi-Head-Attention" class="headerlink" title="Multi Head Attention"></a>Multi Head Attention</h2><blockquote>
+<p>之所以会用Multi Head，文中的理由是会分成多个子空间，可以让Multi Head关注不同方面的信息    </p>
+</blockquote>
+<p>Multi Head Attention的流程如下：</p>
 <ul>
 <li><p>Multi Head在之前$q^{i},k^i,v^i$的基础上再乘以$n$个矩阵（有多少个Head就乘以多少个矩阵），得到$q^{i,1},q^{i,2}…,q^{i,n}$(以$q^i$为例，其他相同)</p>
 </li>
