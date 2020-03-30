@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="机器学习,目标检测,计算机视觉" />
+  <meta name="keywords" content="机器学习,计算机视觉,图像处理," />
 
 
 
@@ -81,17 +81,21 @@
 
 
 
-<meta name="description" content="这是拍栏听雨的hexo个人博客, 包含各种技术记录和生活分享~">
-<meta property="og:type" content="website">
-<meta property="og:title" content="拍栏听雨个人博客">
-<meta property="og:url" content="http://blog.zhangqi2019.top/archives/2019/09/index.html">
+<meta name="description" content="Question Haar特征的流程 积分图的作用是什么 用分类器做目标检测的思路 为何人脸识别会用Adaboost  Haar特征Haar特征的流程Haar特征实际上非常简单：  即用一个类似于卷积层的模板滑过图片，用白色区域的和减去黑色区域的和即为Haar特征  但在Haar特征的模板多种多样，不同的模板有不同的作用，如下图所示：  上图中A和B检验的是竖直和水平的边缘，C模板是检测一条线模板">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Haar特征">
+<meta property="og:url" content="http://blog.zhangqi2019.top/posts/da5401e0.html/index.html">
 <meta property="og:site_name" content="拍栏听雨个人博客">
-<meta property="og:description" content="这是拍栏听雨的hexo个人博客, 包含各种技术记录和生活分享~">
+<meta property="og:description" content="Question Haar特征的流程 积分图的作用是什么 用分类器做目标检测的思路 为何人脸识别会用Adaboost  Haar特征Haar特征的流程Haar特征实际上非常简单：  即用一个类似于卷积层的模板滑过图片，用白色区域的和减去黑色区域的和即为Haar特征  但在Haar特征的模板多种多样，不同的模板有不同的作用，如下图所示：  上图中A和B检验的是竖直和水平的边缘，C模板是检测一条线模板">
+<meta property="og:image" content="http://blog.zhangqi2019.top/posts/da5401e0.html/1328274-20180802215641326-115308739.png">
+<meta property="article:published_time" content="2020-03-30T09:08:48.000Z">
+<meta property="article:modified_time" content="2020-03-30T09:10:06.043Z">
 <meta property="article:author" content="拍栏听雨">
 <meta property="article:tag" content="机器学习">
-<meta property="article:tag" content="目标跟踪">
-<meta property="article:tag" content="目标检测">
+<meta property="article:tag" content="计算机视觉">
+<meta property="article:tag" content="图像处理">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.zhangqi2019.top/posts/da5401e0.html/1328274-20180802215641326-115308739.png">
 
 
 
@@ -121,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://blog.zhangqi2019.top/archives/2019/09/"/>
+  <link rel="canonical" href="http://blog.zhangqi2019.top/posts/da5401e0.html/"/>
 
 
 
 
 
-  <title>归档 | 拍栏听雨个人博客</title>
+  <title>Haar特征 | 拍栏听雨个人博客</title>
   
 
 
@@ -156,7 +160,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
 	  <div class="headband"></div>
 
 	  <a href="https://github.com/qcymkxyc" target="_blank" rel="noopener">
@@ -298,74 +302,252 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        嗯..! 目前共计 20 篇日志。 继续努力。
-      </span>
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h2 class="archive-year" id="archive-year-2019">2019</h2>
-          </div>
-        
-        
-
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.zhangqi2019.top/posts/da5401e0.html/">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="拍栏听雨">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="拍栏听雨个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/posts/10cdf8fe.html/" itemprop="url">
-              
-                <span itemprop="name">人物背景抠图</span>
-              
-            </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">Haar特征</h2>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-09-27T11:01:54+08:00"
-              content="2019-09-27" >
-          09-27
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-30T17:08:48+08:00">
+                2020-03-30
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">目标检测</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/da5401e0.html/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/posts/da5401e0.html/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ul>
+<li>Haar特征的流程</li>
+<li>积分图的作用是什么</li>
+<li>用分类器做目标检测的思路</li>
+<li>为何人脸识别会用Adaboost</li>
+</ul>
+<h2 id="Haar特征"><a href="#Haar特征" class="headerlink" title="Haar特征"></a>Haar特征</h2><h3 id="Haar特征的流程"><a href="#Haar特征的流程" class="headerlink" title="Haar特征的流程"></a>Haar特征的流程</h3><p>Haar特征实际上非常简单：</p>
+<blockquote>
+<p>即用一个类似于卷积层的模板滑过图片，用白色区域的和减去黑色区域的和即为Haar特征</p>
+</blockquote>
+<p>但在Haar特征的模板多种多样，不同的模板有不同的作用，如下图所示：</p>
+<p><img src="/posts/da5401e0.html/1328274-20180802215641326-115308739.png" alt></p>
+<p>上图中A和B检验的是竖直和水平的边缘，C模板是检测一条线模板</p>
+<h3 id="积分图"><a href="#积分图" class="headerlink" title="积分图"></a>积分图</h3><blockquote>
+<p> 积分图的作用是加快Haar特征的计算的</p>
+</blockquote>
+<p>因为在计算Haar特征时，如果不用积分图，一个区域的像素点会相加很多次，这在效率上很不划算，所以就会计算积分图（一句话，用空间换时间）</p>
+<p>至于具体如何做，就是从左上角往右下角叠加</p>
+<h2 id="关于基于Adaboost的人脸检测"><a href="#关于基于Adaboost的人脸检测" class="headerlink" title="关于基于Adaboost的人脸检测"></a>关于基于Adaboost的人脸检测</h2><h3 id="基于分类器的检测算法的大体流程"><a href="#基于分类器的检测算法的大体流程" class="headerlink" title="基于分类器的检测算法的大体流程"></a>基于分类器的检测算法的大体流程</h3><p>众所周知，分类器是不能直接进行目标检测的。用分类器做目标检测的大体思路是：先用不同大小的Bounding Box扫过图像（类似于穷举），再用分类器对Bounding Box内的图像进行判断，判断该Bounding Box中是否有目标（2分类问题）</p>
+<p>在训练分类器时，有Ground Truth即标为正样本，无Ground Truth标为负样本</p>
+<h3 id="Haar-Adaboost级联人脸识别"><a href="#Haar-Adaboost级联人脸识别" class="headerlink" title="Haar +Adaboost级联人脸识别"></a>Haar +Adaboost级联人脸识别</h3><p>该流程分为两部分：</p>
+<ul>
+<li>用<strong>不同大小，不同形态</strong>的模板对图片提取Haar特征</li>
+<li>用Adaboost模型基于上述的目标检测思路进行识别</li>
+</ul>
+<p>那为什么这么多分类器会选Adaboost？</p>
+<blockquote>
+<p>主要还是因为效率问题。由于在第一步会提取非常多的Haar特征，如果后续的分类器速度太慢，效率非常低，识别速度会很慢；如果用复杂度较低的模型，识别效果又会非常不理想。所以，这里的识别器要兼顾两点：</p>
+<ul>
+<li>速度较快</li>
+<li>识别效果好</li>
+</ul>
+<p>能很好的兼顾以上两点的只有级联分类器（大神就是大神）</p>
+<ul>
+<li>在该级联分类器的前面，都是一些较为简单但效果很差的模型（或许只比猜好一点点），简单模型的好处是速度快，它可以过滤掉明显不是目标的样本，这样，数据就不会往后传了（这就可以保证速度快的特点）</li>
+<li>随着数据流逐渐往后走，模型会相对的复杂，此时识别效果会上升。并且，由于Adaboost本身也是一个集成模型，随着分类器的增多，识别的精度也会上升，这就保证了识别的精度（此时可以保证识别效果）</li>
+</ul>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<ul>
+<li><a href="https://www.cnblogs.com/zyly/p/9410563.html" target="_blank" rel="noopener">https://www.cnblogs.com/zyly/p/9410563.html</a></li>
+<li><a href="https://blog.csdn.net/liulina603/article/details/8617281" target="_blank" rel="noopener">https://blog.csdn.net/liulina603/article/details/8617281</a></li>
+</ul>
+</blockquote>
+
+      
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
+          
+            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" rel="tag"><i class="fa fa-tag"></i> 计算机视觉</a>
+          
+            <a href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> 图像处理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/46a23.html/" rel="next" title="对JS散度的KL散度总结以及实现">
+                <i class="fa fa-chevron-left"></i> 对JS散度的KL散度总结以及实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
 
 
           </div>
@@ -373,6 +555,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -393,8 +582,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -499,6 +697,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Haar特征"><span class="nav-number">2.</span> <span class="nav-text">Haar特征</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Haar特征的流程"><span class="nav-number">2.1.</span> <span class="nav-text">Haar特征的流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#积分图"><span class="nav-number">2.2.</span> <span class="nav-text">积分图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于基于Adaboost的人脸检测"><span class="nav-number">3.</span> <span class="nav-text">关于基于Adaboost的人脸检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于分类器的检测算法的大体流程"><span class="nav-number">3.1.</span> <span class="nav-text">基于分类器的检测算法的大体流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Haar-Adaboost级联人脸识别"><span class="nav-number">3.2.</span> <span class="nav-text">Haar +Adaboost级联人脸识别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -644,6 +858,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
