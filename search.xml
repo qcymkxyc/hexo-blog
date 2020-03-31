@@ -14,7 +14,7 @@
 <p>即用一个类似于卷积层的模板滑过图片，用白色区域的和减去黑色区域的和即为Haar特征</p>
 </blockquote>
 <p>但在Haar特征的模板多种多样，不同的模板有不同的作用，如下图所示：</p>
-<p><img src="/posts/da5401e0.html/1328274-20180802215641326-115308739.png" alt></p>
+<p><img src="/Haar%E7%89%B9%E5%BE%81/1328274-20180802215641326-115308739.png" alt></p>
 <p>上图中A和B检验的是竖直和水平的边缘，C模板是检测一条线模板</p>
 <h3 id="积分图"><a href="#积分图" class="headerlink" title="积分图"></a>积分图</h3><blockquote>
 <p> 积分图的作用是加快Haar特征的计算的</p>
@@ -68,7 +68,7 @@
 <h2 id="KL散度"><a href="#KL散度" class="headerlink" title="KL散度"></a>KL散度</h2><blockquote>
 <p>KL( Kullback–Leibler divergence)散度又名相对熵（relative entropy)，用来衡量两个分布之间的距离</p>
 </blockquote>
-<p>公式为：<br>$$<br>D(P||Q)=\sum_{i\in{X}}{P(i)[log(\frac{P(i)}{Q(i)}))]}<br>$$<br>如果是P和Q为连续分布，则公式为：<br>$$<br>D(P||Q)=\int_x{P(x)<em>\left[log(\frac{P(x)}{Q(x)}\right],{\rm d}x}<br>$$<br>*</em>KL散度的性质**</p>
+<p>公式为：<br>$$<br>D(P||Q)=\sum_{i\in{X}}{P(i)[log(\frac{P(i)}{Q(i)}))]}<br>$$<br>如果是P和Q为连续分布，则公式为：<br>$$<br>D(P||Q)=\int_x{P(x)<em>\left[log(\frac{P(x)}{Q(x)}\right]{\rm d}x}<br>$$<br>*</em>KL散度的性质**</p>
 <ul>
 <li><strong>KL散度不具有对称性</strong>，即$D(P||Q)\neq D(Q||P)$</li>
 <li>KL散度不满足三角不等式，即$D(A||B) &gt; D(A||C)+D(C||B)$</li>
@@ -125,20 +125,20 @@
 <li>在Seq-to-Seq模型的翻译任务中，在Decoder部分，如果用LSTM层，Bleu Score会因为句子的增长而降低。Attention机制可以避免这个问题（出自NG DeepLearning课程）</li>
 </ul>
 <p><strong>只要能用Seq2Seq的地方，都可以用Attention机制代替</strong>，如下图所示：</p>
-<img src="/posts/d9717497.html/11864412-859dc652d45bcb8a.png" style="zoom: 80%;">
+<img src="/Transformer模型总结/11864412-859dc652d45bcb8a.png" style="zoom: 80%;">
 
 
 
 <h2 id="基本Attention机制的流程"><a href="#基本Attention机制的流程" class="headerlink" title="基本Attention机制的流程"></a>基本Attention机制的流程</h2><h3 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h3><p>Attention机制先将$a^i$输入乘以三个个权重，得到一个三个值$q^i,k^i,v^i$,如下图所示：</p>
-<img src="/posts/d9717497.html/11864412-3af6168784972c3d.png" style="zoom:80%;">
+<img src="/Transformer模型总结/11864412-3af6168784972c3d.png" style="zoom:80%;">
 
 <h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><p>计算$q^i$和$k^j$的内积，得到一个值$a_{i,j}$,</p>
-<img src="/posts/d9717497.html/11864412-162d501ebec07596.png" style="zoom:80%;">
+<img src="/Transformer模型总结/11864412-162d501ebec07596.png" style="zoom:80%;">
 
 <h3 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h3><p>将$a_{i,j}$,通过一个$softmax$函数<strong>归一化</strong>，得到归一化后的结果$\hat{a_{i,j}}$,该结果作为权重，如下图所示：</p>
-<p><img src="/posts/d9717497.html/11864412-7ae69a8fe1679bab.png" alt></p>
+<p><img src="/Transformer%E6%A8%A1%E5%9E%8B%E6%80%BB%E7%BB%93/11864412-7ae69a8fe1679bab.png" alt></p>
 <h3 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h3><p>用第三步得到的权重和$v^i$进行加权计算，如下图所示：</p>
-<p><img src="/posts/d9717497.html/11864412-c0d9670deb5a794c.png" alt></p>
+<p><img src="/Transformer%E6%A8%A1%E5%9E%8B%E6%80%BB%E7%BB%93/11864412-c0d9670deb5a794c.png" alt></p>
 <p>所得的结果$b^1$就是$a^1$对应的结果，后面的$b^2$,$b^3$等以此类推</p>
 <h2 id="Multi-Head-Attention"><a href="#Multi-Head-Attention" class="headerlink" title="Multi Head Attention"></a>Multi Head Attention</h2><blockquote>
 <p>之所以会有Multi Head，文中的理由是会分成多个子空间，可以让Multi Head关注不同方面的信息    </p>
@@ -153,7 +153,7 @@
 </li>
 </ul>
 <p>如下图所示：</p>
-<p><img src="/posts/d9717497.html/11864412-7c5882bac6e86c4a.png" alt></p>
+<p><img src="/Transformer%E6%A8%A1%E5%9E%8B%E6%80%BB%E7%BB%93/11864412-7c5882bac6e86c4a.png" alt></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
 <ul>
 <li><a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">Self-Attention机制的论文</a></li>
@@ -233,13 +233,13 @@
 <p>设有两个向量$P=(x_1,x_2,…,x_n)$和$Q=(y_1,y_2,..,y_n)$,则两个向量的欧式距离和曼哈顿距离可以分别表示为：<br>$$<br>\left(\sum_{i=1}^{n}{(x_i-y_i)}^2\right)^{\frac{1}{2}}<br>$$</p>
 <p>$$<br>\sum_{i=1}^{n}{|x_i-y_i|}<br>$$</p>
 <p>而闵可夫斯基距离表示为：<br>$$<br>\left(\sum_{i=1}^{n}{|x_i-y_i|}^p\right)^{\frac{1}{p}}<br>$$<br>所以，欧式距离和曼哈顿距离可以表示成特殊的闵可夫斯基距离，关于曼哈顿距离和欧氏距离的区别网上有一张形象的图，如下图所示：</p>
-<p><img src="/posts/348aa22b.html/20140423145904625.jpg" alt></p>
+<p><img src="/%E5%AF%B9%E6%9B%BC%E5%93%88%E9%A1%BF%E3%80%81%E9%A9%AC%E6%B0%8F%E8%B7%9D%E7%A6%BB%E3%80%81%E9%97%B5%E5%8F%AF%E5%A4%AB%E6%96%AF%E5%9F%BA%E8%B7%9D%E7%A6%BB%E7%9A%84%E6%80%BB%E7%BB%93/20140423145904625.jpg" alt></p>
 <p><strong>图中，绿线表示欧氏距离，红蓝黄三条线表示曼哈顿距离</strong></p>
 <h2 id="马氏距离"><a href="#马氏距离" class="headerlink" title="马氏距离"></a>马氏距离</h2><blockquote>
 <p>马氏距离可以看成是欧式距离的一种改良，他在欧氏距离的基础上考虑了特征（维度）的相关性，对于数据集的距离衡量也更加合理。</p>
 </blockquote>
 <p>对于数据集中的两个点，A和B。A和B对于聚点中心的欧氏距离都相同，但可以明显的看出A点是一个离群点，而B不是。</p>
-<p><img src="/posts/348aa22b.html/v2-3cee35b79d272dda86e2604c160934ee_720w.jpg" alt></p>
+<p><img src="/%E5%AF%B9%E6%9B%BC%E5%93%88%E9%A1%BF%E3%80%81%E9%A9%AC%E6%B0%8F%E8%B7%9D%E7%A6%BB%E3%80%81%E9%97%B5%E5%8F%AF%E5%A4%AB%E6%96%AF%E5%9F%BA%E8%B7%9D%E7%A6%BB%E7%9A%84%E6%80%BB%E7%BB%93/v2-3cee35b79d272dda86e2604c160934ee_720w.jpg" alt></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
 <ul>
 <li><p><a href="https://blog.csdn.net/eric41050808/article/details/24365765" target="_blank" rel="noopener">https://blog.csdn.net/eric41050808/article/details/24365765</a></p>
@@ -280,7 +280,7 @@
 </ul>
 </blockquote>
 <h3 id="计算方式"><a href="#计算方式" class="headerlink" title="计算方式"></a>计算方式</h3><p>对于匹配的结果又以下几种可能：</p>
-<p><img src="/posts/88a0752d.html/%E6%8C%87%E7%BA%B9%E5%8C%B9%E9%85%8D-1584601149727.png" alt></p>
+<p><img src="/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/%E6%8C%87%E7%BA%B9%E5%8C%B9%E9%85%8D-1584601149727.png" alt></p>
 <p>其中，<em>=&gt;</em>表示模型的识别结果。</p>
 <p>$$<br>误识率（FAR）=\frac{不同的人=&gt;相同的人}{（不同的人=&gt;相同的人） + （不同的人 =&gt;不同的人）}<br>$$</p>
 <p>$$<br>拒识率（FRR）=\frac{相同的人=&gt;不同的人}{（相同的人=&gt;不同的人+相同的人=&gt;相同的人）}<br>$$</p>
@@ -308,20 +308,20 @@
 <li>霍夫变换的大体流程</li>
 </ol>
 <h2 id="霍夫变换原理"><a href="#霍夫变换原理" class="headerlink" title="霍夫变换原理"></a>霍夫变换原理</h2><p>对于笛卡尔坐标系中的一条线$y=kx+b$,可以转换成霍夫空间下的一个点（霍夫空间是以$k$和$b$为坐标），如下图所示：</p>
-<p><img src="/posts/e9f2d7e8.html/1085343-20170424185145272-8035578-1584177392001.png" alt></p>
+<p><img src="/Hough%E5%8F%98%E6%8D%A2/1085343-20170424185145272-8035578-1584177392001.png" alt></p>
 <p>那么，对于笛卡尔坐标系中的一个点$(x_1,y_1)$，则转换为霍夫空间下的一条线，如下图所示：</p>
-<p><img src="/posts/e9f2d7e8.html/1085343-20170424185846412-1947419957-1584177461604.png" alt></p>
+<p><img src="/Hough%E5%8F%98%E6%8D%A2/1085343-20170424185846412-1947419957-1584177461604.png" alt></p>
 <p><strong>它表示经过改点的所有直线</strong></p>
 <p>那么，在笛卡尔坐标系中经过两点的直线，表现为在霍夫空间下两条直线的交点：</p>
-<p><img src="/posts/e9f2d7e8.html/1085343-20170424190504412-864862338-1584177533599.png" alt></p>
+<p><img src="/Hough%E5%8F%98%E6%8D%A2/1085343-20170424190504412-864862338-1584177533599.png" alt></p>
 <p>三点共线在霍夫空间中表现为三条线相交于一点：</p>
-<img src="/posts/e9f2d7e8.html/1085343-20170424213944022-348637873.png" style="zoom:80%;">
+<img src="/Hough变换/1085343-20170424213944022-348637873.png" style="zoom:80%;">
 
 <p><strong>再次引申，如果多个点共线，那么在Hough空间中表现为多条线相交于一点</strong></p>
 <p><strong>如果一条线是垂直于x轴的，那么该线在Hough空间中无法表示（此时为$\infty$）</strong>，所以这里将k和q表示的Hough空间转换为极坐标，如下：</p>
-<p><img src="/posts/e9f2d7e8.html/1085343-20170424215910740-145827126.png" alt></p>
+<p><img src="/Hough%E5%8F%98%E6%8D%A2/1085343-20170424215910740-145827126.png" alt></p>
 <p>同以<em>k</em>和<em>q</em> 组成的Hough空间，三点共线表示为三线相交，以下是两个Hough空间的对比图：</p>
-<p><img src="/posts/e9f2d7e8.html/1085343-20170424221329412-431224652-1584178146121.png" alt></p>
+<p><img src="/Hough%E5%8F%98%E6%8D%A2/1085343-20170424221329412-431224652-1584178146121.png" alt></p>
 <h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><ol>
 <li><p>首先，获取一个二值化图像</p>
 </li>
@@ -359,7 +359,7 @@
 <li>构造匹配矩阵</li>
 </ol>
 <p>设序列1$Q=q_1,q_2,…,q_n$,序列2$C=c_1,c_2,…,c_m$ ,其中$n\neq m$,然后构造一个$m\times n$的矩阵，矩阵中的值是$q_i$和$c_j$的距离（通常用欧式距离），如下图所示：</p>
-<p><img src="/posts/4df0af7c.html/20130620200852375-1584176187632.jpg" alt></p>
+<p><img src="/DTW%E8%B7%9D%E7%A6%BB/20130620200852375-1584176187632.jpg" alt></p>
 <ol start="2">
 <li>路径规划限制条件    </li>
 </ol>
@@ -375,7 +375,7 @@
 <li>单调性： 如果$w_{k-1}= (a’, b’)$，那么对于路径的下一个点$w_{k}=(a, b)$需要满足0&lt;=(a-a’)和0&lt;= (b-b’)。也就是说不能回头连接算距离</li>
 </ol>
 <p><strong>以上三个约束其实就一个目的，限定路径只能往这几个方向走，且只能走一步。</strong></p>
-<p><img src="/posts/4df0af7c.html/20130620200949125-1584176277643.jpg" alt></p>
+<p><img src="/DTW%E8%B7%9D%E7%A6%BB/20130620200949125-1584176277643.jpg" alt></p>
 </blockquote>
 <ol start="3">
 <li><p>路劲规划</p>
@@ -426,7 +426,7 @@
 <li><p>将图像切分block，比如切分成16*16</p>
 </li>
 <li><p>对每个block内以3*3为单位，提取LBP特征</p>
-<p>​    对比3*3的方格中周围的值和中间的值，如果周围的值大于中间的值，则表示为1，反之则表示为0，公式表示如下：<br>$$<br>img(i,j)=\begin{cases} 0, &amp; img(i,j)&gt;=img(center) \ 1, &amp; img(i,j)&lt;img(center)\end{cases}<br>$$<br><img src="/posts/edf1298.html/14596362-7ea1a8cd7c2757f7-1584175992695.png" alt></p>
+<p>​    对比3*3的方格中周围的值和中间的值，如果周围的值大于中间的值，则表示为1，反之则表示为0，公式表示如下：<br>$$<br>img(i,j)=\begin{cases} 0, &amp; img(i,j)&gt;=img(center) \ 1, &amp; img(i,j)&lt;img(center)\end{cases}<br>$$<br><img src="/LBP%E7%89%B9%E5%BE%81/14596362-7ea1a8cd7c2757f7-1584175992695.png" alt></p>
 <p>上述操作得到一个二进制表格，从左上角开始逆时针排列得到一个二进制数，将该二进制数转换为十进制数即为该cell的LBP特征</p>
 <blockquote>
 <p><strong>改进点：</strong>为了保证LBP特征的旋转不变性，转换为二进制特征的方式改为跳数，即如果上一个数和下一个数不同（即一个是0，一个是1），则算为1，否则为0，用公式表示为：</p>
@@ -466,7 +466,7 @@
 <blockquote>
 <p>相同类别间的距离尽可能的小，不同类别间的距离尽可能的大</p>
 </blockquote>
-<h3 id="网络结构图："><a href="#网络结构图：" class="headerlink" title="网络结构图："></a>网络结构图：</h3><img src="/posts/d5b27990.html/../../git/note_backup/Triple网络/1338991-20181213135951412-1275320373.png" style="zoom:80%;">
+<h3 id="网络结构图："><a href="#网络结构图：" class="headerlink" title="网络结构图："></a>网络结构图：</h3><img src="/../../../git/note_backup/Triple网络/1338991-20181213135951412-1275320373.png" style="zoom:80%;">
 
 <p><strong>输入解释</strong></p>
 <ul>
@@ -520,7 +520,7 @@
 <h3 id="主体思想"><a href="#主体思想" class="headerlink" title="主体思想"></a>主体思想</h3><blockquote>
 <p>样本通过网络编码，量化为一个向量，最后计算向量之间的相似度</p>
 </blockquote>
-<img src="/posts/e2e6b321.html/1338991-20181213123654582-1284082097.png" style="zoom:50%;">
+<img src="/Siamese网络/1338991-20181213123654582-1284082097.png" style="zoom:50%;">
 
 <p>图中，input 1和input 2是需要对比的两个输入，输入可以是图像，可以是文本，甚至可以是数字</p>
 <p>两个输入通过网络之后均形成一个向量，然后对比两个向量的相似程度<strong>（也就是Loss）</strong></p>
@@ -538,7 +538,7 @@
 </blockquote>
 <p>2-Channel的主体思想如下：</p>
 <p>将两个输入的图片合成一张，看成是有多个通道的图片，然后一起带入网络中。此时，<strong>两张图片就可以通过CNN一起卷积</strong>，卷积的结果最后代入后面的全连接层，最终输出一个结果。该结果为0表示相同，1表示不同。</p>
-<p><img src="/posts/e2e6b321.html/Siamese%E7%BD%91%E7%BB%9C%5C1338991-20181213130146077-1166762109.png" alt></p>
+<p><img src="/Siamese%E7%BD%91%E7%BB%9C%5C1338991-20181213130146077-1166762109.png" alt></p>
 <h3 id="Triple-Network"><a href="#Triple-Network" class="headerlink" title="Triple Network"></a>Triple Network</h3><blockquote>
 <p>既然Siamese网络是衡量两个样本间的相似度，Triple Network是衡量三个样本间的相似度</p>
 </blockquote>
@@ -741,15 +741,15 @@
     <url>/posts/cc52d48c.html/</url>
     <content><![CDATA[<h1 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h1><h2 id="当前效果"><a href="#当前效果" class="headerlink" title="当前效果"></a>当前效果</h2><p>本文章是对<a href="/posts/10cdf8fe.html/" title="人物背景抠图">人物背景抠图</a>的改进,先看效果图:</p>
 <p><strong>原图像:</strong></p>
-<p><img src="/posts/cc52d48c.html/%E6%95%88%E6%9E%9C%E5%8E%9F%E5%9B%BE%E5%83%8F-1580099162567.png" alt></p>
+<p><img src="/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE2/%E6%95%88%E6%9E%9C%E5%8E%9F%E5%9B%BE%E5%83%8F-1580099162567.png" alt></p>
 <p><strong>本次替换后:</strong></p>
-<p><img src="/posts/cc52d48c.html/%E6%94%B9%E8%BF%9B%E6%95%88%E6%9E%9C.png" alt></p>
+<p><img src="/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE2/%E6%94%B9%E8%BF%9B%E6%95%88%E6%9E%9C.png" alt></p>
 <h2 id="原效果"><a href="#原效果" class="headerlink" title="原效果"></a>原效果</h2><p>对比<a href="/posts/10cdf8fe.html/" title="人物背景抠图">人物背景抠图</a>中的效果:</p>
-<p><img src="/posts/cc52d48c.html/%E6%95%88%E6%9E%9C%E5%9B%BE-1580099178206.png" alt></p>
+<p><img src="/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE2/%E6%95%88%E6%9E%9C%E5%9B%BE-1580099178206.png" alt></p>
 <p>可以看到,针对原效果中结果不太好的有明显改进.例如第一行第四张图片,人物的头发处有许多的”空洞”,在改进后得到了填充;第二行第一张图片,原效果背景也有许多”空洞”,改进后有明显改善.</p>
 <h1 id="过程及思路"><a href="#过程及思路" class="headerlink" title="过程及思路"></a>过程及思路</h1><p>事实上,对于这个特定任务,分离前景和背景,前景对象有且仅有一个,从图(数据结构中的图)的角度上看,我只需要找到一个连通域即可,其他的连通域都可以看成是误识别的结果,应该合并成背景.并且,这个前景对应的连通域应该是最大的连通域.下面介绍过程:</p>
 <p>下面是对原图像进行掩膜后的结果(开运算后):</p>
-<p><img src="/posts/cc52d48c.html/%E5%BC%80%E8%BF%90%E7%AE%97%E7%BB%93%E6%9E%9C.png" alt></p>
+<p><img src="/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE2/%E5%BC%80%E8%BF%90%E7%AE%97%E7%BB%93%E6%9E%9C.png" alt></p>
 <p>可以看到一般效果较好的图片对应的掩膜结果都比较成型,且仅有一个连通域,而效果不好的有多个连通域,通常情况下,最大的连通域就是人物,所以,我们选择最大的连通域作为掩膜结果,下面以第一行第4张图片为例,在得到掩膜结果后我们对连通域编号,并计算每个连通域的大小:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 获取连通图并找出最大连通图</span></span><br><span class="line">contours,hierarchy = cv2.findContours(template_img,cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)</span><br><span class="line">areas = list()</span><br><span class="line"><span class="keyword">for</span> contour <span class="keyword">in</span> contours:</span><br><span class="line">    areas.append(cv2.contourArea(contour))</span><br><span class="line">max_contour_index = np.argmax(areas)</span><br><span class="line">print(<span class="string">"最大连通图: &#123;&#125;"</span>.format(max_contour_index))</span><br></pre></td></tr></table></figure>
 
@@ -757,14 +757,14 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">w,h = template_img.shape</span><br><span class="line">black_back = np.zeros(shape=(w,h,<span class="number">3</span>))</span><br><span class="line">plt.imshow(cv2.drawContours(black_back, contours, max_contour_index, (<span class="number">0</span>, <span class="number">255</span>, <span class="number">255</span>), <span class="number">1</span>))</span><br></pre></td></tr></table></figure>
 
 <p>下面是最大连通域对应的外边框:</p>
-<p><img src="/posts/cc52d48c.html/%E6%9C%80%E5%A4%A7%E8%BF%9E%E9%80%9A%E5%9F%9F.png" alt></p>
+<p><img src="/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE2/%E6%9C%80%E5%A4%A7%E8%BF%9E%E9%80%9A%E5%9F%9F.png" alt></p>
 <p>最大连通域中有许多背景空洞,我们需要填充:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">template_img = np.zeros(shape=template_img.shape)</span><br><span class="line">template_img = cv2.fillConvexPoly(template_img,contours[max_contour_index],(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>))</span><br></pre></td></tr></table></figure>
 
 <p>最终结果:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">r_img = replace_img(img,template_img,back_img)</span><br><span class="line">plt.imshow(r_img)</span><br></pre></td></tr></table></figure>
 
-<p><img src="/posts/cc52d48c.html/%E5%8D%95%E5%9B%BE%E6%B5%8B%E8%AF%95.png" alt></p>
+<p><img src="/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE2/%E5%8D%95%E5%9B%BE%E6%B5%8B%E8%AF%95.png" alt></p>
 <h1 id="问题及改进思路"><a href="#问题及改进思路" class="headerlink" title="问题及改进思路"></a>问题及改进思路</h1><h2 id="前景和背景边缘问题"><a href="#前景和背景边缘问题" class="headerlink" title="前景和背景边缘问题"></a>前景和背景边缘问题</h2><blockquote>
 <p>如上图,前景和背景是有明显的毛边的.事实上,在之前的步骤中,并没有利用边缘检测技术对边缘修正,或者,现在我们的前景和背景已经大致的分出来了,利用Graph Cut或Grab Cut算法来修正应该更加精准.</p>
 </blockquote>
@@ -777,9 +777,9 @@
         <category>图像处理</category>
       </categories>
       <tags>
+        <tag>图像处理</tag>
         <tag>Demo</tag>
         <tag>原创</tag>
-        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -801,7 +801,7 @@
         
 
 <p>FPS大概12左右(!-_- ,显卡1060)</p>
-<h3 id="测试集结果"><a href="#测试集结果" class="headerlink" title="测试集结果:"></a>测试集结果:</h3><p><img src="/posts/fa14c502.html/combine_image_result.jpg" alt></p>
+<h3 id="测试集结果"><a href="#测试集结果" class="headerlink" title="测试集结果:"></a>测试集结果:</h3><p><img src="/DogDetection/combine_image_result.jpg" alt></p>
 <p>上图中蓝色的框表示Ground Truth,红色的框表示Bounding Box</p>
 <h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>数据来自于ImageNet的<a href="http://vision.stanford.edu/aditya86/ImageNetDogs" target="_blank" rel="noopener">ImageNetDogs</a>,共有120个犬种,20580张图片</p>
 <p>由于这里仅是用于检测狗,所以我这里把所有的犬种合为一类,也就是说,class仅有dog一个标签,在yolo v3中对应一个logistic</p>
@@ -832,9 +832,9 @@
 <p>这里的Accuracy是每个Ground Truth和聚点的平均IOU</p>
 </blockquote>
 <p><strong>对应的9个Anchor Box散点图(没错,这真的是聚类的结果)</strong></p>
-<p><img src="/posts/fa14c502.html/AnchorBox%E8%81%9A%E7%B1%BB.png" alt></p>
+<p><img src="/DogDetection/AnchorBox%E8%81%9A%E7%B1%BB.png" alt></p>
 <h3 id="训练-1"><a href="#训练-1" class="headerlink" title="训练"></a>训练</h3><p>在台式机上跑了大概两天.但loss一直降不下来,一直维持在17左右.(我怀疑这可能和图片的质量有关,在测试集的示例可以看到,有些样本是没有标记框的,这可能导致loss降不下来,后面总结部分我会详细说明)</p>
-<p><img src="/posts/fa14c502.html/val_loss.png" alt></p>
+<p><img src="/DogDetection/val_loss.png" alt></p>
 <p>在训练后期,学习率调小至1e-8,但对loss都没什么影响,最多减小0.5左右</p>
 <h2 id="问题总结以及改进"><a href="#问题总结以及改进" class="headerlink" title="问题总结以及改进"></a>问题总结以及改进</h2><h3 id="关于Anchor-Box聚类"><a href="#关于Anchor-Box聚类" class="headerlink" title="关于Anchor Box聚类"></a>关于Anchor Box聚类</h3><blockquote>
 <p>很多博客上说Anchor Box的聚类对最终结果的影响不大,但是在这个数据集上,聚类的效果挺明显的(可能是数据集本身的差异),下面是用源生的yolo3下的Anchor Box(这个应该是VOC数据集的Anchor Box)训练的结果:</p>
@@ -855,9 +855,9 @@
 </ol>
 <blockquote>
 <p>这可能和数据本身的质量有关,因为数据集本身是针对不同的犬种进行标注,并不是对”狗”这个种类进行标注,所以导致有些图片缺少标记框,比如下面几张图片数据:</p>
-<p><img src="/posts/fa14c502.html/14.jpg" alt></p>
-<p><img src="/posts/fa14c502.html/24.jpg" alt></p>
-<p><img src="/posts/fa14c502.html/206.jpg" alt></p>
+<p><img src="/DogDetection/14.jpg" alt></p>
+<p><img src="/DogDetection/24.jpg" alt></p>
+<p><img src="/DogDetection/206.jpg" alt></p>
 <p>一旦模型检测出没有标记的狗,就相当于训练数据”告诉”模型检测是错误的,所以,loss居高不下.另外,这也反过来影响模型的表现,此时模型已经不知道孰对孰错了.</p>
 <p>所以,要想降低loss,需要对数据进行重新标注,理论上loss应该会下降.</p>
 </blockquote>
@@ -869,9 +869,9 @@
 </blockquote>
 <h3 id="侧面目标效果差"><a href="#侧面目标效果差" class="headerlink" title="侧面目标效果差"></a>侧面目标效果差</h3><blockquote>
 <p> 侧面目标检测效果很差,很多时候检测不出或者置信度很低(这其实在测试视频中也有所反应):</p>
-<p><img src="/posts/fa14c502.html/12.jpg" alt></p>
-<p><img src="/posts/fa14c502.html/26.jpg" alt></p>
-<p><img src="/posts/fa14c502.html/143.jpg" alt></p>
+<p><img src="/DogDetection/12.jpg" alt></p>
+<p><img src="/DogDetection/26.jpg" alt></p>
+<p><img src="/DogDetection/143.jpg" alt></p>
 <p>可能是由于数据集中侧面图片比较少的关系,需要在原有数据集上对侧面图片做上采样(比如Mix Up,加噪声等).总之,就是增加这类图片的数据量,再放入模型训练.</p>
 </blockquote>
 ]]></content>
@@ -1071,8 +1071,8 @@ $$
 <blockquote>
 <p>Pass Through层类似做步数为2的Pooling,按照相同位置组合成4个块,最后再在通道上叠加,比如上一层的输出为$26 \times 26 \times 512$,拆分成$4 \times 13 \times 13 \times 512$ 最后组成$13 \times 13 \times 3072$</p>
 </blockquote>
-<p><img src="/posts/5ca973ed.html/passthrough1.jpg" alt></p>
-<p><img src="/posts/5ca973ed.html/passthrough2.jpg" alt></p>
+<p><img src="/YOLO9000%E6%80%BB%E7%BB%93/passthrough1.jpg" alt></p>
+<p><img src="/YOLO9000%E6%80%BB%E7%BB%93/passthrough2.jpg" alt></p>
 </li>
 <li><p>多尺度训练</p>
 <blockquote>
@@ -1082,7 +1082,7 @@ $$
 </ol>
 <h2 id="Faster"><a href="#Faster" class="headerlink" title="Faster:"></a>Faster:</h2><p>采用Darknet-19网络结构</p>
 <h2 id="Stronger-YOLO-9000"><a href="#Stronger-YOLO-9000" class="headerlink" title="Stronger(YOLO 9000)"></a>Stronger(YOLO 9000)</h2><p>为了能识别9000个目标,构建了一个WordTree,与一般的$softmax$不同的是类别本身和气父节点均需标记为1.比如Dog,在Animal位置也需标记为1.</p>
-<p><img src="/posts/5ca973ed.html/WordTree.png" alt="&#39;WordTree&#39;"></p>
+<p><img src="/YOLO9000%E6%80%BB%E7%BB%93/WordTree.png" alt="&#39;WordTree&#39;"></p>
 <p>在预测时,一个类别的概率为根节点到该节点所有概率的乘积,如<br>$$<br>P(Hunting Dog)=p(Hunting Dog|Dog, Animal)P(Dog| Animal)<br>$$<br>其中,由于Animal处于根节点有$P(Animal)=1$</p>
 <p>注:在实际计算绝对概率时,并不会真的计算每一个子节点的概率,而是采用贪婪算法,当从根节点项子节点走时,如果小于阈值,则不在向下走了.</p>
 ]]></content>
@@ -1102,7 +1102,7 @@ $$
 <p>其中,B表示BBox的个数,C代表类别个数,5表示(x,y,w,h,confidence)</p>
 <h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><p>由于YOLO算法是将图像切割成方格并预测的思想,所以对图像的输入尺寸并不敏感.</p>
 <p>在输出方面,如下图所示:</p>
-<p><img src="/posts/16c1a0a5.html/YOLOV1%E7%BB%93%E6%9E%84.jpg" alt></p>
+<p><img src="/YOLOV1%E6%80%BB%E7%BB%93/YOLOV1%E7%BB%93%E6%9E%84.jpg" alt></p>
 <ol>
 <li>Feature Map中的一个值给出一个预测,为何输出中却是两个BBox?</li>
 </ol>
@@ -1570,9 +1570,9 @@ $$
     <title>人物背景抠图</title>
     <url>/posts/10cdf8fe.html/</url>
     <content><![CDATA[<h2 id="示例图片"><a href="#示例图片" class="headerlink" title="示例图片"></a>示例图片</h2><p>免冠照人物背景抠图实现,先展示一下示例结果:</p>
-<p><img src="/posts/10cdf8fe.html/%E5%8E%9F%E5%A7%8B%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87.png" alt></p>
+<p><img src="/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E5%8E%9F%E5%A7%8B%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87.png" alt></p>
 <p>人物背景抠图后:</p>
-<p><img src="/posts/10cdf8fe.html/%E6%9B%BF%E6%8D%A2%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87.png" alt></p>
+<p><img src="/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%9B%BF%E6%8D%A2%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87.png" alt></p>
 <h2 id="执行步骤"><a href="#执行步骤" class="headerlink" title="执行步骤"></a>执行步骤</h2><h3 id="将RGB空间转换为HSV空间"><a href="#将RGB空间转换为HSV空间" class="headerlink" title="将RGB空间转换为HSV空间"></a>将RGB空间转换为HSV空间</h3><p>首先需要统计出背景(蓝色部分)的颜色范围,这里将RGB空间转换为HSV空间,然后只用H分量统计,就可以统计出蓝色背景的大概范围:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line">blue_photo_hsv = cv2.cvtColor(blue_photo,cv2.COLOR_RGB2HSV)</span><br><span class="line">h_ele = blue_photo_hsv[:,:,<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
 
@@ -1580,42 +1580,42 @@ $$
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line">%matplotlib inline</span><br><span class="line"></span><br><span class="line">sns.set_style(<span class="string">"darkgrid"</span>)</span><br><span class="line"></span><br><span class="line">w,h,_= blue_photo_hsv.shape</span><br><span class="line">hist_bins = plt.hist(blue_photo_hsv[:int(w/<span class="number">6</span>),:,<span class="number">0</span>].flatten(),bins = <span class="number">60</span>)</span><br></pre></td></tr></table></figure>
 
 <p>直方图统计结果:</p>
-<p><img src="/posts/10cdf8fe.html/%E7%9B%B4%E6%96%B9%E5%9B%BE%E7%BB%93%E6%9E%9C.png" alt></p>
+<p><img src="/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E7%9B%B4%E6%96%B9%E5%9B%BE%E7%BB%93%E6%9E%9C.png" alt></p>
 <h3 id="掩膜"><a href="#掩膜" class="headerlink" title="掩膜"></a>掩膜</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">lower_h = hist_bins[<span class="number">1</span>][hist_bins[<span class="number">0</span>].argmax()]</span><br><span class="line">bins_interval = hist_bins[<span class="number">1</span>][<span class="number">1</span>] - hist_bins[<span class="number">1</span>][<span class="number">0</span>]</span><br><span class="line">upper_h = lower_h + <span class="number">1</span> * bins_interval</span><br><span class="line">lower = np.array([lower_h,<span class="number">43</span>,<span class="number">46</span>])</span><br><span class="line">upper = np.array([upper_h,<span class="number">256</span>,<span class="number">256</span>])</span><br><span class="line"></span><br><span class="line">mask = cv2.inRange(blue_photo_hsv, lower,upper)</span><br><span class="line">plt.imshow(mask)</span><br></pre></td></tr></table></figure>
 
 <p>掩膜结果:</p>
-<p><img src="/posts/10cdf8fe.html/%E6%8E%A9%E8%86%9C%E7%BB%93%E6%9E%9C.png" alt="&#39;掩膜结果&#39;"></p>
+<p><img src="/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%8E%A9%E8%86%9C%E7%BB%93%E6%9E%9C.png" alt="&#39;掩膜结果&#39;"></p>
 <h3 id="腐蚀和膨胀"><a href="#腐蚀和膨胀" class="headerlink" title="腐蚀和膨胀"></a>腐蚀和膨胀</h3><p>腐蚀的目的是去除分割线周围的噪声,膨胀是填补掩膜结果中的小空白.这里的腐蚀和膨胀的模板都是用的3*3</p>
 <p>腐蚀:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 取反</span></span><br><span class="line">mask = <span class="number">255</span> - mask</span><br><span class="line"><span class="comment"># 边长</span></span><br><span class="line">side_len = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">kernel = np.ones((side_len,side_len))</span><br><span class="line">erode_img = cv2.erode(mask,kernel,iterations = <span class="number">1</span>)</span><br><span class="line">erode_img.shape</span><br><span class="line">plt.imshow(erode_img)</span><br></pre></td></tr></table></figure>
 
 <p>腐蚀后结果:</p>
-<p><img src="/posts/10cdf8fe.html/%E8%85%90%E8%9A%80%E5%90%8E.png" alt="&#39;腐蚀后结果&#39;"></p>
+<p><img src="/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E8%85%90%E8%9A%80%E5%90%8E.png" alt="&#39;腐蚀后结果&#39;"></p>
 <p>膨胀:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">side_len =<span class="number">3</span></span><br><span class="line"></span><br><span class="line">kernel = np.ones((side_len,side_len))</span><br><span class="line">dilate_img = cv2.dilate(erode_img,kernel,iterations = <span class="number">1</span>)</span><br><span class="line">plt.imshow(dilate_img)</span><br></pre></td></tr></table></figure>
 
 <p>膨胀后:</p>
-<p><img src="/posts/10cdf8fe.html/%E8%86%A8%E8%83%80%E5%90%8E.png" alt="&#39;膨胀后&#39;"></p>
+<p><img src="/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E8%86%A8%E8%83%80%E5%90%8E.png" alt="&#39;膨胀后&#39;"></p>
 <h3 id="替换背景"><a href="#替换背景" class="headerlink" title="替换背景"></a>替换背景</h3><p>一旦替换模板比较准确,人物背景抠图就比较容易了.下面是背景图:</p>
-<p><img src="/posts/10cdf8fe.html/%E8%83%8C%E6%99%AF%E5%9B%BE.png" alt="&#39;背景图&#39;"></p>
+<p><img src="/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E8%83%8C%E6%99%AF%E5%9B%BE.png" alt="&#39;背景图&#39;"></p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">n_row,n_col = dilate_img.shape</span><br><span class="line"></span><br><span class="line">start_coor = [<span class="number">10</span>,<span class="number">10</span>]</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> range(n_row):</span><br><span class="line">    <span class="keyword">for</span> col <span class="keyword">in</span> range(n_col):</span><br><span class="line">        <span class="keyword">if</span> dilate_img[row][col] == <span class="number">255</span>:</span><br><span class="line">            back_img[start_coor[<span class="number">0</span>] + row][start_coor[<span class="number">1</span>] + col] = blue_photo[row][col]</span><br><span class="line"></span><br><span class="line">plt.imshow(back_img)</span><br></pre></td></tr></table></figure>
 
 <p>根据模板替换后:</p>
-<p><img src="/posts/10cdf8fe.html/%E6%9B%BF%E6%8D%A2%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87-1580097685097.png" alt="&#39;人物背景抠图后&#39;"></p>
+<p><img src="/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%9B%BF%E6%8D%A2%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87-1580097685097.png" alt="&#39;人物背景抠图后&#39;"></p>
 <p>最后根据原有的图片尺寸切割出结果图像就可以实现替换了.</p>
 <h2 id="多图测试"><a href="#多图测试" class="headerlink" title="多图测试"></a>多图测试</h2><p>网上爬取了十张大小不一图像测试,缩放到200*150(如有侵权请告知,谢谢).</p>
 <p>原图像:</p>
-<p><img src="/posts/10cdf8fe.html/%E6%95%88%E6%9E%9C%E5%8E%9F%E5%9B%BE%E5%83%8F-1580099162567.png" alt></p>
+<p><img src="/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%95%88%E6%9E%9C%E5%8E%9F%E5%9B%BE%E5%83%8F-1580099162567.png" alt></p>
 <p>替换后:</p>
-<p><img src="/posts/10cdf8fe.html/%E6%95%88%E6%9E%9C%E5%9B%BE-1580099178206.png" alt></p>
+<p><img src="/%E4%BA%BA%E7%89%A9%E8%83%8C%E6%99%AF%E6%8A%A0%E5%9B%BE/%E6%95%88%E6%9E%9C%E5%9B%BE-1580099178206.png" alt></p>
 ]]></content>
       <categories>
         <category>图像处理</category>
       </categories>
       <tags>
+        <tag>图像处理</tag>
         <tag>Demo</tag>
         <tag>原创</tag>
-        <tag>图像处理</tag>
       </tags>
   </entry>
 </search>
