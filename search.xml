@@ -52,9 +52,9 @@
         <category>目标检测</category>
       </categories>
       <tags>
+        <tag>图像处理</tag>
         <tag>机器学习</tag>
         <tag>计算机视觉</tag>
-        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -68,7 +68,7 @@
 <h2 id="KL散度"><a href="#KL散度" class="headerlink" title="KL散度"></a>KL散度</h2><blockquote>
 <p>KL( Kullback–Leibler divergence)散度又名相对熵（relative entropy)，用来衡量两个分布之间的距离</p>
 </blockquote>
-<p>公式为：<br>$$<br>D(P||Q)=\sum_{i\in{X}}{P(i)[log(\frac{P(i)}{Q(i)}))]}<br>$$<br>如果是P和Q为连续分布，则公式为：<br>$$<br>D(P||Q)=\int_x{P(x)<em>\left[log(\frac{P(x)}{Q(x)}\right]{ d}x}<br>$$<br>*</em>KL散度的性质**</p>
+<p>公式为：<br>$$<br>D(P||Q)=\sum_{i\in{X}}{P(i)[log(\frac{P(i)}{Q(i)}))]}<br>$$<br>如果是P和Q为连续分布，则公式为：<br>$$<br>D(P||Q)=\int_x{P(x)<em>\left[log(\frac{P(x)}{Q(x)}\right] dx}<br>$$<br>*</em>KL散度的性质**</p>
 <ul>
 <li><strong>KL散度不具有对称性</strong>，即$D(P||Q)\neq D(Q||P)$</li>
 <li>KL散度不满足三角不等式，即$D(A||B) &gt; D(A||C)+D(C||B)$</li>
@@ -168,8 +168,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>神经网络</tag>
+        <tag>机器学习</tag>
         <tag>NLP</tag>
       </tags>
   </entry>
@@ -341,8 +341,8 @@
         <category>图像处理</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>图像处理</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -408,8 +408,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>距离</tag>
         <tag>机器学习</tag>
+        <tag>距离</tag>
       </tags>
   </entry>
   <entry>
@@ -495,8 +495,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>神经网络</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -551,8 +551,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>神经网络</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -777,9 +777,9 @@
         <category>图像处理</category>
       </categories>
       <tags>
+        <tag>图像处理</tag>
         <tag>Demo</tag>
         <tag>原创</tag>
-        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -879,9 +879,9 @@
         <category>目标检测</category>
       </categories>
       <tags>
-        <tag>目标检测</tag>
         <tag>Demo</tag>
         <tag>原创</tag>
+        <tag>目标检测</tag>
       </tags>
   </entry>
   <entry>
@@ -911,8 +911,8 @@
         <category>目标检测</category>
       </categories>
       <tags>
-        <tag>目标检测</tag>
         <tag>原创</tag>
+        <tag>目标检测</tag>
       </tags>
   </entry>
   <entry>
@@ -928,9 +928,9 @@
         <category>目标跟踪</category>
       </categories>
       <tags>
+        <tag>目标跟踪</tag>
         <tag>Demo</tag>
         <tag>原创</tag>
-        <tag>目标跟踪</tag>
       </tags>
   </entry>
   <entry>
@@ -1030,9 +1030,9 @@ $$
         <category>目标检测</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
-        <tag>目标检测</tag>
         <tag>原创</tag>
+        <tag>目标检测</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1562,8 +1562,8 @@ $$
         <category>目标检测</category>
       </categories>
       <tags>
-        <tag>目标检测</tag>
         <tag>原创</tag>
+        <tag>目标检测</tag>
       </tags>
   </entry>
   <entry>
@@ -1613,9 +1613,9 @@ $$
         <category>图像处理</category>
       </categories>
       <tags>
+        <tag>图像处理</tag>
         <tag>Demo</tag>
         <tag>原创</tag>
-        <tag>图像处理</tag>
       </tags>
   </entry>
 </search>
