@@ -81,15 +81,15 @@
 
 
 
-<meta name="description" content="Triple NetworkQuestion Triple Network和Siamese Network相比哪个效果好 Triple Network的大体流程 loss中$\alpha$的作用  Triple Network 既然Siamese网络是衡量两个样本间的相似度，Triple Network是衡量三个样本间的相似度 且Triple Network的效果要好于Siamese Networ">
+<meta name="description" content="Triplet NetworkQuestion Triplet Network和Siamese Network相比哪个效果好 Triplet Network的大体流程 loss中$\alpha$的作用  Triplet Network 既然Siamese网络是衡量两个样本间的相似度，Triple Network是衡量三个样本间的相似度 且Triple Network的效果要好于Siamese Ne">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Triple网络">
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/d5b27990.html/index.html">
 <meta property="og:site_name" content="拍栏听雨个人博客">
-<meta property="og:description" content="Triple NetworkQuestion Triple Network和Siamese Network相比哪个效果好 Triple Network的大体流程 loss中$\alpha$的作用  Triple Network 既然Siamese网络是衡量两个样本间的相似度，Triple Network是衡量三个样本间的相似度 且Triple Network的效果要好于Siamese Networ">
+<meta property="og:description" content="Triplet NetworkQuestion Triplet Network和Siamese Network相比哪个效果好 Triplet Network的大体流程 loss中$\alpha$的作用  Triplet Network 既然Siamese网络是衡量两个样本间的相似度，Triple Network是衡量三个样本间的相似度 且Triple Network的效果要好于Siamese Ne">
 <meta property="og:image" content="http://blog.zhangqi2019.top/posts/d5b27990.html/1338991-20181213135951412-1275320373.png">
 <meta property="article:published_time" content="2020-03-14T08:40:53.000Z">
-<meta property="article:modified_time" content="2020-04-02T06:58:34.658Z">
+<meta property="article:modified_time" content="2020-04-02T07:17:45.577Z">
 <meta property="article:author" content="拍栏听雨">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="神经网络">
@@ -414,12 +414,12 @@
       
 
       
-        <h1 id="Triple-Network"><a href="#Triple-Network" class="headerlink" title="Triple Network"></a>Triple Network</h1><h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ol>
-<li>Triple Network和Siamese Network相比哪个效果好</li>
-<li>Triple Network的大体流程</li>
+        <h1 id="Triplet-Network"><a href="#Triplet-Network" class="headerlink" title="Triplet Network"></a>Triplet Network</h1><h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ol>
+<li>Triplet Network和Siamese Network相比哪个效果好</li>
+<li>Triplet Network的大体流程</li>
 <li>loss中$\alpha$的作用</li>
 </ol>
-<h2 id="Triple-Network-1"><a href="#Triple-Network-1" class="headerlink" title="Triple Network"></a>Triple Network</h2><blockquote>
+<h2 id="Triplet-Network-1"><a href="#Triplet-Network-1" class="headerlink" title="Triplet Network"></a>Triplet Network</h2><blockquote>
 <p>既然Siamese网络是衡量两个样本间的相似度，Triple Network是衡量三个样本间的相似度</p>
 <p>且<strong>Triple Network的效果要好于Siamese Network</strong></p>
 </blockquote>
@@ -445,10 +445,9 @@
 </blockquote>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
 <ul>
-<li><p><a href="https://www.cnblogs.com/Lee-yl/p/10113386.html" target="_blank" rel="noopener">https://www.cnblogs.com/Lee-yl/p/10113386.html</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/koala_tree/article/details/78647528" target="_blank" rel="noopener">https://blog.csdn.net/koala_tree/article/details/78647528</a></p>
-</li>
+<li><a href="https://www.cnblogs.com/Lee-yl/p/10113386.html" target="_blank" rel="noopener">https://www.cnblogs.com/Lee-yl/p/10113386.html</a></li>
+<li><a href="https://blog.csdn.net/koala_tree/article/details/78647528" target="_blank" rel="noopener">https://blog.csdn.net/koala_tree/article/details/78647528</a></li>
+<li><a href="https://arxiv.org/pdf/1412.6622.pdf" target="_blank" rel="noopener">论文原文</a></li>
 </ul>
 </blockquote>
 
@@ -627,7 +626,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -701,7 +700,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Triple-Network"><span class="nav-number">1.</span> <span class="nav-text">Triple Network</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Question"><span class="nav-number">1.1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Triple-Network-1"><span class="nav-number">1.2.</span> <span class="nav-text">Triple Network</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络结构图："><span class="nav-number">1.2.1.</span> <span class="nav-text">网络结构图：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Loss函数"><span class="nav-number">1.2.2.</span> <span class="nav-text">Loss函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.3.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Triplet-Network"><span class="nav-number">1.</span> <span class="nav-text">Triplet Network</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Question"><span class="nav-number">1.1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Triplet-Network-1"><span class="nav-number">1.2.</span> <span class="nav-text">Triplet Network</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络结构图："><span class="nav-number">1.2.1.</span> <span class="nav-text">网络结构图：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Loss函数"><span class="nav-number">1.2.2.</span> <span class="nav-text">Loss函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.3.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
             
 
           </div>

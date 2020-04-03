@@ -408,8 +408,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>距离</tag>
         <tag>机器学习</tag>
+        <tag>距离</tag>
       </tags>
   </entry>
   <entry>
@@ -453,12 +453,12 @@
   <entry>
     <title>Triple网络</title>
     <url>/posts/d5b27990.html/</url>
-    <content><![CDATA[<h1 id="Triple-Network"><a href="#Triple-Network" class="headerlink" title="Triple Network"></a>Triple Network</h1><h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ol>
-<li>Triple Network和Siamese Network相比哪个效果好</li>
-<li>Triple Network的大体流程</li>
+    <content><![CDATA[<h1 id="Triplet-Network"><a href="#Triplet-Network" class="headerlink" title="Triplet Network"></a>Triplet Network</h1><h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ol>
+<li>Triplet Network和Siamese Network相比哪个效果好</li>
+<li>Triplet Network的大体流程</li>
 <li>loss中$\alpha$的作用</li>
 </ol>
-<h2 id="Triple-Network-1"><a href="#Triple-Network-1" class="headerlink" title="Triple Network"></a>Triple Network</h2><blockquote>
+<h2 id="Triplet-Network-1"><a href="#Triplet-Network-1" class="headerlink" title="Triplet Network"></a>Triplet Network</h2><blockquote>
 <p>既然Siamese网络是衡量两个样本间的相似度，Triple Network是衡量三个样本间的相似度</p>
 <p>且<strong>Triple Network的效果要好于Siamese Network</strong></p>
 </blockquote>
@@ -484,10 +484,9 @@
 </blockquote>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
 <ul>
-<li><p><a href="https://www.cnblogs.com/Lee-yl/p/10113386.html" target="_blank" rel="noopener">https://www.cnblogs.com/Lee-yl/p/10113386.html</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/koala_tree/article/details/78647528" target="_blank" rel="noopener">https://blog.csdn.net/koala_tree/article/details/78647528</a></p>
-</li>
+<li><a href="https://www.cnblogs.com/Lee-yl/p/10113386.html" target="_blank" rel="noopener">https://www.cnblogs.com/Lee-yl/p/10113386.html</a></li>
+<li><a href="https://blog.csdn.net/koala_tree/article/details/78647528" target="_blank" rel="noopener">https://blog.csdn.net/koala_tree/article/details/78647528</a></li>
+<li><a href="https://arxiv.org/pdf/1412.6622.pdf" target="_blank" rel="noopener">论文原文</a></li>
 </ul>
 </blockquote>
 ]]></content>
@@ -777,9 +776,8 @@
         <category>图像处理</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>Demo</tag>
-        <tag>原创</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -881,7 +879,6 @@
       <tags>
         <tag>目标检测</tag>
         <tag>Demo</tag>
-        <tag>原创</tag>
       </tags>
   </entry>
   <entry>
@@ -912,7 +909,6 @@
       </categories>
       <tags>
         <tag>目标检测</tag>
-        <tag>原创</tag>
       </tags>
   </entry>
   <entry>
@@ -929,7 +925,6 @@
       </categories>
       <tags>
         <tag>Demo</tag>
-        <tag>原创</tag>
         <tag>目标跟踪</tag>
       </tags>
   </entry>
@@ -1032,7 +1027,6 @@ $$
       <tags>
         <tag>机器学习</tag>
         <tag>目标检测</tag>
-        <tag>原创</tag>
       </tags>
   </entry>
   <entry>
@@ -1563,7 +1557,6 @@ $$
       </categories>
       <tags>
         <tag>目标检测</tag>
-        <tag>原创</tag>
       </tags>
   </entry>
   <entry>
@@ -1613,9 +1606,8 @@ $$
         <category>图像处理</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>Demo</tag>
-        <tag>原创</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
 </search>
