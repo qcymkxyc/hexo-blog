@@ -87,12 +87,12 @@
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/d9717497.html/index.html">
 <meta property="og:site_name" content="拍栏听雨个人博客">
 <meta property="og:description" content="DeepLearningAi上的Attention机制似乎和李宏毅教程上的有一定出入，本文以李宏毅教程上的为准 Question 和LSTM层相比，Attention机制的优势是什么 Attention 机制一般用在什么任务中 Attention的流程 Multi Head Attention好于self-Attention机制的解释是什么 Multi Head Attention的流程  概述T">
-<meta property="og:image" content="http://blog.zhangqi2019.top/Transformer%E6%A8%A1%E5%9E%8B%E6%80%BB%E7%BB%93/11864412-859dc652d45bcb8a.png">
-<meta property="og:image" content="http://blog.zhangqi2019.top/Transformer%E6%A8%A1%E5%9E%8B%E6%80%BB%E7%BB%93/11864412-3af6168784972c3d.png">
-<meta property="og:image" content="http://blog.zhangqi2019.top/Transformer%E6%A8%A1%E5%9E%8B%E6%80%BB%E7%BB%93/11864412-162d501ebec07596.png">
-<meta property="og:image" content="http://blog.zhangqi2019.top/Transformer%E6%A8%A1%E5%9E%8B%E6%80%BB%E7%BB%93/11864412-7ae69a8fe1679bab.png">
-<meta property="og:image" content="http://blog.zhangqi2019.top/Transformer%E6%A8%A1%E5%9E%8B%E6%80%BB%E7%BB%93/11864412-c0d9670deb5a794c.png">
-<meta property="og:image" content="http://blog.zhangqi2019.top/Transformer%E6%A8%A1%E5%9E%8B%E6%80%BB%E7%BB%93/11864412-7c5882bac6e86c4a.png">
+<meta property="og:image" content="http://blog.zhangqi2019.top/posts/d9717497.html/11864412-859dc652d45bcb8a.png">
+<meta property="og:image" content="http://blog.zhangqi2019.top/posts/d9717497.html/11864412-3af6168784972c3d.png">
+<meta property="og:image" content="http://blog.zhangqi2019.top/posts/d9717497.html/11864412-162d501ebec07596.png">
+<meta property="og:image" content="http://blog.zhangqi2019.top/posts/d9717497.html/11864412-7ae69a8fe1679bab.png">
+<meta property="og:image" content="http://blog.zhangqi2019.top/posts/d9717497.html/11864412-c0d9670deb5a794c.png">
+<meta property="og:image" content="http://blog.zhangqi2019.top/posts/d9717497.html/11864412-7c5882bac6e86c4a.png">
 <meta property="article:published_time" content="2020-03-26T08:23:48.000Z">
 <meta property="article:modified_time" content="2020-03-30T01:29:17.547Z">
 <meta property="article:author" content="拍栏听雨">
@@ -100,7 +100,7 @@
 <meta property="article:tag" content="神经网络">
 <meta property="article:tag" content="NLP">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://blog.zhangqi2019.top/Transformer%E6%A8%A1%E5%9E%8B%E6%80%BB%E7%BB%93/11864412-859dc652d45bcb8a.png">
+<meta name="twitter:image" content="http://blog.zhangqi2019.top/posts/d9717497.html/11864412-859dc652d45bcb8a.png">
 
 
 
@@ -436,20 +436,20 @@
 <li>在Seq-to-Seq模型的翻译任务中，在Decoder部分，如果用LSTM层，Bleu Score会因为句子的增长而降低。Attention机制可以避免这个问题（出自NG DeepLearning课程）</li>
 </ul>
 <p><strong>只要能用Seq2Seq的地方，都可以用Attention机制代替</strong>，如下图所示：</p>
-<img src="/Transformer模型总结/11864412-859dc652d45bcb8a.png" style="zoom: 80%;">
+<img src="/posts/d9717497.html/11864412-859dc652d45bcb8a.png" style="zoom: 80%;">
 
 
 
 <h2 id="基本Attention机制的流程"><a href="#基本Attention机制的流程" class="headerlink" title="基本Attention机制的流程"></a>基本Attention机制的流程</h2><h3 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h3><p>Attention机制先将$a^i$输入乘以三个个权重，得到一个三个值$q^i,k^i,v^i$,如下图所示：</p>
-<img src="/Transformer模型总结/11864412-3af6168784972c3d.png" style="zoom:80%;">
+<img src="/posts/d9717497.html/11864412-3af6168784972c3d.png" style="zoom:80%;">
 
 <h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><p>计算$q^i$和$k^j$的内积，得到一个值$a_{i,j}$,</p>
-<img src="/Transformer模型总结/11864412-162d501ebec07596.png" style="zoom:80%;">
+<img src="/posts/d9717497.html/11864412-162d501ebec07596.png" style="zoom:80%;">
 
 <h3 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h3><p>将$a_{i,j}$,通过一个$softmax$函数<strong>归一化</strong>，得到归一化后的结果$\hat{a_{i,j}}$,该结果作为权重，如下图所示：</p>
-<p><img src="/Transformer%E6%A8%A1%E5%9E%8B%E6%80%BB%E7%BB%93/11864412-7ae69a8fe1679bab.png" alt></p>
+<p><img src="/posts/d9717497.html/11864412-7ae69a8fe1679bab.png" alt></p>
 <h3 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h3><p>用第三步得到的权重和$v^i$进行加权计算，如下图所示：</p>
-<p><img src="/Transformer%E6%A8%A1%E5%9E%8B%E6%80%BB%E7%BB%93/11864412-c0d9670deb5a794c.png" alt></p>
+<p><img src="/posts/d9717497.html/11864412-c0d9670deb5a794c.png" alt></p>
 <p>所得的结果$b^1$就是$a^1$对应的结果，后面的$b^2$,$b^3$等以此类推</p>
 <h2 id="Multi-Head-Attention"><a href="#Multi-Head-Attention" class="headerlink" title="Multi Head Attention"></a>Multi Head Attention</h2><blockquote>
 <p>之所以会有Multi Head，文中的理由是会分成多个子空间，可以让Multi Head关注不同方面的信息    </p>
@@ -464,7 +464,7 @@
 </li>
 </ul>
 <p>如下图所示：</p>
-<p><img src="/Transformer%E6%A8%A1%E5%9E%8B%E6%80%BB%E7%BB%93/11864412-7c5882bac6e86c4a.png" alt></p>
+<p><img src="/posts/d9717497.html/11864412-7c5882bac6e86c4a.png" alt></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
 <ul>
 <li><a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">Self-Attention机制的论文</a></li>
@@ -630,7 +630,7 @@ var jiathis_config={
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -641,7 +641,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -652,7 +652,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
