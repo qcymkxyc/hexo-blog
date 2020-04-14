@@ -9,6 +9,7 @@
 <li><p><a href="http://www.woshipm.com/operate/1875475.html" target="_blank" rel="noopener">2B中产品和定制的利弊权衡</a></p>
 </li>
 </ul>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/2.png" alt></p>
 ]]></content>
       <categories>
         <category>产品</category>
@@ -40,12 +41,12 @@
 <h2 id="实验代码"><a href="#实验代码" class="headerlink" title="实验代码"></a>实验代码</h2><h3 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">n_real = <span class="number">100</span></span><br><span class="line">n_fake = <span class="number">30</span></span><br><span class="line"></span><br><span class="line">x = np.random.uniform(low=<span class="number">0</span>,high = <span class="number">100</span>,size = n_real + n_fake)</span><br><span class="line"></span><br><span class="line">k,b = <span class="number">3</span>,<span class="number">7</span></span><br><span class="line">y = k * x + b</span><br><span class="line"></span><br><span class="line">x = np.random.normal(scale = <span class="number">20</span>,size = x.shape) + x</span><br><span class="line">y = np.random.normal(scale = <span class="number">20</span>,size = y.shape) + y</span><br><span class="line"></span><br><span class="line">y_fake = np.asarray([<span class="number">500</span>] *n_fake) + np.random.normal(scale=<span class="number">20</span>,size=n_fake)</span><br><span class="line">y[n_real:] = y_fake</span><br><span class="line"></span><br><span class="line">plt.scatter(x[:n_real],y[:n_real],label = <span class="string">"Real"</span>)</span><br><span class="line">plt.scatter(x[n_real:],y[n_real:],label = <span class="string">"Fake"</span>)</span><br><span class="line">plt.legend()</span><br></pre></td></tr></table></figure>
 
 <p>数据分布的散点图如下图：</p>
-<p><img src="/posts/e108c696.html/%E6%95%B0%E6%8D%AE%E6%95%A3%E7%82%B9%E5%9B%BE.png" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E6%95%B0%E6%8D%AE%E6%95%A3%E7%82%B9%E5%9B%BE.png" alt></p>
 <h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><p>这里用线性回归来拟合散点图，对比不用 RANSAC和用RANSAC的区别，代码如下：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">i = <span class="number">0</span></span><br><span class="line">alpha = <span class="number">5</span> <span class="comment"># 判断的宽限条件</span></span><br><span class="line">best_model = <span class="literal">None</span></span><br><span class="line">best_fit_num = <span class="number">0</span> <span class="comment">#最多的拟合个数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> i &lt; <span class="number">100</span>:</span><br><span class="line">    model = LinearRegression()</span><br><span class="line">    </span><br><span class="line">    sample_i = np.random.choice(range(len(x)),size = <span class="number">2</span>)</span><br><span class="line">    sample_x = x[sample_i]</span><br><span class="line">    sample_y = y[sample_i]</span><br><span class="line">    temp_x = sample_x.reshape(<span class="number">-1</span>,<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    model.fit(temp_x,sample_y)</span><br><span class="line">    predict_y = model.predict(x.reshape(<span class="number">-1</span>,<span class="number">1</span>))</span><br><span class="line">    </span><br><span class="line">    current_fit_num = np.sum(np.abs(predict_y - y) &lt; alpha)</span><br><span class="line">    <span class="keyword">if</span> current_fit_num &gt; best_fit_num:</span><br><span class="line">        best_model = model</span><br><span class="line">        best_fit_num = current_fit_num</span><br><span class="line">    </span><br><span class="line">    i += <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">normal_model = LinearRegression()</span><br><span class="line">temp_x = x.reshape(<span class="number">-1</span>,<span class="number">1</span>)</span><br><span class="line">normal_model.fit(temp_x,y)</span><br></pre></td></tr></table></figure>
 
 <p>得到的结果如下图所示：</p>
-<p><img src="/posts/e108c696.html/%E6%8B%9F%E5%90%88%E7%BB%93%E6%9E%9C.png" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E6%8B%9F%E5%90%88%E7%BB%93%E6%9E%9C.png" alt></p>
 <p>代码见：<a href="https://github.com/qcymkxyc/AlgorithmImplement/blob/master/notebooks/RANSAC.ipynb" target="_blank" rel="noopener">https://github.com/qcymkxyc/AlgorithmImplement/blob/master/notebooks/RANSAC.ipynb</a></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
 <ul>
@@ -74,7 +75,7 @@
 <p>即用一个类似于卷积层的模板滑过图片，用白色区域的和减去黑色区域的和即为Haar特征</p>
 </blockquote>
 <p>但在Haar特征的模板多种多样，不同的模板有不同的作用，如下图所示：</p>
-<p><img src="/posts/da5401e0.html/1328274-20180802215641326-115308739.png" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1328274-20180802215641326-115308739.png" alt></p>
 <p>上图中A和B检验的是竖直和水平的边缘，C模板是检测一条线模板</p>
 <h3 id="积分图"><a href="#积分图" class="headerlink" title="积分图"></a>积分图</h3><blockquote>
 <p> 积分图的作用是加快Haar特征的计算的</p>
@@ -112,8 +113,8 @@
         <category>目标检测</category>
       </categories>
       <tags>
-        <tag>计算机视觉</tag>
         <tag>机器学习</tag>
+        <tag>计算机视觉</tag>
         <tag>图像处理</tag>
       </tags>
   </entry>
@@ -185,20 +186,20 @@
 <li>在Seq-to-Seq模型的翻译任务中，在Decoder部分，如果用LSTM层，Bleu Score会因为句子的增长而降低。Attention机制可以避免这个问题（出自NG DeepLearning课程）</li>
 </ul>
 <p><strong>只要能用Seq2Seq的地方，都可以用Attention机制代替</strong>，如下图所示：</p>
-<img src="/posts/d9717497.html/11864412-859dc652d45bcb8a.png" style="zoom: 80%;">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/11864412-859dc652d45bcb8a.png" style="zoom: 80%;">
 
 
 
 <h2 id="基本Attention机制的流程"><a href="#基本Attention机制的流程" class="headerlink" title="基本Attention机制的流程"></a>基本Attention机制的流程</h2><h3 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h3><p>Attention机制先将$a^i$输入乘以三个个权重，得到一个三个值$q^i,k^i,v^i$,如下图所示：</p>
-<img src="/posts/d9717497.html/11864412-3af6168784972c3d.png" style="zoom:80%;">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/11864412-3af6168784972c3d.png" style="zoom:80%;">
 
 <h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><p>计算$q^i$和$k^j$的内积，得到一个值$a_{i,j}$,</p>
-<img src="/posts/d9717497.html/11864412-162d501ebec07596.png" style="zoom:80%;">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/11864412-162d501ebec07596.png" style="zoom:80%;">
 
 <h3 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h3><p>将$a_{i,j}$,通过一个$softmax$函数<strong>归一化</strong>，得到归一化后的结果$\hat{a_{i,j}}$,该结果作为权重，如下图所示：</p>
-<p><img src="/posts/d9717497.html/11864412-7ae69a8fe1679bab.png" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/11864412-7ae69a8fe1679bab.png" alt></p>
 <h3 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h3><p>用第三步得到的权重和$v^i$进行加权计算，如下图所示：</p>
-<p><img src="/posts/d9717497.html/11864412-c0d9670deb5a794c.png" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/11864412-c0d9670deb5a794c.png" alt></p>
 <p>所得的结果$b^1$就是$a^1$对应的结果，后面的$b^2$,$b^3$等以此类推</p>
 <h2 id="Multi-Head-Attention"><a href="#Multi-Head-Attention" class="headerlink" title="Multi Head Attention"></a>Multi Head Attention</h2><blockquote>
 <p>之所以会有Multi Head，文中的理由是会分成多个子空间，可以让Multi Head关注不同方面的信息    </p>
@@ -213,7 +214,7 @@
 </li>
 </ul>
 <p>如下图所示：</p>
-<p><img src="/posts/d9717497.html/11864412-7c5882bac6e86c4a.png" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/11864412-7c5882bac6e86c4a.png" alt></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
 <ul>
 <li><a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">Self-Attention机制的论文</a></li>
@@ -293,13 +294,13 @@
 <p>设有两个向量$P=(x_1,x_2,…,x_n)$和$Q=(y_1,y_2,..,y_n)$,则两个向量的欧式距离和曼哈顿距离可以分别表示为：<br>$$<br>\left(\sum_{i=1}^{n}{(x_i-y_i)}^2\right)^{\frac{1}{2}}<br>$$</p>
 <p>$$<br>\sum_{i=1}^{n}{|x_i-y_i|}<br>$$</p>
 <p>而闵可夫斯基距离表示为：<br>$$<br>\left(\sum_{i=1}^{n}{|x_i-y_i|}^p\right)^{\frac{1}{p}}<br>$$<br>所以，欧式距离和曼哈顿距离可以表示成特殊的闵可夫斯基距离，关于曼哈顿距离和欧氏距离的区别网上有一张形象的图，如下图所示：</p>
-<p><img src="/posts/348aa22b.html/20140423145904625.jpg" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20140423145904625.jpg" alt></p>
 <p><strong>图中，绿线表示欧氏距离，红蓝黄三条线表示曼哈顿距离</strong></p>
 <h2 id="马氏距离"><a href="#马氏距离" class="headerlink" title="马氏距离"></a>马氏距离</h2><blockquote>
 <p>马氏距离可以看成是欧式距离的一种改良，他在欧氏距离的基础上考虑了特征（维度）的相关性，对于数据集的距离衡量也更加合理。</p>
 </blockquote>
 <p>对于数据集中的两个点，A和B。A和B对于聚点中心的欧氏距离都相同，但可以明显的看出A点是一个离群点，而B不是。</p>
-<p><img src="/posts/348aa22b.html/v2-3cee35b79d272dda86e2604c160934ee_720w.jpg" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/v2-3cee35b79d272dda86e2604c160934ee_720w.jpg" alt></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
 <ul>
 <li><p><a href="https://blog.csdn.net/eric41050808/article/details/24365765" target="_blank" rel="noopener">https://blog.csdn.net/eric41050808/article/details/24365765</a></p>
@@ -368,20 +369,20 @@
 <li>霍夫变换的大体流程</li>
 </ol>
 <h2 id="霍夫变换原理"><a href="#霍夫变换原理" class="headerlink" title="霍夫变换原理"></a>霍夫变换原理</h2><p>对于笛卡尔坐标系中的一条线$y=kx+b$,可以转换成霍夫空间下的一个点（霍夫空间是以$k$和$b$为坐标），如下图所示：</p>
-<p><img src="/posts/e9f2d7e8.html/1085343-20170424185145272-8035578-1584177392001.png" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424185145272-8035578-1584177392001.png" alt></p>
 <p>那么，对于笛卡尔坐标系中的一个点$(x_1,y_1)$，则转换为霍夫空间下的一条线，如下图所示：</p>
-<p><img src="/posts/e9f2d7e8.html/1085343-20170424185846412-1947419957-1584177461604.png" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424185846412-1947419957-1584177461604.png" alt></p>
 <p><strong>它表示经过改点的所有直线</strong></p>
 <p>那么，在笛卡尔坐标系中经过两点的直线，表现为在霍夫空间下两条直线的交点：</p>
-<p><img src="/posts/e9f2d7e8.html/1085343-20170424190504412-864862338-1584177533599.png" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424190504412-864862338-1584177533599.png" alt></p>
 <p>三点共线在霍夫空间中表现为三条线相交于一点：</p>
-<img src="/posts/e9f2d7e8.html/1085343-20170424213944022-348637873.png" style="zoom:80%;">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424213944022-348637873.png" style="zoom:80%;">
 
 <p><strong>再次引申，如果多个点共线，那么在Hough空间中表现为多条线相交于一点</strong></p>
 <p><strong>如果一条线是垂直于x轴的，那么该线在Hough空间中无法表示（此时为$\infty$）</strong>，所以这里将k和q表示的Hough空间转换为极坐标，如下：</p>
-<p><img src="/posts/e9f2d7e8.html/1085343-20170424215910740-145827126.png" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424215910740-145827126.png" alt></p>
 <p>同以<em>k</em>和<em>q</em> 组成的Hough空间，三点共线表示为三线相交，以下是两个Hough空间的对比图：</p>
-<p><img src="/posts/e9f2d7e8.html/1085343-20170424221329412-431224652-1584178146121.png" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424221329412-431224652-1584178146121.png" alt></p>
 <h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><ol>
 <li><p>首先，获取一个二值化图像</p>
 </li>
@@ -419,7 +420,7 @@
 <li>构造匹配矩阵</li>
 </ol>
 <p>设序列1$Q=q_1,q_2,…,q_n$,序列2$C=c_1,c_2,…,c_m$ ,其中$n\neq m$,然后构造一个$m\times n$的矩阵，矩阵中的值是$q_i$和$c_j$的距离（通常用欧式距离），如下图所示：</p>
-<p><img src="/posts/4df0af7c.html/20130620200852375-1584176187632.jpg" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20130620200852375-1584176187632.jpg" alt></p>
 <ol start="2">
 <li>路径规划限制条件    </li>
 </ol>
@@ -468,8 +469,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>距离</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -486,7 +487,7 @@
 <li><p>将图像切分block，比如切分成16*16</p>
 </li>
 <li><p>对每个block内以3*3为单位，提取LBP特征</p>
-<p>​    对比3*3的方格中周围的值和中间的值，如果周围的值大于中间的值，则表示为1，反之则表示为0，公式表示如下：<br>$$<br>img(i,j)=\begin{cases} 0, &amp; img(i,j)&gt;=img(center) \ 1, &amp; img(i,j)&lt;img(center)\end{cases}<br>$$<br><img src="/posts/edf1298.html/14596362-7ea1a8cd7c2757f7-1584175992695.png" alt></p>
+<p>​    对比3*3的方格中周围的值和中间的值，如果周围的值大于中间的值，则表示为1，反之则表示为0，公式表示如下：<br>$$<br>img(i,j)=\begin{cases} 0, &amp; img(i,j)&gt;=img(center) \ 1, &amp; img(i,j)&lt;img(center)\end{cases}<br>$$<br><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/14596362-7ea1a8cd7c2757f7-1584175992695.png" alt></p>
 <p>上述操作得到一个二进制表格，从左上角开始逆时针排列得到一个二进制数，将该二进制数转换为十进制数即为该cell的LBP特征</p>
 <blockquote>
 <p><strong>改进点：</strong>为了保证LBP特征的旋转不变性，转换为二进制特征的方式改为跳数，即如果上一个数和下一个数不同（即一个是0，一个是1），则算为1，否则为0，用公式表示为：</p>
@@ -530,7 +531,7 @@
 <blockquote>
 <p>相同类别间的距离尽可能的小，不同类别间的距离尽可能的大</p>
 </blockquote>
-<h3 id="网络结构图："><a href="#网络结构图：" class="headerlink" title="网络结构图："></a>网络结构图：</h3><img src="/posts/d5b27990.html/1338991-20181213135951412-1275320373.png" style="zoom:80%;">
+<h3 id="网络结构图："><a href="#网络结构图：" class="headerlink" title="网络结构图："></a>网络结构图：</h3><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1338991-20181213135951412-1275320373.png" style="zoom:80%;">
 
 <p><strong>输入解释</strong></p>
 <ul>
@@ -845,8 +846,8 @@
         <category>图像处理</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>Demo</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -1092,7 +1093,7 @@ $$
 -->
 
 <p>对于上述给定的阈值t,逐渐减小,可形成多组RP数据对,在坐标上绘制,其与坐标轴围成的面积即为AP值.如下图所示：</p>
-<p><img src="/posts/b8ba7454.html/2019042821031836.png" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/2019042821031836.png" alt></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://blog.csdn.net/xiezongsheng1990/article/details/89608923" target="_blank" rel="noopener">https://blog.csdn.net/xiezongsheng1990/article/details/89608923</a></li>
 </ul>
@@ -1141,8 +1142,8 @@ $$
 <blockquote>
 <p>Pass Through层类似做步数为2的Pooling,按照相同位置组合成4个块,最后再在通道上叠加,比如上一层的输出为$26 \times 26 \times 512$,拆分成$4 \times 13 \times 13 \times 512$ 最后组成$13 \times 13 \times 3072$</p>
 </blockquote>
-<p><img src="/posts/5ca973ed.html/passthrough1.jpg" alt></p>
-<p><img src="/posts/5ca973ed.html/passthrough2.jpg" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/passthrough1.jpg" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/passthrough2.jpg" alt></p>
 </li>
 <li><p>多尺度训练</p>
 <blockquote>
@@ -1152,7 +1153,7 @@ $$
 </ol>
 <h2 id="Faster"><a href="#Faster" class="headerlink" title="Faster:"></a>Faster:</h2><p>采用Darknet-19网络结构</p>
 <h2 id="Stronger-YOLO-9000"><a href="#Stronger-YOLO-9000" class="headerlink" title="Stronger(YOLO 9000)"></a>Stronger(YOLO 9000)</h2><p>为了能识别9000个目标,构建了一个WordTree,与一般的$softmax$不同的是类别本身和气父节点均需标记为1.比如Dog,在Animal位置也需标记为1.</p>
-<p><img src="/posts/5ca973ed.html/WordTree.png" alt="&#39;WordTree&#39;"></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/WordTree.png" alt="&#39;WordTree&#39;"></p>
 <p>在预测时,一个类别的概率为根节点到该节点所有概率的乘积,如<br>$$<br>P(Hunting Dog)=p(Hunting Dog|Dog, Animal)P(Dog| Animal)<br>$$<br>其中,由于Animal处于根节点有$P(Animal)=1$</p>
 <p>注:在实际计算绝对概率时,并不会真的计算每一个子节点的概率,而是采用贪婪算法,当从根节点项子节点走时,如果小于阈值,则不在向下走了.</p>
 ]]></content>
@@ -1173,7 +1174,7 @@ $$
 <p>其中,B表示BBox的个数,C代表类别个数,5表示(x,y,w,h,confidence)</p>
 <h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><p>由于YOLO算法是将图像切割成方格并预测的思想,所以对图像的输入尺寸并不敏感.</p>
 <p>在输出方面,如下图所示:</p>
-<p><img src="/posts/16c1a0a5.html/YOLOV1%E7%BB%93%E6%9E%84.jpg" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/YOLOV1%E7%BB%93%E6%9E%84.jpg" alt></p>
 <ol>
 <li>Feature Map中的一个值给出一个预测,为何输出中却是两个BBox?</li>
 </ol>
@@ -1683,8 +1684,8 @@ $$
         <category>图像处理</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>Demo</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
 </search>
