@@ -112,8 +112,8 @@
         <category>目标检测</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>计算机视觉</tag>
+        <tag>机器学习</tag>
         <tag>图像处理</tag>
       </tags>
   </entry>
@@ -468,8 +468,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>距离</tag>
         <tag>机器学习</tag>
+        <tag>距离</tag>
       </tags>
   </entry>
   <entry>
@@ -601,7 +601,7 @@
 </blockquote>
 <p>2-Channel的主体思想如下：</p>
 <p>将两个输入的图片合成一张，看成是有多个通道的图片，然后一起带入网络中。此时，<strong>两张图片就可以通过CNN一起卷积</strong>，卷积的结果最后代入后面的全连接层，最终输出一个结果。该结果为0表示相同，1表示不同。</p>
-<p><img src="/posts/e2e6b321.html/Siamese%E7%BD%91%E7%BB%9C%5C1338991-20181213130146077-1166762109.png" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1338991-20181213130146077-1166762109.png" alt></p>
 <h3 id="Triple-Network"><a href="#Triple-Network" class="headerlink" title="Triple Network"></a>Triple Network</h3><blockquote>
 <p>既然Siamese网络是衡量两个样本间的相似度，Triple Network是衡量三个样本间的相似度</p>
 </blockquote>
@@ -946,8 +946,8 @@
         <category>目标检测</category>
       </categories>
       <tags>
-        <tag>目标检测</tag>
         <tag>Demo</tag>
+        <tag>目标检测</tag>
       </tags>
   </entry>
   <entry>
@@ -993,8 +993,8 @@
         <category>目标跟踪</category>
       </categories>
       <tags>
-        <tag>Demo</tag>
         <tag>目标跟踪</tag>
+        <tag>Demo</tag>
       </tags>
   </entry>
   <entry>
