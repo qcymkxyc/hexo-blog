@@ -1,6 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>MCMC</title>
+    <url>/posts/90e44d07.html/</url>
+    <content><![CDATA[<h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ul>
+<li>Inverse Sampling的适用范围</li>
+<li>Inverse Sampling的过程</li>
+<li>Rejection Sampling的大致思想</li>
+<li>Rejection Sampling的流程</li>
+<li>Importance Sampling的大致思想</li>
+<li>Importance Sampling的流程</li>
+</ul>
+<h2 id="蒙特卡洛采样"><a href="#蒙特卡洛采样" class="headerlink" title="蒙特卡洛采样"></a>蒙特卡洛采样</h2><h3 id="蒙特卡洛的作用（引子）"><a href="#蒙特卡洛的作用（引子）" class="headerlink" title="蒙特卡洛的作用（引子）"></a>蒙特卡洛的作用（引子）</h3><p>当我们要计算函数$f(x)$的期望时,有：<br>$$<br>E[f(z)]=\int{P(z)f(z) , {\rm dx}} \<br>\approx\frac{1}{N}\sum_{i=1}^{N}f(z_i)<br>$$</p>
+<blockquote>
+<p>如果是$z_i$是一个已知的分布，我们可以直接从上面采样（比如高斯分布，均匀分布），获得$z$，然后计算期望值$E[f(z)]$,但如果是一个不规则的分布，我们无法直接从上面采样，蒙特卡洛采样的目的就是解决求函数$f(z)$的期望。</p>
+</blockquote>
+<p>蒙特卡洛采样有许多种，常用的有以下几种：</p>
+<h3 id="Inverse-Sampling"><a href="#Inverse-Sampling" class="headerlink" title="Inverse Sampling"></a>Inverse Sampling</h3><blockquote>
+<p>Inverse Sampling(逆采样)适用于<strong>累积分布函数已知（可求得）</strong>的情况，例如高斯分布，指数分布等</p>
+</blockquote>
+<p>首先介绍均匀分布的采样，因为<strong>所有Inverse Sampling都是根据均匀分布而来</strong>：</p>
+<p><strong>均匀分布的采样可以看成生成一定范围的随机数</strong>（比如（0,1）的均匀分布采样可以看成在（0,1）之间生成随机数），每一个数生成的可能都是相等的。</p>
+<p>此时，均匀分布的采样问题就变成了随机数的生成问题。</p>
+<p>在计算机中，<strong>伪随机数</strong>的生成过程如下：<br>$$<br>x_{n+1}=(ax_n+c) , \rm mod ,  m<br>$$<br>其中，$m$表示均匀分布的范围，$a$和$c$是数学推导出的常数，$x_n$表示当前值。<strong>伪随机数是通过当前值计算下一个值</strong>，以此递推。</p>
+<p>至此，我们就能在均匀分布上采样了。</p>
+<p>但对于其他分布如何采样呢？</p>
+<blockquote>
+<p>Inverse Sampling是将概率密度函数转换为累积分布函数（CDF），然后利用CDF反映射求得采样值</p>
+</blockquote>
+<p>具体过程如下：</p>
+<ul>
+<li>对要采样的分布$P(x)$计算其累积分布函数(CDF)-$F$(x)</li>
+<li>求出$F(x)$的反函数$F^{-1}(y)$</li>
+<li>在一个均匀分布$U(0,1)$中采样，得到$y_i$,再通过$F^{-1}(y)$计算得到$x_i$</li>
+</ul>
+<p>$x_i$即为采样得到的值</p>
+<p>构建的PDF如下图所示：</p>
+<p>![](<a href="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Inverse" target="_blank" rel="noopener">https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Inverse</a> Sampling.png)</p>
+<p>但对于无法求得CDF的分布，Inverse Sampling无能为力，以下两种方法是解决CDF无法计算的情况下的采样方式。</p>
+<h3 id="Rejection-Sampling"><a href="#Rejection-Sampling" class="headerlink" title="Rejection Sampling"></a>Rejection Sampling</h3><blockquote>
+<p> Rejection Sampling的大致思想是用一个已知的分布来辅助未知的分布采样。</p>
+</blockquote>
+<p>流程如下：</p>
+<p>设我们需要采样的未知分布为$P(z)$</p>
+<ul>
+<li><p>预设一个已知的分布$z$服从于一个已知分布$Q(z)$,(例如$Q(z)$为一个正态分布)</p>
+</li>
+<li><p>对于$\forall{z}$ 服从于$Q(z)$,给定一个正数$m$,有$mQ(z)\geq{P(z)}$</p>
+</li>
+<li><p>在$Q(z)$中采样得到采样的结果为$z_{i}$</p>
+</li>
+<li><p>计算接收率$\alpha=\frac{P(z_{i})}{mQ(z_{i})}$(接收率即分布$P(z)$占$mQ(z)$的比例,且有$0\leq\alpha\leq1$)</p>
+</li>
+<li><p>设有变量$u$服从于均匀分布$U(0,1)$,并从$u$中采样得到$u_i$</p>
+</li>
+<li><p>如果$u_i\leq{\alpha}$,则接受$z_{i}$,否则拒绝$z_{i}$,即<br>$$<br>\begin{cases} accept, &amp; if , {\rm u_{i}}\leq{z_i} \ reject ,&amp; other \end{cases}<br>$$</p>
+</li>
+</ul>
+<p>两个分布的情况如下图所示：</p>
+<p>![](<a href="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Rejection" target="_blank" rel="noopener">https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Rejection</a> Sampling.png)</p>
+<p><strong>注:</strong></p>
+<blockquote>
+<ul>
+<li>$m$的值越大，会导致接收率$\alpha$的值越小，采样的效率也就会越低。所以，应该在满足条件的情况下尽量小的选择$m$的值</li>
+<li>分布的维数越高，采样的频率也会越低</li>
+<li>分布$Q$和分布$P$越接近，采样的频率也越高</li>
+</ul>
+</blockquote>
+<h3 id="Importance-Sampling"><a href="#Importance-Sampling" class="headerlink" title="Importance Sampling"></a>Importance Sampling</h3><blockquote>
+<p>Importance Sampling是用两个分布的比例作为采样的权重来辅助未知分布的采样</p>
+</blockquote>
+<p>函数期望$E[f(z)]$可写成：<br>$$<br>E[f(z)] = \int{P(z)f(z)dz}<br>$$<br>设有一个已知的分布$Q(Z)$，有:<br>$$<br>E[f(z)]=\int{\frac{P(z)}{Q(z)}Q(z)\cdot f(z) , \rm dz} \<br>\approx\frac{1}{N}\sum_{i=1}^{N}{f(z_i)\frac{P(z_i)}{Q(z_i)}}<br>$$<br>其中,$z_i$服从于分布$Q(z)$。也就是说，$z_i$是从$P(Z)$中采样而来。</p>
+<blockquote>
+<ul>
+<li>$\frac{P(Z)}{Q(Z)}$ 实际上是一个权值，它代表的是两个分布的相近程度，也就是重要程度，故该采样的叫Importance Sampling</li>
+<li>$P(Z)$和$Q(Z)$两个分布越接近，采样的效率越高</li>
+</ul>
+</blockquote>
+<h2 id="MCMC"><a href="#MCMC" class="headerlink" title="MCMC"></a>MCMC</h2><p>马氏链经过若干步之后会形成平稳分布（平稳分布是在某一步之后分布不在变化）</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<ul>
+<li><a href="https://www.cnblogs.com/daniel-D/p/3388724.html" target="_blank" rel="noopener">https://www.cnblogs.com/daniel-D/p/3388724.html</a></li>
+<li>白板机器学习系列：MCMC</li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>统计</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Tensorflow Dataset模块笔记</title>
     <url>/posts/df0579b5.html/</url>
     <content><![CDATA[<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><h3 id="创建一个datasets："><a href="#创建一个datasets：" class="headerlink" title="创建一个datasets："></a>创建一个datasets：</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">datasets = tf.data.DataSets.from_tensor_slices([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line">datasets</span><br></pre></td></tr></table></figure>
