@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Tensorflow,机器学习，编程," />
+  <meta name="keywords" content="机器学习,Tensorflow,编程," />
 
 
 
@@ -87,15 +87,16 @@
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/df0579b5.html/index.html">
 <meta property="og:site_name" content="拍栏听雨个人博客">
 <meta property="og:description" content="基本用法创建一个datasets：1234import tensorflow as tfdatasets &#x3D; tf.data.DataSets.from_tensor_slices([1,2,3,4,5])datasets  遍历datasets：12for elem in dataset:  print(elem.numpy())  迭代器单独取出datasets中的数：123it &#x3D; iter">
-<meta property="og:image" content="http://blog.zhangqi2019.top/posts/df0579b5.html/1.png">
-<meta property="og:image" content="http://blog.zhangqi2019.top/posts/df0579b5.html/2.png">
+<meta property="og:image" content="http://blog.zhangqi2019.top/Tensorflow-Dataset%E6%A8%A1%E5%9D%97%E7%AC%94%E8%BF%B9/1.png">
+<meta property="og:image" content="http://blog.zhangqi2019.top/Tensorflow-Dataset%E6%A8%A1%E5%9D%97%E7%AC%94%E8%BF%B9/2.png">
 <meta property="article:published_time" content="2020-04-20T07:45:36.000Z">
-<meta property="article:modified_time" content="2020-04-20T07:45:36.312Z">
+<meta property="article:modified_time" content="2020-05-12T09:16:14.786Z">
 <meta property="article:author" content="拍栏听雨">
+<meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="Tensorflow">
-<meta property="article:tag" content="机器学习，编程">
+<meta property="article:tag" content="编程">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://blog.zhangqi2019.top/posts/df0579b5.html/1.png">
+<meta name="twitter:image" content="http://blog.zhangqi2019.top/Tensorflow-Dataset%E6%A8%A1%E5%9D%97%E7%AC%94%E8%BF%B9/1.png">
 
 
 
@@ -491,9 +492,9 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_batch_sizes</span><span class="params">(ds)</span>:</span></span><br><span class="line">  batch_sizes = [batch.shape[<span class="number">0</span>] <span class="keyword">for</span> batch <span class="keyword">in</span> ds]</span><br><span class="line">  plt.bar(range(len(batch_sizes)), batch_sizes)</span><br><span class="line">  plt.xlabel(<span class="string">'Batch number'</span>)</span><br><span class="line">  plt.ylabel(<span class="string">'Batch size'</span>)</span><br><span class="line"></span><br><span class="line">titanic_file = tf.keras.utils.get_file(<span class="string">"train.csv"</span>, <span class="string">"https://storage.googleapis.com/tf-datasets/titanic/train.csv"</span>)</span><br><span class="line">titanic_lines = tf.data.TextLineDataset(titanic_file)</span><br><span class="line"></span><br><span class="line">titanic_batches = titanic_lines.repeat(<span class="number">3</span>).batch(<span class="number">128</span>)</span><br><span class="line">plot_batch_sizes(titanic_batches)</span><br></pre></td></tr></table></figure>
 
 <p>得到的结果如下图所示：</p>
-<p><img src="/posts/df0579b5.html/1.png" alt></p>
+<p><img src="/Tensorflow-Dataset%E6%A8%A1%E5%9D%97%E7%AC%94%E8%BF%B9/1.png" alt></p>
 <p>教程中还提到另外一种方式：</p>
-<p><img src="/posts/df0579b5.html/2.png" alt></p>
+<p><img src="/Tensorflow-Dataset%E6%A8%A1%E5%9D%97%E7%AC%94%E8%BF%B9/2.png" alt></p>
 <h3 id="Randomly-shuffling-input-data"><a href="#Randomly-shuffling-input-data" class="headerlink" title="Randomly shuffling input data"></a>Randomly shuffling input data</h3><p>调用<code>shuffle</code>函数即可，这里重点说明一下<code>shuffle</code>函数中的<code>buffer_size</code>参数：</p>
 <p>tensorflow中的打乱顺序是通过采样实现的。也就是说，给定一个<code>batch_size</code>，在数据集中抽取这么多个（<code>batch_size</code>个数据）数据，从而达到打乱顺序的目的。但有时候，原数据集太大，这么抽很耗时，所以就有了<code>buffer</code>，buffer的作用是代替原数据集来进行抽样，即<code>batch</code>中的数据是从<code>buffer</code>里面抽，这个buffer越大，越能够代表原数据集，所以<code>buffer_size</code>参数实际上是代表<code>buffer</code>的大小的。</p>
 <p>以下是原文：</p>
@@ -525,9 +526,11 @@
       
         <div class="post-tags">
           
+            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
+          
             <a href="/tags/Tensorflow/" rel="tag"><i class="fa fa-tag"></i> Tensorflow</a>
           
-            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%8C%E7%BC%96%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> 机器学习，编程</a>
+            <a href="/tags/%E7%BC%96%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> 编程</a>
           
         </div>
       
@@ -662,7 +665,7 @@ var jiathis_config={
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
