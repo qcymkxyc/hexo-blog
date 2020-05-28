@@ -87,19 +87,19 @@
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/e2e6b321.html/index.html">
 <meta property="og:site_name" content="拍栏听雨个人博客">
 <meta property="og:description" content="Siamese网络Question 孪生网络的两个网络结构需要相同吗？权重是否一定要一致？ 孪生网络的大体流程 在生成的结果中，两个向量的相似程度如何计算？是直接算欧氏距离还是loss 孪生网络中的loss中m的作用，增大m会有什么影响 2-Channel的主体思想 Triple Network的主体思想  Siamese网络作用 Siamese适用的情景：  少样本甚至1个样本的情况（俗称的On">
-<meta property="og:image" content="http://blog.zhangqi2019.top/Siamese%E7%BD%91%E7%BB%9C/1338991-20181213123654582-1284082097.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1338991-20181213123654582-1284082097.png">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1338991-20181213130146077-1166762109.png">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2020-05-26T08-40-16.697Z.png">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E4%BD%8Eloss%E5%AF%B9%E5%BA%94%E6%8C%87%E6%A0%87.png">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2020-05-28T08-28-47.927Z.png">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/index1.png">
 <meta property="article:published_time" content="2020-03-14T08:32:19.000Z">
-<meta property="article:modified_time" content="2020-05-28T09:27:34.121Z">
+<meta property="article:modified_time" content="2020-05-28T09:38:54.168Z">
 <meta property="article:author" content="拍栏听雨">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="神经网络">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://blog.zhangqi2019.top/Siamese%E7%BD%91%E7%BB%9C/1338991-20181213123654582-1284082097.png">
+<meta name="twitter:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1338991-20181213123654582-1284082097.png">
 
 
 
@@ -437,7 +437,7 @@
 <h3 id="主体思想"><a href="#主体思想" class="headerlink" title="主体思想"></a>主体思想</h3><blockquote>
 <p>样本通过网络编码，量化为一个向量，最后计算向量之间的相似度</p>
 </blockquote>
-<img src="/Siamese网络/1338991-20181213123654582-1284082097.png" style="zoom:50%;">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1338991-20181213123654582-1284082097.png" style="zoom:50%;">
 
 <p>图中，input 1和input 2是需要对比的两个输入，输入可以是图像，可以是文本，甚至可以是数字</p>
 <p>两个输入通过网络之后均形成一个向量，然后对比两个向量的相似程度<strong>（也就是Loss）</strong></p>

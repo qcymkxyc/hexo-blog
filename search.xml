@@ -818,7 +818,7 @@
 <h3 id="主体思想"><a href="#主体思想" class="headerlink" title="主体思想"></a>主体思想</h3><blockquote>
 <p>样本通过网络编码，量化为一个向量，最后计算向量之间的相似度</p>
 </blockquote>
-<img src="/Siamese网络/1338991-20181213123654582-1284082097.png" style="zoom:50%;">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1338991-20181213123654582-1284082097.png" style="zoom:50%;">
 
 <p>图中，input 1和input 2是需要对比的两个输入，输入可以是图像，可以是文本，甚至可以是数字</p>
 <p>两个输入通过网络之后均形成一个向量，然后对比两个向量的相似程度<strong>（也就是Loss）</strong></p>
