@@ -857,13 +857,13 @@
 </li>
 </ul>
 </blockquote>
-<p>并</p>
+<p>并附上预测结果</p>
 <table>
 <thead>
 <tr>
-<th>Pred</th>
-<th>Label</th>
 <th></th>
+<th>Predict Distance</th>
+<th>Label</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -972,8 +972,19 @@
 <td>1.0</td>
 </tr>
 </tbody></table>
+<p>可以看到以上模型预测的结果（也就是两个子网络的距离）基本上都在0.5左右，在计算Loss时，再加上平方（参见<a href="#损失函数">Siamese Loss</a>），造成算出的Loss结果就会相当的小，但$FAR$和$FRR$却居高不下。换句话说，该模型根本没有辨识能力，loss效果却相当的好看。</p>
+<p>另外，反过来看，Loss大不一定代表模型不好，如下图。</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2020-05-28T08-28-47.927Z.png" alt></p>
+<p>得到的$ERR$图如下：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/index1.png" alt></p>
+<p>$ERR$结果:</p>
 <blockquote>
-<p><a href="#损失函数">Siamese Loss</a></p>
+<ul>
+<li><p>$FAR = FRR = 0.3559322033898305$</p>
+</li>
+<li><p>$threshoold = 0.1881966181994088$</p>
+</li>
+</ul>
 </blockquote>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
 <ul>
