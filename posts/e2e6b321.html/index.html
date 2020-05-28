@@ -87,15 +87,17 @@
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/e2e6b321.html/index.html">
 <meta property="og:site_name" content="拍栏听雨个人博客">
 <meta property="og:description" content="Siamese网络Question 孪生网络的两个网络结构需要相同吗？权重是否一定要一致？ 孪生网络的大体流程 在生成的结果中，两个向量的相似程度如何计算？是直接算欧氏距离还是loss 孪生网络中的loss中m的作用，增大m会有什么影响 2-Channel的主体思想 Triple Network的主体思想  Siamese网络作用 Siamese适用的情景：  少样本甚至1个样本的情况（俗称的On">
-<meta property="og:image" content="http://blog.zhangqi2019.top/posts/e2e6b321.html/1338991-20181213123654582-1284082097.png">
+<meta property="og:image" content="http://blog.zhangqi2019.top/Siamese%E7%BD%91%E7%BB%9C/1338991-20181213123654582-1284082097.png">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1338991-20181213130146077-1166762109.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2020-05-26T08-40-16.697Z.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E4%BD%8Eloss%E5%AF%B9%E5%BA%94%E6%8C%87%E6%A0%87.png">
 <meta property="article:published_time" content="2020-03-14T08:32:19.000Z">
-<meta property="article:modified_time" content="2020-04-16T05:47:51.291Z">
+<meta property="article:modified_time" content="2020-05-26T09:23:56.562Z">
 <meta property="article:author" content="拍栏听雨">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="神经网络">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://blog.zhangqi2019.top/posts/e2e6b321.html/1338991-20181213123654582-1284082097.png">
+<meta name="twitter:image" content="http://blog.zhangqi2019.top/Siamese%E7%BD%91%E7%BB%9C/1338991-20181213123654582-1284082097.png">
 
 
 
@@ -433,7 +435,7 @@
 <h3 id="主体思想"><a href="#主体思想" class="headerlink" title="主体思想"></a>主体思想</h3><blockquote>
 <p>样本通过网络编码，量化为一个向量，最后计算向量之间的相似度</p>
 </blockquote>
-<img src="/posts/e2e6b321.html/1338991-20181213123654582-1284082097.png" style="zoom:50%;">
+<img src="/Siamese网络/1338991-20181213123654582-1284082097.png" style="zoom:50%;">
 
 <p>图中，input 1和input 2是需要对比的两个输入，输入可以是图像，可以是文本，甚至可以是数字</p>
 <p>两个输入通过网络之后均形成一个向量，然后对比两个向量的相似程度<strong>（也就是Loss）</strong></p>
@@ -456,6 +458,140 @@
 <p>既然Siamese网络是衡量两个样本间的相似度，Triple Network是衡量三个样本间的相似度</p>
 </blockquote>
 <p>Triple Network笔记：<a href="Triple网络.md">Triple Network </a></p>
+<h2 id="对Siamese网络以及度量学习的一点理解"><a href="#对Siamese网络以及度量学习的一点理解" class="headerlink" title="对Siamese网络以及度量学习的一点理解"></a>对Siamese网络以及度量学习的一点理解</h2><p><strong>loss的大小并不能完全表示度量模型学习程度的好坏</strong></p>
+<p>（以下是本人的一些理解，仅供参考）</p>
+<h3 id="结果指标"><a href="#结果指标" class="headerlink" title="结果指标"></a>结果指标</h3><p>下面是一个本人在一次Metric Learning任务中训练所得的Siamese模型，得到的Train Loss和Validation Loss如下图所示：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2020-05-26T08-40-16.697Z.png" alt></p>
+<p>可以看到Train和Validation  Loss都较小。</p>
+<p>通过以上的模型，通过移动阈值，可以绘制$FAR$和$FRR$曲线，所得的验证集的$FAR$和$FRR$曲线如下图所示：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E4%BD%8Eloss%E5%AF%B9%E5%BA%94%E6%8C%87%E6%A0%87.png" alt></p>
+<p>根据上图得到的$ERR$点结果如下：</p>
+<blockquote>
+<ul>
+<li><p>$FAR = FRR = 0.5933333333333334$</p>
+</li>
+<li><p>$threshoold = 0.516687226098579$</p>
+</li>
+</ul>
+</blockquote>
+<p>并</p>
+<table>
+<thead>
+<tr>
+<th>Pred</th>
+<th>Label</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0.511279</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0.500313</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0.511920</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0.512624</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0.504918</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0.861020</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>6</td>
+<td>0.500000</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>7</td>
+<td>0.499787</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>8</td>
+<td>0.510990</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>9</td>
+<td>0.516549</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>10</td>
+<td>0.500447</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>11</td>
+<td>0.874551</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>12</td>
+<td>0.516883</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>13</td>
+<td>0.514373</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>14</td>
+<td>0.528016</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>15</td>
+<td>0.515205</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>16</td>
+<td>0.516599</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>17</td>
+<td>0.860529</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>18</td>
+<td>0.508360</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>19</td>
+<td>0.503932</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>20</td>
+<td>0.515846</td>
+<td>1.0</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><a href="#损失函数">Siamese Loss</a></p>
+</blockquote>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
 <ul>
 <li><p><a href="https://www.cnblogs.com/Lee-yl/p/10113386.html" target="_blank" rel="noopener">https://www.cnblogs.com/Lee-yl/p/10113386.html</a></p>
@@ -714,7 +850,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Siamese网络"><span class="nav-number">1.</span> <span class="nav-text">Siamese网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Question"><span class="nav-number">1.1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Siamese网络-1"><span class="nav-number">1.2.</span> <span class="nav-text">Siamese网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#作用"><span class="nav-number">1.2.1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主体思想"><span class="nav-number">1.2.2.</span> <span class="nav-text">主体思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#损失函数"><span class="nav-number">1.2.3.</span> <span class="nav-text">损失函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进"><span class="nav-number">1.3.</span> <span class="nav-text">改进</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Channel"><span class="nav-number">1.3.1.</span> <span class="nav-text">2-Channel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Triple-Network"><span class="nav-number">1.3.2.</span> <span class="nav-text">Triple Network</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.4.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Siamese网络"><span class="nav-number">1.</span> <span class="nav-text">Siamese网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Question"><span class="nav-number">1.1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Siamese网络-1"><span class="nav-number">1.2.</span> <span class="nav-text">Siamese网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#作用"><span class="nav-number">1.2.1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主体思想"><span class="nav-number">1.2.2.</span> <span class="nav-text">主体思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#损失函数"><span class="nav-number">1.2.3.</span> <span class="nav-text">损失函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进"><span class="nav-number">1.3.</span> <span class="nav-text">改进</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Channel"><span class="nav-number">1.3.1.</span> <span class="nav-text">2-Channel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Triple-Network"><span class="nav-number">1.3.2.</span> <span class="nav-text">Triple Network</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对Siamese网络以及度量学习的一点理解"><span class="nav-number">1.4.</span> <span class="nav-text">对Siamese网络以及度量学习的一点理解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#结果指标"><span class="nav-number">1.4.1.</span> <span class="nav-text">结果指标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.5.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
             
 
           </div>

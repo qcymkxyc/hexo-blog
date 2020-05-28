@@ -38,10 +38,12 @@
     <title>MCMC</title>
     <url>/posts/90e44d07.html/</url>
     <content><![CDATA[<h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ul>
+<li>蒙特卡洛采样的作用</li>
 <li>Inverse Sampling的适用范围</li>
 <li>Inverse Sampling的过程</li>
 <li>Rejection Sampling的大致思想</li>
 <li>Rejection Sampling的流程</li>
+<li>什么是影响Rejection Sampling的关键因素</li>
 <li>Importance Sampling的大致思想</li>
 <li>Importance Sampling的流程</li>
 </ul>
@@ -97,8 +99,8 @@
 <blockquote>
 <ul>
 <li>$m$的值越大，会导致接收率$\alpha$的值越小，采样的效率也就会越低。所以，应该在满足条件的情况下尽量小的选择$m$的值</li>
-<li>分布的维数越高，采样的频率也会越低</li>
-<li>分布$Q$和分布$P$越接近，采样的频率也越高</li>
+<li>分布的维数越高，采样的效率也会越低</li>
+<li>分布$Q$和分布$P$越接近，采样的效率也越高</li>
 </ul>
 </blockquote>
 <h3 id="Importance-Sampling"><a href="#Importance-Sampling" class="headerlink" title="Importance Sampling"></a>Importance Sampling</h3><blockquote>
@@ -123,8 +125,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>统计</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -345,9 +347,9 @@
         <category>目标检测</category>
       </categories>
       <tags>
-        <tag>计算机视觉</tag>
         <tag>机器学习</tag>
         <tag>图像处理</tag>
+        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
@@ -816,7 +818,7 @@
 <h3 id="主体思想"><a href="#主体思想" class="headerlink" title="主体思想"></a>主体思想</h3><blockquote>
 <p>样本通过网络编码，量化为一个向量，最后计算向量之间的相似度</p>
 </blockquote>
-<img src="/posts/e2e6b321.html/1338991-20181213123654582-1284082097.png" style="zoom:50%;">
+<img src="/Siamese网络/1338991-20181213123654582-1284082097.png" style="zoom:50%;">
 
 <p>图中，input 1和input 2是需要对比的两个输入，输入可以是图像，可以是文本，甚至可以是数字</p>
 <p>两个输入通过网络之后均形成一个向量，然后对比两个向量的相似程度<strong>（也就是Loss）</strong></p>
@@ -839,6 +841,140 @@
 <p>既然Siamese网络是衡量两个样本间的相似度，Triple Network是衡量三个样本间的相似度</p>
 </blockquote>
 <p>Triple Network笔记：<a href="Triple网络.md">Triple Network </a></p>
+<h2 id="对Siamese网络以及度量学习的一点理解"><a href="#对Siamese网络以及度量学习的一点理解" class="headerlink" title="对Siamese网络以及度量学习的一点理解"></a>对Siamese网络以及度量学习的一点理解</h2><p><strong>loss的大小并不能完全表示度量模型学习程度的好坏</strong></p>
+<p>（以下是本人的一些理解，仅供参考）</p>
+<h3 id="结果指标"><a href="#结果指标" class="headerlink" title="结果指标"></a>结果指标</h3><p>下面是一个本人在一次Metric Learning任务中训练所得的Siamese模型，得到的Train Loss和Validation Loss如下图所示：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2020-05-26T08-40-16.697Z.png" alt></p>
+<p>可以看到Train和Validation  Loss都较小。</p>
+<p>通过以上的模型，通过移动阈值，可以绘制$FAR$和$FRR$曲线，所得的验证集的$FAR$和$FRR$曲线如下图所示：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E4%BD%8Eloss%E5%AF%B9%E5%BA%94%E6%8C%87%E6%A0%87.png" alt></p>
+<p>根据上图得到的$ERR$点结果如下：</p>
+<blockquote>
+<ul>
+<li><p>$FAR = FRR = 0.5933333333333334$</p>
+</li>
+<li><p>$threshoold = 0.516687226098579$</p>
+</li>
+</ul>
+</blockquote>
+<p>并</p>
+<table>
+<thead>
+<tr>
+<th>Pred</th>
+<th>Label</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0.511279</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0.500313</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0.511920</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0.512624</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0.504918</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0.861020</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>6</td>
+<td>0.500000</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>7</td>
+<td>0.499787</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>8</td>
+<td>0.510990</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>9</td>
+<td>0.516549</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>10</td>
+<td>0.500447</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>11</td>
+<td>0.874551</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>12</td>
+<td>0.516883</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>13</td>
+<td>0.514373</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>14</td>
+<td>0.528016</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>15</td>
+<td>0.515205</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>16</td>
+<td>0.516599</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>17</td>
+<td>0.860529</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>18</td>
+<td>0.508360</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>19</td>
+<td>0.503932</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>20</td>
+<td>0.515846</td>
+<td>1.0</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><a href="#损失函数">Siamese Loss</a></p>
+</blockquote>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
 <ul>
 <li><p><a href="https://www.cnblogs.com/Lee-yl/p/10113386.html" target="_blank" rel="noopener">https://www.cnblogs.com/Lee-yl/p/10113386.html</a></p>
@@ -1226,8 +1362,8 @@
         <category>目标跟踪</category>
       </categories>
       <tags>
-        <tag>目标跟踪</tag>
         <tag>Demo</tag>
+        <tag>目标跟踪</tag>
       </tags>
   </entry>
   <entry>
