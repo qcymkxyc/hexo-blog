@@ -1093,9 +1093,13 @@ pass through层是怎么做的
         
           
           YOLO v1的总结,备忘
-网络设计YOLO算法的设计理念是将图像分成$s \times s$的网络结构,每个网格分别来判定是否目标在其中,这其中运用了用卷积层来代替全连接层,这项技术是Idea的关键.所以最终的结果是
-$$s \times  s \times(B \times 5 + C)$$
-其
+Question
+对于不同尺寸的输入图像YOLO是怎么解决的
+YOLO V1输出的数据结构如何（几维数据，每一维数据分别代表什么）
+为何YOLO V1要用两个BBox
+标签中的$Confidence$如何确定
+$Confidence$是什么时候得到的
+YOLO的$Loss
           ...
           <!--noindex-->
           <div class="post-button text-center">

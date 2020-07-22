@@ -90,7 +90,7 @@
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Inverse-Sampling.png">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Rejection-Sampling.png">
 <meta property="article:published_time" content="2020-05-12T09:02:45.000Z">
-<meta property="article:modified_time" content="2020-06-04T01:27:35.395Z">
+<meta property="article:modified_time" content="2020-06-28T02:05:58.102Z">
 <meta property="article:author" content="拍栏听雨">
 <meta property="article:tag" content="统计">
 <meta property="article:tag" content="机器学习">
@@ -429,6 +429,8 @@
 <blockquote>
 <p>如果是$z_i$是一个已知的分布，我们可以直接从上面采样（比如高斯分布，均匀分布），获得$z$，然后计算期望值$E[f(z)]$,但如果是一个不规则的分布，我们无法直接从上面采样，蒙特卡洛采样的目的就是解决求函数$f(z)$的期望。</p>
 </blockquote>
+<p><strong>总而言之，蒙特卡洛采样就是对于一个非常罕见.</strong></p>
+<p><strong>的分布解决怎样采样的问题</strong></p>
 <p>蒙特卡洛采样有许多种，常用的有以下几种：</p>
 <h3 id="Inverse-Sampling"><a href="#Inverse-Sampling" class="headerlink" title="Inverse Sampling"></a>Inverse Sampling</h3><blockquote>
 <p>Inverse Sampling(逆采样)适用于<strong>累积分布函数已知（可求得）</strong>的情况，例如高斯分布，指数分布等</p>

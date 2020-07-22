@@ -4,6 +4,11 @@
     <title>形态学总结</title>
     <url>/posts/c1f4dbab.html/</url>
     <content><![CDATA[<h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ul>
+<li>开操作和闭操作的作用</li>
+<li>击中的作用</li>
+<li>在形态学中如何进行边界提取</li>
+<li>孔洞填充和连通分量提取的局限性在哪里</li>
+<li>一般在灰度级的形态学中，结构元的特点</li>
 <li>顶帽的用途</li>
 </ul>
 <h2 id="形态学"><a href="#形态学" class="headerlink" title="形态学"></a>形态学</h2><h3 id="腐蚀"><a href="#腐蚀" class="headerlink" title="腐蚀"></a>腐蚀</h3><p>腐蚀的作用：</p>
@@ -39,7 +44,7 @@
 <p>综上所述，开操作和闭操作的第二步其实就是对 前一步的后处理。两个操作的真正作用在第一步，那么：</p>
 <ul>
 <li>开操作： 去除小部分，包括椒盐噪声等等</li>
-<li>闭操作：连接断点</li>
+<li>闭操作：连接断点，较大的结构元可以填充孔洞</li>
 </ul>
 </blockquote>
 <p>以下是开操作和闭操作的公式表示,,</p>
@@ -274,6 +279,8 @@
 <blockquote>
 <p>如果是$z_i$是一个已知的分布，我们可以直接从上面采样（比如高斯分布，均匀分布），获得$z$，然后计算期望值$E[f(z)]$,但如果是一个不规则的分布，我们无法直接从上面采样，蒙特卡洛采样的目的就是解决求函数$f(z)$的期望。</p>
 </blockquote>
+<p><strong>总而言之，蒙特卡洛采样就是对于一个非常罕见.</strong></p>
+<p><strong>的分布解决怎样采样的问题</strong></p>
 <p>蒙特卡洛采样有许多种，常用的有以下几种：</p>
 <h3 id="Inverse-Sampling"><a href="#Inverse-Sampling" class="headerlink" title="Inverse Sampling"></a>Inverse Sampling</h3><blockquote>
 <p>Inverse Sampling(逆采样)适用于<strong>累积分布函数已知（可求得）</strong>的情况，例如高斯分布，指数分布等</p>
@@ -882,7 +889,7 @@
 <li>路径规划限制条件    </li>
 </ol>
 <blockquote>
-<p>即找到一条从左下角到右上角的路径,路径表示为：<br>$$<br>W=w_1,w_2,w_3,…,w_k,…,w_K   \text max(m,n) \leqslant K \leqslant m+n-1<br>$$</p>
+<p>即找到一条从左下角到右上角的路径,路径表示为：<br>$$<br>W=w_1,w_2,w_3,…,w_k,…,w_K   ，\text max(m,n) \leqslant K \leqslant m+n-1<br>$$</p>
 </blockquote>
 <blockquote>
 <p><strong>前置条件</strong></p>
@@ -1771,6 +1778,14 @@ $$
     <title>YOLO V1总结</title>
     <url>/posts/16c1a0a5.html/</url>
     <content><![CDATA[<p>YOLO v1的总结,备忘</p>
+<h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ul>
+<li>对于不同尺寸的输入图像YOLO是怎么解决的</li>
+<li>YOLO V1输出的数据结构如何（几维数据，每一维数据分别代表什么）</li>
+<li>为何YOLO V1要用两个BBox</li>
+<li>标签中的$Confidence$如何确定</li>
+<li>$Confidence$是什么时候得到的</li>
+<li>YOLO的$Loss$是$L1 Loss$还是$L2 Loss$</li>
+</ul>
 <h2 id="网络设计"><a href="#网络设计" class="headerlink" title="网络设计"></a>网络设计</h2><p>YOLO算法的设计理念是将图像分成$s \times s$的网络结构,每个网格分别来判定是否目标在其中,这其中运用了用卷积层来代替全连接层,这项技术是Idea的关键.所以最终的结果是</p>
 <p>$$s \times  s \times(B \times 5 + C)$$</p>
 <p>其中,B表示BBox的个数,C代表类别个数,5表示(x,y,w,h,confidence)</p>
