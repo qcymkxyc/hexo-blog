@@ -1785,6 +1785,7 @@ $$
 <li>标签中的$Confidence$如何确定</li>
 <li>$Confidence$是什么时候得到的</li>
 <li>YOLO的$Loss$是$L1 Loss$还是$L2 Loss$</li>
+<li>YOLO V1的优点及缺点</li>
 </ul>
 <h2 id="网络设计"><a href="#网络设计" class="headerlink" title="网络设计"></a>网络设计</h2><p>YOLO算法的设计理念是将图像分成$s \times s$的网络结构,每个网格分别来判定是否目标在其中,这其中运用了用卷积层来代替全连接层,这项技术是Idea的关键.所以最终的结果是</p>
 <p>$$s \times  s \times(B \times 5 + C)$$</p>
