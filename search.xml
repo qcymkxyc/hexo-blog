@@ -1,6 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>区域的表示和描述</title>
+    <url>/posts/d4747641.html/</url>
+    <content><![CDATA[<h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ul>
+<li>边界追踪的目的</li>
+<li>表示和描述一般用在图像处理的什么地方</li>
+<li>Moore边界追踪</li>
+<li>链码的主体思想</li>
+<li>标记图的作用</li>
+<li>标记图的主体思想</li>
+<li>标记图如何解决旋转不变性</li>
+<li>标记图解决缩放有哪两种方式，分别是什么，各自的优缺点是什么</li>
+<li>形状数的目的</li>
+</ul>
+<h1 id="图像（区域）的表示和描述"><a href="#图像（区域）的表示和描述" class="headerlink" title="图像（区域）的表示和描述"></a>图像（区域）的表示和描述</h1><p>所有Demo见：<a href="https://github.com/qcymkxyc/Image-Process/blob/master/notebooks/%E5%9B%BE%E5%83%8F%E8%A1%A8%E7%A4%BA%E4%B8%8E%E6%8F%8F%E8%BF%B0.ipynb" target="_blank" rel="noopener">https://github.com/qcymkxyc/Image-Process/blob/master/notebooks/%E5%9B%BE%E5%83%8F%E8%A1%A8%E7%A4%BA%E4%B8%8E%E6%8F%8F%E8%BF%B0.ipynb</a></p>
+<ul>
+<li>表示：顾名思义，如何表示这一个区域。需要说明的是，像素仅是表示一个区域 的一种方式。（比如对于一个矩形，可以用另一种表示方式：四条线段）</li>
+<li>描述：如何表示该区域的特性，例如纹理，梯度等</li>
+</ul>
+<p><strong>该流程是在图像分割之后，对分割后的单元（区域）进一步处理的流程</strong></p>
+<h2 id="表示"><a href="#表示" class="headerlink" title="表示"></a>表示</h2><h3 id="边界追踪（Moore边界追踪）"><a href="#边界追踪（Moore边界追踪）" class="headerlink" title="边界追踪（Moore边界追踪）"></a>边界追踪（Moore边界追踪）</h3><p>Moore边界追踪是最基本的像素级的表示方式</p>
+<blockquote>
+<p>边界追踪的目的是找一个物体（区域）的外边缘，或提取孔洞的外边缘</p>
+</blockquote>
+<p>Moore边界追踪的步骤如下：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E8%BE%B9%E7%95%8C%E8%BF%BD%E8%B8%AA.png" alt></p>
+<h3 id="链码"><a href="#链码" class="headerlink" title="链码"></a>链码</h3><p>链码是以线段为单位来表示区域的外边界，相比于边界追踪，其泛化性更好，鲁棒性也更高。</p>
+<p>链码又叫<strong>弗雷曼链码</strong></p>
+<blockquote>
+<p>链码的主旨思想是将多个像素组成的线段根据方向进行分类，这样，一个封闭曲线就由一系列方向化的线段表示。</p>
+</blockquote>
+<h4 id="详细步骤"><a href="#详细步骤" class="headerlink" title="详细步骤"></a>详细步骤</h4><p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E9%93%BE%E7%A0%811.png" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E9%93%BE%E7%A0%812.png" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E9%93%BE%E7%A0%813.png" alt></p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>Freeman链码提取实现的代码较多，见<a href="https://github.com/qcymkxyc/Image-Process/blob/master/src/chapter11/freeman_code.py" target="_blank" rel="noopener">https://github.com/qcymkxyc/Image-Process/blob/master/src/chapter11/freeman_code.py</a></p>
+<h4 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h4><p><strong>提取原图像：</strong></p>
+<p>Demo的任务是给定一个封闭曲线，给出其对应的Freeman链码，原图像如下图所示：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Freeman%E5%8E%9F%E5%9B%BE%E5%83%8F.png" alt></p>
+<p><strong>原图像二值化：</strong></p>
+<p>对其进行均值滤波，并用$OTSU$算法进行二值化后</p>
+<p>主要代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tmp_img = cv2.blur(img,(<span class="number">9</span>,<span class="number">9</span>))</span><br><span class="line">th,tmp_img = cv2.threshold(tmp_img,<span class="number">0</span>,<span class="number">255</span>,cv2.THRESH_BINARY + cv2.THRESH_OTSU)</span><br><span class="line">plt.imshow(tmp_img)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p>二值化后的图像为：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Freeman%E4%BA%8C%E5%80%BC%E5%8C%96%E5%90%8E%E7%9A%84%E5%9B%BE%E7%89%87.png" alt></p>
+<p><strong>构建Freeman链码</strong></p>
+<p>主要代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">black_img = np.zeros_like(img)</span><br><span class="line"></span><br><span class="line"><span class="comment"># plt.imshow(cv2.findContours(black_img,contours,1,[255,255,255],2))</span></span><br><span class="line"></span><br><span class="line">tmp_img = cv2.blur(img, (<span class="number">9</span>, <span class="number">9</span>))</span><br><span class="line">th, tmp_img = cv2.threshold(</span><br><span class="line">    tmp_img, <span class="number">0</span>, <span class="number">255</span>, cv2.THRESH_BINARY + cv2.THRESH_OTSU)</span><br><span class="line">image, contours, hierarchy = cv2.findContours(</span><br><span class="line">    tmp_img, cv2.RETR_LIST, cv2.CHAIN_APPROX_NONE)</span><br><span class="line">contour = contours[<span class="number">-1</span>]</span><br><span class="line">contour = np.reshape(contour, (contour.shape[<span class="number">0</span>], contour.shape[<span class="number">-1</span>]))</span><br><span class="line">x = [i[<span class="number">0</span>] <span class="keyword">for</span> i <span class="keyword">in</span> contour]</span><br><span class="line">y = [i[<span class="number">1</span>] <span class="keyword">for</span> i <span class="keyword">in</span> contour]</span><br><span class="line">plt.plot(x, y)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line">r = freeman_code.get_freeman_coordination(tmp_img, contour)</span><br><span class="line"></span><br><span class="line">x = [i[<span class="number">0</span>] <span class="keyword">for</span> i <span class="keyword">in</span> r]</span><br><span class="line">y = [i[<span class="number">1</span>] <span class="keyword">for</span> i <span class="keyword">in</span> r]</span><br><span class="line"></span><br><span class="line">plt.plot(x,y)</span><br></pre></td></tr></table></figure>
+
+<p>获取其外边框，且该外边框上的像素点必须是连续的，所以在调用opencv的$findContours$方法时必须用cv2.CHAIN_APPROX_NONE​,该参数表示提取的边缘是严格8连接的，提取的外边框如下图所示：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/freeman%E5%A4%96%E8%BE%B9%E6%A1%86.png" alt></p>
+<p>在获取外边框后，对外边框进行Freeman编码，编码的结果为一系列在Freeman网格中的坐标，部分如下所示：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">[(<span class="number">4</span>, <span class="number">1</span>),</span><br><span class="line"> (<span class="number">4</span>, <span class="number">1</span>),</span><br><span class="line"> (<span class="number">4</span>, <span class="number">1</span>),</span><br><span class="line"> (<span class="number">4</span>, <span class="number">1</span>),</span><br><span class="line"> (<span class="number">3</span>, <span class="number">2</span>),</span><br><span class="line"> (<span class="number">3</span>, <span class="number">2</span>),</span><br><span class="line"> (<span class="number">3</span>, <span class="number">2</span>),</span><br><span class="line"> (<span class="number">3</span>, <span class="number">2</span>),</span><br><span class="line"> (<span class="number">3</span>, <span class="number">2</span>),</span><br><span class="line"> ...</span><br></pre></td></tr></table></figure>
+
+<p>对Freeman坐标进行画图，结果为：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Freeman%E7%BB%93%E6%9E%9C.png" alt></p>
+<h3 id="标记图"><a href="#标记图" class="headerlink" title="标记图"></a>标记图</h3><blockquote>
+<p>标记图可用来识别不同形状的闭合区域。例如可用来识别矩形和三角形</p>
+</blockquote>
+<h4 id="主要过程"><a href="#主要过程" class="headerlink" title="主要过程"></a>主要过程</h4><p>标记图较为简单，主要分为两步：</p>
+<ul>
+<li>找到该区域的质心（质心等于该区域所有的点的平均）</li>
+<li>计算质心到每一个边界点的距离以及角度（即以质心为圆心旋转$360^\circ$查看该质心到边界的距离）</li>
+</ul>
+<p>最终会形成一个<strong>标记图</strong>，如下：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E6%A0%87%E8%AE%B0%E5%9B%BE.png" alt></p>
+<p>如果该区域是一个四边形，会出现四个波峰；如果是三角形，则会出现三个波峰，由此我们可以判定该区域的形状。</p>
+<h4 id="标记图旋转不变性"><a href="#标记图旋转不变性" class="headerlink" title="标记图旋转不变性"></a>标记图旋转不变性</h4><p>在标记图中解决旋转不变性较为容易，即选择离质心最远的点作为起始点，那么反应到标记图中则是起始点为最高的波峰。</p>
+<h4 id="标记图缩放解决"><a href="#标记图缩放解决" class="headerlink" title="标记图缩放解决"></a>标记图缩放解决</h4><p>书中解决缩放问题有两种方式：</p>
+<ol>
+<li>归一化<br>$$<br>\frac{距离}{max(距离) - min(距离)}<br>$$</li>
+</ol>
+<p><strong>该方式的缺点是对噪声敏感</strong></p>
+<ol start="2">
+<li>样本/方差<br>$$<br>\frac{样本}{方差}<br>$$</li>
+</ol>
+<p><strong>相比于归一化，该方式更加的稳定</strong></p>
+<h3 id="骨架"><a href="#骨架" class="headerlink" title="骨架"></a>骨架</h3><p>骨架见<a href="http://blog.zhangqi2019.top/posts/311496b5.html/">这篇博客</a></p>
+<h2 id="边界描述"><a href="#边界描述" class="headerlink" title="边界描述"></a>边界描述</h2><p>边界描述实际上是对区域边缘的描述，这种描述有粗有细，也就是说有泛化的描述也有精确的描述，他们各有各用途。</p>
+<ul>
+<li>泛化描述：形状数</li>
+<li>细致描述：<ul>
+<li>边界像素个数</li>
+<li>统计矩</li>
+</ul>
+</li>
+</ul>
+<h3 id="形状数"><a href="#形状数" class="headerlink" title="形状数"></a>形状数</h3><blockquote>
+<p>形状数的目的：保证Freeman链码的旋转不变性</p>
+</blockquote>
+<p>形状数是在Freeman链码的基础上做两步事情：</p>
+<ul>
+<li>差分（这里的差分并非数学上的差分）</li>
+<li>差分结果排序（这里也非单纯的排序，后面会详细说明）</li>
+</ul>
+<h2 id="区域描述"><a href="#区域描述" class="headerlink" title="区域描述"></a>区域描述</h2><h3 id="偏心率"><a href="#偏心率" class="headerlink" title="偏心率"></a>偏心率</h3><ul>
+<li>边界的直径：封闭曲线内的最大直径（长轴）</li>
+<li>短轴：垂直于长轴的轴</li>
+</ul>
+<p>长轴和短轴组成可包住区域的边框<br>$$<br>偏心率=\frac{短轴}{长轴}<br>$$</p>
+]]></content>
+      <categories>
+        <category>图像处理</category>
+      </categories>
+      <tags>
+        <tag>Demo</tag>
+        <tag>图像处理</tag>
+        <tag>计算机视觉</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ELMO、BERT以及GPT</title>
     <url>/posts/3a513c16.html/</url>
     <content><![CDATA[<h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><h3 id="ELMO"><a href="#ELMO" class="headerlink" title="ELMO"></a>ELMO</h3><ul>
@@ -42,7 +152,8 @@
 <li>一般在灰度级的形态学中，结构元的特点</li>
 <li>顶帽的用途</li>
 </ul>
-<h2 id="形态学"><a href="#形态学" class="headerlink" title="形态学"></a>形态学</h2><h3 id="腐蚀"><a href="#腐蚀" class="headerlink" title="腐蚀"></a>腐蚀</h3><p>腐蚀的作用：</p>
+<h2 id="形态学"><a href="#形态学" class="headerlink" title="形态学"></a>形态学</h2><p>所有的实现Demo源代码在这里：<a href="https://github.com/qcymkxyc/Image-Process" target="_blank" rel="noopener">https://github.com/qcymkxyc/Image-Process</a></p>
+<h3 id="腐蚀"><a href="#腐蚀" class="headerlink" title="腐蚀"></a>腐蚀</h3><p>腐蚀的作用：</p>
 <blockquote>
 <p>腐蚀会清除小于结构元的图像细节，腐蚀比较典型的应用包括去噪、去除断点等</p>
 </blockquote>
@@ -884,7 +995,7 @@
 <li><p>建立一个矩阵$H$，行为$p$的所有取值，列为$\theta$（$\theta$的取值范围为(-90,180)）</p>
 </li>
 <li><p>遍历图像中的所有边缘点，得到该点的坐标$(x,y)$，再遍历$\theta$的取值，通过公式$p=xcos{\theta}+ysin{\theta}$ 得到$p$,用伪代码表示为：</p>
-<figure class="highlight gml"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> each edge Point(<span class="symbol">x</span>,<span class="symbol">y</span>):</span><br><span class="line">	<span class="keyword">for</span> theta in range(<span class="number">-90</span>,<span class="number">180</span>):</span><br><span class="line">		p = <span class="symbol">x</span> * <span class="built_in">cos</span>(theta) + <span class="symbol">y</span> * <span class="built_in">sin</span>(theta)</span><br><span class="line">		H(theta,p) += <span class="number">1</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> each edge Point(x,y):</span><br><span class="line">	<span class="keyword">for</span> theta <span class="keyword">in</span> range(<span class="number">-90</span>,<span class="number">90</span>):</span><br><span class="line">		p = x * cos(theta) + y * sin(theta)</span><br><span class="line">		H(theta,p) += <span class="number">1</span></span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>在$H$中找出最大的n个值即找出n条直线</p>
 </li>
@@ -1808,7 +1919,7 @@ $$
   <entry>
     <title>YOLO V1总结</title>
     <url>/posts/16c1a0a5.html/</url>
-    <content><![CDATA[<p>YOLO v1的总结,备忘</p>
+    <content><![CDATA[<p>YOLO​ v1的总结,备忘</p>
 <h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ul>
 <li>对于不同尺寸的输入图像YOLO是怎么解决的</li>
 <li>YOLO V1输出的数据结构如何（几维数据，每一维数据分别代表什么）</li>

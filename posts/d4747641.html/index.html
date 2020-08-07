@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="机器学习,距离," />
+  <meta name="keywords" content="Demo,图像处理,计算机视觉," />
 
 
 
@@ -81,21 +81,29 @@
 
 
 
-<meta name="description" content="DTW距离Question DTW的作用 DTW的大致流程  DTW距离 DTW全称Dynamic Time Warping，用于衡量两个不同长度的两个序列的距离   构造匹配矩阵  设序列1$Q&#x3D;q_1,q_2,…,q_n$,序列2$C&#x3D;c_1,c_2,…,c_m$ ,其中$n\neq m$,然后构造一个$m\times n$的矩阵，矩阵中的值是$q_i$和$c_j$的距离（通常用欧式距离），如">
+<meta name="description" content="Question 边界追踪的目的 表示和描述一般用在图像处理的什么地方 Moore边界追踪 链码的主体思想 标记图的作用 标记图的主体思想 标记图如何解决旋转不变性 标记图解决缩放有哪两种方式，分别是什么，各自的优缺点是什么 形状数的目的  图像（区域）的表示和描述所有Demo见：https:&#x2F;&#x2F;github.com&#x2F;qcymkxyc&#x2F;Image-Process&#x2F;blob&#x2F;master&#x2F;noteb">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DTW距离">
-<meta property="og:url" content="http://blog.zhangqi2019.top/posts/4df0af7c.html/index.html">
+<meta property="og:title" content="区域的表示和描述">
+<meta property="og:url" content="http://blog.zhangqi2019.top/posts/d4747641.html/index.html">
 <meta property="og:site_name" content="拍栏听雨个人博客">
-<meta property="og:description" content="DTW距离Question DTW的作用 DTW的大致流程  DTW距离 DTW全称Dynamic Time Warping，用于衡量两个不同长度的两个序列的距离   构造匹配矩阵  设序列1$Q&#x3D;q_1,q_2,…,q_n$,序列2$C&#x3D;c_1,c_2,…,c_m$ ,其中$n\neq m$,然后构造一个$m\times n$的矩阵，矩阵中的值是$q_i$和$c_j$的距离（通常用欧式距离），如">
-<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20130620200852375-1584176187632.jpg">
-<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20130620200949125-1584176277643.jpg">
-<meta property="article:published_time" content="2020-03-14T08:55:35.000Z">
-<meta property="article:modified_time" content="2020-06-28T01:43:28.067Z">
+<meta property="og:description" content="Question 边界追踪的目的 表示和描述一般用在图像处理的什么地方 Moore边界追踪 链码的主体思想 标记图的作用 标记图的主体思想 标记图如何解决旋转不变性 标记图解决缩放有哪两种方式，分别是什么，各自的优缺点是什么 形状数的目的  图像（区域）的表示和描述所有Demo见：https:&#x2F;&#x2F;github.com&#x2F;qcymkxyc&#x2F;Image-Process&#x2F;blob&#x2F;master&#x2F;noteb">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E8%BE%B9%E7%95%8C%E8%BF%BD%E8%B8%AA.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E9%93%BE%E7%A0%811.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E9%93%BE%E7%A0%812.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E9%93%BE%E7%A0%813.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Freeman%E5%8E%9F%E5%9B%BE%E5%83%8F.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Freeman%E4%BA%8C%E5%80%BC%E5%8C%96%E5%90%8E%E7%9A%84%E5%9B%BE%E7%89%87.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/freeman%E5%A4%96%E8%BE%B9%E6%A1%86.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Freeman%E7%BB%93%E6%9E%9C.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E6%A0%87%E8%AE%B0%E5%9B%BE.png">
+<meta property="article:published_time" content="2020-07-30T08:27:48.000Z">
+<meta property="article:modified_time" content="2020-08-06T09:25:19.784Z">
 <meta property="article:author" content="拍栏听雨">
-<meta property="article:tag" content="机器学习">
-<meta property="article:tag" content="距离">
+<meta property="article:tag" content="Demo">
+<meta property="article:tag" content="图像处理">
+<meta property="article:tag" content="计算机视觉">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20130620200852375-1584176187632.jpg">
+<meta name="twitter:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E8%BE%B9%E7%95%8C%E8%BF%BD%E8%B8%AA.png">
 
 
 
@@ -125,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://blog.zhangqi2019.top/posts/4df0af7c.html/"/>
+  <link rel="canonical" href="http://blog.zhangqi2019.top/posts/d4747641.html/"/>
 
 
 
 
 
-  <title>DTW距离 | 拍栏听雨个人博客</title>
+  <title>区域的表示和描述 | 拍栏听雨个人博客</title>
   
 
 
@@ -316,7 +324,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.zhangqi2019.top/posts/4df0af7c.html/">
+    <link itemprop="mainEntityOfPage" href="http://blog.zhangqi2019.top/posts/d4747641.html/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="拍栏听雨">
@@ -333,7 +341,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">DTW距离</h2>
+          <h2 class="post-title" itemprop="name headline">区域的表示和描述</h2>
         
 
         <div class="post-meta">
@@ -345,8 +353,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-14T16:55:35+08:00">
-                2020-03-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-30T16:27:48+08:00">
+                2020-07-30
               </time>
             
 
@@ -368,8 +376,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
+                  <a href="/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" itemprop="url" rel="index">
+                    <span itemprop="name">图像处理</span>
                   </a>
                 </span>
 
@@ -386,8 +394,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/posts/4df0af7c.html/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/posts/4df0af7c.html/" itemprop="commentCount"></span>
+                <a href="/posts/d4747641.html/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/posts/d4747641.html/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -415,61 +423,103 @@
       
 
       
-        <h2 id="DTW距离"><a href="#DTW距离" class="headerlink" title="DTW距离"></a>DTW距离</h2><h3 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h3><ol>
-<li>DTW的作用</li>
-<li>DTW的大致流程</li>
-</ol>
-<h3 id="DTW距离-1"><a href="#DTW距离-1" class="headerlink" title="DTW距离"></a>DTW距离</h3><blockquote>
-<p>DTW全称Dynamic Time Warping，用于衡量两个不同长度的两个序列的距离</p>
+        <h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ul>
+<li>边界追踪的目的</li>
+<li>表示和描述一般用在图像处理的什么地方</li>
+<li>Moore边界追踪</li>
+<li>链码的主体思想</li>
+<li>标记图的作用</li>
+<li>标记图的主体思想</li>
+<li>标记图如何解决旋转不变性</li>
+<li>标记图解决缩放有哪两种方式，分别是什么，各自的优缺点是什么</li>
+<li>形状数的目的</li>
+</ul>
+<h1 id="图像（区域）的表示和描述"><a href="#图像（区域）的表示和描述" class="headerlink" title="图像（区域）的表示和描述"></a>图像（区域）的表示和描述</h1><p>所有Demo见：<a href="https://github.com/qcymkxyc/Image-Process/blob/master/notebooks/%E5%9B%BE%E5%83%8F%E8%A1%A8%E7%A4%BA%E4%B8%8E%E6%8F%8F%E8%BF%B0.ipynb" target="_blank" rel="noopener">https://github.com/qcymkxyc/Image-Process/blob/master/notebooks/%E5%9B%BE%E5%83%8F%E8%A1%A8%E7%A4%BA%E4%B8%8E%E6%8F%8F%E8%BF%B0.ipynb</a></p>
+<ul>
+<li>表示：顾名思义，如何表示这一个区域。需要说明的是，像素仅是表示一个区域 的一种方式。（比如对于一个矩形，可以用另一种表示方式：四条线段）</li>
+<li>描述：如何表示该区域的特性，例如纹理，梯度等</li>
+</ul>
+<p><strong>该流程是在图像分割之后，对分割后的单元（区域）进一步处理的流程</strong></p>
+<h2 id="表示"><a href="#表示" class="headerlink" title="表示"></a>表示</h2><h3 id="边界追踪（Moore边界追踪）"><a href="#边界追踪（Moore边界追踪）" class="headerlink" title="边界追踪（Moore边界追踪）"></a>边界追踪（Moore边界追踪）</h3><p>Moore边界追踪是最基本的像素级的表示方式</p>
+<blockquote>
+<p>边界追踪的目的是找一个物体（区域）的外边缘，或提取孔洞的外边缘</p>
 </blockquote>
+<p>Moore边界追踪的步骤如下：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E8%BE%B9%E7%95%8C%E8%BF%BD%E8%B8%AA.png" alt></p>
+<h3 id="链码"><a href="#链码" class="headerlink" title="链码"></a>链码</h3><p>链码是以线段为单位来表示区域的外边界，相比于边界追踪，其泛化性更好，鲁棒性也更高。</p>
+<p>链码又叫<strong>弗雷曼链码</strong></p>
+<blockquote>
+<p>链码的主旨思想是将多个像素组成的线段根据方向进行分类，这样，一个封闭曲线就由一系列方向化的线段表示。</p>
+</blockquote>
+<h4 id="详细步骤"><a href="#详细步骤" class="headerlink" title="详细步骤"></a>详细步骤</h4><p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E9%93%BE%E7%A0%811.png" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E9%93%BE%E7%A0%812.png" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E9%93%BE%E7%A0%813.png" alt></p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>Freeman链码提取实现的代码较多，见<a href="https://github.com/qcymkxyc/Image-Process/blob/master/src/chapter11/freeman_code.py" target="_blank" rel="noopener">https://github.com/qcymkxyc/Image-Process/blob/master/src/chapter11/freeman_code.py</a></p>
+<h4 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h4><p><strong>提取原图像：</strong></p>
+<p>Demo的任务是给定一个封闭曲线，给出其对应的Freeman链码，原图像如下图所示：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Freeman%E5%8E%9F%E5%9B%BE%E5%83%8F.png" alt></p>
+<p><strong>原图像二值化：</strong></p>
+<p>对其进行均值滤波，并用$OTSU$算法进行二值化后</p>
+<p>主要代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tmp_img = cv2.blur(img,(<span class="number">9</span>,<span class="number">9</span>))</span><br><span class="line">th,tmp_img = cv2.threshold(tmp_img,<span class="number">0</span>,<span class="number">255</span>,cv2.THRESH_BINARY + cv2.THRESH_OTSU)</span><br><span class="line">plt.imshow(tmp_img)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p>二值化后的图像为：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Freeman%E4%BA%8C%E5%80%BC%E5%8C%96%E5%90%8E%E7%9A%84%E5%9B%BE%E7%89%87.png" alt></p>
+<p><strong>构建Freeman链码</strong></p>
+<p>主要代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">black_img = np.zeros_like(img)</span><br><span class="line"></span><br><span class="line"><span class="comment"># plt.imshow(cv2.findContours(black_img,contours,1,[255,255,255],2))</span></span><br><span class="line"></span><br><span class="line">tmp_img = cv2.blur(img, (<span class="number">9</span>, <span class="number">9</span>))</span><br><span class="line">th, tmp_img = cv2.threshold(</span><br><span class="line">    tmp_img, <span class="number">0</span>, <span class="number">255</span>, cv2.THRESH_BINARY + cv2.THRESH_OTSU)</span><br><span class="line">image, contours, hierarchy = cv2.findContours(</span><br><span class="line">    tmp_img, cv2.RETR_LIST, cv2.CHAIN_APPROX_NONE)</span><br><span class="line">contour = contours[<span class="number">-1</span>]</span><br><span class="line">contour = np.reshape(contour, (contour.shape[<span class="number">0</span>], contour.shape[<span class="number">-1</span>]))</span><br><span class="line">x = [i[<span class="number">0</span>] <span class="keyword">for</span> i <span class="keyword">in</span> contour]</span><br><span class="line">y = [i[<span class="number">1</span>] <span class="keyword">for</span> i <span class="keyword">in</span> contour]</span><br><span class="line">plt.plot(x, y)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line">r = freeman_code.get_freeman_coordination(tmp_img, contour)</span><br><span class="line"></span><br><span class="line">x = [i[<span class="number">0</span>] <span class="keyword">for</span> i <span class="keyword">in</span> r]</span><br><span class="line">y = [i[<span class="number">1</span>] <span class="keyword">for</span> i <span class="keyword">in</span> r]</span><br><span class="line"></span><br><span class="line">plt.plot(x,y)</span><br></pre></td></tr></table></figure>
+
+<p>获取其外边框，且该外边框上的像素点必须是连续的，所以在调用opencv的$findContours$方法时必须用cv2.CHAIN_APPROX_NONE​,该参数表示提取的边缘是严格8连接的，提取的外边框如下图所示：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/freeman%E5%A4%96%E8%BE%B9%E6%A1%86.png" alt></p>
+<p>在获取外边框后，对外边框进行Freeman编码，编码的结果为一系列在Freeman网格中的坐标，部分如下所示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[(<span class="number">4</span>, <span class="number">1</span>),</span><br><span class="line"> (<span class="number">4</span>, <span class="number">1</span>),</span><br><span class="line"> (<span class="number">4</span>, <span class="number">1</span>),</span><br><span class="line"> (<span class="number">4</span>, <span class="number">1</span>),</span><br><span class="line"> (<span class="number">3</span>, <span class="number">2</span>),</span><br><span class="line"> (<span class="number">3</span>, <span class="number">2</span>),</span><br><span class="line"> (<span class="number">3</span>, <span class="number">2</span>),</span><br><span class="line"> (<span class="number">3</span>, <span class="number">2</span>),</span><br><span class="line"> (<span class="number">3</span>, <span class="number">2</span>),</span><br><span class="line"> ...</span><br></pre></td></tr></table></figure>
+
+<p>对Freeman坐标进行画图，结果为：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Freeman%E7%BB%93%E6%9E%9C.png" alt></p>
+<h3 id="标记图"><a href="#标记图" class="headerlink" title="标记图"></a>标记图</h3><blockquote>
+<p>标记图可用来识别不同形状的闭合区域。例如可用来识别矩形和三角形</p>
+</blockquote>
+<h4 id="主要过程"><a href="#主要过程" class="headerlink" title="主要过程"></a>主要过程</h4><p>标记图较为简单，主要分为两步：</p>
+<ul>
+<li>找到该区域的质心（质心等于该区域所有的点的平均）</li>
+<li>计算质心到每一个边界点的距离以及角度（即以质心为圆心旋转$360^\circ$查看该质心到边界的距离）</li>
+</ul>
+<p>最终会形成一个<strong>标记图</strong>，如下：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E6%A0%87%E8%AE%B0%E5%9B%BE.png" alt></p>
+<p>如果该区域是一个四边形，会出现四个波峰；如果是三角形，则会出现三个波峰，由此我们可以判定该区域的形状。</p>
+<h4 id="标记图旋转不变性"><a href="#标记图旋转不变性" class="headerlink" title="标记图旋转不变性"></a>标记图旋转不变性</h4><p>在标记图中解决旋转不变性较为容易，即选择离质心最远的点作为起始点，那么反应到标记图中则是起始点为最高的波峰。</p>
+<h4 id="标记图缩放解决"><a href="#标记图缩放解决" class="headerlink" title="标记图缩放解决"></a>标记图缩放解决</h4><p>书中解决缩放问题有两种方式：</p>
 <ol>
-<li>构造匹配矩阵</li>
+<li>归一化<br>$$<br>\frac{距离}{max(距离) - min(距离)}<br>$$</li>
 </ol>
-<p>设序列1$Q=q_1,q_2,…,q_n$,序列2$C=c_1,c_2,…,c_m$ ,其中$n\neq m$,然后构造一个$m\times n$的矩阵，矩阵中的值是$q_i$和$c_j$的距离（通常用欧式距离），如下图所示：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20130620200852375-1584176187632.jpg" alt></p>
+<p><strong>该方式的缺点是对噪声敏感</strong></p>
 <ol start="2">
-<li>路径规划限制条件    </li>
+<li>样本/方差<br>$$<br>\frac{样本}{方差}<br>$$</li>
 </ol>
-<blockquote>
-<p>即找到一条从左下角到右上角的路径,路径表示为：<br>$$<br>W=w_1,w_2,w_3,…,w_k,…,w_K   ，\text max(m,n) \leqslant K \leqslant m+n-1<br>$$</p>
-</blockquote>
-<blockquote>
-<p><strong>前置条件</strong></p>
-<p>但是该路径必须满足几个条件：</p>
-<ol>
-<li>边界约束：$w_1=(1,1)$,$w_K=(m,n)$,就是说两条序列的开始点和结束点一定是重合的</li>
-<li>连续性：如果$w_{k-1}= (a’, b’)$，那么对于路径的下一个点$w_k=(a, b)$需要满足 (a-a’) &lt;=1和 (b-b’) &lt;=1。就是说序列上的每一个点都要计算距离</li>
-<li>单调性： 如果$w_{k-1}= (a’, b’)$，那么对于路径的下一个点$w_{k}=(a, b)$需要满足0&lt;=(a-a’)和0&lt;= (b-b’)。也就是说不能回头连接算距离</li>
-</ol>
-<p><strong>以上三个约束其实就一个目的，限定路径只能往这几个方向走，且只能走一步。</strong></p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20130620200949125-1584176277643.jpg" alt></p>
-</blockquote>
-<ol start="3">
-<li><p>路劲规划</p>
-<blockquote>
-<p>即找到权重和最小路径</p>
-</blockquote>
+<p><strong>相比于归一化，该方式更加的稳定</strong></p>
+<h3 id="骨架"><a href="#骨架" class="headerlink" title="骨架"></a>骨架</h3><p>骨架见<a href="http://blog.zhangqi2019.top/posts/311496b5.html/">这篇博客</a></p>
+<h2 id="边界描述"><a href="#边界描述" class="headerlink" title="边界描述"></a>边界描述</h2><p>边界描述实际上是对区域边缘的描述，这种描述有粗有细，也就是说有泛化的描述也有精确的描述，他们各有各用途。</p>
+<ul>
+<li>泛化描述：形状数</li>
+<li>细致描述：<ul>
+<li>边界像素个数</li>
+<li>统计矩</li>
+</ul>
 </li>
-</ol>
-<p>最后使用动态规划实现计算DTW距离，在上图中找到一条路径实现距离之和最小（从$w_1=(1,1)$开始,$w_K=(m,n)$结束），公式表示为：<br>$$<br>DTW（Q，C）=min（\sqrt{\sum_{k=1}^K{w_k}}）<br>$$<br>有时候为了增加路径长度的惩罚，路径可以表示为：<br>$$<br>DTW（Q，C）=min（\left(\sqrt{\sum_{k=1}^K{w_k}} \right)/K）<br>$$</p>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h4 id="整体的DTW距离："><a href="#整体的DTW距离：" class="headerlink" title="整体的DTW距离："></a>整体的DTW距离：</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dtw_distance</span><span class="params">(matrix_a, matrix_b, **kwargs)</span>:</span></span><br><span class="line">    <span class="string">"""计算DTW距离</span></span><br><span class="line"><span class="string">    所用的距离度量标准是欧式距离，但前提是两个矩阵的列数必须一致，若不一致则报错，</span></span><br><span class="line"><span class="string">    计算距离分下面几种情况：</span></span><br><span class="line"><span class="string">    1. 若两个矩阵行数相同，则直接计算欧式距离</span></span><br><span class="line"><span class="string">    2. 若两个矩阵的行数不同，则计算DTW距离</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    :param matrix_a: np.array,矩阵或向量A</span></span><br><span class="line"><span class="string">    :param matrix_b: np.array,矩阵或向量B</span></span><br><span class="line"><span class="string">    :return: float,np.array(int,int)</span></span><br><span class="line"><span class="string">        - 序列之间的距离</span></span><br><span class="line"><span class="string">        - 最短路径的坐标</span></span><br><span class="line"><span class="string">    :raise: ValueError:</span></span><br><span class="line"><span class="string">        - 1. Weight的shape不对，其shape必须和两个矩阵的列相等</span></span><br><span class="line"><span class="string">        - 2.两个矩阵的列数不同</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    n_row_a, n_col_a = matrix_a.shape</span><br><span class="line">    n_row_b, n_col_b = matrix_b.shape</span><br><span class="line"></span><br><span class="line">    <span class="string">"""两个矩阵的列不同则报错"""</span></span><br><span class="line">    <span class="keyword">if</span> n_col_a != n_col_b:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">"两个矩阵的列必须相同"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="string">"""列相等且为1的情况，直接计算欧式距离"""</span></span><br><span class="line">    <span class="keyword">if</span> n_row_a == n_row_b:</span><br><span class="line">        <span class="comment"># 如果矩阵A和矩阵B均为1维，则直接计算欧式距离</span></span><br><span class="line">        <span class="keyword">if</span> n_col_a == <span class="number">1</span> <span class="keyword">and</span> n_col_b == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> np.sqrt(np.sum(pow(matrix_a - matrix_b, <span class="number">2</span>))), [(<span class="number">0</span>, <span class="number">0</span>)]</span><br><span class="line">        <span class="comment"># 如果是矩阵，则计算矩阵范数，这里采用的是2范数</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            path = list(range(n_row_a))</span><br><span class="line">            path = list(zip(path, path))</span><br><span class="line">            <span class="keyword">return</span> np.sqrt(np.sum(pow(matrix_a - matrix_b, <span class="number">2</span>))), path</span><br><span class="line"></span><br><span class="line">    <span class="string">"""行数不相等的情况，计算DTW距离"""</span></span><br><span class="line">    distance_matrix = np.zeros((n_row_a, n_row_b))</span><br><span class="line">    <span class="comment"># 获取权重并且判断weights的shape是否正确</span></span><br><span class="line">    weights = kwargs.get(<span class="string">"weights"</span>)</span><br><span class="line">    <span class="keyword">if</span> weights <span class="keyword">is</span> <span class="literal">None</span>:     <span class="comment"># 默认情况下，权重为1</span></span><br><span class="line">        weights = np.ones(n_col_a)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        weights = np.asarray(weights)</span><br><span class="line">        <span class="string">"""验证weights的shape是否正确"""</span></span><br><span class="line">        <span class="keyword">if</span> weights.shape[<span class="number">0</span>] != n_col_a <span class="keyword">and</span> len(weights.shape) == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">"Weights的shape错误"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> a_row_index, a_row <span class="keyword">in</span> enumerate(matrix_a):</span><br><span class="line">        <span class="keyword">for</span> b_row_index, b_row <span class="keyword">in</span> enumerate(matrix_b):</span><br><span class="line">            single_dtw_distance = np.sqrt(</span><br><span class="line">                np.sum(weights * pow((a_row - b_row), <span class="number">2</span>)))</span><br><span class="line">            distance_matrix[a_row_index][b_row_index] = single_dtw_distance</span><br><span class="line"></span><br><span class="line">    shortest_path, shortest_distance = __shortest_distance_with_dynamic(</span><br><span class="line">        distance_matrix)</span><br><span class="line">    <span class="keyword">return</span> shortest_distance, shortest_path</span><br></pre></td></tr></table></figure>
-
-<h4 id="生成的DTW矩阵寻找最短路径"><a href="#生成的DTW矩阵寻找最短路径" class="headerlink" title="生成的DTW矩阵寻找最短路径"></a>生成的DTW矩阵寻找最短路径</h4><p>对于寻找最短路径有两种方式：</p>
-<ol>
-<li>递归</li>
-<li>动态规划</li>
-</ol>
-<p>下面是递归部分：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__shortest_distance_with_recursion</span><span class="params">(distance_matrix, current_row=<span class="number">0</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                                       current_col=<span class="number">0</span>, path=[], last_distance=<span class="number">0</span>)</span>:</span></span><br><span class="line">    <span class="string">"""用递归查找DTW距离的最短距离</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    :param distance_matrix: np.array, DTW矩阵</span></span><br><span class="line"><span class="string">    :param current_row: int, 当前位置所在的行，</span></span><br><span class="line"><span class="string">    :param current_col: int, 当前位置所在的列</span></span><br><span class="line"><span class="string">    :param path: list[(int,int)] , 之前所走的路径</span></span><br><span class="line"><span class="string">    :return: List[(int,int)], int</span></span><br><span class="line"><span class="string">        - 最短路径</span></span><br><span class="line"><span class="string">        - 最短路径的长度</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    path = copy.copy(path)</span><br><span class="line">    n_row, n_col = distance_matrix.shape</span><br><span class="line"></span><br><span class="line">    <span class="string">""" 退出限定"""</span></span><br><span class="line">    <span class="comment"># 如果没有到达最下角，即超出边界,此时返回的路径是无穷大</span></span><br><span class="line">    <span class="keyword">if</span> current_row &gt;= n_row <span class="keyword">or</span> current_col &gt;= n_col:</span><br><span class="line">        <span class="keyword">return</span> path, np.inf</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果到达了最下角</span></span><br><span class="line">    path.append((current_row, current_col))</span><br><span class="line">    current_num = distance_matrix[current_row][current_col]</span><br><span class="line">    current_distance = last_distance + current_num</span><br><span class="line">    <span class="keyword">if</span> (current_row + <span class="number">1</span>, current_col + <span class="number">1</span>) == distance_matrix.shape:</span><br><span class="line">        <span class="keyword">return</span> path, current_distance</span><br><span class="line"></span><br><span class="line">    <span class="string">"""递归的向三个方向走"""</span></span><br><span class="line">    <span class="comment"># 向右走</span></span><br><span class="line">    right_path, right_length = __shortest_distance_with_recursion(distance_matrix, current_row, current_col + <span class="number">1</span>,</span><br><span class="line">                                                                  path=path, last_distance=current_distance)</span><br><span class="line">    <span class="comment"># 向下走</span></span><br><span class="line">    down_path, down_length = __shortest_distance_with_recursion(distance_matrix, current_row + <span class="number">1</span>,</span><br><span class="line">                                                                current_col, path=path, last_distance=current_distance)</span><br><span class="line">    <span class="comment"># 向斜下走</span></span><br><span class="line">    decline_path, decline_length = __shortest_distance_with_recursion(distance_matrix, current_row + <span class="number">1</span>,</span><br><span class="line">                                                                      current_col + <span class="number">1</span>, path=path, last_distance=current_distance)</span><br><span class="line"></span><br><span class="line">    <span class="string">"""在以上3个方向中选出最短路径"""</span></span><br><span class="line">    last_pathes = (right_path, down_path, decline_path)</span><br><span class="line">    last_lengthes = (right_length, down_length, decline_length)</span><br><span class="line">    shortest_index = np.argmin(last_lengthes)</span><br><span class="line">    shortest_path, shortest_lengthes = last_pathes[shortest_index], last_lengthes[shortest_index]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> shortest_path, shortest_lengthes</span><br></pre></td></tr></table></figure>
-
-<p>动态规划方式：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__get_property_value</span><span class="params">(matrix, current_row, current_col)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        value = matrix[current_row][current_col]</span><br><span class="line">    <span class="keyword">except</span> IndexError:</span><br><span class="line">        value = np.inf</span><br><span class="line">    <span class="keyword">return</span> value</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__shortest_distance_with_dynamic</span><span class="params">(distance_matrix)</span>:</span></span><br><span class="line">    <span class="string">"""用动态规划查找DTW距离</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    :param distance_matrix: np.array, DTW矩阵</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    n_row, n_col = distance_matrix.shape</span><br><span class="line"></span><br><span class="line">    <span class="string">"""计算到达当前位置最小的路径值"""</span></span><br><span class="line">    min_distance_matrix = np.zeros(distance_matrix.shape)</span><br><span class="line">    <span class="keyword">for</span> row <span class="keyword">in</span> range(n_row):</span><br><span class="line">        <span class="keyword">for</span> col <span class="keyword">in</span> range(n_col):</span><br><span class="line">            <span class="comment"># 第一步则不计算</span></span><br><span class="line">            <span class="keyword">if</span> row == <span class="number">0</span> <span class="keyword">and</span> col == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="comment"># 左上</span></span><br><span class="line">            upleft_value = __get_property_value(</span><br><span class="line">                min_distance_matrix, row - <span class="number">1</span>, col - <span class="number">1</span>)</span><br><span class="line">            <span class="comment"># 左边</span></span><br><span class="line">            left_value = __get_property_value(</span><br><span class="line">                min_distance_matrix, row, col - <span class="number">1</span>)</span><br><span class="line">            <span class="comment"># 上面</span></span><br><span class="line">            up_value = __get_property_value(min_distance_matrix, row - <span class="number">1</span>, col)</span><br><span class="line"></span><br><span class="line">            min_value = np.min([upleft_value, left_value, up_value])</span><br><span class="line">            min_distance_matrix[row][col] = distance_matrix[row][col] + min_value</span><br><span class="line"></span><br><span class="line">    <span class="string">"""查找最短路径"""</span></span><br><span class="line">    row, col = n_row - <span class="number">1</span>, n_col - <span class="number">1</span></span><br><span class="line">    path = [(row, col)]</span><br><span class="line">    <span class="keyword">while</span> row &gt;= <span class="number">0</span> <span class="keyword">and</span> col &gt;= <span class="number">0</span>:</span><br><span class="line">        <span class="string">'''当已经到达原点则直接退出'''</span></span><br><span class="line">        <span class="keyword">if</span> row == <span class="number">0</span> <span class="keyword">and</span> col == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="comment"># 左上</span></span><br><span class="line">        upleft_value = __get_property_value(</span><br><span class="line">            min_distance_matrix, row - <span class="number">1</span>, col - <span class="number">1</span>)</span><br><span class="line">        <span class="comment"># 左边</span></span><br><span class="line">        left_value = __get_property_value(min_distance_matrix, row, col - <span class="number">1</span>)</span><br><span class="line">        <span class="comment"># 上面</span></span><br><span class="line">        up_value = __get_property_value(min_distance_matrix, row - <span class="number">1</span>, col)</span><br><span class="line"></span><br><span class="line">        candidate_values = [upleft_value, left_value, up_value]</span><br><span class="line">        min_index = np.argmin(candidate_values)</span><br><span class="line">        <span class="comment"># 往左上寻址</span></span><br><span class="line">        <span class="keyword">if</span> min_index == <span class="number">0</span>:</span><br><span class="line">            row -= <span class="number">1</span></span><br><span class="line">            col -= <span class="number">1</span></span><br><span class="line">        <span class="comment"># 往左寻址</span></span><br><span class="line">        <span class="keyword">elif</span> min_index == <span class="number">1</span>:</span><br><span class="line">            col -= <span class="number">1</span></span><br><span class="line">        <span class="comment"># 往上寻址</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            row -= <span class="number">1</span></span><br><span class="line">        path.append((row, col))</span><br><span class="line"></span><br><span class="line">    path.reverse()</span><br><span class="line">    <span class="keyword">return</span> path, min_distance_matrix[n_row - <span class="number">1</span>][n_col - <span class="number">1</span>]</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><blockquote>
-<p><a href="https://blog.csdn.net/qq_40006058/article/details/79992255" target="_blank" rel="noopener">https://blog.csdn.net/qq_40006058/article/details/79992255</a></p>
+</ul>
+<h3 id="形状数"><a href="#形状数" class="headerlink" title="形状数"></a>形状数</h3><blockquote>
+<p>形状数的目的：保证Freeman链码的旋转不变性</p>
 </blockquote>
+<p>形状数是在Freeman链码的基础上做两步事情：</p>
+<ul>
+<li>差分（这里的差分并非数学上的差分）</li>
+<li>差分结果排序（这里也非单纯的排序，后面会详细说明）</li>
+</ul>
+<h2 id="区域描述"><a href="#区域描述" class="headerlink" title="区域描述"></a>区域描述</h2><h3 id="偏心率"><a href="#偏心率" class="headerlink" title="偏心率"></a>偏心率</h3><ul>
+<li>边界的直径：封闭曲线内的最大直径（长轴）</li>
+<li>短轴：垂直于长轴的轴</li>
+</ul>
+<p>长轴和短轴组成可包住区域的边框<br>$$<br>偏心率=\frac{短轴}{长轴}<br>$$</p>
 
       
     </div>
@@ -487,9 +537,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
+            <a href="/tags/Demo/" rel="tag"><i class="fa fa-tag"></i> Demo</a>
           
-            <a href="/tags/%E8%B7%9D%E7%A6%BB/" rel="tag"><i class="fa fa-tag"></i> 距离</a>
+            <a href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> 图像处理</a>
+          
+            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" rel="tag"><i class="fa fa-tag"></i> 计算机视觉</a>
           
         </div>
       
@@ -502,8 +554,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/edf1298.html/" rel="next" title="LBP特征">
-                <i class="fa fa-chevron-left"></i> LBP特征
+              <a href="/posts/3a513c16.html/" rel="next" title="ELMO、BERT以及GPT">
+                <i class="fa fa-chevron-left"></i> ELMO、BERT以及GPT
               </a>
             
           </div>
@@ -511,10 +563,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/e9f2d7e8.html/" rel="prev" title="Hough变换">
-                Hough变换 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -720,7 +768,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DTW距离"><span class="nav-number">1.</span> <span class="nav-text">DTW距离</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Question"><span class="nav-number">1.1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DTW距离-1"><span class="nav-number">1.2.</span> <span class="nav-text">DTW距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">1.3.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#整体的DTW距离："><span class="nav-number">1.3.1.</span> <span class="nav-text">整体的DTW距离：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成的DTW矩阵寻找最短路径"><span class="nav-number">1.3.2.</span> <span class="nav-text">生成的DTW矩阵寻找最短路径</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.4.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图像（区域）的表示和描述"><span class="nav-number"></span> <span class="nav-text">图像（区域）的表示和描述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#表示"><span class="nav-number">1.</span> <span class="nav-text">表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#边界追踪（Moore边界追踪）"><span class="nav-number">1.1.</span> <span class="nav-text">边界追踪（Moore边界追踪）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链码"><span class="nav-number">1.2.</span> <span class="nav-text">链码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#详细步骤"><span class="nav-number">1.2.1.</span> <span class="nav-text">详细步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现"><span class="nav-number">1.2.2.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Demo"><span class="nav-number">1.2.3.</span> <span class="nav-text">Demo</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标记图"><span class="nav-number">1.3.</span> <span class="nav-text">标记图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主要过程"><span class="nav-number">1.3.1.</span> <span class="nav-text">主要过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标记图旋转不变性"><span class="nav-number">1.3.2.</span> <span class="nav-text">标记图旋转不变性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标记图缩放解决"><span class="nav-number">1.3.3.</span> <span class="nav-text">标记图缩放解决</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#骨架"><span class="nav-number">1.4.</span> <span class="nav-text">骨架</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#边界描述"><span class="nav-number">2.</span> <span class="nav-text">边界描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#形状数"><span class="nav-number">2.1.</span> <span class="nav-text">形状数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区域描述"><span class="nav-number">3.</span> <span class="nav-text">区域描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#偏心率"><span class="nav-number">3.1.</span> <span class="nav-text">偏心率</span></a></li></ol></li></ol></div>
             
 
           </div>
