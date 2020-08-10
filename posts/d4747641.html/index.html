@@ -81,12 +81,12 @@
 
 
 
-<meta name="description" content="Question 边界追踪的目的 表示和描述一般用在图像处理的什么地方 Moore边界追踪 链码的主体思想 标记图的作用 标记图的主体思想 标记图如何解决旋转不变性 标记图解决缩放有哪两种方式，分别是什么，各自的优缺点是什么 形状数的目的  图像（区域）的表示和描述所有Demo见：https:&#x2F;&#x2F;github.com&#x2F;qcymkxyc&#x2F;Image-Process&#x2F;blob&#x2F;master&#x2F;noteb">
+<meta name="description" content="Question 边界追踪的目的 表示和描述一般用在图像处理的什么地方 Moore边界追踪的大体流程 链码的主体思想 标记图的作用 标记图的主体思想 标记图如何解决旋转不变性 标记图解决缩放有哪两种方式，分别是什么，各自的优缺点是什么 形状数的目的 致密度如何计算 圆度率如何计算 何为区域的拓扑特性 拓扑特性有些什么，如何计算  图像（区域）的表示和描述所有Demo见：https:&#x2F;&#x2F;github">
 <meta property="og:type" content="article">
 <meta property="og:title" content="区域的表示和描述">
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/d4747641.html/index.html">
 <meta property="og:site_name" content="拍栏听雨个人博客">
-<meta property="og:description" content="Question 边界追踪的目的 表示和描述一般用在图像处理的什么地方 Moore边界追踪 链码的主体思想 标记图的作用 标记图的主体思想 标记图如何解决旋转不变性 标记图解决缩放有哪两种方式，分别是什么，各自的优缺点是什么 形状数的目的  图像（区域）的表示和描述所有Demo见：https:&#x2F;&#x2F;github.com&#x2F;qcymkxyc&#x2F;Image-Process&#x2F;blob&#x2F;master&#x2F;noteb">
+<meta property="og:description" content="Question 边界追踪的目的 表示和描述一般用在图像处理的什么地方 Moore边界追踪的大体流程 链码的主体思想 标记图的作用 标记图的主体思想 标记图如何解决旋转不变性 标记图解决缩放有哪两种方式，分别是什么，各自的优缺点是什么 形状数的目的 致密度如何计算 圆度率如何计算 何为区域的拓扑特性 拓扑特性有些什么，如何计算  图像（区域）的表示和描述所有Demo见：https:&#x2F;&#x2F;github">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E8%BE%B9%E7%95%8C%E8%BF%BD%E8%B8%AA.png">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E9%93%BE%E7%A0%811.png">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E9%93%BE%E7%A0%812.png">
@@ -97,7 +97,7 @@
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Freeman%E7%BB%93%E6%9E%9C.png">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E6%A0%87%E8%AE%B0%E5%9B%BE.png">
 <meta property="article:published_time" content="2020-07-30T08:27:48.000Z">
-<meta property="article:modified_time" content="2020-08-06T09:25:19.784Z">
+<meta property="article:modified_time" content="2020-08-10T09:26:48.642Z">
 <meta property="article:author" content="拍栏听雨">
 <meta property="article:tag" content="Demo">
 <meta property="article:tag" content="图像处理">
@@ -426,13 +426,17 @@
         <h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ul>
 <li>边界追踪的目的</li>
 <li>表示和描述一般用在图像处理的什么地方</li>
-<li>Moore边界追踪</li>
+<li>Moore边界追踪的大体流程</li>
 <li>链码的主体思想</li>
 <li>标记图的作用</li>
 <li>标记图的主体思想</li>
 <li>标记图如何解决旋转不变性</li>
 <li>标记图解决缩放有哪两种方式，分别是什么，各自的优缺点是什么</li>
 <li>形状数的目的</li>
+<li>致密度如何计算</li>
+<li>圆度率如何计算</li>
+<li>何为区域的拓扑特性</li>
+<li>拓扑特性有些什么，如何计算</li>
 </ul>
 <h1 id="图像（区域）的表示和描述"><a href="#图像（区域）的表示和描述" class="headerlink" title="图像（区域）的表示和描述"></a>图像（区域）的表示和描述</h1><p>所有Demo见：<a href="https://github.com/qcymkxyc/Image-Process/blob/master/notebooks/%E5%9B%BE%E5%83%8F%E8%A1%A8%E7%A4%BA%E4%B8%8E%E6%8F%8F%E8%BF%B0.ipynb" target="_blank" rel="noopener">https://github.com/qcymkxyc/Image-Process/blob/master/notebooks/%E5%9B%BE%E5%83%8F%E8%A1%A8%E7%A4%BA%E4%B8%8E%E6%8F%8F%E8%BF%B0.ipynb</a></p>
 <ul>
@@ -454,7 +458,7 @@
 <h4 id="详细步骤"><a href="#详细步骤" class="headerlink" title="详细步骤"></a>详细步骤</h4><p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E9%93%BE%E7%A0%811.png" alt></p>
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E9%93%BE%E7%A0%812.png" alt></p>
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E9%93%BE%E7%A0%813.png" alt></p>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>Freeman链码提取实现的代码较多，见<a href="https://github.com/qcymkxyc/Image-Process/blob/master/src/chapter11/freeman_code.py" target="_blank" rel="noopener">https://github.com/qcymkxyc/Image-Process/blob/master/src/chapter11/freeman_code.py</a></p>
+<h4 id="算法代码实现"><a href="#算法代码实现" class="headerlink" title="算法代码实现"></a>算法代码实现</h4><p>Freeman链码提取实现的代码较多，见<a href="https://github.com/qcymkxyc/Image-Process/blob/master/src/chapter11/freeman_code.py" target="_blank" rel="noopener">https://github.com/qcymkxyc/Image-Process/blob/master/src/chapter11/freeman_code.py</a></p>
 <h4 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h4><p><strong>提取原图像：</strong></p>
 <p>Demo的任务是给定一个封闭曲线，给出其对应的Freeman链码，原图像如下图所示：</p>
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Freeman%E5%8E%9F%E5%9B%BE%E5%83%8F.png" alt></p>
@@ -520,7 +524,23 @@
 <li>短轴：垂直于长轴的轴</li>
 </ul>
 <p>长轴和短轴组成可包住区域的边框<br>$$<br>偏心率=\frac{短轴}{长轴}<br>$$</p>
-
+<p><strong>偏心率可以表示为总体形状的描述子</strong></p>
+<h3 id="致密度描述子"><a href="#致密度描述子" class="headerlink" title="致密度描述子"></a>致密度描述子</h3><p>影响致密度的两个因素为：</p>
+<ul>
+<li>区域的形状</li>
+<li>区域是否有孔洞</li>
+</ul>
+<h4 id="致密度"><a href="#致密度" class="headerlink" title="致密度"></a>致密度</h4><p>致密度的公式为：<br>$$<br>致密度 = \frac{周长^2}{面积}<br>$$</p>
+<h4 id="圆度率"><a href="#圆度率" class="headerlink" title="圆度率"></a>圆度率</h4><p>圆度率：一个区域的面积与具有相同周长的一个圆（最致密的形状，也就是说没有孔洞）的面积之比。</p>
+<p>圆度率$R_c$可以表示为：<br>$$<br>R_c=\frac{4\pi A}{P^2}<br>$$<br>其中，$A$表示区域面积，$P$表示其对应的周长</p>
+<h3 id="拓扑描述子"><a href="#拓扑描述子" class="headerlink" title="拓扑描述子"></a>拓扑描述子</h3><p>拓扑特性定义：未受任何变形影响的图形的性质</p>
+<p>拓扑描述子包括以下几个：</p>
+<ul>
+<li>孔洞数</li>
+<li>连通分量数</li>
+<li>欧拉数。欧拉数=连通分量数-孔洞数</li>
+</ul>
+<h3 id="纹理描述"><a href="#纹理描述" class="headerlink" title="纹理描述"></a>纹理描述</h3>
       
     </div>
     
@@ -768,7 +788,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图像（区域）的表示和描述"><span class="nav-number"></span> <span class="nav-text">图像（区域）的表示和描述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#表示"><span class="nav-number">1.</span> <span class="nav-text">表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#边界追踪（Moore边界追踪）"><span class="nav-number">1.1.</span> <span class="nav-text">边界追踪（Moore边界追踪）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链码"><span class="nav-number">1.2.</span> <span class="nav-text">链码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#详细步骤"><span class="nav-number">1.2.1.</span> <span class="nav-text">详细步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现"><span class="nav-number">1.2.2.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Demo"><span class="nav-number">1.2.3.</span> <span class="nav-text">Demo</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标记图"><span class="nav-number">1.3.</span> <span class="nav-text">标记图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主要过程"><span class="nav-number">1.3.1.</span> <span class="nav-text">主要过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标记图旋转不变性"><span class="nav-number">1.3.2.</span> <span class="nav-text">标记图旋转不变性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标记图缩放解决"><span class="nav-number">1.3.3.</span> <span class="nav-text">标记图缩放解决</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#骨架"><span class="nav-number">1.4.</span> <span class="nav-text">骨架</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#边界描述"><span class="nav-number">2.</span> <span class="nav-text">边界描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#形状数"><span class="nav-number">2.1.</span> <span class="nav-text">形状数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区域描述"><span class="nav-number">3.</span> <span class="nav-text">区域描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#偏心率"><span class="nav-number">3.1.</span> <span class="nav-text">偏心率</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图像（区域）的表示和描述"><span class="nav-number"></span> <span class="nav-text">图像（区域）的表示和描述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#表示"><span class="nav-number">1.</span> <span class="nav-text">表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#边界追踪（Moore边界追踪）"><span class="nav-number">1.1.</span> <span class="nav-text">边界追踪（Moore边界追踪）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链码"><span class="nav-number">1.2.</span> <span class="nav-text">链码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#详细步骤"><span class="nav-number">1.2.1.</span> <span class="nav-text">详细步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#算法代码实现"><span class="nav-number">1.2.2.</span> <span class="nav-text">算法代码实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Demo"><span class="nav-number">1.2.3.</span> <span class="nav-text">Demo</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标记图"><span class="nav-number">1.3.</span> <span class="nav-text">标记图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主要过程"><span class="nav-number">1.3.1.</span> <span class="nav-text">主要过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标记图旋转不变性"><span class="nav-number">1.3.2.</span> <span class="nav-text">标记图旋转不变性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标记图缩放解决"><span class="nav-number">1.3.3.</span> <span class="nav-text">标记图缩放解决</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#骨架"><span class="nav-number">1.4.</span> <span class="nav-text">骨架</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#边界描述"><span class="nav-number">2.</span> <span class="nav-text">边界描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#形状数"><span class="nav-number">2.1.</span> <span class="nav-text">形状数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区域描述"><span class="nav-number">3.</span> <span class="nav-text">区域描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#偏心率"><span class="nav-number">3.1.</span> <span class="nav-text">偏心率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#致密度描述子"><span class="nav-number">3.2.</span> <span class="nav-text">致密度描述子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#致密度"><span class="nav-number">3.2.1.</span> <span class="nav-text">致密度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#圆度率"><span class="nav-number">3.2.2.</span> <span class="nav-text">圆度率</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拓扑描述子"><span class="nav-number">3.3.</span> <span class="nav-text">拓扑描述子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#纹理描述"><span class="nav-number">3.4.</span> <span class="nav-text">纹理描述</span></a></li></ol></li></ol></div>
             
 
           </div>
