@@ -147,11 +147,11 @@
 <p>正向部分类似于Seq-to-Seq的Encoder，但输出是Many-To-Many的形式，每一个RNN的输出对应一个词的Embedding。</p>
 </blockquote>
 <p>将正向和反向的Embedding stack到一起即为一层对于一个词的Embedding。如下图所示。</p>
-<p><img src="/ELMO%E3%80%81BERT%E4%BB%A5%E5%8F%8AGPT/11864412-fa8c31b80704cc40.png" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/11864412-fa8c31b80704cc40.png" alt></p>
 <p>但通常情况下会有多层输出，如下图所示：</p>
-<p><img src="/ELMO%E3%80%81BERT%E4%BB%A5%E5%8F%8AGPT/11864412-fa063c6c7fa02848.png" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/11864412-de0f3386271083e3.png" alt></p>
 <p>对于一个词的Embedding取哪一层是一个问题。而ELMO的做法是<strong>都要</strong>，他将两层的结果进行加权，如下图所示：</p>
-<p><img src="/ELMO%E3%80%81BERT%E4%BB%A5%E5%8F%8AGPT/11864412-a92f25557abd193f.png" alt></p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/11864412-a92f25557abd193f.png" alt></p>
 <p>但权值的确定有两种：</p>
 <ul>
 <li>要么靠人为设定</li>
