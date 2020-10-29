@@ -1,6 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>图像分割（一）：基于边缘突变的分割</title>
+    <url>/posts/d2113c07.html/</url>
+    <content><![CDATA[<h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><h2 id="梯度和差分基础"><a href="#梯度和差分基础" class="headerlink" title="梯度和差分基础"></a>梯度和差分基础</h2><p>基于边缘突变的分割思想十分简单，如果一个像素点在分割的边缘上，那么，该像素点在某个方向上必定是突变的（这个方向不仅限于$x$和$y$）。鉴于以上思想，基于边缘的分割可以分割点、线甚至边缘。</p>
+<p>衡量某个像素在某个方向上是否是突变的，我们最容易想到的是梯度，梯度向量的方向表示变换最大的方向，而梯度的幅值表示变换的大小。</p>
+<p>图像在$x$和$y$两个方向上的梯度即为差分，可以表示为：<br>$$<br>\frac{\part{f}}{\part{x}}=f’(x)=f(x+1)-f(x)<br>$$</p>
+<p>$$<br>\frac{\part{f}}{\part{y}}=f’(y)=f(y+1)-f(y)<br>$$</p>
+<p>图像在$x$和$y$上的二阶差分为（二阶差分同样可以衡量突变）：<br>$$<br>\frac{\part^2{f}}{\part{x^2}}=f’(x+1) - f’(x)=f(x+2)-2f(x+1)+f(x)<br>$$</p>
+<p>$$<br>\frac{\part^2{f}}{\part{y^2}}=f’(y+1) - f’(y)=f(y+2)-2f(y+1)+f(y)<br>$$</p>
+<h2 id="一阶差分和二阶差分衡量边缘突变比较"><a href="#一阶差分和二阶差分衡量边缘突变比较" class="headerlink" title="一阶差分和二阶差分衡量边缘突变比较"></a>一阶差分和二阶差分衡量边缘突变比较</h2><p>设有图像在$x$方向如下图表所示，则其一阶导数和二阶导数的结果如下：</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>原始数据</td>
+<td>5</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>6</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>3</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>一阶差分</td>
+<td></td>
+<td>0</td>
+<td>-1</td>
+<td>-1</td>
+<td>-1</td>
+<td>-1</td>
+<td>-1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>6</td>
+<td>-6</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>-2</td>
+<td>-1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>二阶差分</td>
+<td></td>
+<td></td>
+<td>-1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>6</td>
+<td>-12</td>
+<td>6</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>-4</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<p>其对应的图像如下：</p>
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/图像差分.png" style="zoom:80%;">
+
+<p>通过观察以上图像可以得出以下几点特性：</p>
+<ul>
+<li>二阶导数对平缓的像素变化不敏感（例如编号从1到6的像素，一阶差分为-1，而二阶差分为0）</li>
+<li>二阶导数在斜坡的开始处和结束处均不为0，而一阶导数仅有开始处不为0</li>
+<li>二阶导数在斜坡的开始处和结束处的符号相反，这表示二阶导对光线从暗到亮和从亮到暗比较敏感，而一阶导数无此性质</li>
+</ul>
+<p>由此可以得出以下结论：</p>
+<blockquote>
+<ul>
+<li>对于缓慢变化的边缘，一阶导（差分）更敏感</li>
+<li>对于突变的边缘，二阶导更敏感，且二阶导可以分辨光线的明亮变化</li>
+</ul>
+</blockquote>
+<h2 id="孤立点检测"><a href="#孤立点检测" class="headerlink" title="孤立点检测"></a>孤立点检测</h2><p>通常孤立点同时在两个方向上变化均比较剧烈，所以根据前文所述，二阶差分对于突变更加敏感，所以二阶差分更适合孤立点检测。</p>
+<p>所以，这里会用到拉普拉斯算子（拉普拉斯算子即是二阶差分在图像中一种应用）.</p>
+<blockquote>
+<p><strong>补充：拉普拉斯算子</strong></p>
+<p>拉普拉斯算子定义为：<br>$$<br>\nabla^2f(x,y)=\frac{\part^2f}{\part{x^2}} + \frac{\part^2f}{\part{y^2}}<br>$$<br>也就是说，拉普拉斯算子为$x$和$y$两个方向上的二阶差分之和，也即$x$和$y$的变化程度之和。</p>
+<p>由前面的二阶差分展开公式，可得拉普拉斯算子为：<br>$$<br>\nabla^2f(x,y)=f(x+1,y)+f(x-1,y)+f(x,y+1)+f(x,y-1)-4f(x,y)<br>$$<br>实际上，拉普拉斯算子就是一个滤波器，上式的滤波模板可表示为：</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>-4</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<p>但上式实际上仅考虑了$x$和$y$的两个方向上的变化，对于正反$45^.$的变化并未考虑，所以，通常情况下，会加上45度角的检测，此时的拉普拉斯算子的滤波模板为：</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>1</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>-8</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p>以上模板即检测四个方向变化的模板。</p>
+</blockquote>
+<p>用以上模板对图像进行滤波，设滤波后的某一个点的结果为$R(x,y)$，若：</p>
+<p>$$<br>g(x,y)=\begin{cases} 1,&amp;\text{ |R(x,y)|} \geq T \ 0,  &amp;\text{other} \end{cases}<br>$$<br>在结果$g(x,y)$中，为1的点即为孤立点。</p>
+<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><p>下面是孤立点检测的Demo。</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E5%AD%A4%E7%AB%8B%E7%82%B9%E6%A3%80%E6%B5%8B.png" alt></p>
+<p>上图中，图一为原图片，图二为通过拉普拉斯变换后的结果，图三为通过阈值筛选后的结果，阈值取百分之99的分位数。</p>
+<h2 id="线检测"><a href="#线检测" class="headerlink" title="线检测"></a>线检测</h2><p>对于线的检测，同样用拉普拉斯变换，但前文提到，由于拉普拉斯的检测结果有<code>双边性</code>,也就是说检测的结果有两个边缘，此时需要保留其中一个边缘，另一个略去。如下图所示：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%BA%BF%E6%A3%80%E6%B5%8B.png" alt></p>
+<p>上图中，图一是原始图像，图二是经过拉普拉斯模板过滤后的图像，图三是图二取绝对值的结果，图四为取图二取正值的结果。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>区域的表示和描述</title>
     <url>/posts/d4747641.html/</url>
     <content><![CDATA[<h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ul>
