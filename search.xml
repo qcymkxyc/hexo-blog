@@ -5,7 +5,7 @@
     <url>/posts/d2113c07.html/</url>
     <content><![CDATA[<h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><h2 id="梯度和差分基础"><a href="#梯度和差分基础" class="headerlink" title="梯度和差分基础"></a>梯度和差分基础</h2><p>基于边缘突变的分割思想十分简单，如果一个像素点在分割的边缘上，那么，该像素点在某个方向上必定是突变的（这个方向不仅限于$x$和$y$）。鉴于以上思想，基于边缘的分割可以分割点、线甚至边缘。</p>
 <p>衡量某个像素在某个方向上是否是突变的，我们最容易想到的是梯度，梯度向量的方向表示变换最大的方向，而梯度的幅值表示变换的大小。</p>
-<p>图像在$x$和$y$两个方向上的梯度即为差分，可以表示为：<br>$$<br>\frac{\part{f}}{\part{x}}=f’(x)=f(x+1)-f(x)<br>$$</p>
+<p>图像在$x$和$y$两个方向上的梯度即为差分，可以表示为：<br>$$<br>\frac{\partial{f}}{\partial{x}}=f’(x)=f(x+1)-f(x)<br>$$</p>
 <p>$$<br>\frac{\part{f}}{\part{y}}=f’(y)=f(y+1)-f(y)<br>$$</p>
 <p>图像在$x$和$y$上的二阶差分为（二阶差分同样可以衡量突变）：<br>$$<br>\frac{\part^2{f}}{\part{x^2}}=f’(x+1) - f’(x)=f(x+2)-2f(x+1)+f(x)<br>$$</p>
 <p>$$<br>\frac{\part^2{f}}{\part{y^2}}=f’(y+1) - f’(y)=f(y+2)-2f(y+1)+f(y)<br>$$</p>
