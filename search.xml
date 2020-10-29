@@ -6,9 +6,9 @@
     <content><![CDATA[<h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><h2 id="梯度和差分基础"><a href="#梯度和差分基础" class="headerlink" title="梯度和差分基础"></a>梯度和差分基础</h2><p>基于边缘突变的分割思想十分简单，如果一个像素点在分割的边缘上，那么，该像素点在某个方向上必定是突变的（这个方向不仅限于$x$和$y$）。鉴于以上思想，基于边缘的分割可以分割点、线甚至边缘。</p>
 <p>衡量某个像素在某个方向上是否是突变的，我们最容易想到的是梯度，梯度向量的方向表示变换最大的方向，而梯度的幅值表示变换的大小。</p>
 <p>图像在$x$和$y$两个方向上的梯度即为差分，可以表示为：<br>$$<br>\frac{\partial{f}}{\partial{x}}=f’(x)=f(x+1)-f(x)<br>$$</p>
-<p>$$<br>\frac{\part{f}}{\part{y}}=f’(y)=f(y+1)-f(y)<br>$$</p>
-<p>图像在$x$和$y$上的二阶差分为（二阶差分同样可以衡量突变）：<br>$$<br>\frac{\part^2{f}}{\part{x^2}}=f’(x+1) - f’(x)=f(x+2)-2f(x+1)+f(x)<br>$$</p>
-<p>$$<br>\frac{\part^2{f}}{\part{y^2}}=f’(y+1) - f’(y)=f(y+2)-2f(y+1)+f(y)<br>$$</p>
+<p>$$<br>\frac{\partial{f}}{\partial{y}}=f’(y)=f(y+1)-f(y)<br>$$</p>
+<p>图像在$x$和$y$上的二阶差分为（二阶差分同样可以衡量突变）：<br>$$<br>\frac{\partial^2{f}}{\partial{x^2}}=f’(x+1) - f’(x)=f(x+2)-2f(x+1)+f(x)<br>$$</p>
+<p>$$<br>\frac{\partial^2{f}}{\partial{y^2}}=f’(y+1) - f’(y)=f(y+2)-2f(y+1)+f(y)<br>$$</p>
 <h2 id="一阶差分和二阶差分衡量边缘突变比较"><a href="#一阶差分和二阶差分衡量边缘突变比较" class="headerlink" title="一阶差分和二阶差分衡量边缘突变比较"></a>一阶差分和二阶差分衡量边缘突变比较</h2><p>设有图像在$x$方向如下图表所示，则其一阶导数和二阶导数的结果如下：</p>
 <table>
 <thead>
@@ -126,7 +126,7 @@
 <p>所以，这里会用到拉普拉斯算子（拉普拉斯算子即是二阶差分在图像中一种应用）.</p>
 <blockquote>
 <p><strong>补充：拉普拉斯算子</strong></p>
-<p>拉普拉斯算子定义为：<br>$$<br>\nabla^2f(x,y)=\frac{\part^2f}{\part{x^2}} + \frac{\part^2f}{\part{y^2}}<br>$$<br>也就是说，拉普拉斯算子为$x$和$y$两个方向上的二阶差分之和，也即$x$和$y$的变化程度之和。</p>
+<p>拉普拉斯算子定义为：<br>$$<br>\nabla^2f(x,y)=\frac{\partial^2f}{\partial{x^2}} + \frac{\partial^2f}{\partial{y^2}}<br>$$<br>也就是说，拉普拉斯算子为$x$和$y$两个方向上的二阶差分之和，也即$x$和$y$的变化程度之和。</p>
 <p>由前面的二阶差分展开公式，可得拉普拉斯算子为：<br>$$<br>\nabla^2f(x,y)=f(x+1,y)+f(x-1,y)+f(x,y+1)+f(x,y-1)-4f(x,y)<br>$$<br>实际上，拉普拉斯算子就是一个滤波器，上式的滤波模板可表示为：</p>
 <table>
 <thead>
@@ -178,6 +178,13 @@
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%BA%BF%E6%A3%80%E6%B5%8B.png" alt></p>
 <p>上图中，图一是原始图像，图二是经过拉普拉斯模板过滤后的图像，图三是图二取绝对值的结果，图四为取图二取正值的结果。</p>
 ]]></content>
+      <categories>
+        <category>图像处理</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>图像处理</tag>
+      </tags>
   </entry>
   <entry>
     <title>区域的表示和描述</title>
