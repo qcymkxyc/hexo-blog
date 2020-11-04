@@ -94,8 +94,10 @@
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/3X3%E6%A8%A1%E6%9D%BF.png">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/prewitt%E6%A8%A1%E6%9D%BF.png">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Sobel%E7%AE%97%E5%AD%90%E6%A8%A1%E6%9D%BF.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201104162047.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201104162051.png">
 <meta property="article:published_time" content="2020-10-29T05:32:19.000Z">
-<meta property="article:modified_time" content="2020-10-30T08:30:45.243Z">
+<meta property="article:modified_time" content="2020-11-04T08:29:39.325Z">
 <meta property="article:author" content="拍栏听雨">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="图像处理">
@@ -600,8 +602,8 @@
 <h2 id="线检测"><a href="#线检测" class="headerlink" title="线检测"></a>线检测</h2><p>对于线的检测，同样用拉普拉斯变换，但前文提到，由于拉普拉斯的检测结果有<code>双边性</code>,也就是说检测的结果有两个边缘，此时需要保留其中一个边缘，另一个略去。如下图所示：</p>
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%BA%BF%E6%A3%80%E6%B5%8B.png" alt></p>
 <p>上图中，图一是原始图像，图二是经过拉普拉斯模板过滤后的图像，图三是图二取绝对值的结果，图四为取图二取正值的结果。</p>
-<h2 id="边缘模型"><a href="#边缘模型" class="headerlink" title="边缘模型"></a>边缘模型</h2><p><strong>由于一阶导数和二阶导数对噪声都较为敏感，所以通常情况下，在进行边缘检测之前要滤波处理</strong></p>
-<h3 id="基本的检测模型"><a href="#基本的检测模型" class="headerlink" title="基本的检测模型"></a>基本的检测模型</h3><p>实际上，由上面可知，一阶导数和二阶导数实现边缘检测，但又各有优势和劣势，所以对于检测一个物体的边缘，一阶导和二阶导都是可以的。这里先介绍一阶导。介绍一阶导的边缘提取通常需要用<code>Sobel</code>算子。</p>
+<h2 id="基本的检测模型"><a href="#基本的检测模型" class="headerlink" title="基本的检测模型"></a>基本的检测模型</h2><p><strong>由于一阶导数和二阶导数对噪声都较为敏感，所以通常情况下，在进行边缘检测之前要滤波处理</strong></p>
+<p>实际上，由上面可知，一阶导数和二阶导数实现边缘检测，但又各有优势和劣势，所以对于检测一个物体的边缘，一阶导和二阶导都是可以的。这里先介绍一阶导。介绍一阶导的边缘提取通常需要用<code>Sobel</code>算子。</p>
 <blockquote>
 <p><strong>补充：Sobel算子以及Prewitt算子</strong></p>
 <p>如公式（1）和公式（2），要用一阶导的模板过滤图像仅用两个窗格即可：</p>
@@ -614,9 +616,14 @@
 <p>$$<br>g_y=\frac{\partial{f}}{\partial{y}}=(z_3+z_6+z_9)-(z_1+z_4+z_7)    \tag{8}<br>$$</p>
 <p>此外，就是<code>Sobel</code>算子，<code>Sobel</code>是在<code>Prewitt</code>算子的基础上进行改进，其模板如下：</p>
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Sobel%E7%AE%97%E5%AD%90%E6%A8%A1%E6%9D%BF.png" alt></p>
-<p><strong><code>Sobel</code>算子相交于<code>Prewitt</code>算子可以平滑图像</strong></p>
+<p><strong><code>Sobel</code>算子相较于<code>Prewitt</code>算子可以平滑图像，所以通常对于一维的边缘提取，我们用<code>Sobel</code>算子</strong></p>
 </blockquote>
 <p>从<code>Sobel</code>算子可以看出，实际上<code>Sobel</code>算子仅能检测单个方向的边缘，要想综合两个方向的边缘，最容易想到的是类似于求梯度值的方式，即相加求平方根，求平方根太过费时，书上采用求绝对值再求和的方式：<br>$$<br>M(x,y)\approx|g_x|+|g_y|    \tag{9}<br>$$</p>
+<h3 id="Demo-1"><a href="#Demo-1" class="headerlink" title="Demo"></a>Demo</h3><p>以下是通过<code>Sobel</code>进行边缘检测的Demo：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201104162047.png" alt></p>
+<p>上图中，图一为原图像，图二为$x$方向的梯度的绝对值，图三为$y$方向上的梯度的绝对值，图四为两个方向绝对值之和。</p>
+<p><strong>通常情况下，在进行边缘检测之前需要对图像进行平滑处理，以减少噪声对边缘检测的影响</strong>。下图是先用均值滤波对原图像进行处理，再用<code>Sobel</code>进行边缘检测的结果。</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201104162051.png" alt></p>
 
       
     </div>
@@ -863,7 +870,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度和差分基础"><span class="nav-number">2.</span> <span class="nav-text">梯度和差分基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一阶差分和二阶差分衡量边缘突变比较"><span class="nav-number">3.</span> <span class="nav-text">一阶差分和二阶差分衡量边缘突变比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#孤立点检测"><span class="nav-number">4.</span> <span class="nav-text">孤立点检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo"><span class="nav-number">4.1.</span> <span class="nav-text">Demo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线检测"><span class="nav-number">5.</span> <span class="nav-text">线检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#边缘模型"><span class="nav-number">6.</span> <span class="nav-text">边缘模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本的检测模型"><span class="nav-number">6.1.</span> <span class="nav-text">基本的检测模型</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度和差分基础"><span class="nav-number">2.</span> <span class="nav-text">梯度和差分基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一阶差分和二阶差分衡量边缘突变比较"><span class="nav-number">3.</span> <span class="nav-text">一阶差分和二阶差分衡量边缘突变比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#孤立点检测"><span class="nav-number">4.</span> <span class="nav-text">孤立点检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo"><span class="nav-number">4.1.</span> <span class="nav-text">Demo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线检测"><span class="nav-number">5.</span> <span class="nav-text">线检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本的检测模型"><span class="nav-number">6.</span> <span class="nav-text">基本的检测模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo-1"><span class="nav-number">6.1.</span> <span class="nav-text">Demo</span></a></li></ol></li></ol></div>
             
 
           </div>
