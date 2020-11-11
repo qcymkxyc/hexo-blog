@@ -205,6 +205,7 @@
 <p>上图中，图一为原图像，图二为$x$方向的梯度的绝对值，图三为$y$方向上的梯度的绝对值，图四为两个方向绝对值之和。</p>
 <p><strong>通常情况下，在进行边缘检测之前需要对图像进行平滑处理，以减少噪声对边缘检测的影响</strong>。下图是先用均值滤波对原图像进行处理，再用<code>Sobel</code>进行边缘检测的结果。</p>
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201104162051.png" alt></p>
+<p>可以看到，在经过平滑处理后的结果明显好于没有平滑处理的。</p>
 ]]></content>
       <categories>
         <category>图像处理</category>
@@ -963,13 +964,14 @@
     <url>/posts/46a23.html/</url>
     <content><![CDATA[<h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ul>
 <li>KL散度有什么性质</li>
+<li>KL散度主要的作用是什么</li>
 <li>JS散度有什么性质</li>
 <li>JS散度如何计算</li>
 </ul>
 <h2 id="KL散度"><a href="#KL散度" class="headerlink" title="KL散度"></a>KL散度</h2><blockquote>
 <p>KL( Kullback–Leibler divergence)散度又名相对熵（relative entropy)，用来衡量两个分布之间的距离</p>
 </blockquote>
-<p>公式为：<br>$$<br>D(P||Q)=\sum_{i\in{X}}{P(i)[log(\frac{P(i)}{Q(i)}))]}<br>$$<br>如果是P和Q为连续分布，则公式为：<br>$$<br>D(P||Q)=\int_x{P(x)<em>\left[log(\frac{P(x)}{Q(x)}\right] dx}<br>$$<br>*</em>KL散度的性质**</p>
+<p>公式为：<br>$$<br>D(P||Q)=\sum_{i\in{X}}{P(i)[log(\frac{P(i)}{Q(i)})]}<br>$$<br>如果是P和Q为连续分布，则公式为：<br>$$<br>D(P||Q)=\int_x{P(x)<em>\left[log(\frac{P(x)}{Q(x)})\right] dx}<br>$$<br>*</em>KL散度的性质**</p>
 <ul>
 <li><strong>KL散度不具有对称性</strong>，即$D(P||Q)\neq D(Q||P)$</li>
 <li>KL散度不满足三角不等式，即$D(A||B) &gt; D(A||C)+D(C||B)$</li>
