@@ -1125,19 +1125,20 @@
       </tags>
   </entry>
   <entry>
-    <title>对曼哈顿、马氏距离、闵可夫斯基距离的总结</title>
+    <title>距离总结</title>
     <url>/posts/348aa22b.html/</url>
-    <content><![CDATA[<h2 id="Queston"><a href="#Queston" class="headerlink" title="Queston"></a>Queston</h2><blockquote>
-<ol>
+    <content><![CDATA[<h2 id="Queston"><a href="#Queston" class="headerlink" title="Queston"></a>Queston</h2><ol>
 <li>欧氏距离和曼哈顿距离的在几何上的区别</li>
+<li><a href="#Jaccard距离">Jaccard距离</a>在什么场景用</li>
 </ol>
-</blockquote>
 <h2 id="闵可夫斯基距离"><a href="#闵可夫斯基距离" class="headerlink" title="闵可夫斯基距离"></a>闵可夫斯基距离</h2><p>曼哈顿距离和欧式距离可以看成是特殊的闵可夫斯基距离。</p>
 <p>设有两个向量$P=(x_1,x_2,…,x_n)$和$Q=(y_1,y_2,..,y_n)$,则两个向量的欧式距离和曼哈顿距离可以分别表示为：<br>$$<br>\left(\sum_{i=1}^{n}{(x_i-y_i)}^2\right)^{\frac{1}{2}}<br>$$</p>
 <p>$$<br>\sum_{i=1}^{n}{|x_i-y_i|}<br>$$</p>
 <p>而闵可夫斯基距离表示为：<br>$$<br>\left(\sum_{i=1}^{n}{|x_i-y_i|}^p\right)^{\frac{1}{p}}<br>$$<br>所以，欧式距离和曼哈顿距离可以表示成特殊的闵可夫斯基距离，关于曼哈顿距离和欧氏距离的区别网上有一张形象的图，如下图所示：</p>
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20140423145904625.jpg" alt></p>
 <p><strong>图中，绿线表示欧氏距离，红蓝黄三条线表示曼哈顿距离</strong></p>
+<h2 id="Jaccard距离"><a href="#Jaccard距离" class="headerlink" title="Jaccard距离"></a>Jaccard距离</h2><p><code>Jaccard距离</code>和<code>Jaccard相似度</code>相反.下面说明<code>Jaccard相似度</code></p>
+<p><strong><code>Jaccard相似度</code>衡量的是两个集合的相似度</strong>。设有两个集合$A$和$B$，则他们的<code>Jaccard相似度</code>可以表示为：<br>$$<br>J(A,B)=\frac{|A\bigcap{B}|}{|A\bigcup{B|}}<br>$$<br>而<code>Jaccard距离</code>$J_{\epsilon}$为：<br>$$<br>J_{\epsilon}=1-J(A,B)=\frac{|A\bigcup{B}-A\bigcap{B}|}{|A\bigcup{B}|}<br>$$</p>
 <h2 id="马氏距离"><a href="#马氏距离" class="headerlink" title="马氏距离"></a>马氏距离</h2><blockquote>
 <p>马氏距离可以看成是欧式距离的一种改良，他在欧氏距离的基础上考虑了特征（维度）的相关性，对于数据集的距离衡量也更加合理。</p>
 </blockquote>
@@ -1330,7 +1331,7 @@
 </li>
 <li><p>对每个block内以3*3为单位，提取LBP特征</p>
 <p>​    对比3*3的方格中周围的值和中间的值，如果周围的值大于中间的值，则表示为1，反之则表示为0，公式表示如下：<br>$$<br>img(i,j)=\begin{cases} 0, &amp; img(i,j)&gt;=img(center) \ 1, &amp; img(i,j)&lt;img(center)\end{cases}<br>$$<br><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/14596362-7ea1a8cd7c2757f7-1584175992695.png" alt></p>
-<p>上述操作得到一个二进制表格，从左上角开始逆时针排列得到一个二进制数，将该二进制数转换为十进制数即为该cell的LBP特征</p>
+<p>上述操作得到一个二进制表格，从左上角开始顺时针排列得到一个二进制数，将该二进制数转换为十进制数即为该cell的LBP特征</p>
 <blockquote>
 <p><strong>改进点：</strong>为了保证LBP特征的旋转不变性，转换为二进制特征的方式改为跳数，即如果上一个数和下一个数不同（即一个是0，一个是1），则算为1，否则为0，用公式表示为：</p>
 </blockquote>
@@ -1345,7 +1346,7 @@
 </li>
 </ol>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
-<p>[《<a href="http://citeseer.ist.psu.edu/viewdoc/download;jsessionid=145DB5D01FBCC36DA0EA57425B04AA9A?doi=10.1.1.157.1576&rep=rep1&type=pdf" target="_blank" rel="noopener">Multiresolution gray-scale and rotation invariant texture classification with local binary patterns》</a></p>
+<p><a href="http://citeseer.ist.psu.edu/viewdoc/download;jsessionid=145DB5D01FBCC36DA0EA57425B04AA9A?doi=10.1.1.157.1576&rep=rep1&type=pdf" target="_blank" rel="noopener">《Multiresolution gray-scale and rotation invariant texture classification with local binary patterns》</a></p>
 </blockquote>
 ]]></content>
       <categories>
