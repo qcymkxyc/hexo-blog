@@ -95,6 +95,15 @@
 <li><a href="https://blog.csdn.net/qq_30815237/article/details/93596163" target="_blank" rel="noopener">RPN网络</a></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>目标检测</category>
+      </categories>
+      <tags>
+        <tag>目标检测</tag>
+        <tag>计算机视觉</tag>
+        <tag>神经网络</tag>
+        <tag>深度学习</tag>
+      </tags>
   </entry>
   <entry>
     <title>图像分割（一）：基于边缘突变的分割</title>
