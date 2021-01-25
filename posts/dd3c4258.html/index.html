@@ -95,7 +95,7 @@
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210106101329.png">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210107104422.jpg">
 <meta property="article:published_time" content="2021-01-08T03:14:31.000Z">
-<meta property="article:modified_time" content="2021-01-08T03:17:16.701Z">
+<meta property="article:modified_time" content="2021-01-08T05:27:26.472Z">
 <meta property="article:author" content="拍栏听雨">
 <meta property="article:tag" content="目标检测">
 <meta property="article:tag" content="计算机视觉">
@@ -504,7 +504,7 @@
 <li>$1 \times 1$的卷积</li>
 <li>利用$softmax$分类（注意这里论文中是用的$softmax$，所以分数的结果有$w \times h \times 2 \times k$个）</li>
 </ol>
-<h3 id="Loss-Function"><a href="#Loss-Function" class="headerlink" title="Loss Function"></a>Loss Function</h3><p>了解了<code>RPN</code>的流程，我们再来看看RPN的<code>loss Function</code>，<code>RPN</code>中一个 <code>Mini Batch</code> 的$loss$如下所示：<br>$$<br>loss(p_i,G_i)=\frac{1}{N_{cls}}\sum_{i}L_{cls}(p_i,p_i^<em>)+\lambda \frac{1}{N_{reg}}\sum_ip_i^*L_{reg}(d_i(A),G_i)    \tag    9<br>$$<br>上式(9)中,可以看到前半部分为分类的$loss$,即普通的<code>cross Entropy</code>，$p_i$表示预测是目标的概率，而$p_i^</em>$表示的是label，当有目标时为1，无目标时为0。</p>
+<h3 id="Loss-Function"><a href="#Loss-Function" class="headerlink" title="Loss Function"></a>Loss Function</h3><p>了解了<code>RPN</code>的流程，我们再来看看RPN的<code>loss Function</code>，<code>RPN</code>中一个 <code>Mini Batch</code> 的$loss$如下所示：<br>$$<br>loss(p_i,G_i)=\frac{1}{N_{cls}}\sum_{i}L_{cls}(p_i,p_i^{<em>})+\lambda \frac{1}{N_{reg}}\sum_ip_i^*L_{reg}(d_i(A),G_i)    \tag    9<br>$$<br>上式(9)中,可以看到前半部分为分类的$loss$,即普通的<code>cross Entropy</code>，$p_i$表示预测是目标的概率，而$p_i^</em>$表示的是label，当有目标时为1，无目标时为0。</p>
 <p>而后半部分为位置的$loss$，其中$L_{reg}$为<code>smooth L1 loss​</code>。有：<br>$$<br>L_{reg}(d_i(A),G_i)=\sum_{i\in{x,y,p,t}}smooth_{L1}(d_i(A)-G_i)<br>$$<br>其中：<br>$$<br>smooth_{L1}(x)=\begin{cases}<br>0.5x^2 &amp; \text{if $ |x|&lt;1 $}\<br>|x|-0.5 &amp; \text{otherwise}<br>\end{cases}<br>$$<br>$\lambda$平衡是用于两者差的一个参数，为10</p>
 <h3 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h3><p>在训练时，不会将所有的生成的<code>Anchor Box</code>拿去训练，在生成的<code>Anchor Box</code>中，首先会筛选<code>Anchor</code>与<code>GT</code>的$IOU&gt;0.7$的作为正样本，<code>Anchor</code>与<code>GT</code>的$IOU&lt;0.3$作为负样本，其他的不要。</p>
 <p>其次，为了保证样本的平衡性，在上述步骤生成的正负样本中个各选择128个送进网络中进行训练。</p>
@@ -558,6 +558,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/dd3c5678.html/" rel="prev" title="太阳病辩证并治">
+                太阳病辩证并治 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -667,7 +671,7 @@ var jiathis_config={
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -678,7 +682,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -689,7 +693,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
