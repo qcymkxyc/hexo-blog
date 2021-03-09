@@ -302,16 +302,20 @@
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210107104422.jpg" alt></p>
 <p>图中，红色为<code>Anchor Box</code>的结果，而绿色为<code>Ground Truth</code>的结果。</p>
 <p>要想从<code>Anchor Box</code>到<code>Ground Truth</code>，只需要对<code>Anchor Box</code>做平移和拉伸即可，所以在<code>Faster RCNN</code>中，平移和和拉伸作为衡量两者间的差距的指标。</p>
-<p>设代表一个<code>Anchor Box</code>的四个参数为$A=(A_x,A_y,A_w,A_h)$,分别表示其中心点坐标和长宽。其对应的<code>Ground Truth</code>为$GT=(G_x,G_y,G_w,G_h)$,则两者间的平移可以表示为(<strong>平移的单位为长或宽的比例</strong>)：</p>
-<p>$$<br>G_x \approx A_w .d_x(A) + A_x    \tag 1<br>$$</p>
-<p>$$<br>G_y \approx A_h .d_y(A) + A_y   \tag 2<br>$$</p>
-<p>缩放关系可以表示为：<br>$$<br>G_w \approx A_w . exp(d_w(A))    \tag 3<br>$$</p>
-<p>$$<br>G_h \approx A_h . exp(d_h(A))    \tag 4<br>$$</p>
-<p>上式中，$d_*(A)$为需要求的未知数。通过变换可以表示为：<br>$$<br>d_x(A) = \frac{A_x - G_x}{A_w}    \tag    5<br>$$</p>
-<p>$$<br>d_y(A) = \frac{A_y - G_y}{A_h}    \tag    6<br>$$</p>
-<p>$$<br>d_w(A)=\log{(G_w/A_w)}        \tag    7<br>$$</p>
-<p>$$<br>d_h(A)=\log{(G_h/A_h)}        \tag    8<br>$$</p>
-<p>也就是说，我们<code>RPN</code>网络需要预测的实际上是$d_*(A)$。我们也可以通过<code>Ground Truth</code>和<code>Anchor Box</code>计算得到标签，这样神经网络就能够训练了。</p>
+<p>设代表一个<code>Anchor Box</code>的四个参数为$A=(x_a,y_a,w_a,h_a)$,分别表示其中心点坐标和长宽。其对应的<code>Ground Truth</code>为$GT=(x,y,w,h)$,则两者间的平移可以表示为(<strong>平移的单位为长或宽的比例</strong>)：</p>
+<p>$$<br>x \approx w_a .t_x + x_a    \tag 1<br>$$</p>
+<p>$$<br>y \approx h_a .t_y + y_a   \tag 2<br>$$</p>
+<p>缩放关系可以表示为：<br>$$<br>w \approx w_a . exp(t_w)    \tag 3<br>$$</p>
+<p>$$<br>h \approx h_a . exp(t_h)    \tag 4<br>$$</p>
+<p>上式中，$d_*(A)$为需要求的未知数。通过变换可以表示为：<br>$$<br>t_x = \frac{x - x_a}{w_a}    \tag    5<br>$$</p>
+<p>$$<br>t_y = \frac{y - y_a}{h_a}    \tag    6<br>$$</p>
+<p>$$<br>t_w=\log{(w/w_a)}        \tag    7<br>$$</p>
+<p>$$<br>t_h=\log{(h/h_a)}        \tag    8<br>$$</p>
+<p>同理，设预测的<code>RPN</code>网路预测的结果为$(x^<em>,y^</em>,w^<em>,h^</em>)$,则预测框和<code>Anchor Box</code>的四个坐标的差距可以表示为：<br>$$<br>t_x^{\ast} = \frac{x^{\ast} - x_a}{w_a}    \tag    9<br>$$</p>
+<p>$$<br>t_y^{\ast} = \frac{y^{\ast} - y_a}{h_a}    \tag    {10}<br>$$</p>
+<p>$$<br>t_w^{\ast}=\log{(w^{\ast}/w_a)}        \tag    {11}<br>$$</p>
+<p>$$<br>t_h^{\ast}=\log{(h^{\ast}/h_a)}        \tag    {12}<br>$$</p>
+<p>也就是说，我们<code>RPN</code>网络需要预测的实际上是$t_{\ast}^{\ast}$(下标的 * 表示$x,y,w,h$,上标的 * 表示预测框)，也就是<code>Predict Box</code>和<code>Anchor Box</code>的差距。我们也可以通过<code>Ground Truth</code>和<code>Anchor Box</code>计算得到标签，这样神经网络就能够训练了。</p>
 <p>总结一下目标位置的过程：</p>
 <ol>
 <li>$1 \times 1$的卷积</li>
@@ -327,10 +331,20 @@
 <li>$1 \times 1$的卷积</li>
 <li>利用$softmax$分类（注意这里论文中是用的$softmax$，所以分数的结果有$w \times h \times 2 \times k$个）</li>
 </ol>
-<h3 id="Loss-Function"><a href="#Loss-Function" class="headerlink" title="Loss Function"></a>Loss Function</h3><p>了解了<code>RPN</code>的流程，我们再来看看RPN的<code>loss Function</code>，<code>RPN</code>中一个 <code>Mini Batch</code> 的$loss$如下所示：<br>$$<br>loss(p_i,G_i)=\frac{1}{N_{cls}}\sum_{i}L_{cls}(p_i,p_i^{\ast})+ \lambda \frac{1}{N_{reg}}\sum_ip_i^{\ast}L_{reg}(d_i(A),G_i)    \tag    9<br>$$<br>上式(9)中,可以看到前半部分为分类的$loss$,即普通的<code>cross Entropy</code>，$p_i$表示预测是目标的概率，而$p_i^{\ast}$表示的是label，当有目标时为1，无目标时为0。</p>
-<p>而后半部分为位置的$loss$，其中$L_{reg}$为<code>smooth L1 loss​</code>。有：<br>$$<br>L_{reg}(d_i(A),G_i)=\sum_{i\in{x,y,p,t}}smooth_{L1}(d_i(A)-G_i)<br>$$<br>其中：<br>$$<br>smooth_{L1}(x)=\begin{cases}<br>0.5x^2 &amp; \text{if $ |x|&lt;1 $}\<br>|x|-0.5 &amp; \text{otherwise}<br>\end{cases}<br>$$<br>$\lambda$平衡是用于两者差的一个参数，为10</p>
+<h3 id="Loss-Function"><a href="#Loss-Function" class="headerlink" title="Loss Function"></a>Loss Function</h3><p>了解了<code>RPN</code>的流程，我们再来看看RPN的<code>loss Function</code>，<code>RPN</code>中一个 <code>Mini Batch</code> 的$loss$如下所示：<br>$$<br>loss(p_i,G_i)=\frac{1}{N_{cls}}\sum_{i}L_{cls}(p_i,p_i^{\ast})+ \lambda \frac{1}{N_{reg}}\sum_ip_i^{\ast}L_{reg}(t_i,t_i^{\ast})    \tag    {13}<br>$$<br>上式(13)中,可以看到前半部分为分类的$loss$,即普通的<code>cross Entropy</code>，$p_i$表示预测是目标的概率，而$p_i^{\ast}$表示的是label，当有目标时为1，无目标时为0。</p>
+<p>而后半部分为位置的$loss$，其中$L_{reg}$为<code>smooth L1 loss​</code>。有：<br>$$<br>L_{reg}(t_i,t_i^{\ast})=\sum_{i\in{x,y,p,t}}smooth_{L1}(ti-t_i^{\ast})<br>$$<br>其中：<br>$$<br>smooth_{L1}(x)=\begin{cases}<br>0.5x^2 &amp; \text{if $ |x|&lt;1 $}\<br>|x|-0.5 &amp; \text{otherwise}<br>\end{cases}<br>$$<br>$\lambda$平衡是用于两者差的一个参数，为10</p>
 <h3 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h3><p>在训练时，不会将所有的生成的<code>Anchor Box</code>拿去训练，在生成的<code>Anchor Box</code>中，首先会筛选<code>Anchor</code>与<code>GT</code>的$IOU&gt;0.7$的作为正样本，<code>Anchor</code>与<code>GT</code>的$IOU&lt;0.3$作为负样本，其他的不要。</p>
 <p>其次，为了保证样本的平衡性，在上述步骤生成的正负样本中个各选择128个送进网络中进行训练。</p>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><h3 id="对Anchor-Box使用的疑惑"><a href="#对Anchor-Box使用的疑惑" class="headerlink" title="对Anchor Box使用的疑惑"></a>对Anchor Box使用的疑惑</h3><p>在<code>Anchor Box</code>中，让我疑惑的是，为何不直接让<code>Predict Box</code>和<code>Ground Truth</code>的偏差做回归，在中间又夹一个<code>Anchor Box</code>。论文中中的解释是由于在<code>R-CNN</code>和<code>Fast RCNN</code>中用了<code>ROI-Pooling</code>,由于<code>ROI-Pooling</code>的缘故可以武断的用共享权值（[1] 和[2]分别表示<code>SPP Net</code>和<code>Fast RCNN</code>两个模型的论文）</p>
+<blockquote>
+<p> In [1],[2], bounding-box regression is performed on features pooled from arbitrarily sized RoIs, and the regression weights are shared by all region sizes.  </p>
+</blockquote>
+<p>但由于在<code>RPN</code>中仅是用$3 \times 3$的卷积形成<code>Feature Map</code>,而目标的大小和位置多变的（没有用<code>ROI Pooling</code>），所以这里用了$k$个不共享权值的回归器，并且这$k$个回归器不共享权值。（$k$个预测可能，答对的可能性也大一些）</p>
+<blockquote>
+<p>In our formulation, the features used for regression are of the same spatial size (3 × 3) on the feature maps. To account for varying sizes, a set of k bounding-box regressors are learned. Each regressor is responsible for one scale and one aspect ratio, and the k regressors do not share weights. As such, it is still possible to predict boxes of various sizes even though the features are of a fixed size/scale, thanks to the design of anchors.  </p>
+</blockquote>
+<p>但文中并没有解释为何引入<code>Anchor Box</code>能够让<code>Predict Box</code>准确的预测出<code>Ground Truth</code>，相较于<code>Predict Box</code>和<code>Ground Truth</code>直接回归的优势是什么。对于以上的$k$，完全可以训练<code>Predict Box</code>和<code>Ground Truth</code>的$k$个回归器，能够达到同样的效果</p>
+<p>对于以上，我的理解是$3 \times 3$形成的感受野，在原图中对应的区域是有局限性的，一旦目标目标超出这个感受野，则效果不佳。所以引入了<code>Anchor Box</code>,</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://www.cnblogs.com/Terrypython/p/10584384.html" target="_blank" rel="noopener">RPN(区域生成网络)</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/31426458" target="_blank" rel="noopener">一文读懂Faster RCNN</a></li>
