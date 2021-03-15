@@ -311,7 +311,7 @@
 <p>$$<br>t_y = \frac{y - y_a}{h_a}    \tag    6<br>$$</p>
 <p>$$<br>t_w=\log{(w/w_a)}        \tag    7<br>$$</p>
 <p>$$<br>t_h=\log{(h/h_a)}        \tag    8<br>$$</p>
-<p>同理，设预测的<code>RPN</code>网路预测的结果为$(x^<em>,y^</em>,w^<em>,h^</em>)$,则预测框和<code>Anchor Box</code>的四个坐标的差距可以表示为：<br>$$<br>t_x^{\ast} = \frac{x^{\ast} - x_a}{w_a}    \tag    9<br>$$</p>
+<p>同理，设预测的<code>RPN</code>网路预测的结果为$(x^{\ast},y^{\ast},w^{\ast},h^{\ast})$,则预测框和<code>Anchor Box</code>的四个坐标的差距可以表示为：<br>$$<br>t_x^{\ast} = \frac{x^{\ast} - x_a}{w_a}    \tag    9<br>$$</p>
 <p>$$<br>t_y^{\ast} = \frac{y^{\ast} - y_a}{h_a}    \tag    {10}<br>$$</p>
 <p>$$<br>t_w^{\ast}=\log{(w^{\ast}/w_a)}        \tag    {11}<br>$$</p>
 <p>$$<br>t_h^{\ast}=\log{(h^{\ast}/h_a)}        \tag    {12}<br>$$</p>
