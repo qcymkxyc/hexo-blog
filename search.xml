@@ -2390,6 +2390,115 @@
       </tags>
   </entry>
   <entry>
+    <title>mAP的计算总结</title>
+    <url>/posts/b8ba7454.html/</url>
+    <content><![CDATA[<h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ul>
+<li>mAP的流程</li>
+</ul>
+<h2 id="mAP的流程"><a href="#mAP的流程" class="headerlink" title="mAP的流程"></a>mAP的流程</h2><p>mAP是目标检测中最为常见的指标,要了解mAP(mean Average Precision),就必须了解recall和precision(目标检测中这两个指标的计算和略有机器学习不同)</p>
+<table>
+<thead>
+<tr>
+<th align="right">真\预</th>
+<th align="center">正</th>
+<th align="left">负</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">正</td>
+<td align="center">TP</td>
+<td align="left">FN</td>
+</tr>
+<tr>
+<td align="right">负</td>
+<td align="center">FP</td>
+<td align="left">TN</td>
+</tr>
+</tbody></table>
+<p>首先,在进行目标检测时,预测出一个BBox,和对应某类i的概率$P_i$,给出一个阈值$t$,即可以判断出预测是否是这一类,即判定上表中在第一列还是第二列.</p>
+<p>然后,对于上一部中分到第一列的,计算BBox和Ground Truth的IOU,大于0.5的标为TP,小于为FP.最后,对于1中第二列的标为FN.</p>
+<p>根据公式:</p>
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable displaystyle="true">
+    <mlabeledtr>
+      <mtd id="mjx-eqn-1_1">
+        <mtext>(1)</mtext>
+      </mtd>
+      <mtd>
+        <mrow>
+          <mo>{</mo>
+          <mtable columnalign="left left" rowspacing=".2em" columnspacing="1em" displaystyle="false">
+            <mtr>
+              <mtd>
+                <mi>R</mi>
+                <mo>=</mo>
+                <mi>T</mi>
+                <mi>P</mi>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mo>/</mo>
+                </mrow>
+                <mo stretchy="false">(</mo>
+                <mi>T</mi>
+                <mi>P</mi>
+                <mo>+</mo>
+                <mi>F</mi>
+                <mi>N</mi>
+                <mo stretchy="false">)</mo>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd>
+                <mi>P</mi>
+                <mo>=</mo>
+                <mi>T</mi>
+                <mi>P</mi>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mo>/</mo>
+                </mrow>
+                <mo stretchy="false">(</mo>
+                <mi>F</mi>
+                <mi>P</mi>
+                <mo>+</mo>
+                <mi>T</mi>
+                <mi>P</mi>
+                <mo stretchy="false">)</mo>
+              </mtd>
+            </mtr>
+          </mtable>
+          <mo fence="true" stretchy="true" symmetric="true"></mo>
+        </mrow>
+      </mtd>
+    </mlabeledtr>
+  </mtable>
+</math>
+
+
+
+<!--
+$$
+\begin{cases} R = TP/(TP+FN) \\ P=TP/(FP + TP)\end{cases}
+$$
+
+
+
+-->
+
+<p>对于上述给定的阈值t,逐渐减小,可形成多组RP数据对,在坐标上绘制,其与坐标轴围成的面积即为AP值.如下图所示：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/2019042821031836.png" alt></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://blog.csdn.net/xiezongsheng1990/article/details/89608923" target="_blank" rel="noopener">https://blog.csdn.net/xiezongsheng1990/article/details/89608923</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>计算机视觉</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>目标检测</tag>
+        <tag>计算机视觉</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>YOLO9000总结</title>
     <url>/posts/5ca973ed.html/</url>
     <content><![CDATA[<h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ul>
