@@ -365,6 +365,15 @@
 <p>而后半部分为位置的$loss$，其中$L_{reg}$为<code>smooth L1 loss​</code>。有：<br>$$<br>L_{reg}(t_i,t_i^{\ast})=\sum_{i\in{x,y,p,t}}smooth_{L1}(ti-t_i^{\ast})<br>$$<br>其中：<br>$$<br>smooth_{L1}(x)=\begin{cases}<br>0.5x^2 &amp; \text{if $ |x|&lt;1 $}\<br>|x|-0.5 &amp; \text{otherwise}<br>\end{cases}<br>$$<br>$\lambda$平衡是用于两者差的一个参数，为10</p>
 <h3 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h3><p>在训练时，不会将所有的生成的<code>Anchor Box</code>拿去训练，在生成的<code>Anchor Box</code>中，首先会筛选<code>Anchor</code>与<code>GT</code>的$IOU&gt;0.7$的作为正样本，<code>Anchor</code>与<code>GT</code>的$IOU&lt;0.3$作为负样本，其他的不要。</p>
 <p>其次，为了保证样本的平衡性，在上述步骤生成的正负样本中个各选择128个送进网络中进行训练。</p>
+<h2 id="整体训练"><a href="#整体训练" class="headerlink" title="整体训练"></a>整体训练</h2><p>在<code>Faster RCNN</code>中，分为训练<code>RPN</code>和<code>Fast RCNN</code>两部分。步骤如下：</p>
+<ol>
+<li>训练<code>RPN</code>网络（这是训练<code>RPN</code>的第一轮）</li>
+<li>利用训练好的<code>RPN</code>网络收集<code>Region Proposals</code></li>
+<li>利用2中的<code>Region Proposal</code>训练<code>Fast RCNN</code>(训练<code>Fast RCNN</code>的第一轮)</li>
+<li>训练<code>RPN</code>网络（这是训练<code>RPN</code>的第二轮）</li>
+<li>利用训练好的<code>RPN</code>网络收集<code>Region Proposals</code></li>
+<li>利用2中的<code>Region Proposal</code>训练<code>Fast RCNN</code>(训练<code>Fast RCNN</code>的第二轮)</li>
+</ol>
 <h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><h3 id="对Anchor-Box使用的疑惑"><a href="#对Anchor-Box使用的疑惑" class="headerlink" title="对Anchor Box使用的疑惑"></a>对Anchor Box使用的疑惑</h3><p>在<code>Anchor Box</code>中，让我疑惑的是，为何不直接让<code>Predict Box</code>和<code>Ground Truth</code>的偏差做回归，在中间又夹一个<code>Anchor Box</code>。论文中中的解释是由于在<code>R-CNN</code>和<code>Fast RCNN</code>中用了<code>ROI-Pooling</code>,由于<code>ROI-Pooling</code>的缘故可以武断的用共享权值（[1] 和[2]分别表示<code>SPP Net</code>和<code>Fast RCNN</code>两个模型的论文）</p>
 <blockquote>
 <p> In [1],[2], bounding-box regression is performed on features pooled from arbitrarily sized RoIs, and the regression weights are shared by all region sizes.  </p>
