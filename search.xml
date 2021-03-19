@@ -26,8 +26,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>计算机视觉</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -385,10 +385,10 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>深度学习</tag>
-        <tag>神经网络</tag>
         <tag>目标检测</tag>
         <tag>计算机视觉</tag>
+        <tag>神经网络</tag>
+        <tag>深度学习</tag>
       </tags>
   </entry>
   <entry>
@@ -731,9 +731,9 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>Demo</tag>
         <tag>计算机视觉</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -770,9 +770,9 @@
         <category>自然语言处理</category>
       </categories>
       <tags>
+        <tag>神经网络</tag>
         <tag>深度学习</tag>
         <tag>自然语言处理</tag>
-        <tag>神经网络</tag>
       </tags>
   </entry>
   <entry>
@@ -1000,8 +1000,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>Demo</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -1131,8 +1131,8 @@
         <category>数学</category>
       </categories>
       <tags>
-        <tag>统计</tag>
         <tag>机器学习</tag>
+        <tag>统计</tag>
       </tags>
   </entry>
   <entry>
@@ -1354,8 +1354,8 @@
       </categories>
       <tags>
         <tag>机器学习</tag>
-        <tag>图像处理</tag>
         <tag>计算机视觉</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -1646,8 +1646,8 @@
       </categories>
       <tags>
         <tag>机器学习</tag>
-        <tag>图像处理</tag>
         <tag>计算机视觉</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -1713,8 +1713,8 @@
         <category>数学</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>距离</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1754,8 +1754,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>计算机视觉</tag>
+        <tag>图像处理</tag>
         <tag>特征提取</tag>
       </tags>
   </entry>
@@ -2236,8 +2236,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>Demo</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -2495,8 +2495,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>Demo</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
 </search>
