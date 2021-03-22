@@ -7,7 +7,7 @@
 <li><a href="#网络架构">U-Net的大体结构如何</a></li>
 <li><a href="#网络架构">U-Net用哪几层从下采样向上采样复制</a></li>
 <li><a href="#整体loss">U-Net的整体Loss是怎样的</a></li>
-<li>[U-Net的权重如何计算](# 权重参数)</li>
+<li><a href="#权重参数">U-Net的权重如何计算</a></li>
 </ul>
 <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><blockquote>
 <p><code>U-Net</code> 网络是一个图像分割的网络，主要用于医学图像的分割。</p>
