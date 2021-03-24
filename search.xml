@@ -74,7 +74,7 @@
       </tags>
   </entry>
   <entry>
-    <title>太阳主症及论治</title>
+    <title>太阳病辩证纲要</title>
     <url>/posts/7cc176c4.html/</url>
     <content><![CDATA[<h1 id="太阳经症"><a href="#太阳经症" class="headerlink" title="太阳经症"></a>太阳经症</h1><p>提示:</p>
 <ul>
@@ -94,10 +94,11 @@
 <p>上五味,（口父）咀三味.以水七升,微火煮取三升,去滓,适温寒,服一升.服已须臾,啜热稀粥一升余,以助药力.温覆令一时许,遍身漐漐,微似有汗者宜佳,不可令如水琉璃,病必不除.若一服汗出病差,停后服,不必尽剂.若不汗更服依前法.又不汗,后服小促其间,半日许,令三服尽.若病重者,一日一夜服,周时观之.服一剂尽,病症犹在者,更作服;若汗不出,乃服至二三剂.禁生冷,粘滑,肉面,五辛,酒酪,臭恶等物.</p>
 <blockquote>
 <p>太阳中风的风邪袭表,卫强营弱,营卫失和.故用桂枝汤的治则为<strong>解肌祛风,调和营卫</strong>.<font color="green">(太阳中风中的卫强并非真的卫强,而是卫气抗邪于表出现病理性的亢奋.中风症应该是营卫皆伤,故在桂枝方中既有辛甘化阳的药也有酸甘化阴的药,化阳药助卫阳以祛除风邪,化阴药以补营阴)</font></p>
-<p><font color="green"> 在桂枝方中,养营阴的力度大于发汗的力度(也就是助卫阳的力度),或许是因为中风症伤阴大于伤阳,故养正大于发汗</font></p>
-<p><font color="red">桂枝汤:养正力大,发汗力弱,驱邪而不伤正,养营血而不留邪.在外解肌和营卫,在内化气调阴阳</font></p>
+<p> 在桂枝方中,养营阴的力度大于发汗的力度(也就是助卫阳的力度),或许是因为中风症伤阴大于伤阳,故养正大于发汗</p>
+<p><strong>桂枝汤:养正力大,发汗力弱,驱邪而不伤正,养营血而不留邪.在外解肌和营卫,在内化气调阴阳</strong></p>
 </blockquote>
-<h1 id="太阳腑症"><a href="#太阳腑症" class="headerlink" title="太阳腑症"></a>太阳腑症</h1>]]></content>
+<h3 id="桂枝汤适应症"><a href="#桂枝汤适应症" class="headerlink" title="桂枝汤适应症"></a>桂枝汤适应症</h3><p>太阳病，头痛，发热，汗出，恶风，桂枝汤主之。（13）</p>
+]]></content>
       <categories>
         <category>中医</category>
       </categories>
@@ -437,10 +438,10 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>计算机视觉</tag>
         <tag>目标检测</tag>
         <tag>深度学习</tag>
         <tag>神经网络</tag>
+        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
@@ -654,8 +655,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>图像处理</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1086,8 +1087,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>图像处理</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1405,8 +1406,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>图像处理</tag>
+        <tag>机器学习</tag>
         <tag>计算机视觉</tag>
       </tags>
   </entry>
@@ -1616,44 +1617,6 @@
       </tags>
   </entry>
   <entry>
-    <title>FAR以及FRR</title>
-    <url>/posts/88a0752d.html/</url>
-    <content><![CDATA[<h2 id="FAR以及FRR"><a href="#FAR以及FRR" class="headerlink" title="FAR以及FRR"></a>FAR以及FRR</h2><h3 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h3><blockquote>
-<ul>
-<li>FAR和FRR的全分别叫什么</li>
-<li>FAR和FRR表示什么意义</li>
-<li>FAR和FRR的如何计算</li>
-</ul>
-</blockquote>
-<h3 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h3><blockquote>
-<p>FAR和FRR是做指纹识别、人脸识别、手写识别等的常用指标，他们的全名如下</p>
-<ul>
-<li><p>误识率（FAR，false acceptance rate）</p>
-</li>
-<li><p>拒识率（FRR，false rejection rate）</p>
-</li>
-</ul>
-</blockquote>
-<h3 id="计算方式"><a href="#计算方式" class="headerlink" title="计算方式"></a>计算方式</h3><p>对于匹配的结果又以下几种可能：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E6%8C%87%E7%BA%B9%E5%8C%B9%E9%85%8D-1584601149727.png" alt></p>
-<p>其中，<em>=&gt;</em>表示模型的识别结果。</p>
-<p>$$<br>误识率（FAR）=\frac{不同的人=&gt;相同的人}{（不同的人=&gt;相同的人） + （不同的人 =&gt;不同的人）}<br>$$</p>
-<p>$$<br>拒识率（FRR）=\frac{相同的人=&gt;不同的人}{（相同的人=&gt;不同的人+相同的人=&gt;相同的人）}<br>$$</p>
-<h3 id="表示的意义"><a href="#表示的意义" class="headerlink" title="表示的意义"></a>表示的意义</h3><blockquote>
-<p>误识率（FAR）：<strong>度量的是他人可以冒充本人的程度</strong>，这个值越高，表示他人模仿本人更容易</p>
-<p>拒识率（FRR）：度量的是对本人一致性的衡量</p>
-</blockquote>
-<p><strong>在实际项目中，通常误识率比拒识率重要</strong>，因为拒识率即使较高，在指纹识别时可以多打几次。但若误识率较高，他人就能轻易冒充本人的指纹，所造成的麻烦会大得多。</p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>指标计算</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hough变换</title>
     <url>/posts/e9f2d7e8.html/</url>
     <content><![CDATA[<h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ol>
@@ -1697,8 +1660,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>图像处理</tag>
+        <tag>机器学习</tag>
         <tag>计算机视觉</tag>
       </tags>
   </entry>
@@ -2471,64 +2434,59 @@
 <p>然后,对于上一部中分到第一列的,计算BBox和Ground Truth的IOU,大于0.5的标为TP,小于为FP.最后,对于1中第二列的标为FN.</p>
 <p>根据公式:</p>
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-  <mtable displaystyle="true">
-    <mlabeledtr>
-      <mtd id="mjx-eqn-1_1">
-        <mtext>(1)</mtext>
-      </mtd>
-      <mtd>
-        <mrow>
-          <mo>{</mo>
-          <mtable columnalign="left left" rowspacing=".2em" columnspacing="1em" displaystyle="false">
-            <mtr>
-              <mtd>
-                <mi>R</mi>
-                <mo>=</mo>
-                <mi>T</mi>
-                <mi>P</mi>
-                <mrow class="MJX-TeXAtom-ORD">
-                  <mo>/</mo>
-                </mrow>
-                <mo stretchy="false">(</mo>
-                <mi>T</mi>
-                <mi>P</mi>
-                <mo>+</mo>
-                <mi>F</mi>
-                <mi>N</mi>
-                <mo stretchy="false">)</mo>
-              </mtd>
-            </mtr>
-            <mtr>
-              <mtd>
-                <mi>P</mi>
-                <mo>=</mo>
-                <mi>T</mi>
-                <mi>P</mi>
-                <mrow class="MJX-TeXAtom-ORD">
-                  <mo>/</mo>
-                </mrow>
-                <mo stretchy="false">(</mo>
-                <mi>F</mi>
-                <mi>P</mi>
-                <mo>+</mo>
-                <mi>T</mi>
-                <mi>P</mi>
-                <mo stretchy="false">)</mo>
-              </mtd>
-            </mtr>
-          </mtable>
-          <mo fence="true" stretchy="true" symmetric="true"></mo>
-        </mrow>
-      </mtd>
-    </mlabeledtr>
-  </mtable>
+  <mrow>
+    <mo>{</mo>
+    <mtable columnalign="left left" rowspacing=".2em" columnspacing="1em" displaystyle="false">
+      <mtr>
+        <mtd>
+          <mi>R</mi>
+          <mo>=</mo>
+          <mfrac>
+            <mrow>
+              <mi>T</mi>
+              <mi>P</mi>
+            </mrow>
+            <mrow>
+              <mo stretchy="false">(</mo>
+              <mi>T</mi>
+              <mi>P</mi>
+              <mo>+</mo>
+              <mi>F</mi>
+              <mi>N</mi>
+              <mo stretchy="false">)</mo>
+            </mrow>
+          </mfrac>
+        </mtd>
+      </mtr>
+      <mtr>
+        <mtd>
+          <mi>P</mi>
+          <mo>=</mo>
+          <mfrac>
+            <mrow>
+              <mi>T</mi>
+              <mi>P</mi>
+            </mrow>
+            <mrow>
+              <mo stretchy="false">(</mo>
+              <mi>F</mi>
+              <mi>P</mi>
+              <mo>+</mo>
+              <mi>T</mi>
+              <mi>P</mi>
+              <mo stretchy="false">)</mo>
+            </mrow>
+          </mfrac>
+        </mtd>
+      </mtr>
+    </mtable>
+    <mo fence="true" stretchy="true" symmetric="true"></mo>
+  </mrow>
 </math>
-
-
 
 <!--
 $$
-\begin{cases} R = TP/(TP+FN) \\ P=TP/(FP + TP)\end{cases}
+\begin{cases} R = \frac{TP}{(TP+FN)} \\ P=\frac{TP}{(FP + TP)}\end{cases}
 $$
 
 
@@ -2546,8 +2504,8 @@ $$
       </categories>
       <tags>
         <tag>机器学习</tag>
-        <tag>计算机视觉</tag>
         <tag>目标检测</tag>
+        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
@@ -3101,8 +3059,8 @@ $$
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>计算机视觉</tag>
         <tag>目标检测</tag>
+        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
