@@ -81,15 +81,13 @@
 
 
 
-<meta name="description" content="Question概述以及符号规定隐马尔科夫模型可以看成是在马尔科夫模型的升级版，他在状态的基础上加入了观测序列$O$，而原来的状态在HMM中被称为隐状态$S$。在HMM中，隐状态$S$服从马尔科夫性，观测值$O$仅与隐状态$S$相关。以下是一些符号规定：  状态序列$S&#x3D;s_1,s_2,..s_t..,s_\tau$,表示第$t$时刻的状态 观测序列$O&#x3D;o_1,o_2,…o_t,…,o_\tau">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HMM总结">
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/6d15840a.html/index.html">
 <meta property="og:site_name" content="冒烟的乔个人博客">
-<meta property="og:description" content="Question概述以及符号规定隐马尔科夫模型可以看成是在马尔科夫模型的升级版，他在状态的基础上加入了观测序列$O$，而原来的状态在HMM中被称为隐状态$S$。在HMM中，隐状态$S$服从马尔科夫性，观测值$O$仅与隐状态$S$相关。以下是一些符号规定：  状态序列$S&#x3D;s_1,s_2,..s_t..,s_\tau$,表示第$t$时刻的状态 观测序列$O&#x3D;o_1,o_2,…o_t,…,o_\tau">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210324172511.jpg">
 <meta property="article:published_time" content="2021-03-24T07:57:43.000Z">
-<meta property="article:modified_time" content="2021-03-29T01:49:40.198Z">
+<meta property="article:modified_time" content="2021-04-06T04:05:41.979Z">
 <meta property="article:author" content="冒烟的乔">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="数学">
@@ -414,29 +412,8 @@
       
 
       
-        <h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><h2 id="概述以及符号规定"><a href="#概述以及符号规定" class="headerlink" title="概述以及符号规定"></a>概述以及符号规定</h2><p>隐马尔科夫模型可以看成是在马尔科夫模型的升级版，他在状态的基础上加入了观测序列$O$，而原来的状态在<code>HMM</code>中被称为隐状态$S$。在<code>HMM</code>中，隐状态$S$服从马尔科夫性，观测值$O$仅与隐状态$S$相关。以下是一些符号规定：</p>
-<ul>
-<li>状态序列$S=s_1,s_2,..s_t..,s_\tau$,表示第$t$时刻的状态</li>
-<li>观测序列$O=o_1,o_2,…o_t,…,o_\tau$,表示第$t$时刻的观测值</li>
-<li>$Q={q_1,q_2,…,q_N}$,表示状态的集合</li>
-<li>$V={v_1,v_2,…,v_m}$,表示观测值的集合</li>
-<li>$\pi$表示初始的概率分布</li>
-<li>矩阵$A$表示转移矩阵，$a_{ij}=P(s_{t+1}=q_j|s_t=q_i)$</li>
-<li>矩阵$B$表示发射矩阵，$b_j(k)=P(o_t=v_k|i_t=q_j)$</li>
-<li>$\lambda=(\pi,A,B)$,表示所有的参数</li>
-</ul>
-<p>故在<code>HMM</code>中，存在两个假设：</p>
-<ul>
-<li>齐次马尔科夫假设，即$P(s_{t+1}|s_t,s_{t-1},…,s_1,o_1,o_2,…,o_{t})=P(s_{t+1}|s_t)$</li>
-<li>观测独立假设，即$P(o_t|s_t,s_{t-1},..,s_1,o_1,o_2,…,o_{t-1})=P(o_t|s_t)$</li>
-</ul>
-<p>隐马尔可夫链的拓扑图如下所示：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210324172511.jpg" alt></p>
-<h2 id="Evaluation"><a href="#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation</h2><p>在已知参数的情况下，求一个序列的概率，即求$P(o_t,o_{t-1},…,o_1|\lambda)$，简记为$P(\overrightarrow{O}|\lambda)$</p>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>对于 $P(\overrightarrow{O}|\lambda)$，利用全概率公式，有：<br>$$<br>P(\overrightarrow{O}|\lambda)=<br>    \sum_{\overrightarrow{S}}P(\overrightarrow{O}|\overrightarrow{S},\lambda) \cdot P(\overrightarrow{S}|\lambda)    \tag 1<br>$$<br>对于上式（1）中的$P(\overrightarrow{S}|\lambda)$，有：<br>$$<br>P(\overrightarrow{S}|\lambda)=P(s_T,s_{T-1},…,s_1|\lambda)=<br>    P(s_T|s_{T-1},s_{T-2},..,s_1,\lambda) \times<br>    P(s_{T-1},s_{T-2},..,s_1,\lambda)    \tag 2<br>$$<br>上式递推，有：<br>$$<br>P(\overrightarrow{S}|\lambda)=P(s_1|\lambda) \times \prod_{i=2}^{T}{P(s_t|s_{t-1})}<br>    =\pi(s_1) \prod_{i=2}^{T}{P(s_t|s_{t-1})}<br>    =\pi(s_1) \prod_{i=2}^{T}{a_{s_t,s_{t-1}}}<br>    \tag 3<br>$$<br>对于(1)中的$P(\overrightarrow{O}|\overrightarrow{S},\lambda)$,有：</p>
-<h3 id><a href="#" class="headerlink" title></a></h3><p>$$<br>P(\overrightarrow{O}|\overrightarrow{S},\lambda) = P(o_T,o_{T-1},…,o_1|s_T,s_{T-1},…,s_1,\lambda)<br>= P(o_T|s_T,\lambda) \cdot P(o_{T - 1}|s_{T-1},\lambda) \cdot …\cdot P(o_{1}|s_1,\lambda)<br>=\prod_{i=1}^TP(o_i|s_i,\lambda)<br>=\prod_{i=1}^Tb_{s_t}(o_t)<br>\tag 4<br>$$</p>
-<p>所以,综合(2)(3),（1）可得<br>$$<br>P(\overrightarrow{O}|\lambda)=<br>    \sum_{\overrightarrow{S}}P(\overrightarrow{O}|\overrightarrow{S},\lambda) \cdot P(\overrightarrow{S}|\lambda)<br>$$</p>
-<h2 id="前向算法"><a href="#前向算法" class="headerlink" title="前向算法"></a>前向算法</h2><h2 id="Learning"><a href="#Learning" class="headerlink" title="Learning"></a>Learning</h2><h2 id="Decoding"><a href="#Decoding" class="headerlink" title="Decoding"></a>Decoding</h2>
+        <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210324172511.jpg" alt></p>
+
       
     </div>
     
@@ -478,8 +455,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/posts/dd3c2345.html/" rel="prev" title="桂枝汤方及其变方">
-                桂枝汤方及其变方 <i class="fa fa-chevron-right"></i>
+              <a href="/posts/dd3c2345.html/" rel="prev" title="太阳主症及论治">
+                太阳主症及论治 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -561,17 +538,8 @@ var jiathis_config={
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -676,22 +644,6 @@ var jiathis_config={
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概述以及符号规定"><span class="nav-number">2.</span> <span class="nav-text">概述以及符号规定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Evaluation"><span class="nav-number">3.</span> <span class="nav-text">Evaluation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">3.1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">3.2.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前向算法"><span class="nav-number">4.</span> <span class="nav-text">前向算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Learning"><span class="nav-number">5.</span> <span class="nav-text">Learning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Decoding"><span class="nav-number">6.</span> <span class="nav-text">Decoding</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
