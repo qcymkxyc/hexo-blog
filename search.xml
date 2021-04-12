@@ -221,8 +221,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>计算机视觉</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -448,23 +448,23 @@
 <li><a href="#训练">RPN如何训练</a></li>
 </ul>
 <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Two Steps的目标检测是由RCNN到Fast RCNN再到Faster RCNN。</p>
-<h3 id="RCNN"><a href="#RCNN" class="headerlink" title="RCNN"></a>RCNN</h3><p>RCNN的大体流程如下图所示：</p>
+<h3 id="RCNN"><a href="#RCNN" class="headerlink" title="RCNN"></a>RCNN</h3><p><code>RCNN</code>的大体流程如下图所示：</p>
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229151231.png" alt></p>
-<p>上图中，由于RCNN的CNN提取特征部分是对每一个<code>Region Proposal</code>用CNN网络进行特征提取，较为耗时。</p>
-<h3 id="Fast-RCNN"><a href="#Fast-RCNN" class="headerlink" title="Fast RCNN"></a>Fast RCNN</h3><p>Fast RCNN基本上是在RCNN的后半部分做修改，修改如下：</p>
+<p>上图中，由于<code>RCNN</code>的<code>CNN</code>提取特征部分是对每一个<code>Region Proposal</code>用CNN网络进行特征提取，较为耗时。</p>
+<h3 id="Fast-RCNN"><a href="#Fast-RCNN" class="headerlink" title="Fast RCNN"></a>Fast RCNN</h3><p><code>Fast RCNN</code>基本上是在<code>RCNN</code>的后半部分做修改，修改如下：</p>
 <ol>
-<li>用CNN整体图像进行特征提取，并建立<code>Feature Map</code>和原图像的映射关系。这样对于所有的<code>Region Proposal</code>就可以只提取一次</li>
-<li>由于在Fast RCNN仅建立<code>Feature Map</code>和原图的映射关系，并没有对每一个<code>Region Proposal</code>做拉伸（在RCNN中被称为warp），所以在Fast RCNN中使用<code>SPP layer</code>，以保证在后续的全连接的输入一致性。即Fast RCNN中的<code>ROI Pooling</code>层</li>
-<li>用<code>softmax</code>代替<code>SVM</code>，并且<code>loss</code>采用L1。所以Faster RCNN的输出为两个：Bounding Box的位置信息和<code>Softmax</code>的分类信息</li>
+<li>用<code>CNN</code>整体图像进行特征提取，并建立<code>Feature Map</code>和原图像的映射关系。这样对于所有的<code>Region Proposal</code>就可以只提取一次</li>
+<li>由于在<code>Fast RCNN</code>仅建立<code>Feature Map</code>和原图的映射关系，并没有对每一个<code>Region Proposal</code>做拉伸（在<code>RCNN</code>中被称为<code>warp</code>），所以在Fast RCNN中使用<code>SPP layer</code>，以保证在后续的全连接的输入一致性。即<code>Fast RCNN</code>中的<code>ROI Pooling</code>层</li>
+<li>用<code>softmax</code>代替<code>SVM</code>，并且<code>loss</code>采用<code>L1</code>。所以<code>Faster RCNN</code>的输出为两个：<code>Bounding Box</code>的位置信息和<code>Softmax</code>的分类信息</li>
 </ol>
-<p>Fast RCNN的大体流程图如下图所示：</p>
+<p><code>Fast RCNN</code>的大体流程图如下图所示：</p>
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229155337.png" alt></p>
-<p>Faster RCNN主要在Two Steps的前半段做文章。发现在Fast RCNN中，最耗时的是<code>Selective Search</code>部分（后半段的经过Fast RCNN的修改已经很快).所以，Faster RCNN主要基于<code>Selective Search</code>做修改，一是为了提高速度（<code>Selective Search用时大约2秒左右</code>）；二是由于有<code>Selective Search</code>组件，Fast RCNN还不完全算是一个end-to-end的模型。</p>
-<h2 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h2><p>Faster RCNN的主要用<code>RPN</code>网路来代替<code>Selective Search</code>来给出<code>Region Proposal</code>，大体流程如下图所示：</p>
+<p><code>Faster RCNN</code>主要在Two Steps的前半段做文章。发现在<code>Fast RCNN</code>中，最耗时的是<code>Selective Search</code>部分（后半段的经过<code>Fast RCNN</code>的修改已经很快).所以，<code>Faster RCNN</code>主要基于<code>Selective Search</code>做修改，一是为了提高速度（<code>Selective Search用时大约2秒左右</code>）；二是由于有<code>Selective Search</code>组件，<code>Fast RCNN</code>还不完全算是一个end-to-end的模型。</p>
+<h2 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h2><p><code>Faster RCNN</code>的主要用<code>RPN</code>网路来代替<code>Selective Search</code>来给出<code>Region Proposal</code>，大体流程如下图所示：</p>
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229161129.jpg" alt></p>
-<p>从上图中可以看到，给出<code>Region Proposal</code>也可以分为两个部分：图像特征提取的Conv层和RPN。通常Conv层都采用成熟的图像模型，论文中是用的<code>VGG16</code>。更详细的整体流程图如下图所示：</p>
+<p>从上图中可以看到，给出<code>Region Proposal</code>也可以分为两个部分：图像特征提取的<code>Conv层</code>和<code>RPN</code>。通常<code>Conv层</code>都采用成熟的图像模型，论文中是用的<code>VGG16</code>。更详细的整体流程图如下图所示：</p>
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229162606.png" alt></p>
-<p>Conv层不再阐述，下节主要讲<code>RPN</code>网络</p>
+<p><code>Conv层</code>不再阐述，下节主要讲<code>RPN</code>网络</p>
 <h2 id="RPN网络"><a href="#RPN网络" class="headerlink" title="RPN网络"></a>RPN网络</h2><p><code>RPN</code>网络的目的是给出<code>Region Proposal</code>。RPN的流程如下图所示：</p>
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210105100025.png" alt></p>
 <p><code>RPN</code>的大体步骤如下：</p>
@@ -555,10 +555,10 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>深度学习</tag>
-        <tag>神经网络</tag>
         <tag>目标检测</tag>
         <tag>计算机视觉</tag>
+        <tag>神经网络</tag>
+        <tag>深度学习</tag>
       </tags>
   </entry>
   <entry>
@@ -772,8 +772,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>机器学习</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -901,9 +901,9 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>Demo</tag>
         <tag>计算机视觉</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -940,9 +940,9 @@
         <category>自然语言处理</category>
       </categories>
       <tags>
+        <tag>神经网络</tag>
         <tag>深度学习</tag>
         <tag>自然语言处理</tag>
-        <tag>神经网络</tag>
       </tags>
   </entry>
   <entry>
@@ -1170,8 +1170,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>Demo</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -1204,8 +1204,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>机器学习</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -1301,8 +1301,8 @@
         <category>数学</category>
       </categories>
       <tags>
-        <tag>统计</tag>
         <tag>机器学习</tag>
+        <tag>统计</tag>
       </tags>
   </entry>
   <entry>
@@ -1523,9 +1523,9 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>机器学习</tag>
         <tag>计算机视觉</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -1689,8 +1689,8 @@
       </categories>
       <tags>
         <tag>机器学习</tag>
-        <tag>相似度</tag>
         <tag>距离度量</tag>
+        <tag>相似度</tag>
       </tags>
   </entry>
   <entry>
@@ -1777,9 +1777,9 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>机器学习</tag>
         <tag>计算机视觉</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -1845,8 +1845,8 @@
         <category>数学</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>距离</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1886,8 +1886,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>计算机视觉</tag>
+        <tag>图像处理</tag>
         <tag>特征提取</tag>
       </tags>
   </entry>
@@ -2368,8 +2368,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>Demo</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -2469,8 +2469,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>Demo</tag>
         <tag>目标检测</tag>
+        <tag>Demo</tag>
       </tags>
   </entry>
   <entry>
@@ -3227,8 +3227,8 @@ $$
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>Demo</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
 </search>
