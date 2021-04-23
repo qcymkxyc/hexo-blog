@@ -2515,7 +2515,9 @@
   <entry>
     <title>YOLOV3总结</title>
     <url>/posts/69cad793.html/</url>
-    <content><![CDATA[<p>总的来说,YOLO V3针对V2的改进并不多,有以下几点: </p>
+    <content><![CDATA[<p>以下是<code>YOLO V3</code>的结构图：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210423111811.jpg" alt></p>
+<p>总的来说,YOLO V3针对V2的改进并不多,有以下几点: </p>
 <ol>
 <li><p>网络结构的改变</p>
 <blockquote>
