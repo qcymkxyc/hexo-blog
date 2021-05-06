@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>SSD</title>
+    <url>/posts/719cc2e5.html/</url>
+    <content><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p><code>SSD</code>全称<code>Single Shot MultiBox Detector</code>，是一个<code>One-Stage</code>的目标检测模型，以下是<code>SSD</code>和<code>YOLO</code>以及<code>Faster RCNN</code>的对比结果图。可以看到<code>SSD</code>比<code>YOLO</code>和<code>Faster RCNN</code>强很多（无论是速度上还是精度上）。</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210506134247.jpg" alt></p>
+<h1 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h1><h2 id="多尺度特征图检测"><a href="#多尺度特征图检测" class="headerlink" title="多尺度特征图检测"></a>多尺度特征图检测</h2><p><code>YOLO</code>对于小目标的检测效果不好，所以在<code>SSD</code>中，用多尺度特征图来解决小目标的问题，如下图所示：<br><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210506140322.png" alt></p>
+<h1 id="Loss函数"><a href="#Loss函数" class="headerlink" title="Loss函数"></a>Loss函数</h1>]]></content>
+      <categories>
+        <category>计算机视觉</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>目标检测</tag>
+        <tag>计算机视觉</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>麻黄汤方</title>
     <url>/posts/13f147b0.html/</url>
     <content><![CDATA[<p>太阳病，头痛，发热，身疼腰痛，骨节疼痛，恶风，无汗而喘者，麻黄汤主之。（35）</p>
@@ -207,8 +223,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>数学</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -280,8 +296,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>计算机视觉</tag>
         <tag>图像处理</tag>
+        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
@@ -614,10 +630,10 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
+        <tag>目标检测</tag>
         <tag>深度学习</tag>
         <tag>神经网络</tag>
         <tag>计算机视觉</tag>
-        <tag>目标检测</tag>
       </tags>
   </entry>
   <entry>
@@ -831,8 +847,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>图像处理</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -960,9 +976,9 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>计算机视觉</tag>
         <tag>图像处理</tag>
         <tag>Demo</tag>
+        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
@@ -1263,8 +1279,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>图像处理</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1582,9 +1598,9 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
+        <tag>图像处理</tag>
         <tag>机器学习</tag>
         <tag>计算机视觉</tag>
-        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -1699,8 +1715,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>神经网络</tag>
         <tag>机器学习</tag>
+        <tag>神经网络</tag>
         <tag>NLP</tag>
       </tags>
   </entry>
@@ -1836,9 +1852,9 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
+        <tag>图像处理</tag>
         <tag>机器学习</tag>
         <tag>计算机视觉</tag>
-        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -1945,8 +1961,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>计算机视觉</tag>
         <tag>图像处理</tag>
+        <tag>计算机视觉</tag>
         <tag>特征提取</tag>
       </tags>
   </entry>
@@ -1995,8 +2011,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>神经网络</tag>
         <tag>机器学习</tag>
+        <tag>神经网络</tag>
       </tags>
   </entry>
   <entry>
@@ -2201,8 +2217,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>神经网络</tag>
         <tag>机器学习</tag>
+        <tag>神经网络</tag>
       </tags>
   </entry>
   <entry>
@@ -2577,18 +2593,18 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>计算机视觉</tag>
-        <tag>目标跟踪</tag>
         <tag>Demo</tag>
+        <tag>目标跟踪</tag>
+        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
     <title>mAP的计算总结</title>
     <url>/posts/b8ba7454.html/</url>
     <content><![CDATA[<h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ul>
-<li>mAP的流程</li>
+<li><code>mAP</code>的流程</li>
 </ul>
-<h2 id="mAP的流程"><a href="#mAP的流程" class="headerlink" title="mAP的流程"></a>mAP的流程</h2><p>mAP是目标检测中最为常见的指标,要了解mAP(mean Average Precision),就必须了解recall和precision(目标检测中这两个指标的计算和略有机器学习不同)</p>
+<h2 id="mAP的流程"><a href="#mAP的流程" class="headerlink" title="mAP的流程"></a>mAP的流程</h2><p><code>mAP</code>是目标检测中最为常见的指标,要了解<code>mAP(mean Average Precision)</code>,就必须了解<code>recall</code>和<code>precision</code>(目标检测中这两个指标的计算和略有机器学习不同)</p>
 <table>
 <thead>
 <tr>
@@ -2608,8 +2624,8 @@
 <td align="left">TN</td>
 </tr>
 </tbody></table>
-<p>首先,在进行目标检测时,预测出一个BBox,和对应某类i的概率$P_i$,给出一个阈值$t$,即可以判断出预测是否是这一类,即判定上表中在第一列还是第二列.</p>
-<p>然后,对于上一部中分到第一列的,计算BBox和Ground Truth的IOU,大于0.5的标为TP,小于为FP.最后,对于1中第二列的标为FN.</p>
+<p>首先,在进行目标检测时,预测出一个<code>BBox</code>,和对应某类$i$的概率$P_i$,给出一个阈值$t$,即可以判断出预测是否是这一类,即判定上表中在第一列还是第二列.</p>
+<p>然后,对于上一部中分到第一列的,计算<code>BBox</code>和<code>Ground Truth</code>的<code>IOU</code>,大于0.5的标为<code>TP</code>,小于为<code>FP</code>.最后,对于1中第二列的标为<code>FN</code>.</p>
 <p>根据公式:</p>
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
   <mrow>
@@ -2671,7 +2687,7 @@ $$
 
 -->
 
-<p>对于上述给定的阈值t,逐渐减小,可形成多组RP数据对,在坐标上绘制,其与坐标轴围成的面积即为AP值.如下图所示：</p>
+<p>对于上述给定的阈值$t$,逐渐减小,可形成多组<code>RP</code>数据对,在坐标上绘制,其与坐标轴围成的面积即为<code>AP</code>值.如下图所示：</p>
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/2019042821031836.png" alt></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://blog.csdn.net/xiezongsheng1990/article/details/89608923" target="_blank" rel="noopener">https://blog.csdn.net/xiezongsheng1990/article/details/89608923</a></li>
@@ -2682,8 +2698,8 @@ $$
       </categories>
       <tags>
         <tag>机器学习</tag>
-        <tag>计算机视觉</tag>
         <tag>目标检测</tag>
+        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
@@ -3237,8 +3253,8 @@ $$
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>计算机视觉</tag>
         <tag>目标检测</tag>
+        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
