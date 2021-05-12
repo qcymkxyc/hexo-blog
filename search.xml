@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>SSD</title>
+    <title>SSD模型</title>
     <url>/posts/719cc2e5.html/</url>
     <content><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p><code>SSD</code>全称<code>Single Shot MultiBox Detector</code>，是一个<code>One-Stage</code>的目标检测模型，以下是<code>SSD</code>和<code>YOLO</code>以及<code>Faster RCNN</code>的对比结果图。可以看到<code>SSD</code>比<code>YOLO</code>和<code>Faster RCNN</code>强很多（无论是速度上还是精度上）。</p>
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210506134247.jpg" alt></p>
-<h1 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h1><h2 id="多尺度特征图检测"><a href="#多尺度特征图检测" class="headerlink" title="多尺度特征图检测"></a>多尺度特征图检测</h2><p><code>YOLO</code>对于小目标的检测效果不好，所以在<code>SSD</code>中，用多尺度特征图来解决小目标的问题，如下图所示：<br><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210506140322.png" alt></p>
-<h1 id="Loss函数"><a href="#Loss函数" class="headerlink" title="Loss函数"></a>Loss函数</h1>]]></content>
+<h1 id="主要改进点"><a href="#主要改进点" class="headerlink" title="主要改进点"></a>主要改进点</h1><p>实质上,<code>SSD</code>在<code>YOLO</code>的基础上就仅进行了三点改进，一下分别阐述：</p>
+<h2 id="多尺度特征图检测"><a href="#多尺度特征图检测" class="headerlink" title="多尺度特征图检测"></a>多尺度特征图检测</h2><p><code>YOLO</code>对于小目标的检测效果不好，所以在<code>SSD</code>中，用多尺度特征图来解决小目标的问题，下图是<code>SSD</code>模型和<code>YOLO</code>模型的对比，如图所示：<br><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210512145819.png" alt></p>
+<p>从上图可以看出：</p>
+<ul>
+<li><code>SSD</code>的主干网络是<code>VGG16</code>,<code>SSD</code>的第一个<code>Feature Map</code>是<code>VGG</code>中的<code>Conv5_3</code>,也就是<code>VGG16</code>第5个阶段的第3个卷积层</li>
+<li>对于<code>VGG16</code>后两层全连接层，<code>SSD</code>利用$3 \times 3$的卷积层和$1 \times 1$的卷积层实现</li>
+<li><code>SSD</code>模型有6个<code>Feature Map</code>对应的输出，每一个输出加入$3 \times 3$ 的卷积层得到最终结果</li>
+<li>在<code>Conv6</code>中的$3 \times 3$的卷积并不是普通的卷积，而是用的<code>Dilation Conv</code>（带孔卷积）</li>
+<li>在<code>Conv5_3</code> 之后（也就是第一个输出<code>Feature Map</code>）接一个<code>L2 Normalization</code>,<code>L2 Normalization</code>不同于<code>Batch Normalization</code>，<code>Batch Normalization</code>是在[batch_size,width,height]三个维度上做归一化，而<code>L2 Normalization</code>是在<strong><code>Channel</code></strong>的维度上做归一化</li>
+</ul>
+<h3 id="Dilation-Conv"><a href="#Dilation-Conv" class="headerlink" title="Dilation Conv"></a>Dilation Conv</h3><p><code>Dilation Conv</code>的目的是扩大卷积的视野，如下图：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210512150349.png" alt></p>
+<p>图中，(a)是普通的卷积层，(b)的扩张率为2，此时视野变成$7 \times 7$,（c）扩张率为4,此时视野变成$15 \times 15$</p>
+<h2 id="Default-Box"><a href="#Default-Box" class="headerlink" title="Default Box"></a>Default Box</h2><p><code>Default Box</code>基本上等同于<code>Faster RCNN</code>中的<code>Anchor Box</code>，其数量上稍有不同，这里不再详述。</p>
+<h1 id="Loss函数"><a href="#Loss函数" class="headerlink" title="Loss函数"></a>Loss函数</h1><p>由于<code>SSD</code>模型采用了<code>Default box</code>,所以，<code>loss</code>函数和<code>Faster RCNN</code>大同小异，但需要值得注意的是，在<code>SSD</code>中并没有<code>confidence</code>这一概念，在<code>SSD</code>中会在<code>class</code>部分多添加一类表示背景.所以,<code>SSD</code>的<code>loss</code>仅有两部分。一下是<code>SSD</code>模型的总体<code>loss</code>:<br>$$<br>L(x,c,l,g) = \frac{1}{N}(L_{conf}(x,c)+ \alpha L_{loc}(x,l,g)) \tag 1<br>$$</p>
+<h3 id="位置Loss"><a href="#位置Loss" class="headerlink" title="位置Loss"></a>位置Loss</h3><p>位置<code>loss</code>基本上完全同<code>Faster RCNN</code>,也是预测<code>Anchor Box</code>和<code>Ground Truth</code>的偏差，其内部所用的<code>loss</code>也是<code>smooth L1</code></p>
+<h2 id="分类Loss"><a href="#分类Loss" class="headerlink" title="分类Loss"></a>分类Loss</h2><p>分类<code>loss</code>用<code>Cross Entropy</code></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://zhuanlan.zhihu.com/p/33544892" target="_blank" rel="noopener">目标检测|SSD原理与实现</a></li>
+</ul>
+]]></content>
       <categories>
         <category>计算机视觉</category>
       </categories>
@@ -1970,16 +1989,16 @@
     <title>Triple网络</title>
     <url>/posts/d5b27990.html/</url>
     <content><![CDATA[<h1 id="Triplet-Network"><a href="#Triplet-Network" class="headerlink" title="Triplet Network"></a>Triplet Network</h1><h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ol>
-<li>Triplet Network和Siamese Network相比哪个效果好</li>
-<li>Triplet Network的大体流程</li>
-<li>Triplet NetWork的主体思想是什么</li>
-<li>loss中$\alpha$的作用</li>
+<li><code>Triplet Network</code>和<code>Siamese Network</code>相比哪个效果好</li>
+<li><code>Triplet Network</code>的大体流程</li>
+<li><code>Triplet NetWork</code>的主体思想是什么</li>
+<li><code>loss</code>中$\alpha$的作用</li>
 </ol>
 <h2 id="Triplet-Network-1"><a href="#Triplet-Network-1" class="headerlink" title="Triplet Network"></a>Triplet Network</h2><blockquote>
-<p>既然Siamese网络是衡量两个样本间的相似度，Triple Network是衡量三个样本间的相似度</p>
+<p>既然<code>Siamese</code>网络是衡量两个样本间的相似度，<code>Triple Network</code>是衡量三个样本间的相似度</p>
 <p>且<strong>Triple Network的效果要好于Siamese Network</strong></p>
 </blockquote>
-<p>Triple Network的主体思想是：</p>
+<p><code>Triple Network</code>的主体思想是：</p>
 <blockquote>
 <p>相同类别间的距离尽可能的小，不同类别间的距离尽可能的大</p>
 </blockquote>
@@ -1993,11 +2012,11 @@
 </ul>
 <h3 id="Loss函数"><a href="#Loss函数" class="headerlink" title="Loss函数"></a>Loss函数</h3><p>$$<br>L(A,P,N)=max(D_w(A,P)-D_w(A,N)+\alpha,0)<br>$$</p>
 <blockquote>
-<p> $D_w$表示两个输入值在经过子网络后的距离，有：<br> $$<br> D_w(X,Y)=\sqrt{[G_w(X)-G_w(Y)]^2}<br> $$<br> 其中，$G_w$表示经过网络的输出（也就是Embedding层）</p>
+<p> $D_w$表示两个输入值在经过子网络后的距离，有：<br> $$<br> D_w(X,Y)=\sqrt{[G_w(X)-G_w(Y)]^2}<br> $$<br> 其中，$G_w$表示经过网络的输出（也就是<code>Embedding</code>层）</p>
 </blockquote>
-<p>对loss函数的理解：</p>
+<p>对<code>loss</code>函数的理解：</p>
 <blockquote>
-<p>同Siamese网络，$\alpha$的大小直接衡量了学习的难度，$\alpha$越大，则学习的难度越大,要求：<br>$$<br>D_w(A,P) + \alpha \leqslant D_w(A,N)<br>$$</p>
+<p>同<code>Siamese</code>网络，$\alpha$的大小直接衡量了学习的难度，$\alpha$越大，则学习的难度越大,要求：<br>$$<br>D_w(A,P) + \alpha \leqslant D_w(A,N)<br>$$</p>
 </blockquote>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
 <ul>
@@ -2718,7 +2737,7 @@ $$
 <li>一个类别的绝对概率如何计算</li>
 <li>在许多类时，绝对阈值计算如何处理</li>
 </ul>
-<h1 id="Better"><a href="#Better" class="headerlink" title="Better:"></a>Better:</h1><h2 id="Batch-Normalization"><a href="#Batch-Normalization" class="headerlink" title="Batch Normalization"></a>Batch Normalization</h2><p>通过在<code>YOLO</code>的所有卷积层上添加<code>Batch Normalization</code>层，发现<code>mAP</code>提高了$2%$</p>
+<h1 id="Better"><a href="#Better" class="headerlink" title="Better:"></a>Better:</h1><h2 id="Batch-Normalization"><a href="#Batch-Normalization" class="headerlink" title="Batch Normalization"></a>Batch Normalization</h2><p>通过在<code>YOLO</code>的所有卷积层上添加<code>Batch Normalization</code>层，发现<code>mAP</code>提高了$2 %$</p>
 <h2 id="High-Resolution-Classifier"><a href="#High-Resolution-Classifier" class="headerlink" title="High Resolution Classifier"></a>High Resolution Classifier</h2><p>在<code>YOLOV1</code>的版本中，采用$224 \times 224$ 的输入，在<code>V2</code>版本中加入$448 \times 448$的图片对模型训练，发现模型提高了$4%$的<code>mAP</code>值</p>
 <p>具体过程是先用$224 \times 224$的图片训练160个<code>epoch</code>，再用$448 \times 448$的图片训练10个<code>epoch</code></p>
 <h2 id="Convolutional-With-Anchor-Boxes"><a href="#Convolutional-With-Anchor-Boxes" class="headerlink" title="Convolutional With Anchor Boxes"></a>Convolutional With Anchor Boxes</h2><p>去掉<code>V1</code>中的全连接层，仿照<code>Faster R-CNN</code>加入<code>Anchor Box</code> </p>
