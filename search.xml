@@ -52,7 +52,7 @@
 <p>上四味，以水九升，先煮麻黄，减二升，去上沫，内诸药，煮取二升半，去滓，温服八合。覆取微似汗，不须啜粥，余如桂枝法将息。</p>
 <p>太阳病，十日以去，脉浮细而嗜卧者，外已解也。设胸满肋痛者，与小柴胡汤。脉但浮者，与麻黄汤。（37）</p>
 <p>脉浮者，病在表，可发汗，宜麻黄汤。（51）</p>
-<p>脉浮而数者，可发汗，宜桂枝汤（52）</p>
+<p>脉浮而数者，可发汗，宜麻黄汤（52）</p>
 <h2 id="太阳伤寒衄解"><a href="#太阳伤寒衄解" class="headerlink" title="太阳伤寒衄解"></a>太阳伤寒衄解</h2><p>太阳病，脉浮紧，无汗，发热，身疼痛，八九日不解，表证仍在，此当发其汗。服药已微除，其人发烦目暝，剧者必衄，衄乃解。所以然者，阳气重故也。麻黄汤主之。（46）</p>
 <p>太阳病，脉浮紧，发热，身无汗，自衄者愈。（47）</p>
 <p>伤寒脉浮紧，不发汗，因致衄者，麻黄汤主之。（55）</p>
@@ -499,8 +499,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>计算机视觉</tag>
         <tag>图像处理</tag>
+        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
@@ -833,9 +833,9 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
+        <tag>目标检测</tag>
         <tag>深度学习</tag>
         <tag>神经网络</tag>
-        <tag>目标检测</tag>
         <tag>计算机视觉</tag>
       </tags>
   </entry>
@@ -1050,8 +1050,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>图像处理</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1179,9 +1179,9 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
+        <tag>图像处理</tag>
         <tag>Demo</tag>
         <tag>计算机视觉</tag>
-        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -1448,8 +1448,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>Demo</tag>
         <tag>图像处理</tag>
+        <tag>Demo</tag>
       </tags>
   </entry>
   <entry>
@@ -1482,8 +1482,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>图像处理</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1579,8 +1579,8 @@
         <category>数学</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>统计</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1801,9 +1801,9 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
+        <tag>图像处理</tag>
         <tag>机器学习</tag>
         <tag>计算机视觉</tag>
-        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -1918,8 +1918,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>神经网络</tag>
         <tag>机器学习</tag>
+        <tag>神经网络</tag>
         <tag>NLP</tag>
       </tags>
   </entry>
@@ -2055,9 +2055,9 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
+        <tag>图像处理</tag>
         <tag>机器学习</tag>
         <tag>计算机视觉</tag>
-        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -2164,8 +2164,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>计算机视觉</tag>
         <tag>图像处理</tag>
+        <tag>计算机视觉</tag>
         <tag>特征提取</tag>
       </tags>
   </entry>
@@ -2214,8 +2214,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>神经网络</tag>
         <tag>机器学习</tag>
+        <tag>神经网络</tag>
       </tags>
   </entry>
   <entry>
@@ -2420,8 +2420,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>神经网络</tag>
         <tag>机器学习</tag>
+        <tag>神经网络</tag>
       </tags>
   </entry>
   <entry>
@@ -2646,8 +2646,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>Demo</tag>
         <tag>图像处理</tag>
+        <tag>Demo</tag>
       </tags>
   </entry>
   <entry>
@@ -2747,8 +2747,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>目标检测</tag>
         <tag>Demo</tag>
+        <tag>目标检测</tag>
       </tags>
   </entry>
   <entry>
@@ -2797,8 +2797,8 @@
       </categories>
       <tags>
         <tag>Demo</tag>
-        <tag>目标跟踪</tag>
         <tag>计算机视觉</tag>
+        <tag>目标跟踪</tag>
       </tags>
   </entry>
   <entry>
@@ -3507,8 +3507,8 @@ $$
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>Demo</tag>
         <tag>图像处理</tag>
+        <tag>Demo</tag>
       </tags>
   </entry>
 </search>
