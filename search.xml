@@ -1,6 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>太阳兼症</title>
+    <url>/posts/dd3d2345.html/</url>
+    <content><![CDATA[<p>提示:</p>
+<ul>
+<li><font color="blue">蓝色</font>表示未理解</li>
+<li><font color="red">红色</font>或<strong>加粗</strong>表示重要部分</li>
+<li><font color="green">绿色</font>表示我自己的理解</li>
+</ul>
+<h2 id="葛根汤证"><a href="#葛根汤证" class="headerlink" title="葛根汤证"></a>葛根汤证</h2><p>太阳病,项背强几几,无汗恶风,葛根汤主之.(31)</p>
+<p>葛根四两    麻黄三两(去节)    桂枝二两(去皮)    生姜三两(切)    甘草二两(灸)    芍药二两    大枣二十枚(擘)</p>
+<p>上七味,以水一斗,先煮麻黄,葛根,减二升,去白沫,内诸药,煮取三升,去滓,温服一升.覆取微似汗,余如桂枝法将息及禁忌.诸汤皆仿此.</p>
+<blockquote>
+<p>葛根汤=桂枝汤+麻黄+葛根</p>
+</blockquote>
+<h2 id="葛根加半夏汤证"><a href="#葛根加半夏汤证" class="headerlink" title="葛根加半夏汤证"></a>葛根加半夏汤证</h2><p>太阳与阳明合病者,必自下利,葛根汤主之.(32)</p>
+<p>太阳与阳明合病,不下利但呕者,葛根加半夏汤主之.(33)</p>
+<p>葛根四两    麻黄三两(去节)    甘草二两(灸)    芍药二两    桂枝二两(去皮)    生姜二两(切)    半夏半升(洗)     大枣十二枚(擘)</p>
+<p>上八味,以水一升,先煮葛根,麻黄,减二升,去白沫,内诸药,煮取三升,覆取微似汗.</p>
+<blockquote>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E5%A4%AA%E9%98%B3%E8%A1%A8%E5%AE%9E%E5%85%BC%E9%98%B3%E6%98%8E%E8%A1%A8%E8%AF%81.png" alt></p>
+</blockquote>
+<h2 id="大青龙汤症"><a href="#大青龙汤症" class="headerlink" title="大青龙汤症"></a>大青龙汤症</h2><p>太阳中风,脉浮紧,发热恶寒,身疼痛,不汗出而烦躁者,大青龙主之.若脉微弱,汗出恶风者,不可服之.服之则厥逆,筋惕肉瞤,此为逆也.(38)</p>
+<p>大青龙汤方</p>
+<p>麻黄六两(去节)    桂枝二两(去皮)    甘草二两(灸)    杏仁四十枚(去皮尖)    生姜三两(切)    大枣十枚(擘)    石膏如鸡子大(碎)</p>
+<p>上七味,以水七升,先煮麻黄,减二升,去上沫,内诸药,煮取三升,去滓,温服一升,取微似汗.汗出多者,温粉粉之.一服汗者,停后服.若复服,汗多亡阳遂虚,恶风烦躁,不得眠也.</p>
+<p>伤寒脉浮缓,身不疼但重,乍有轻时,无少阴症者,大青龙汤发之.(39)</p>
+]]></content>
+      <categories>
+        <category>中医</category>
+      </categories>
+      <tags>
+        <tag>中医</tag>
+        <tag>伤寒论</tag>
+        <tag>太阳病</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>傅里叶级数与傅里叶变换</title>
+    <url>/posts/fb91b52c.html/</url>
+    <content><![CDATA[<p>本篇博客来自于<code>DR_CAN</code>的<a href="https://www.bilibili.com/video/BV1Et411R78v" target="_blank" rel="noopener">傅里叶函数推导</a>，加上自己的一些理解，感谢大神的分享。</p>
+<h1 id="三角函数系"><a href="#三角函数系" class="headerlink" title="三角函数系"></a>三角函数系</h1><p>有三角函数系：<br>$$<br>[sin(0x),cos(0x),sinx,cosx,sin2x,cos2x,…,sin(nx),cos(nx)] \tag    1<br>$$</p>
+<blockquote>
+<ul>
+<li><p>三角函数系，实质上是一组互不相关的基。</p>
+</li>
+<li><p>任意一个周期函数可以理解成在一个函数空间中的元素，为了表征这个元素，就需要基本元素通过加权和来得到它，这个基本元素就是基，对于函数空间而言，这个基被称为基函数。</p>
+</li>
+<li><p>类似于欧几里得空间中的基向量，每一个基函数不能由其他基函数表征，否则这个基函数将没有存在的意义。这类似于线性空间中的线性无关。</p>
+</li>
+<li><p>级数的其中一个应用就是基的加权，无穷级数就是无限维情况下基的加权。有的情况下有的基的权重太小，删除这些维，就得到这个值的近似值。</p>
+</li>
+</ul>
+</blockquote>
+<p>可以证明，三角函数的所有基必正交：<br>$$<br>\int_{-\pi}^{\pi}sin(nx)cos(mx)dx=0,其中(m\neq{n})    \tag 2<br>$$</p>
+<p>$$<br>\int_{-\pi}^{\pi}sin(nx)sin(mx)dx=0,其中(m\neq{n})    \tag 3<br>$$</p>
+<p>$$<br>\int_{-\pi}^{\pi}cos(nx)cos(mx)dx=0,其中(m\neq{n})    \tag 4<br>$$</p>
+<p>当$m=n$ 时，有：<br>$$<br>\int_{-\pi}^{\pi}cos(mx)cos(mx)dx=\pi    \tag 5<br>$$</p>
+]]></content>
+      <categories>
+        <category>数学</category>
+      </categories>
+      <tags>
+        <tag>数学</tag>
+        <tag>数字图像处理</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>伤寒论(郝万山)</title>
     <url>/posts/e9892345.html/</url>
     <content><![CDATA[<h1 id="太阳病辩证并治"><a href="#太阳病辩证并治" class="headerlink" title="太阳病辩证并治"></a>太阳病辩证并治</h1><h2 id="太阳病辩证纲要"><a href="#太阳病辩证纲要" class="headerlink" title="太阳病辩证纲要"></a>太阳病辩证纲要</h2><p>太阳之为病，脉浮，头项强痛而恶寒(1)</p>
@@ -65,6 +132,19 @@
 <p>汗家，重发汗，必恍惚心乱，小便已阴痛，与禹余粮丸。（88）</p>
 <p>病人有寒，复发汗，胃中冷，必吐蛔。（89）</p>
 <p>脉浮数者，法当汗出而愈，若下之，身重心悸这，不可发汗，当自汗出乃解。所以然者，尺中脉微，此里虚，须表里实，津液自和，便自汗出愈。（49）</p>
+<p>脉浮紧者,法当身疼痛,宜以汗解之,假令尺中迟者,不可发汗.何以知然?以荣气不足,血少故也.(50)</p>
+<h2 id="太阳兼症"><a href="#太阳兼症" class="headerlink" title="太阳兼症"></a>太阳兼症</h2><h3 id="葛根汤方"><a href="#葛根汤方" class="headerlink" title="葛根汤方"></a>葛根汤方</h3><p>太阳病,项背强几几,无汗恶风,葛根汤主之.(31)</p>
+<p>葛根四两    麻黄三两(去节)    桂枝二两(去皮)    生姜三两(切)    甘草二两(灸)    芍药二两    大枣二十枚(擘)</p>
+<p>上七味,以水一斗,先煮麻黄,葛根,减二升,去白沫,内诸药,煮取三升,去滓,温服一升.覆取微似汗,余如桂枝法将息及禁忌.诸汤皆仿此.</p>
+<h3 id="葛根加半夏汤证"><a href="#葛根加半夏汤证" class="headerlink" title="葛根加半夏汤证"></a>葛根加半夏汤证</h3><p>太阳与阳明合病者,必自下利,葛根汤主之.(32)</p>
+<p>太阳与阳明合病,不下利但呕者,葛根加半夏汤主之.(33)</p>
+<p>葛根四两    麻黄三两(去节)    甘草二两(灸)    芍药二两    桂枝二两(去皮)    生姜二两(切)    半夏半升(洗)     大枣十二枚(擘)</p>
+<p>上八味,以水一升,先煮葛根,麻黄,减二升,去白沫,内诸药,煮取三升,覆取微似汗.</p>
+<h3 id="大青龙汤证"><a href="#大青龙汤证" class="headerlink" title="大青龙汤证"></a>大青龙汤证</h3><p>太阳中风,脉浮紧,发热恶寒,身疼痛,不汗出而烦躁者,大青龙主之.若脉微弱,汗出恶风者,不可服之.服之则厥逆,筋惕肉瞤,此为逆也.(38)</p>
+<p>大青龙汤方</p>
+<p>麻黄六两(去节)    桂枝二两(去皮)    甘草二两(灸)    杏仁四十枚(去皮尖)    生姜三两(切)    大枣十枚(擘)    石膏如鸡子大(碎)</p>
+<p>上七味,以水七升,先煮麻黄,减二升,去上沫,内诸药,煮取三升,去滓,温服一升,取微似汗.汗出多者,温粉粉之.一服汗者,停后服.若复服,汗多亡阳遂虚,恶风烦躁,不得眠也.</p>
+<p>伤寒脉浮缓,身不疼但重,乍有轻时,无少阴症者,大青龙汤发之.(39)</p>
 ]]></content>
       <categories>
         <category>中医</category>
@@ -227,7 +307,15 @@
 <p>注：禹余粮丸方已佚</p>
 </blockquote>
 <p>病人有寒，复发汗，胃中冷，必吐蛔。（89）</p>
-<p>脉浮数者，法当汗出而愈，若下之，身重心悸这，不可发汗，当自汗出乃解。所以然者，尺中脉微，此里虚，须表里实，津液自和，便自汗出愈。（49）</p>
+<p>脉浮数者，法当汗出而愈，若下之，身重心悸者，不可发汗，当自汗出乃解。所以然者，尺中脉微，此里虚，须表里实，津液自和，便自汗出愈。（49）</p>
+<blockquote>
+<p>脉浮数,理当用麻黄汤发汗,若用下法,则里虚,阳虚则身重,营血虚则见心悸.尺脉微,表示阳虚.(<strong>在伤寒论中,尺脉微表阳虚,尺脉出现迟脉,表营血不足</strong>).需待表里正气充实,气血充沛,自汗出则愈.</p>
+</blockquote>
+<p>脉浮紧者,法当身疼痛,宜以汗解之,假令尺中迟者,不可发汗.何以知然?以荣气不足,血少故也.(50)</p>
+<blockquote>
+<p>脉浮紧,当以麻黄汤发汗,尺脉迟滞,在伤寒论中主营血不足,本证当属里虚加外感.汗血同源,发汗更伤营血.</p>
+</blockquote>
+<h3 id="麻黄九禁总结"><a href="#麻黄九禁总结" class="headerlink" title="麻黄九禁总结"></a>麻黄九禁总结</h3><p>凡阴,阳,气,血,表,里诸不足,或湿热,毒热,虚热内盛者,皆当禁用或慎用<strong>辛温发汗</strong></p>
 ]]></content>
       <categories>
         <category>中医</category>
@@ -834,9 +922,9 @@
       </categories>
       <tags>
         <tag>目标检测</tag>
-        <tag>深度学习</tag>
-        <tag>神经网络</tag>
         <tag>计算机视觉</tag>
+        <tag>神经网络</tag>
+        <tag>深度学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1050,8 +1138,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>机器学习</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -1218,9 +1306,9 @@
         <category>自然语言处理</category>
       </categories>
       <tags>
+        <tag>神经网络</tag>
         <tag>深度学习</tag>
         <tag>自然语言处理</tag>
-        <tag>神经网络</tag>
       </tags>
   </entry>
   <entry>
@@ -1482,8 +1570,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>机器学习</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -1801,8 +1889,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>机器学习</tag>
+        <tag>图像处理</tag>
         <tag>计算机视觉</tag>
       </tags>
   </entry>
@@ -2055,8 +2143,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>机器学习</tag>
+        <tag>图像处理</tag>
         <tag>计算机视觉</tag>
       </tags>
   </entry>
@@ -2797,8 +2885,8 @@
       </categories>
       <tags>
         <tag>Demo</tag>
-        <tag>计算机视觉</tag>
         <tag>目标跟踪</tag>
+        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
