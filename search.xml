@@ -26,7 +26,17 @@
 <p>大青龙汤方</p>
 <p>麻黄六两(去节)    桂枝二两(去皮)    甘草二两(灸)    杏仁四十枚(去皮尖)    生姜三两(切)    大枣十枚(擘)    石膏如鸡子大(碎)</p>
 <p>上七味,以水七升,先煮麻黄,减二升,去上沫,内诸药,煮取三升,去滓,温服一升,取微似汗.汗出多者,温粉粉之.一服汗者,停后服.若复服,汗多亡阳遂虚,恶风烦躁,不得眠也.</p>
+<blockquote>
+<p>寒邪闭表，致使阳气郁遏而不得宣泄，进而化热，郁热扰心，而生烦躁。<strong>此为阳盛造成的烦躁</strong></p>
+<p>但若为肾阳虚，虚弱的阳气和阴寒相争，争而不胜时，出现肢体躁动不宁（<strong>阴盛则烦</strong>）（<strong>脉微弱很好的验证了阳虚的特点</strong>），此外，汗出恶风为肾阳虚衰，表阳不顾，温煦失司的特征</p>
+<p>“阳盛则噪，阴盛则烦”，<strong>大青龙汤仅能用于阳盛造成的心烦，不可用于阴盛造成的噪烦，否则大青龙汤会造成过汗亡阳</strong></p>
+<p>服之则厥逆,筋惕肉瞤：表示阴盛情况下服大青龙汤的后果，手足厥逆，肌肉跳动。<font color="green">这里的肌肉跳动应该是汗出过多，筋脉失濡所致</font></p>
+</blockquote>
 <p>伤寒脉浮缓,身不疼但重,乍有轻时,无少阴症者,大青龙汤发之.(39)</p>
+<blockquote>
+<p>伤寒浮缓脉和身重提示湿郁肌表（缓脉营虚卫有余，或风或湿或脾虚），乍有轻时提示湿欲向里，故时轻时重。</p>
+<p>无少阴证者：提示无少阴肾阳虚衰的烦躁（<strong>需重点鉴别阳盛阴盛，否则过汗亡阳</strong>），少阴寒化症也会出现不汗出而烦躁的症状（少阴病，欲吐不吐，心烦，但欲寐）</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>中医</category>
@@ -189,9 +199,9 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>目标检测</tag>
         <tag>计算机视觉</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -587,8 +597,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>计算机视觉</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -1267,9 +1277,9 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
+        <tag>计算机视觉</tag>
         <tag>图像处理</tag>
         <tag>Demo</tag>
-        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
@@ -1667,8 +1677,8 @@
         <category>数学</category>
       </categories>
       <tags>
-        <tag>统计</tag>
         <tag>机器学习</tag>
+        <tag>统计</tag>
       </tags>
   </entry>
   <entry>
@@ -1889,9 +1899,9 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
+        <tag>计算机视觉</tag>
         <tag>机器学习</tag>
         <tag>图像处理</tag>
-        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
@@ -2006,8 +2016,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>神经网络</tag>
+        <tag>机器学习</tag>
         <tag>NLP</tag>
       </tags>
   </entry>
@@ -2143,9 +2153,9 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
+        <tag>计算机视觉</tag>
         <tag>机器学习</tag>
         <tag>图像处理</tag>
-        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
@@ -2211,8 +2221,8 @@
         <category>数学</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>距离</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -2252,8 +2262,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>计算机视觉</tag>
+        <tag>图像处理</tag>
         <tag>特征提取</tag>
       </tags>
   </entry>
@@ -2302,8 +2312,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>神经网络</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -2508,8 +2518,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>神经网络</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -2835,8 +2845,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>Demo</tag>
         <tag>目标检测</tag>
+        <tag>Demo</tag>
       </tags>
   </entry>
   <entry>
@@ -2884,9 +2894,9 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>Demo</tag>
-        <tag>目标跟踪</tag>
         <tag>计算机视觉</tag>
+        <tag>目标跟踪</tag>
+        <tag>Demo</tag>
       </tags>
   </entry>
   <entry>
@@ -2988,9 +2998,9 @@ $$
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>目标检测</tag>
         <tag>计算机视觉</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -3048,8 +3058,8 @@ $$
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>目标检测</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
