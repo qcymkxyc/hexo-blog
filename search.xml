@@ -32,6 +32,9 @@
 <p>“阳盛则噪，阴盛则烦”，<strong>大青龙汤仅能用于阳盛造成的心烦，不可用于阴盛造成的噪烦，否则大青龙汤会造成过汗亡阳</strong></p>
 <p>服之则厥逆,筋惕肉瞤：表示阴盛情况下服大青龙汤的后果，手足厥逆，肌肉跳动。<font color="green">这里的肌肉跳动应该是汗出过多，筋脉失濡所致</font></p>
 </blockquote>
+<blockquote>
+<p><strong>大青龙汤见汗出决不可再用，否则过汗亡阳</strong></p>
+</blockquote>
 <p>伤寒脉浮缓,身不疼但重,乍有轻时,无少阴症者,大青龙汤发之.(39)</p>
 <blockquote>
 <p>伤寒浮缓脉和身重提示湿郁肌表（缓脉营虚卫有余，或风或湿或脾虚），乍有轻时提示湿欲向里，故时轻时重。</p>
@@ -199,9 +202,9 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
+        <tag>机器学习</tag>
         <tag>目标检测</tag>
         <tag>计算机视觉</tag>
-        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -597,8 +600,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>计算机视觉</tag>
         <tag>图像处理</tag>
+        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
@@ -932,9 +935,9 @@
       </categories>
       <tags>
         <tag>目标检测</tag>
-        <tag>计算机视觉</tag>
-        <tag>神经网络</tag>
         <tag>深度学习</tag>
+        <tag>神经网络</tag>
+        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
@@ -1148,8 +1151,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>图像处理</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1277,9 +1280,9 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>计算机视觉</tag>
         <tag>图像处理</tag>
         <tag>Demo</tag>
+        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
@@ -1316,9 +1319,9 @@
         <category>自然语言处理</category>
       </categories>
       <tags>
-        <tag>神经网络</tag>
         <tag>深度学习</tag>
         <tag>自然语言处理</tag>
+        <tag>神经网络</tag>
       </tags>
   </entry>
   <entry>
@@ -1580,8 +1583,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>图像处理</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1677,8 +1680,8 @@
         <category>数学</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>统计</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1899,9 +1902,9 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>计算机视觉</tag>
-        <tag>机器学习</tag>
         <tag>图像处理</tag>
+        <tag>机器学习</tag>
+        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
@@ -2016,8 +2019,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>神经网络</tag>
         <tag>机器学习</tag>
+        <tag>神经网络</tag>
         <tag>NLP</tag>
       </tags>
   </entry>
@@ -2153,9 +2156,9 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>计算机视觉</tag>
-        <tag>机器学习</tag>
         <tag>图像处理</tag>
+        <tag>机器学习</tag>
+        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
@@ -2221,8 +2224,8 @@
         <category>数学</category>
       </categories>
       <tags>
-        <tag>距离</tag>
         <tag>机器学习</tag>
+        <tag>距离</tag>
       </tags>
   </entry>
   <entry>
@@ -2262,8 +2265,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>计算机视觉</tag>
         <tag>图像处理</tag>
+        <tag>计算机视觉</tag>
         <tag>特征提取</tag>
       </tags>
   </entry>
@@ -2312,8 +2315,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>神经网络</tag>
         <tag>机器学习</tag>
+        <tag>神经网络</tag>
       </tags>
   </entry>
   <entry>
@@ -2518,8 +2521,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>神经网络</tag>
         <tag>机器学习</tag>
+        <tag>神经网络</tag>
       </tags>
   </entry>
   <entry>
@@ -2845,8 +2848,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>目标检测</tag>
         <tag>Demo</tag>
+        <tag>目标检测</tag>
       </tags>
   </entry>
   <entry>
@@ -2894,9 +2897,9 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
+        <tag>Demo</tag>
         <tag>计算机视觉</tag>
         <tag>目标跟踪</tag>
-        <tag>Demo</tag>
       </tags>
   </entry>
   <entry>
@@ -2998,9 +3001,9 @@ $$
         <category>计算机视觉</category>
       </categories>
       <tags>
+        <tag>机器学习</tag>
         <tag>目标检测</tag>
         <tag>计算机视觉</tag>
-        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -3058,8 +3061,8 @@ $$
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>目标检测</tag>
         <tag>机器学习</tag>
+        <tag>目标检测</tag>
       </tags>
   </entry>
   <entry>
