@@ -59,7 +59,7 @@
 <ul>
 <li><p>三角函数系，实质上是一组互不相关的基。</p>
 </li>
-<li><p>任意一个周期函数可以理解成在一个函数空间中的元素，为了表征这个元素，就需要基本元素通过加权和来得到它，这个基本元素就是基，对于函数空间而言，这个基被称为基函数。</p>
+<li><p>任意一个周期函数可以理解成在一个函数空间中的元素，为了表征这个元素，就需要基本元素通过加权和来得到它，这个基本元素就是基，对于函数空间而言，这个基被称为基函数。用数学术语叫做线性张成。</p>
 </li>
 <li><p>类似于欧几里得空间中的基向量，每一个基函数不能由其他基函数表征，否则这个基函数将没有存在的意义。这类似于线性空间中的线性无关。</p>
 </li>
@@ -71,6 +71,18 @@
 <p>$$<br>\int_{-\pi}^{\pi}sin(nx)sin(mx)dx=0,其中(m\neq{n})    \tag 3<br>$$</p>
 <p>$$<br>\int_{-\pi}^{\pi}cos(nx)cos(mx)dx=0,其中(m\neq{n})    \tag 4<br>$$</p>
 <p>当$m=n$ 时，有：<br>$$<br>\int_{-\pi}^{\pi}cos(mx)cos(mx)dx=\pi    \tag 5<br>$$</p>
+<p>以上被称为三角函数的正交性</p>
+<h1 id="三角级数"><a href="#三角级数" class="headerlink" title="三角级数"></a>三角级数</h1><p>对于一个以周期为$2\pi$的周期函数$f(x)$(即$f(x)=f(x+2\pi)$),可以展开为三角级数：<br>$$<br>f(x) =\sum_{n=0}^{\infty}a_n{cos(nx)}+\sum_{n=0}^{\infty}b_n{sin(nx)}    \tag 6<br>$$</p>
+<hr>
+<p>下面计算$a_n$和$b_n$，第一步先求$a_0$</p>
+<p>经过变换，有：</p>
+<p>$$<br>f(x)=a_0cos(0x)+b_0sin(0x)+\sum_{n=1}^{\infty}a_ncos(nx)+b_nsin(nx)    \tag 7<br>$$</p>
+<p>$$<br>f(x)=a_0+\sum_{n=1}^{\infty}a_ncos(nx)+b_nsin(nx)    \tag 8<br>$$</p>
+<p>两边同时积分，有：<br>$$<br>\int_{-\pi}^{\pi}f(x)dx=\int_{-\pi}^{\pi}a_0dx+\int_{-\pi}^{\pi}\sum_{n=1}^{\infty}{a_ncos(nx)}dx+\int_{-\pi}^{\pi}\sum_{n=1}^{\infty}{b_nsin(nx)}dx    \tag 9<br>$$</p>
+<p>$$<br>\int_{-\pi}^{\pi}f(x)dx=\int_{-\pi}^{\pi}a_0dx+\int_{-\pi}^{\pi}\sum_{n=1}^{\infty}{ a_n \times 1 \times cos(nx)}dx+\int_{-\pi}^{\pi}\sum_{n=1}^{\infty}{b_n \times 1 \times sin(nx)}dx    \tag {10}<br>$$</p>
+<p>根据三角函数的正交性，有：<br>$$<br>\int_{-\pi}^{\pi}f(x)dx=\int_{-\pi}^{\pi}a_0dx    \tag {11}<br>$$<br>则：<br>$$<br>a_0=\frac{1}{2\pi}\int_{-\pi}^{\pi}f(x)dx    \tag {12}<br>$$</p>
+<hr>
+<p>下面求$a_n$,在（6）中两边同时乘以$cos(mx)$,再积分（$m\in Z$），有：<br>$$<br>\int_{-\pi}^{\pi}f(x)cos(mx)dx=\int_{\pi}^{\pi}a_0cos(mx)dx+\int_{\pi}^{\pi}\sum_{n=1}^{\infty}cos(nx) \times a_n \times cos(mx)dx+\int_{\pi}^{\pi}\sum_{n=1}^{\infty}sin(nx) \times b_n \times cos(mx)dx    \tag {13}<br>$$<br>根据三角级数的性质可得：<br>$$<br>\int_{-\pi}^{\pi}f(x)cos(mx)dx=\int_{\pi}^{\pi}a_m(cos^2(mx))dx=a_m\pi    \tag {14}<br>$$<br>则：<br>$$<br>a_n=\frac{1}{\pi}\int_{\pi}^{\pi}f(x)cos(nx)dx    \tag {15}<br>$$<br>同理可得：<br>$$<br>b_n=\frac{1}{\pi}\int_{\pi}^{\pi}f(x)sin(nx)dx    \tag {16}<br>$$</p>
 ]]></content>
       <categories>
         <category>数学</category>
