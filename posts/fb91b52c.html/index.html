@@ -88,7 +88,7 @@
 <meta property="og:site_name" content="冒烟的乔个人博客">
 <meta property="og:description" content="本篇博客来自于DR_CAN的傅里叶函数推导，加上自己的一些理解，感谢大神的分享。 三角函数系有三角函数系：$$[sin(0x),cos(0x),sinx,cosx,sin2x,cos2x,…,sin(nx),cos(nx)] \tag    1$$   三角函数系，实质上是一组互不相关的基。  任意一个周期函数可以理解成在一个函数空间中的元素，为了表征这个元素，就需要基本元素通过加权和来得到它，这">
 <meta property="article:published_time" content="2021-06-18T08:10:27.000Z">
-<meta property="article:modified_time" content="2021-06-30T12:14:38.033Z">
+<meta property="article:modified_time" content="2021-07-08T02:46:24.508Z">
 <meta property="article:author" content="冒烟的乔">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="数字图像处理">
@@ -442,6 +442,17 @@
 <p>根据三角函数的正交性，有：<br>$$<br>\int_{-\pi}^{\pi}f(x)dx=\int_{-\pi}^{\pi}a_0dx    \tag {11}<br>$$<br>则：<br>$$<br>a_0=\frac{1}{2\pi}\int_{-\pi}^{\pi}f(x)dx    \tag {12}<br>$$</p>
 <hr>
 <p>下面求$a_n$,在（6）中两边同时乘以$cos(mx)$,再积分（$m\in Z$），有：<br>$$<br>\int_{-\pi}^{\pi}f(x)cos(mx)dx=\int_{\pi}^{\pi}a_0cos(mx)dx+\int_{\pi}^{\pi}\sum_{n=1}^{\infty}cos(nx) \times a_n \times cos(mx)dx+\int_{\pi}^{\pi}\sum_{n=1}^{\infty}sin(nx) \times b_n \times cos(mx)dx    \tag {13}<br>$$<br>根据三角级数的性质可得：<br>$$<br>\int_{-\pi}^{\pi}f(x)cos(mx)dx=\int_{\pi}^{\pi}a_m(cos^2(mx))dx=a_m\pi    \tag {14}<br>$$<br>则：<br>$$<br>a_n=\frac{1}{\pi}\int_{\pi}^{\pi}f(x)cos(nx)dx    \tag {15}<br>$$<br>同理可得：<br>$$<br>b_n=\frac{1}{\pi}\int_{\pi}^{\pi}f(x)sin(nx)dx    \tag {16}<br>$$</p>
+<h1 id="傅里叶级数"><a href="#傅里叶级数" class="headerlink" title="傅里叶级数"></a>傅里叶级数</h1><p>在很多情况下，周期函数的周期不为$2\pi$,对于周期不为$2\pi$的周期函数，将其压缩为$2\pi$，再对其进行三角级数的变换。设存在一个周期函数$f(t)$，其周期为$2L$,有：<br>$$<br>f(t)=f(t+2L)    \tag {17}<br>$$<br>将函数$f(t)$压缩为$(0,2\pi)$的函数为：<br>$$<br>x=\frac{t}{2L} \times 2\pi    \tag {18}<br>$$<br>可得：<br>$$<br>x=\frac{\pi}{L} \times t    \tag {19}<br>$$</p>
+<p>$$<br>t = \frac{L}{\pi}x    \tag {20}<br>$$</p>
+<p>对函数$f(t)$换元，有：<br>$$<br>f(t)=f(\frac{L}{\pi}x)=g(x)    \tag {21}<br>$$<br>此时，函数$g(x)$为以$2\pi$为周期的周期函数,有：<br>$$<br>g(x)=\frac{a_0}{2}+\sum_{n=1}^{\infty}[a_ncos(nx)+b_nsin(nx)]    \tag {22}<br>$$</p>
+<p>当$x=-\pi$时，有$t=-L$;当$x=\pi$时，有$t=L$.且$x$在$(-\pi,\pi)$范围内单调递增。由公式（16）~(18),有：<br>$$<br>a_0=\frac{1}{\pi}\int_{-\pi}^{\pi}g(x)dx=\frac{1}{\pi}\int_{-L}^{L}f(t)d(\frac{\pi}{L}t)=\frac{1}{\pi}\frac{\pi}{L}\int_{-L}^{L}f(t)dt=\frac{1}{L}\int_{-L}^{L}f(t)dt    \tag {23}<br>$$</p>
+<p>同理，有：<br>$$<br>a_n = \frac{1}{L}\int_{-L}^{L}f(t)cos(\frac{n\pi}{L}t)dt    \tag {24}<br>$$</p>
+<p>$$<br>b_n = \frac{1}{L}\int_{-L}^{L}f(t)sin(\frac{n\pi}{L}t)dt    \tag {25}<br>$$</p>
+<hr>
+<p>在工程中，$t$是从$0$开始，则$t$的取值范围为$(0,2L)$,令$T=2L$,并令$\omega=\frac{\pi}{L}$,即在式（19）中$x=\omega \times t$,即$\omega$为$x$和$t$的比例。则式（22）可以替换为：<br>$$<br>f(t)=\frac{a_0}{2}+\sum_{n=1}^{\infty}[a_ncos(n \omega t) + b_nsin(n \omega t)]        \tag {26}<br>$$<br>则式（23）可以变为：<br>$$<br>a_0=\frac{1}{T/2}\int_{0}^{T}f(t)dt=\frac{2}{T}\int_{0}^{T}f(t)dt    \tag {27}<br>$$<br>式(24)可变为：<br>$$<br>a_n = \frac{1}{L}\int_{-L}^{L}f(t)cos(\frac{n\pi}{L}t)dt=\frac{2}{T}\int_{0}^{T}f(t)cos(n \omega t)dt    \tag {28}<br>$$<br>式（25）可以变为：<br>$$<br>b_n = \frac{1}{L}\int_{-L}^{L}f(t)sin(\frac{n\pi}{L}t)dt=\frac{2}{T}\int_{0}^{T}f(t)sin(n \omega t)dt    \tag {29}<br>$$</p>
+<h1 id="傅里叶级数的复数表达形式"><a href="#傅里叶级数的复数表达形式" class="headerlink" title="傅里叶级数的复数表达形式"></a>傅里叶级数的复数表达形式</h1><p>欧拉公式：<br>$$<br>e^{i\theta}=cos\theta+isin\theta    \tag {30}<br>$$<br>则由欧拉公式(29)可得：<br>$$<br>cos\theta = \frac{1}{2}(e^{i\theta}+e^{-i\theta})    \tag {31}<br>$$</p>
+<p>$$<br>sin\theta = \frac{1}{2}i(e^{i\theta}-e^{-i\theta})    \tag {32}<br>$$</p>
+<p>则式（26）可由欧拉公式表示为：<br>$$<br>f(t)=\frac{a_0}{2}+\sum_{n=1}^{\infty}[a_n \cdot \frac{1}{2}(e^{in \omega t} + e^{-in \omega t}) -  \frac{1}{2}i \cdot b_n \cdot (e^{in \omega t} - e ^{-in \omega t})]    \tag {33}<br>$$<br>化简为：<br>$$<br>f(t)=\frac{a_0}{2}+\sum_{n=1}^{\infty}\frac{a_n - ib_n}{2}e^{in \omega t} + \sum_{n=1}^{\infty}\frac{a_n + ib_n}{2}e^{-in \omega t}    \tag {34}<br>$$</p>
 
       
     </div>
@@ -692,7 +703,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#三角函数系"><span class="nav-number">1.</span> <span class="nav-text">三角函数系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三角级数"><span class="nav-number">2.</span> <span class="nav-text">三角级数</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#三角函数系"><span class="nav-number">1.</span> <span class="nav-text">三角函数系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三角级数"><span class="nav-number">2.</span> <span class="nav-text">三角级数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#傅里叶级数"><span class="nav-number">3.</span> <span class="nav-text">傅里叶级数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#傅里叶级数的复数表达形式"><span class="nav-number">4.</span> <span class="nav-text">傅里叶级数的复数表达形式</span></a></li></ol></div>
             
 
           </div>
