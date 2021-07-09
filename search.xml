@@ -220,7 +220,8 @@ $$
 <ul>
 <li>$\sum_{n = -\infty}^{\infty} \Delta \omega=\int_{-\infty}^{\infty}d \omega$(即从离散形式变为连续形式)</li>
 </ul>
-<p>则，<br>$$<br>f(t)=\frac{1}{2\pi}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}f(t) \cdot e^{-i \omega t}dt \cdot e^{i \omega t}d \omega    \tag {48}<br>$$<br>令$F(t)=\int_{-\infty}^{\infty}f(t)e^{-i \omega t}dt$,则上式等于：<br>$$<br>f(t)=\frac{1}{2 \pi}\int_{-\infty}^{\infty}F(t)e^{i \omega t}d \omega    \tag {49}<br>$$<br>其中<br>$$<br>F(t)=\int_{-\infty}^{\infty}f(t)e^{-i \omega t}dt    \tag {50}<br>$$<br>式（50）称为傅里叶变换（FT），式（49）称为傅里叶变换的逆变换。</p>
+<p>则，<br>$$<br>f(t)=\frac{1}{2\pi}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}f(t) \cdot e^{-i \omega t}dt \cdot e^{i \omega t}d \omega    \tag {48}<br>$$<br>令$F(t)=\int_{-\infty}^{\infty}f(t)e^{-i \omega t}dt$,则上式等于：<br>$$<br>f(t)=\frac{1}{2 \pi}\int_{-\infty}^{\infty}F(t)e^{i \omega t}d \omega    \tag {49}<br>$$<br>其中<br>$$<br>F(t)=\int_{-\infty}^{\infty}f(t)e^{-i \omega t}dt    \tag {50}<br>$$<br>式（50）称为傅里叶变换（FT），也就是$f(t)$在频域的分量，式（49）称为傅里叶变换的逆变换，是一个从频域反向合成时域函数的过程。</p>
+<p>至此，傅里叶变换推导完毕。</p>
 ]]></content>
       <categories>
         <category>数学</category>
@@ -1085,9 +1086,9 @@ $$
       </categories>
       <tags>
         <tag>目标检测</tag>
-        <tag>计算机视觉</tag>
-        <tag>神经网络</tag>
         <tag>深度学习</tag>
+        <tag>神经网络</tag>
+        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
@@ -1301,8 +1302,8 @@ $$
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>图像处理</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1469,9 +1470,9 @@ $$
         <category>自然语言处理</category>
       </categories>
       <tags>
-        <tag>神经网络</tag>
         <tag>深度学习</tag>
         <tag>自然语言处理</tag>
+        <tag>神经网络</tag>
       </tags>
   </entry>
   <entry>
@@ -1733,8 +1734,8 @@ $$
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>图像处理</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -2052,8 +2053,8 @@ $$
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>图像处理</tag>
+        <tag>机器学习</tag>
         <tag>计算机视觉</tag>
       </tags>
   </entry>
@@ -2306,8 +2307,8 @@ $$
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>图像处理</tag>
+        <tag>机器学习</tag>
         <tag>计算机视觉</tag>
       </tags>
   </entry>
