@@ -65,7 +65,7 @@
       </tags>
   </entry>
   <entry>
-    <title>傅里叶级数与傅里叶变换</title>
+    <title>傅里叶级数与傅里叶变换推导</title>
     <url>/posts/fb91b52c.html/</url>
     <content><![CDATA[<p>本篇博客来自于<code>DR_CAN</code>的<a href="https://www.bilibili.com/video/BV1Et411R78v" target="_blank" rel="noopener">傅里叶函数推导</a>，加上自己的一些理解，感谢大神的分享。</p>
 <h1 id="三角函数系"><a href="#三角函数系" class="headerlink" title="三角函数系"></a>三角函数系</h1><p>有三角函数系：<br>$$<br>[sin(0x),cos(0x),sinx,cosx,sin2x,cos2x,…,sin(nx),cos(nx)] \tag    1<br>$$</p>
@@ -202,10 +202,10 @@ $$
 
 
 <hr>
-<p>下面计算$C_n$，当$n=0$时，由式（27），有：<br>$$<br>C_0=\frac{1}{2} \cdot \frac{2}{T} \int_{0}^{T}f(t)dt=\frac{1}{T} \int_{0}^{T}f(t)dt    \tag {37}<br>$$<br>当$n$为正整数时，将式（28）和式（29）代入，化简，得：<br>$$<br>C_n=\frac{1}{T}\int_{0}^{T}f(t) \cdot e^{-in \omega t}dt  ; ; \text {,n=(1,2,3,4,….)}    \tag {38}<br>$$<br>同理，可得：<br>$$<br>C_n=\frac{1}{T}\int_{0}^{T}f(t)e^{-in \omega t}dt \text{ n=-1,-2,-3,-4,…}    \tag {39}<br>$$<br>通过上式，可以发现，式（37）~（39）可以统一为一个式子,即：<br>$$<br>C_n=\frac{1}{T}\int_0^{T}f(t) \cdot e^{in \omega t}dt    \tag {40}<br>$$</p>
+<p>下面计算$C_n$，当$n=0$时，由式（27），有：<br>$$<br>C_0=\frac{1}{2} \cdot \frac{2}{T} \int_{0}^{T}f(t)dt=\frac{1}{T} \int_{0}^{T}f(t)dt    \tag {37}<br>$$<br>当$n$为正整数时，将式（28）和式（29）代入，化简，得：<br>$$<br>C_n=\frac{1}{T}\int_{0}^{T}f(t) \cdot e^{-in \omega t}dt  ; ; \text {,n=(1,2,3,4,….)}    \tag {38}<br>$$<br>同理，可得：<br>$$<br>C_n=\frac{1}{T}\int_{0}^{T}f(t)e^{-in \omega t}dt \text{ n=-1,-2,-3,-4,…}    \tag {39}<br>$$<br>通过上式，可以发现，式（37）~（39）可以统一为一个式子,即：<br>$$<br>C_n=\frac{1}{T}\int_0^{T}f(t) \cdot e^{-in \omega t}dt    \tag {40}<br>$$</p>
 <hr>
-<p>结合式（36）和式（40），我们得到<strong>傅里叶级数最终的复数表达形式</strong>：<br>$$<br>f(t)= \sum_{n=-\infty}^{\infty}C_n \cdot e^{in \omega t}    \tag {41}<br>$$<br>其中：<br>$$<br>C_n=\frac{1}{T}\int_0^{T}f(t) \cdot e^{in \omega t}dt<br>$$</p>
-<h1 id="傅里叶变换"><a href="#傅里叶变换" class="headerlink" title="傅里叶变换"></a>傅里叶变换</h1><p>补充，频谱图：</p>
+<p>结合式（36）和式（40），我们得到<strong>傅里叶级数最终的复数表达形式</strong>：<br>$$<br>f(t)= \sum_{n=-\infty}^{\infty}C_n \cdot e^{in \omega t}    \tag {41}<br>$$<br>其中：<br>$$<br>C_n=\frac{1}{T}\int_0^{T}f(t) \cdot e^{-in \omega t}dt<br>$$</p>
+<h1 id="傅里叶变换"><a href="#傅里叶变换" class="headerlink" title="傅里叶变换"></a>傅里叶变换</h1><p>补充，<strong>频谱图</strong>：</p>
 <blockquote>
 <p>傅里叶级数是将一个周期函数$f(t)$展开成多个三角级数相加，从图上看，就如下图所示：</p>
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210709114728.jpg" alt></p>
@@ -213,7 +213,14 @@ $$
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210709115517.jpeg" alt></p>
 <p>上图中，横轴是频域的频率（更确切的说是三角级数的基函数$e^{in \omega t}$本身，这里只是用频率$\omega$来指代基函数）,纵轴是线性张成的权重，即上式$C_n$,也是傅里叶变换的结果$F(t)$。<strong>(并非$f(t)$).</strong>.需要注意的是，$C_n$也可能是一个复数，此时，上图就是一个三维平面。</p>
 </blockquote>
-<p>傅里叶级数成立的条件是$f(t)$必须是一个周期为$L$的周期函数，但在工程中很多时候，$f(t)$不一定是周期函数，自然而然就不能用傅里叶级数。<strong>对于一个非周期函数，令$L \to \int$,也就是说，令周期趋近于无穷大，此时$f(t)$可以看成一个周期为正无穷的周期函数，对于该周期函数，就可以用傅里叶级数分解</strong>。从而演变成傅里叶变换。</p>
+<p>傅里叶级数成立的条件是$f(t)$必须是一个周期为$L$的周期函数，但在工程中很多时候，$f(t)$不一定是周期函数，自然而然就不能用傅里叶级数。<strong>对于一个非周期函数，令$L \to \infty$,也就是说，令周期趋近于无穷大，此时$f(t)$可以看成一个周期为正无穷的周期函数，对于该周期函数，就可以用傅里叶级数分解</strong>。从而演变成傅里叶变换。</p>
+<p>对于以$T$为周期的周期函数$f_T(t)=f_T(t+T)$,由之前的推导，有：<br>$$<br>f_T(t)= \sum_{n=-\infty}^{\infty}C_n \cdot e^{in \omega_0 t}    \tag {42}<br>$$<br>其中<br>$$<br>C_n=\frac{1}{T}\int_{-\frac{T}{2}}^{\frac{T}{2}}f_T(t) \cdot e^{-in \omega_0 t}dt    \tag {43}<br>$$<br>上式为傅里叶级数的一般形式，</p>
+<p>当$T\to \infty$时，此时的周期$T$可以忽略不计，有：<br>$$<br>\lim_{T \to \infty}f_T(t)=f(t)    \tag {44}<br>$$<br>$\Delta \omega$表示在频域上两个相邻基频率的差距，有：<br>$$<br>\Delta \omega=(n+1) \omega_0 - n \omega_0= \omega_0 = \frac{2 \pi}{T}    \tag {45}<br>$$<br>当$T \to \infty$时，有$\Delta \omega \to 0$，即此时基频率之间会无限接近。换句话说，<strong>此时的傅里叶级数由离散转为连续</strong>。</p>
+<p>现在将式（42）代入式（41）中 ，有：<br>$$<br>f(t)= \sum_{n= - \infty}^{\infty} \left[ \frac{1}{T}\int_{-\frac{T}{2}}^{\frac{T}{2}}f(t) \cdot e^{-in \omega_0 t}dt \right] \cdot e^{in \omega_0 t} \tag {46}<br>$$<br>由于$\Delta \omega=\frac{2 \pi}{T}$,则有$T=\frac{2 \pi}{\Delta \omega}$,代入式（46）中，有：<br>$$<br>f(t)= \sum_{n= - \infty}^{\infty} \left[ \frac{\Delta \omega}{2 \pi}\int_{-\frac{T}{2}}^{\frac{T}{2}}f(t) \cdot e^{-in \omega_0 t}dt \right] \cdot e^{in \omega_0 t} \tag {47}<br>$$<br>当$T \to \infty$时，有</p>
+<ul>
+<li>$\sum_{n = -\infty}^{\infty} \Delta \omega=\int_{-\infty}^{\infty}d \omega$(即从离散形式变为连续形式)</li>
+</ul>
+<p>则，<br>$$<br>f(t)=\frac{1}{2\pi}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}f(t) \cdot e^{-i \omega t}dt \cdot e^{i \omega t}d \omega    \tag {48}<br>$$<br>令$F(t)=\int_{-\infty}^{\infty}f(t)e^{-i \omega t}dt$,则上式等于：<br>$$<br>f(t)=\frac{1}{2 \pi}\int_{-\infty}^{\infty}F(t)e^{i \omega t}d \omega    \tag {49}<br>$$<br>其中<br>$$<br>F(t)=\int_{-\infty}^{\infty}f(t)e^{-i \omega t}dt    \tag {50}<br>$$<br>式（50）称为傅里叶变换（FT），式（49）称为傅里叶变换的逆变换。</p>
 ]]></content>
       <categories>
         <category>数学</category>
@@ -1294,8 +1301,8 @@ $$
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>机器学习</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -1726,8 +1733,8 @@ $$
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>机器学习</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -2045,8 +2052,8 @@ $$
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>机器学习</tag>
+        <tag>图像处理</tag>
         <tag>计算机视觉</tag>
       </tags>
   </entry>
@@ -2299,8 +2306,8 @@ $$
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>图像处理</tag>
         <tag>机器学习</tag>
+        <tag>图像处理</tag>
         <tag>计算机视觉</tag>
       </tags>
   </entry>
