@@ -88,7 +88,7 @@
 <meta property="og:site_name" content="冒烟的乔个人博客">
 <meta property="og:description" content="本篇博客来自于DR_CAN的傅里叶函数推导，加上自己的一些理解，感谢大神的分享。 三角函数系有三角函数系：$$[sin(0x),cos(0x),sinx,cosx,sin2x,cos2x,…,sin(nx),cos(nx)] \tag    1$$   三角函数系，实质上是一组互不相关的基。  任意一个周期函数可以理解成在一个函数空间中的元素，为了表征这个元素，就需要基本元素通过加权和来得到它，这">
 <meta property="article:published_time" content="2021-06-18T08:10:27.000Z">
-<meta property="article:modified_time" content="2021-07-08T02:46:24.508Z">
+<meta property="article:modified_time" content="2021-07-09T02:17:52.525Z">
 <meta property="article:author" content="冒烟的乔">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="数字图像处理">
@@ -453,7 +453,93 @@
 <h1 id="傅里叶级数的复数表达形式"><a href="#傅里叶级数的复数表达形式" class="headerlink" title="傅里叶级数的复数表达形式"></a>傅里叶级数的复数表达形式</h1><p>欧拉公式：<br>$$<br>e^{i\theta}=cos\theta+isin\theta    \tag {30}<br>$$<br>则由欧拉公式(29)可得：<br>$$<br>cos\theta = \frac{1}{2}(e^{i\theta}+e^{-i\theta})    \tag {31}<br>$$</p>
 <p>$$<br>sin\theta = \frac{1}{2}i(e^{i\theta}-e^{-i\theta})    \tag {32}<br>$$</p>
 <p>则式（26）可由欧拉公式表示为：<br>$$<br>f(t)=\frac{a_0}{2}+\sum_{n=1}^{\infty}[a_n \cdot \frac{1}{2}(e^{in \omega t} + e^{-in \omega t}) -  \frac{1}{2}i \cdot b_n \cdot (e^{in \omega t} - e ^{-in \omega t})]    \tag {33}<br>$$<br>化简为：<br>$$<br>f(t)=\frac{a_0}{2}+\sum_{n=1}^{\infty}\frac{a_n - ib_n}{2}e^{in \omega t} + \sum_{n=1}^{\infty}\frac{a_n + ib_n}{2}e^{-in \omega t}    \tag {34}<br>$$</p>
+<p>再化简为：<br>$$<br>f(t) = \sum_{n=0}^{0}\frac{a_0}{2} \cdot e^{i n \omega t}+\sum_{n=1}^{\infty}\frac{a_{n-1}b_n}{2} \cdot e^{in \omega t}+\sum_{n=-\infty}^{-1}\frac{a_{-n}+ib_{-n}}{2} \cdot e^{in \omega t}    \tag {35}<br>$$<br><strong>上式合并</strong>，有：<br>$$<br>f(t)= \sum_{n=-\infty}^{\infty}C_n \cdot e^{in \omega t}    \tag {36}<br>$$<br>其中：</p>
+<!--
+$$
+C_n= \begin{cases}
+    \frac{a0}{2}, & \text {n=0} \\
+    \frac{a_n-ib_n}{2}, & \text {n=1,2,3,4,....}    \\
+    \frac{a_{-n}+ib_n}{2} & \text {n=-1,-2,-3,-4,....}
+\end{cases}
+$$
+-->
 
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <msub>
+    <mi>C</mi>
+    <mi>n</mi>
+  </msub>
+  <mo>=</mo>
+  <mrow>
+    <mo>{</mo>
+    <mtable columnalign="left left" rowspacing=".2em" columnspacing="1em" displaystyle="false">
+      <mtr>
+        <mtd>
+          <mfrac>
+            <mrow>
+              <mi>a</mi>
+              <mn>0</mn>
+            </mrow>
+            <mn>2</mn>
+          </mfrac>
+          <mo>,</mo>
+        </mtd>
+        <mtd>
+          <mtext>n=0</mtext>
+        </mtd>
+      </mtr>
+      <mtr>
+        <mtd>
+          <mfrac>
+            <mrow>
+              <msub>
+                <mi>a</mi>
+                <mi>n</mi>
+              </msub>
+              <mo>&#x2212;<!-- − --></mo>
+              <mi>i</mi>
+              <msub>
+                <mi>b</mi>
+                <mi>n</mi>
+              </msub>
+            </mrow>
+            <mn>2</mn>
+          </mfrac>
+          <mo>,</mo>
+        </mtd>
+        <mtd>
+          <mtext>n=1,2,3,4,....</mtext>
+        </mtd>
+      </mtr>
+      <mtr>
+        <mtd>
+          <mfrac>
+            <mrow>
+              <msub>
+                <mi>a</mi>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mo>&#x2212;<!-- − --></mo>
+                  <mi>n</mi>
+                </mrow>
+              </msub>
+              <mo>+</mo>
+              <mi>i</mi>
+              <msub>
+                <mi>b</mi>
+                <mi>n</mi>
+              </msub>
+            </mrow>
+            <mn>2</mn>
+          </mfrac>
+        </mtd>
+        <mtd>
+          <mtext>n=-1,-2,-3,-4,....</mtext>
+        </mtd>
+      </mtr>
+    </mtable>
+    <mo fence="true" stretchy="true" symmetric="true"></mo>
+  </mrow>
+</math>
       
     </div>
     
@@ -607,7 +693,7 @@ var jiathis_config={
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -618,7 +704,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -629,7 +715,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
