@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="目标检测,深度学习,神经网络,计算机视觉," />
+  <meta name="keywords" content="数学,数字图像处理," />
 
 
 
@@ -81,28 +81,22 @@
 
 
 
-<meta name="description" content="Question RCNN大体流程 [Fast RCNN大体流程](#Fast RCNN) Fast RCNN在RCNN的基础上有哪些优化 RPN的整体流程如何 RPN中有几个1 x1​的卷积 [Anchro Box是在哪一步生成的](#补充：Anchor Box) [RPN模型的输出是什么](#补充：Anchor Box) 如何利用RPN生成Bounding Box,Bounding Box和A">
+<meta name="description" content="奈奎斯特采样定理：信号的采样频率必须大于被测信号最高频率的两倍时，采样之后的数字信号能够完整保留原始信号的信息。 傅里叶变换设一个周期信号为$f(t)$，其傅里叶变换可以表示为:$$F(\mu)&#x3D;\xi\lbrace f(t)\rbrace&#x3D;\int_{-\infty}^{\infty}f(t) \cdot e^{-i \omega t}dt    \tag 1$$其中，$\xi$表示对时域信号$">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Faster-RCNN总结">
-<meta property="og:url" content="http://blog.zhangqi2019.top/posts/dd3c4258.html/index.html">
+<meta property="og:title" content="奈奎斯特采样定理推导">
+<meta property="og:url" content="http://blog.zhangqi2019.top/posts/88a0752c.html/index.html">
 <meta property="og:site_name" content="冒烟的乔个人博客">
-<meta property="og:description" content="Question RCNN大体流程 [Fast RCNN大体流程](#Fast RCNN) Fast RCNN在RCNN的基础上有哪些优化 RPN的整体流程如何 RPN中有几个1 x1​的卷积 [Anchro Box是在哪一步生成的](#补充：Anchor Box) [RPN模型的输出是什么](#补充：Anchor Box) 如何利用RPN生成Bounding Box,Bounding Box和A">
-<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229151231.png">
-<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229155337.png">
-<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229161129.jpg">
-<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229162606.png">
-<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210105100025.png">
-<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210106101329.png">
-<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210107104422.jpg">
-<meta property="article:published_time" content="2021-01-08T03:14:31.000Z">
-<meta property="article:modified_time" content="2021-10-13T01:52:49.720Z">
+<meta property="og:description" content="奈奎斯特采样定理：信号的采样频率必须大于被测信号最高频率的两倍时，采样之后的数字信号能够完整保留原始信号的信息。 傅里叶变换设一个周期信号为$f(t)$，其傅里叶变换可以表示为:$$F(\mu)&#x3D;\xi\lbrace f(t)\rbrace&#x3D;\int_{-\infty}^{\infty}f(t) \cdot e^{-i \omega t}dt    \tag 1$$其中，$\xi$表示对时域信号$">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/972e8186a6266c18b8a19347e2d8d316.jpeg">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/42f71c70646d19ccb0835d9c136078b4.jpeg">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/3f3884bf7e9421e12635d8d0aa18d220.jpeg">
+<meta property="article:published_time" content="2021-10-27T08:33:12.000Z">
+<meta property="article:modified_time" content="2021-11-04T03:54:11.256Z">
 <meta property="article:author" content="冒烟的乔">
-<meta property="article:tag" content="目标检测">
-<meta property="article:tag" content="深度学习">
-<meta property="article:tag" content="神经网络">
-<meta property="article:tag" content="计算机视觉">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="数字图像处理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229151231.png">
+<meta name="twitter:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/972e8186a6266c18b8a19347e2d8d316.jpeg">
 
 
 
@@ -132,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://blog.zhangqi2019.top/posts/dd3c4258.html/"/>
+  <link rel="canonical" href="http://blog.zhangqi2019.top/posts/88a0752c.html/"/>
 
 
 
 
 
-  <title>Faster-RCNN总结 | 冒烟的乔个人博客</title>
+  <title>奈奎斯特采样定理推导 | 冒烟的乔个人博客</title>
   
 
 
@@ -323,7 +317,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.zhangqi2019.top/posts/dd3c4258.html/">
+    <link itemprop="mainEntityOfPage" href="http://blog.zhangqi2019.top/posts/88a0752c.html/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="冒烟的乔">
@@ -340,7 +334,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Faster-RCNN总结</h2>
+          <h2 class="post-title" itemprop="name headline">奈奎斯特采样定理推导</h2>
         
 
         <div class="post-meta">
@@ -352,8 +346,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-08T11:14:31+08:00">
-                2021-01-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-27T16:33:12+08:00">
+                2021-10-27
               </time>
             
 
@@ -375,8 +369,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机视觉</span>
+                  <a href="/categories/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" itemprop="url" rel="index">
+                    <span itemprop="name">数字图像处理</span>
                   </a>
                 </span>
 
@@ -393,8 +387,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/posts/dd3c4258.html/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/posts/dd3c4258.html/" itemprop="commentCount"></span>
+                <a href="/posts/88a0752c.html/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/posts/88a0752c.html/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -422,120 +416,57 @@
       
 
       
-        <h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ul>
-<li><a href="#RCNN">RCNN大体流程</a></li>
-<li>[Fast RCNN大体流程](#Fast RCNN)</li>
-<li><a href="#整体流程">Fast RCNN在RCNN的基础上有哪些优化</a></li>
-<li><a href="#整体流程">RPN的整体流程如何</a></li>
-<li><a href="#1x1卷积">RPN中有几个1 x1​的卷积</a></li>
-<li>[Anchro Box是在哪一步生成的](#补充：Anchor Box)</li>
-<li>[RPN模型的输出是什么](#补充：Anchor Box)</li>
-<li><a href="#目标位置生成">如何利用RPN生成Bounding Box,Bounding Box和Anchor Box又是什么关系</a></li>
-<li><a href="#训练">RPN如何训练</a></li>
+        <p>奈奎斯特采样定理：信号的采样频率必须大于被测信号最高频率的两倍时，采样之后的数字信号能够完整保留原始信号的信息。</p>
+<h1 id="傅里叶变换"><a href="#傅里叶变换" class="headerlink" title="傅里叶变换"></a>傅里叶变换</h1><p>设一个周期信号为$f(t)$，其<a href="https://www.zhangqi2019.top/posts/fb91b52c.html/" target="_blank" rel="noopener">傅里叶变换</a>可以表示为:<br>$$<br>F(\mu)=\xi\lbrace f(t)\rbrace=\int_{-\infty}^{\infty}f(t) \cdot e^{-i \omega t}dt    \tag 1<br>$$<br>其中，$\xi$表示对时域信号$f(t)$进行傅里叶变换。$F(\mu)$是变换后的频域函数，且是一个正负方向无限扩展的函数。</p>
+<p>下图是一个方波的傅里叶变换的结果：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/972e8186a6266c18b8a19347e2d8d316.jpeg" alt=""></p>
+<p>但在实际中，$F(\mu )$不会是一个无限扩展的函数，$F(\mu)$会受到模拟信号带宽的限制.即:<br>$$<br>F(\mu)=<br>\begin{cases}<br>F(\mu) &amp; \text {if $|\mu| &lt; k$ } \<br>0 &amp; \text {others}<br>\end{cases}<br>\tag 2<br>$$</p>
+<h1 id="冲激函数及冲激串"><a href="#冲激函数及冲激串" class="headerlink" title="冲激函数及冲激串"></a>冲激函数及冲激串</h1><h2 id="冲激函数及性质"><a href="#冲激函数及性质" class="headerlink" title="冲激函数及性质"></a>冲激函数及性质</h2><p>定义冲激函数$\delta(t)$：<br>$$<br>\delta(t)=<br>\begin{cases}<br>1&amp; \text {if $t=0$ } \<br>0 &amp; \text{others}<br>\end{cases}<br>\tag 3<br>$$<br>冲激函数具有以下性质：</p>
+<ul>
+<li>$\int_{-\infty}^{\infty}f(t) \cdot \delta(t) dt=f(0)$</li>
+<li>$\int_{-\infty}^{\infty}\delta(t)dt=1$</li>
+<li>$\int_{-\infty}^{\infty}f(t ) \cdot \delta(t- t_0) dt=f(t_0)$</li>
 </ul>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Two Steps的目标检测是由RCNN到Fast RCNN再到Faster RCNN。</p>
-<h3 id="RCNN"><a href="#RCNN" class="headerlink" title="RCNN"></a>RCNN</h3><p><code>RCNN</code>的大体流程如下图所示：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229151231.png" alt=""></p>
-<p>上图中，由于<code>RCNN</code>的<code>CNN</code>提取特征部分是对每一个<code>Region Proposal</code>用CNN网络进行特征提取，较为耗时。</p>
-<h3 id="Fast-RCNN"><a href="#Fast-RCNN" class="headerlink" title="Fast RCNN"></a>Fast RCNN</h3><p><code>Fast RCNN</code>基本上是在<code>RCNN</code>的后半部分做修改，修改如下：</p>
-<ol>
-<li>用<code>CNN</code>整体图像进行特征提取，并建立<code>Feature Map</code>和原图像的映射关系。这样对于所有的<code>Region Proposal</code>就可以只提取一次</li>
-<li>由于在<code>Fast RCNN</code>仅建立<code>Feature Map</code>和原图的映射关系，并没有对每一个<code>Region Proposal</code>做拉伸（在<code>RCNN</code>中被称为<code>warp</code>），所以在Fast RCNN中使用<code>SPP layer</code>，以保证在后续的全连接的输入一致性。即<code>Fast RCNN</code>中的<code>ROI Pooling</code>层</li>
-<li>用<code>softmax</code>代替<code>SVM</code>，并且<code>loss</code>采用<code>L1</code>。所以<code>Faster RCNN</code>的输出为两个：<code>Bounding Box</code>的位置信息和<code>Softmax</code>的分类信息</li>
-</ol>
-<p><code>Fast RCNN</code>的大体流程图如下图所示：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229155337.png" alt=""></p>
-<p><code>Faster RCNN</code>主要在Two Steps的前半段做文章。发现在<code>Fast RCNN</code>中，最耗时的是<code>Selective Search</code>部分（后半段的经过<code>Fast RCNN</code>的修改已经很快).所以，<code>Faster RCNN</code>主要基于<code>Selective Search</code>做修改，一是为了提高速度（<code>Selective Search用时大约2秒左右</code>）；二是由于有<code>Selective Search</code>组件，<code>Fast RCNN</code>还不完全算是一个end-to-end的模型。</p>
-<h2 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h2><p><code>Faster RCNN</code>的主要用<code>RPN</code>网路来代替<code>Selective Search</code>来给出<code>Region Proposal</code>，大体流程如下图所示：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229161129.jpg" alt=""></p>
-<p>从上图中可以看到，给出<code>Region Proposal</code>也可以分为两个部分：图像特征提取的<code>Conv层</code>和<code>RPN</code>。通常<code>Conv层</code>都采用成熟的图像模型，论文中是用的<code>VGG16</code>。更详细的整体流程图如下图所示：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229162606.png" alt=""></p>
-<p><code>Conv层</code>不再阐述，下节主要讲<code>RPN</code>网络</p>
-<h2 id="RPN网络"><a href="#RPN网络" class="headerlink" title="RPN网络"></a>RPN网络</h2><p><code>RPN</code>网络的目的是给出<code>Region Proposal</code>。RPN的流程如下图所示：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210105100025.png" alt=""></p>
-<p><code>RPN</code>的大体步骤如下：</p>
-<ol>
-<li><code>Sliding Window</code>层特征提取：利用<code>Sliding Window</code>层进行特征提取（实际上<code>Sliding Window</code>就是一个$3\times3$的卷积层，$filter$的个数为256，所以输出的维数是256维）</li>
-<li>$1 \times 1$卷积：对1中的结果做$1\times1$的卷积操作（$1\times1$的卷积相当于全连接层）</li>
-<li><code>RPN</code>输出：对于2中的结果有两个输出：1-目标的坐标输出，2-是否是目标的分数输出。分别为$4k$个和$2k$个。其中$k$表示<code>Anchor Box</code>的个数。</li>
-</ol>
-<p>由于3中会涉及到<code>Anchor Box</code>，且过程相对复杂，所以第3步的具体过程在下面详述。</p>
-<h3 id="1x1卷积"><a href="#1x1卷积" class="headerlink" title="1x1卷积"></a>1x1卷积</h3><p>$1 \times 1$的卷积操作相当于全连接层，但需要注意的是，由于<code>RPN</code>网络有两个输出，<strong>所以$1 \times 1$的卷积也有两个，分别对应目标的坐标以及目标的分数</strong>。$filter$的个数分别为$4k$和$2k$</p>
-<h3 id="RPN的输出"><a href="#RPN的输出" class="headerlink" title="RPN的输出"></a>RPN的输出</h3><p>在介绍<code>RPN</code>之前，不得不提到<code>Anchor Box</code>，这里先补充<code>Anchor Box</code>的知识。</p>
-<h4 id="补充：Anchor-Box"><a href="#补充：Anchor-Box" class="headerlink" title="补充：Anchor Box"></a>补充：Anchor Box</h4><blockquote>
-<p>我们知道，实际上在<code>Feature Map</code>中的一点对应原图中一个区域（也就是感受野的概念），那么在<code>RPN</code>中的$1 \times 1$的卷积层之中的一个像素点可以表示原图中的一个区域。对于`$1 \times 1$卷积层的结果，就可以表示$w \times h$个原图中的区域（$w \times h$表示$1 \times 1$卷积层的结果大小）。</p>
-<p>如果有目标存在，则目标必定在这些感受野之中（虽然感受野不一定完全框中）。既然通过感受野不一定框中目标，那么我们可以在感受野的基础上添加形变，多几个框，那么我们框中目标的几率肯定会大大增加（虽然也不一定百分百框中），这便是<code>Anchor Box</code>的由来。<code>Anchor Box</code>如下图所示：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210106101329.png" alt=""></p>
-<p>从上图可以看到，<code>Anchor Box</code>包含三种比例的长宽比，分别为$1:1$,$1:2$和$2:1$，且包含三种不同大小的框，所以一共$9$种。</p>
-<p>例如，我们需要检测一个行人，行人的<code>Ground Truth</code>是一个长的矩形，如果用<code>Anchor Box</code>中$2:1$的框，此时框中的几率会大大增加。实际上，我们可以看到<code>Anchor Box</code>的三种规格框实际上就是针对不同比例的目标。</p>
-</blockquote>
+<h2 id="冲激函数的傅里叶变换"><a href="#冲激函数的傅里叶变换" class="headerlink" title="冲激函数的傅里叶变换"></a>冲激函数的傅里叶变换</h2><p>冲激函数$\delta{(t)}$的傅里叶变换为：<br>$$<br>\xi\lbrace \delta(t)\rbrace = F(\mu)=\int_{-\infty}^{\infty}\delta(t)e^{-j2\pi\mu t} dt<br>$$<br>根据冲激函数的性质1，有:<br>$$<br>\xi\lbrace \delta(t)\rbrace =e^{-j2\pi\mu \cdot 0}=1    \tag 4<br>$$</p>
+<p>下面求$\delta{(t-t_0)}$的傅里叶变换：<br>$$<br>\xi\lbrace \delta(t  - t_0)\rbrace = \int_{-\infty}^{\infty}\delta(t-t_0) \cdot e^{-j2\pi\mu t} dt<br>$$<br>同理，由冲激函数的性质3，有：<br>$$<br>\xi\lbrace \delta(t  - t_0)\rbrace = e^{-j2\pi\mu t_0}         \tag 5<br>$$</p>
+<h2 id="冲激串"><a href="#冲激串" class="headerlink" title="冲激串"></a>冲激串</h2><p>当我们用$f(t) \cdot \delta(t)$时，即是对$t=0$时刻的$f(t)$函数采样。但我们希望对$f(t)$的多个时刻采样。现在我们只需要对$\delta(t)$平移，则平移后的函数可以表示为<br>$$<br>\delta(t-n\Delta t)<br>$$<br>其中，$n \in Z$,$\Delta t$表示偏移。所以$t-n \Delta t$表示以$\Delta t$的$n$偏移</p>
+<p>对平移后的函数进行相加，有：<br>$$<br>S_{\Delta T}(t)=\sum_{n=-\infty}^{+\infty}\delta(t-n\Delta t)    \tag 6<br>$$<br>上式称为冲激串。其函数图像如下图所示：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/42f71c70646d19ccb0835d9c136078b4.jpeg" alt=""></p>
+<p><strong>将$S_{\Delta T}(t)$与$f(t)$相乘则表示以$\Delta t$为间隔采样</strong></p>
+<h2 id="冲激串的傅里叶变换"><a href="#冲激串的傅里叶变换" class="headerlink" title="冲激串的傅里叶变换"></a>冲激串的傅里叶变换</h2><h3 id="补充：傅里叶变换的一个性质"><a href="#补充：傅里叶变换的一个性质" class="headerlink" title="补充：傅里叶变换的一个性质"></a>补充：傅里叶变换的一个性质</h3><p>在推导冲激串$S_{\Delta{t}}(t)$的傅里叶变换之前，需要补充一个傅里叶变换的性质：</p>
 <blockquote>
-<p>对于<code>RPN</code>中的两个输出：目标位置和目标分数。这里先介绍目标位置，再介绍目标的分类（也就是分类）</p>
+<p>对于信号$f(t)$，有傅里叶变换$F( \mu )$.即：<br>$$<br>\xi\lbrace f(t)\rbrace = F(\mu)=\int_{-\infty}^{\infty}f(t)e^{-j2\pi\mu t} dt<br>$$<br>当我们把$f(t)$进行反傅里叶变换,有：<br>$$<br>\xi^{-1}\lbrace f(t)\rbrace =\int_{-\infty}^{\infty}f(t)e^{j2\pi\mu t} dt=\int_{-\infty}^{\infty}f(t)e^{-j2\pi\mu \cdot (-t)} dt<br>$$<br>可以看到，上面两个等式互为相反数。即有：<br>$$<br>\xi\lbrace f(-t)\rbrace=\xi^{-1}\lbrace f(t)\rbrace<br>$$<br>即，<strong>一个函数的傅里叶变换和反傅里叶变换互为相反数</strong></p>
 </blockquote>
-<p>首先，在经过$1 \times 1$的卷积后，有一个$w \times h$长宽的结果，我们通过<code>Anchor Box</code>可以找到在原图中$w \times h \times k$个框，其中，$k$表示<code>Anchor Box</code>的个数。</p>
-<p>并且，经过$1 \times 1$的卷积，该层会产生$w \times h \times 4 \times k$个预测结果（这里的结果算上$Channel$）。其中$4$表示位置的四个参数，$k$表示<code>Anchor Box</code>的个数。<strong>（注意，这个预测结果表示的是<code>Anchor Box</code>和<code>Ground Truth</code>的偏差）</strong></p>
-<p>既然在<code>RPN</code>中预测的是两者之间的偏差，那么在训练时对应的标签也应该是两者之间的偏差。下面介绍偏差的生成过程。</p>
-<h4 id="目标位置生成"><a href="#目标位置生成" class="headerlink" title="目标位置生成"></a>目标位置生成</h4><p>我们知道，生成的<code>Anchor Box</code>和<code>Ground Truth</code>是有差距的，如下图所示：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210107104422.jpg" alt=""></p>
-<p>图中，红色为<code>Anchor Box</code>的结果，而绿色为<code>Ground Truth</code>的结果。</p>
-<p>要想从<code>Anchor Box</code>到<code>Ground Truth</code>，只需要对<code>Anchor Box</code>做平移和拉伸即可，所以在<code>Faster RCNN</code>中，平移和和拉伸作为衡量两者间的差距的指标。</p>
-<p>设代表一个<code>Anchor Box</code>的四个参数为$A=(x_a,y_a,w_a,h_a)$,分别表示其中心点坐标和长宽。其对应的<code>Ground Truth</code>为$GT=(x,y,w,h)$,则两者间的平移可以表示为(<strong>平移的单位为长或宽的比例</strong>)：</p>
-<p>$$<br>x \approx w_a .t_x + x_a    \tag 1<br>$$</p>
-<p>$$<br>y \approx h_a .t_y + y_a   \tag 2<br>$$</p>
-<p>缩放关系可以表示为：<br>$$<br>w \approx w_a . exp(t_w)    \tag 3<br>$$</p>
-<p>$$<br>h \approx h_a . exp(t_h)    \tag 4<br>$$</p>
-<p>上式中，$d_*(A)$为需要求的未知数。通过变换可以表示为：<br>$$<br>t_x = \frac{x - x_a}{w_a}    \tag    5<br>$$</p>
-<p>$$<br>t_y = \frac{y - y_a}{h_a}    \tag    6<br>$$</p>
-<p>$$<br>t_w=\log{(w/w_a)}        \tag    7<br>$$</p>
-<p>$$<br>t_h=\log{(h/h_a)}        \tag    8<br>$$</p>
-<p>同理，设预测的<code>RPN</code>网路预测的结果为$(x^{\ast},y^{\ast},w^{\ast},h^{\ast})$,则预测框和<code>Anchor Box</code>的四个坐标的差距可以表示为：<br>$$<br>t_x^{\ast} = \frac{x^{\ast} - x_a}{w_a}    \tag    9<br>$$</p>
-<p>$$<br>t_y^{\ast} = \frac{y^{\ast} - y_a}{h_a}    \tag    {10}<br>$$</p>
-<p>$$<br>t_w^{\ast}=\log{(w^{\ast}/w_a)}        \tag    {11}<br>$$</p>
-<p>$$<br>t_h^{\ast}=\log{(h^{\ast}/h_a)}        \tag    {12}<br>$$</p>
-<p>也就是说，我们<code>RPN</code>网络需要预测的实际上是$t_{\ast}^{\ast}$(下标的 * 表示$x,y,w,h$,上标的 * 表示预测框)，也就是<code>Predict Box</code>和<code>Anchor Box</code>的差距。我们也可以通过<code>Ground Truth</code>和<code>Anchor Box</code>计算得到标签，这样神经网络就能够训练了。</p>
-<p>总结一下目标位置的过程：</p>
-<ol>
-<li>$1 \times 1$的卷积</li>
-<li>生成<code>Anchor Box</code></li>
-<li>利用<code>RPN</code>网络得到预测值，也就是生成偏差</li>
-<li>再利用这个偏差还原成<code>Bounding Box</code></li>
-</ol>
-<h4 id="目标分数"><a href="#目标分数" class="headerlink" title="目标分数"></a>目标分数</h4><blockquote>
-<p>目标分数就是我们所说的$confidence$,即模型认为是目标的置信度。</p>
-</blockquote>
-<p>相对于目标位置，目标分数较为简单，下面直接总结这条线的流程：</p>
-<ol>
-<li>$1 \times 1$的卷积</li>
-<li>利用$softmax$分类（注意这里论文中是用的$softmax$，所以分数的结果有$w \times h \times 2 \times k$个）</li>
-</ol>
-<h3 id="Loss-Function"><a href="#Loss-Function" class="headerlink" title="Loss Function"></a>Loss Function</h3><p>了解了<code>RPN</code>的流程，我们再来看看RPN的<code>loss Function</code>，<code>RPN</code>中一个 <code>Mini Batch</code> 的$loss$如下所示：<br>$$<br>loss(p_i,G_i)=\frac{1}{N_{cls}}\sum_{i}L_{cls}(p_i,p_i^{\ast})+ \lambda \frac{1}{N_{reg}}\sum_ip_i^{\ast}L_{reg}(t_i,t_i^{\ast})    \tag    {13}<br>$$<br>上式(13)中,可以看到前半部分为分类的$loss$,即普通的<code>cross Entropy</code>，$p_i$表示预测是目标的概率，而$p_i^{\ast}$表示的是label，当有目标时为1，无目标时为0。</p>
-<p>而后半部分为位置的$loss$，其中$L_{reg}$为<code>smooth L1 loss​</code>。有：<br>$$<br>L_{reg}(t_i,t_i^{\ast})=\sum_{i\in{x,y,p,t}}smooth_{L1}(ti-t_i^{\ast})<br>$$<br>其中：<br>$$<br>smooth_{L1}(x)=\begin{cases}<br>0.5x^2 &amp; \text{if $ |x|&lt;1 $}\<br>|x|-0.5 &amp; \text{otherwise}<br>\end{cases}<br>$$<br>$\lambda$平衡是用于两者差的一个参数，为10</p>
-<h3 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h3><p>在训练时，不会将所有的生成的<code>Anchor Box</code>拿去训练，在生成的<code>Anchor Box</code>中，首先会筛选<code>Anchor</code>与<code>GT</code>的$IOU&gt;0.7$的作为正样本，<code>Anchor</code>与<code>GT</code>的$IOU&lt;0.3$作为负样本，其他的不要。</p>
-<p>其次，为了保证样本的平衡性，在上述步骤生成的正负样本中个各选择128个送进网络中进行训练。</p>
-<h2 id="整体训练"><a href="#整体训练" class="headerlink" title="整体训练"></a>整体训练</h2><p>在<code>Faster RCNN</code>中，分为训练<code>RPN</code>和<code>Fast RCNN</code>两部分。步骤如下：</p>
-<ol>
-<li>训练<code>RPN</code>网络（这是训练<code>RPN</code>的第一轮）</li>
-<li>利用训练好的<code>RPN</code>网络收集<code>Region Proposals</code></li>
-<li>利用2中的<code>Region Proposal</code>训练<code>Fast RCNN</code>(训练<code>Fast RCNN</code>的第一轮)</li>
-<li>训练<code>RPN</code>网络（这是训练<code>RPN</code>的第二轮）</li>
-<li>利用训练好的<code>RPN</code>网络收集<code>Region Proposals</code></li>
-<li>利用2中的<code>Region Proposal</code>训练<code>Fast RCNN</code>(训练<code>Fast RCNN</code>的第二轮)</li>
-</ol>
-<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><h3 id="对Anchor-Box使用的疑惑"><a href="#对Anchor-Box使用的疑惑" class="headerlink" title="对Anchor Box使用的疑惑"></a>对Anchor Box使用的疑惑</h3><p>在<code>Anchor Box</code>中，让我疑惑的是，为何不直接让<code>Predict Box</code>和<code>Ground Truth</code>的偏差做回归，在中间又夹一个<code>Anchor Box</code>。论文中中的解释是由于在<code>R-CNN</code>和<code>Fast RCNN</code>中用了<code>ROI-Pooling</code>,由于<code>ROI-Pooling</code>的缘故可以武断的用共享权值（[1] 和[2]分别表示<code>SPP Net</code>和<code>Fast RCNN</code>两个模型的论文）</p>
+<h3 id="冲激串的傅里叶级数"><a href="#冲激串的傅里叶级数" class="headerlink" title="冲激串的傅里叶级数"></a>冲激串的傅里叶级数</h3><p>由于冲激串$S_{\Delta t}(t)$是一个离散函数我们可以用傅里叶级数对他进行分解，有：<br>$$<br>S_{\Delta t}(t)=\sum_{n=-\infty}^{\infty}c_n \cdot e^{\frac{j \cdot 2\pi n}{\Delta T}\cdot t}        \tag 7<br>$$<br>其中<br>$$<br>c_n=\frac{1}{\Delta t}\int_{-\frac{\Delta t}{2}}^{\frac{\Delta t}{2}}\delta(t) \cdot e^{-j\frac{2 \pi n}{\Delta T}t}dt        \tag 8<br>$$<br>根据冲激函数的性质1，有：<br>$$<br>c_n=\frac{1}{\Delta t} \cdot e^{-j \frac{2 \pi n}{\Delta t} \cdot 0}=\frac{1}{\Delta t}        \tag 9<br>$$<br>故有：<br>$$<br>S_{\Delta t}(t)=\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}e^{j \cdot \frac{2 \pi n}{\Delta t} \cdot t}        \tag {10}<br>$$</p>
+<h3 id="冲激串的傅里叶变换-1"><a href="#冲激串的傅里叶变换-1" class="headerlink" title="冲激串的傅里叶变换"></a>冲激串的傅里叶变换</h3><p>对冲激串$S_{\Delta t}(t)$进行傅里叶变换，有：<br>$$<br>\xi \lbrace S_{\Delta t}(t) \rbrace = \frac{1}{\Delta t} \sum_{n=-\infty}^{\infty} \xi \lbrace e^{j \cdot \frac{2 \pi n}{\Delta t}t} \rbrace         \tag {11}<br>$$</p>
+<p>$\xi \lbrace e^{j \cdot \frac{2 \pi n}{\Delta t}t} \rbrace$可以写成$\xi \lbrace e^{-j \cdot 2 \pi \cdot t \cdot (\frac{-n}{\Delta t})  } \rbrace$，由公式（5）可知：<br>$$<br>\delta \left( \mu-(\frac{-n}{\Delta t}) \right)=<br>e^{-j \cdot 2 \pi \cdot t \cdot (\frac{-n}{\Delta t})  }=<br>\delta \left( \mu+\frac{n}{\Delta t} \right)    \tag {12}<br>$$<br>由之前补充的傅里叶变换的性质，有<br>$$<br>\xi \lbrace e^{j \cdot \frac{2 \pi n}{\Delta t}t} \rbrace=\delta(-(\mu+\frac{n}{\Delta t}))        \tag {13}<br>$$<br>又由于函数$\delta(t)$是一个偶函数，有:<br>$$<br>\delta(-(\mu+\frac{n}{\Delta t}))    =\delta(\mu+\frac{n}{\Delta t})    =\xi \lbrace e^{j \cdot \frac{2 \pi n}{\Delta t}t} \rbrace    \tag {14}<br>$$<br>综上，可得$e^{j \cdot \frac{2 \pi n}{\Delta t}t}$傅里叶变换的最终结果：<br>$$<br>\delta \lbrace e^{-j \cdot 2 \pi \cdot t \cdot (\frac{-n}{\Delta t})  } \rbrace=<br>\delta \left( \mu+\frac{n}{\Delta t} \right)    \tag {15}<br>$$</p>
 <blockquote>
-<p> In [1],[2], bounding-box regression is performed on features pooled from arbitrarily sized RoIs, and the regression weights are shared by all region sizes.  </p>
+<p>注：书上(《数字图像处理》（刚萨雷斯版）)直接一步得到如下结果：<br>$$<br>\xi \lbrace e^{j \cdot \frac{2 \pi n}{\Delta t}t} \rbrace     = \delta(\mu - \frac{n}{\Delta t})<br>$$<br>但我这里推了两遍都是式（12）的结果。如果哪位大神能推出这个结果的请告知。</p>
 </blockquote>
-<p>但由于在<code>RPN</code>中仅是用$3 \times 3$的卷积形成<code>Feature Map</code>,而目标的大小和位置多变的（没有用<code>ROI Pooling</code>），所以这里用了$k$个不共享权值的回归器，并且这$k$个回归器不共享权值。（$k$个预测可能，答对的可能性也大一些）</p>
+<p>由式（11）得到的冲激串$S_{\Delta t}(t)$的傅里叶变换，可变换为：<br>$$<br>\xi \lbrace S_{\Delta t}(t) \rbrace<br>=\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty} \xi \lbrace e^{j \cdot \frac{2 \pi n}{\Delta t}t} \rbrace<br>=\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}  \delta(\mu + \frac{n}{\Delta t})<br>\tag {16}<br>$$<br>由于$n \in (-\infty,\infty)$,有：<br>$$<br>\xi \lbrace S_{\Delta t}(t) \rbrace<br>=\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}  \delta(\mu - \frac{n}{\Delta t})        \tag {17}<br>$$</p>
+<h1 id="模拟信号采样"><a href="#模拟信号采样" class="headerlink" title="模拟信号采样"></a>模拟信号采样</h1><h2 id="模拟信号采样的傅里叶变换"><a href="#模拟信号采样的傅里叶变换" class="headerlink" title="模拟信号采样的傅里叶变换"></a>模拟信号采样的傅里叶变换</h2><p>现在我们对模拟信号$f(t)$进行采样，如何采样呢？就是用模拟信号$f(t)$乘以冲激串函数$S_{\Delta t}(t)$.下图是一个采样的例子：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/3f3884bf7e9421e12635d8d0aa18d220.jpeg" alt=""></p>
+<p>我们对采样后的结果进行傅里叶变换，如下：<br>$$<br>\xi (f(t) \cdot S_{\Delta t}(t))<br>$$<br>根据<code>卷积定理</code>,有：<br>$$<br>\xi (f(t) \cdot S_{\Delta t}(t))<br>=\xi \lbrace f(t) \rbrace \ast \xi \lbrace S_{\Delta t}(t) \rbrace<br>= F(\mu) \ast \xi \lbrace S_{\Delta t}(t) \rbrace<br>\tag {18}<br>$$<br>其中，$\ast$表示卷积</p>
 <blockquote>
-<p>In our formulation, the features used for regression are of the same spatial size (3 × 3) on the feature maps. To account for varying sizes, a set of k bounding-box regressors are learned. Each regressor is responsible for one scale and one aspect ratio, and the k regressors do not share weights. As such, it is still possible to predict boxes of various sizes even though the features are of a fixed size/scale, thanks to the design of anchors.  </p>
-</blockquote>
-<p>但文中并没有解释为何引入<code>Anchor Box</code>能够让<code>Predict Box</code>准确的预测出<code>Ground Truth</code>，相较于<code>Predict Box</code>和<code>Ground Truth</code>直接回归的优势是什么。对于以上的$k$，完全可以训练<code>Predict Box</code>和<code>Ground Truth</code>的$k$个回归器，能够达到同样的效果</p>
-<p>对于以上，我的理解是$3 \times 3$形成的感受野，在原图中对应的区域是有局限性的，一旦目标目标超出这个感受野，则效果不佳。所以引入了<code>Anchor Box</code>,</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://www.cnblogs.com/Terrypython/p/10584384.html" target="_blank" rel="noopener">RPN(区域生成网络)</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/31426458" target="_blank" rel="noopener">一文读懂Faster RCNN</a></li>
-<li><a href="https://blog.csdn.net/qq_30815237/article/details/93596163" target="_blank" rel="noopener">RPN网络</a></li>
+<p>补充：卷积定理</p>
+<p>设有两个信号函数$f_1(t)$和$f_2(t)$,其对应的傅里叶变换为$F_1(\mu)=\xi \lbrace f_1(t) \rbrace$和$F_2(\mu)=\xi \lbrace f_2(t) \rbrace$,则如下等式成立：<br>$$<br>F_1(\mu) \ast F_2(\mu)=\xi \lbrace f_1(t) \cdot f_2(t) \rbrace        \tag {19}<br>$$</p>
+<p>$$<br>\xi \lbrace f_1(t) \ast f_2(t) \rbrace = F_1(\mu) \cdot F_2(\mu)    \tag {20}<br>$$</p>
+<p>其中，$\ast$代表卷积，定义如下：<br>$$<br>f(t) \ast h(t)=\int_{-\infty}^{\infty}f(\tau)h(t- \tau)d\tau        \tag {21}<br>$$<br>也就是说：</p>
+<ul>
+<li><strong>时域的乘积的傅里叶变换等于频域的卷积</strong></li>
+<li><strong>时域卷积的傅里叶变换等于频域的乘积</strong></li>
 </ul>
+</blockquote>
+<p>在式（18）中，根据式（21）卷积的定义，有：<br>$$<br>F(\mu) \ast \xi \lbrace S_{\Delta t}(t) \rbrace =<br>\int_{-\infty}^{\infty}F(\tau) \cdot \frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}  \delta(\mu - \tau - \frac{n}{\Delta t})    dt        \tag {22}<br>$$</p>
+<p>$$<br>= \frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}\int_{-\infty}^{\infty}F(\tau) \cdot  \delta(\mu - \tau - \frac{n}{\Delta t})    dt        \tag {23}<br>$$</p>
+<p>在式（23）中，由于$\delta(t)$为偶函数，则有：<br>$$<br>\delta(\mu - \tau- \frac{n}{\Delta t})<br>=\delta(-(\mu - \tau - \frac{n}{\Delta t}))<br>=\delta(\tau-\mu+\frac{n}{\Delta t})<br>=\delta(\tau-(\mu - \frac{n}{\Delta t}))<br>\tag {24}<br>$$<br>则式（23）可以转换为：<br>$$<br>\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}\int_{-\infty}^{\infty}F(\tau) \cdot  \delta(\mu - \tau - \frac{n}{\Delta t})    dt    =<br>\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}\int_{-\infty}^{\infty}F(\tau) \cdot  \delta(\tau - (\mu - \frac{n}{\Delta t}))    dt<br>\tag {25}<br>$$<br>根据冲激函数的性质，式（25）可以化为：<br>$$<br>\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}\int_{-\infty}^{\infty}F(\tau) \cdot  \delta(\tau - (\mu - \frac{n}{\Delta t}))    dt    =<br>\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}F(\mu - \frac{n}{\Delta t})        \tag {26}<br>$$<br><strong>式（26）就是信号$f(t)$采样后的傅里叶变换的最终结果。</strong></p>
+<p>理论上，$F(\mu)$是一个范围无限的函数，但在实际的运用中，由于带宽的限制，$\mu$是有范围的，设设备的带宽上线为$\mu_{max}$,则有：<br>$$<br>F(\mu)=<br>\begin{cases}<br>F(\mu), &amp; \text {if $|\mu| &lt; \mu_{max}$} \<br>0, &amp; \text others<br>\end{cases}<br>\tag {27}<br>$$<br>![](<a href="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Screenshot" target="_blank" rel="noopener">https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Screenshot</a> 2021-11-03 at 14-42-16 百度网盘-文档预览.png)</p>
+<p>这说明$F(\mu)$是一个以$2 \mu_{max}$为长度的函数，而在式（26）中，相当于对$F(\mu)$平移$\frac{n}{\Delta t}（n \in Z）$个单位，再叠加。当$\frac{1}{\Delta t}$小于$2 \mu_{max}$时，式（26）中平移的两个函数就会重叠，如下图所示：</p>
+<p>![](<a href="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Screenshot" target="_blank" rel="noopener">https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Screenshot</a> 2021-11-03 at 14-46-09 百度网盘-文档预览.png)</p>
+<p>当$\frac{1}{\Delta t}=2 \mu_{max}$时，有：</p>
+<p>![](<a href="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Screenshot" target="_blank" rel="noopener">https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Screenshot</a> 2021-11-03 at 14-50-52 百度网盘-文档预览.png)</p>
+<p>当$\frac{1}{\Delta t}&gt;2 \mu_{max}$时，有：</p>
+<p>![](<a href="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Screenshot" target="_blank" rel="noopener">https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Screenshot</a> 2021-11-03 at 14-51-36 百度网盘-文档预览.png)</p>
 
       
     </div>
@@ -553,13 +484,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" rel="tag"><i class="fa fa-tag"></i> 目标检测</a>
+            <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"><i class="fa fa-tag"></i> 数学</a>
           
-            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 深度学习</a>
-          
-            <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag"><i class="fa fa-tag"></i> 神经网络</a>
-          
-            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" rel="tag"><i class="fa fa-tag"></i> 计算机视觉</a>
+            <a href="/tags/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> 数字图像处理</a>
           
         </div>
       
@@ -572,8 +499,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/d2113c07.html/" rel="next" title="图像分割（一）：基于边缘突变的分割">
-                <i class="fa fa-chevron-left"></i> 图像分割（一）：基于边缘突变的分割
+              <a href="/posts/undefined.html/" rel="next" title="YOLO4总结">
+                <i class="fa fa-chevron-left"></i> YOLO4总结
               </a>
             
           </div>
@@ -581,10 +508,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/dd3c5678.html/" rel="prev" title="太阳病辩证纲要">
-                太阳病辩证纲要 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -790,7 +713,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">2.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RCNN"><span class="nav-number">2.1.</span> <span class="nav-text">RCNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fast-RCNN"><span class="nav-number">2.2.</span> <span class="nav-text">Fast RCNN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整体流程"><span class="nav-number">3.</span> <span class="nav-text">整体流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RPN网络"><span class="nav-number">4.</span> <span class="nav-text">RPN网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1x1卷积"><span class="nav-number">4.1.</span> <span class="nav-text">1x1卷积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RPN的输出"><span class="nav-number">4.2.</span> <span class="nav-text">RPN的输出</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#补充：Anchor-Box"><span class="nav-number">4.2.1.</span> <span class="nav-text">补充：Anchor Box</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标位置生成"><span class="nav-number">4.2.2.</span> <span class="nav-text">目标位置生成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标分数"><span class="nav-number">4.2.3.</span> <span class="nav-text">目标分数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Loss-Function"><span class="nav-number">4.3.</span> <span class="nav-text">Loss Function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练"><span class="nav-number">4.4.</span> <span class="nav-text">训练</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整体训练"><span class="nav-number">5.</span> <span class="nav-text">整体训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思考"><span class="nav-number">6.</span> <span class="nav-text">思考</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对Anchor-Box使用的疑惑"><span class="nav-number">6.1.</span> <span class="nav-text">对Anchor Box使用的疑惑</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#傅里叶变换"><span class="nav-number">1.</span> <span class="nav-text">傅里叶变换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#冲激函数及冲激串"><span class="nav-number">2.</span> <span class="nav-text">冲激函数及冲激串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#冲激函数及性质"><span class="nav-number">2.1.</span> <span class="nav-text">冲激函数及性质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#冲激函数的傅里叶变换"><span class="nav-number">2.2.</span> <span class="nav-text">冲激函数的傅里叶变换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#冲激串"><span class="nav-number">2.3.</span> <span class="nav-text">冲激串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#冲激串的傅里叶变换"><span class="nav-number">2.4.</span> <span class="nav-text">冲激串的傅里叶变换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#补充：傅里叶变换的一个性质"><span class="nav-number">2.4.1.</span> <span class="nav-text">补充：傅里叶变换的一个性质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#冲激串的傅里叶级数"><span class="nav-number">2.4.2.</span> <span class="nav-text">冲激串的傅里叶级数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#冲激串的傅里叶变换-1"><span class="nav-number">2.4.3.</span> <span class="nav-text">冲激串的傅里叶变换</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模拟信号采样"><span class="nav-number">3.</span> <span class="nav-text">模拟信号采样</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模拟信号采样的傅里叶变换"><span class="nav-number">3.1.</span> <span class="nav-text">模拟信号采样的傅里叶变换</span></a></li></ol></li></ol></div>
             
 
           </div>
