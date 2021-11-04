@@ -90,8 +90,12 @@
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/972e8186a6266c18b8a19347e2d8d316.jpeg">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/42f71c70646d19ccb0835d9c136078b4.jpeg">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/3f3884bf7e9421e12635d8d0aa18d220.jpeg">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/iofdsalknfdsaoifadsfoid.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/fodafdassfj.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/fioanlfko.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/fasiofaf.png">
 <meta property="article:published_time" content="2021-10-27T08:33:12.000Z">
-<meta property="article:modified_time" content="2021-11-04T03:54:11.256Z">
+<meta property="article:modified_time" content="2021-11-04T04:07:01.155Z">
 <meta property="article:author" content="冒烟的乔">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="数字图像处理">
@@ -460,13 +464,13 @@
 <p>在式（18）中，根据式（21）卷积的定义，有：<br>$$<br>F(\mu) \ast \xi \lbrace S_{\Delta t}(t) \rbrace =<br>\int_{-\infty}^{\infty}F(\tau) \cdot \frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}  \delta(\mu - \tau - \frac{n}{\Delta t})    dt        \tag {22}<br>$$</p>
 <p>$$<br>= \frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}\int_{-\infty}^{\infty}F(\tau) \cdot  \delta(\mu - \tau - \frac{n}{\Delta t})    dt        \tag {23}<br>$$</p>
 <p>在式（23）中，由于$\delta(t)$为偶函数，则有：<br>$$<br>\delta(\mu - \tau- \frac{n}{\Delta t})<br>=\delta(-(\mu - \tau - \frac{n}{\Delta t}))<br>=\delta(\tau-\mu+\frac{n}{\Delta t})<br>=\delta(\tau-(\mu - \frac{n}{\Delta t}))<br>\tag {24}<br>$$<br>则式（23）可以转换为：<br>$$<br>\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}\int_{-\infty}^{\infty}F(\tau) \cdot  \delta(\mu - \tau - \frac{n}{\Delta t})    dt    =<br>\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}\int_{-\infty}^{\infty}F(\tau) \cdot  \delta(\tau - (\mu - \frac{n}{\Delta t}))    dt<br>\tag {25}<br>$$<br>根据冲激函数的性质，式（25）可以化为：<br>$$<br>\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}\int_{-\infty}^{\infty}F(\tau) \cdot  \delta(\tau - (\mu - \frac{n}{\Delta t}))    dt    =<br>\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}F(\mu - \frac{n}{\Delta t})        \tag {26}<br>$$<br><strong>式（26）就是信号$f(t)$采样后的傅里叶变换的最终结果。</strong></p>
-<p>理论上，$F(\mu)$是一个范围无限的函数，但在实际的运用中，由于带宽的限制，$\mu$是有范围的，设设备的带宽上线为$\mu_{max}$,则有：<br>$$<br>F(\mu)=<br>\begin{cases}<br>F(\mu), &amp; \text {if $|\mu| &lt; \mu_{max}$} \<br>0, &amp; \text others<br>\end{cases}<br>\tag {27}<br>$$<br>![](<a href="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Screenshot" target="_blank" rel="noopener">https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Screenshot</a> 2021-11-03 at 14-42-16 百度网盘-文档预览.png)</p>
+<p>理论上，$F(\mu)$是一个范围无限的函数，但在实际的运用中，由于带宽的限制，$\mu$是有范围的，设设备的带宽上线为$\mu_{max}$,则有：<br>$$<br>F(\mu)=<br>\begin{cases}<br>F(\mu), &amp; \text {if $|\mu| &lt; \mu_{max}$} \<br>0, &amp; \text others<br>\end{cases}<br>\tag {27}<br>$$<br><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/iofdsalknfdsaoifadsfoid.png" alt=""></p>
 <p>这说明$F(\mu)$是一个以$2 \mu_{max}$为长度的函数，而在式（26）中，相当于对$F(\mu)$平移$\frac{n}{\Delta t}（n \in Z）$个单位，再叠加。当$\frac{1}{\Delta t}$小于$2 \mu_{max}$时，式（26）中平移的两个函数就会重叠，如下图所示：</p>
-<p>![](<a href="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Screenshot" target="_blank" rel="noopener">https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Screenshot</a> 2021-11-03 at 14-46-09 百度网盘-文档预览.png)</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/fodafdassfj.png" alt=""></p>
 <p>当$\frac{1}{\Delta t}=2 \mu_{max}$时，有：</p>
-<p>![](<a href="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Screenshot" target="_blank" rel="noopener">https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Screenshot</a> 2021-11-03 at 14-50-52 百度网盘-文档预览.png)</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/fioanlfko.png" alt=""></p>
 <p>当$\frac{1}{\Delta t}&gt;2 \mu_{max}$时，有：</p>
-<p>![](<a href="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Screenshot" target="_blank" rel="noopener">https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Screenshot</a> 2021-11-03 at 14-51-36 百度网盘-文档预览.png)</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/fasiofaf.png" alt=""></p>
 
       
     </div>
