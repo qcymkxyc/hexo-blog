@@ -223,14 +223,14 @@
 <h3 id="单个大目标"><a href="#单个大目标" class="headerlink" title="单个大目标:"></a>单个大目标:</h3>
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-WoCFiGOR" src="//player.bilibili.com/player.html?aid=86257908&page=1&high_quality=1&danmaku=true"
+        <iframe class="bbplayer" id="mmedia-MmYIcyas" src="//player.bilibili.com/player.html?aid=86257908&page=1&high_quality=1&danmaku=true"
             allowfullscreen="no"
             scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-WoCFiGOR").style.height=document.getElementById("mmedia-WoCFiGOR").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-MmYIcyas").style.height=document.getElementById("mmedia-MmYIcyas").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-WoCFiGOR").style.height=document.getElementById("mmedia-WoCFiGOR").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-MmYIcyas").style.height=document.getElementById("mmedia-MmYIcyas").scrollWidth*0.76+"px";
             };
         </script>
         
@@ -238,14 +238,14 @@
 <h3 id="多个小目标"><a href="#多个小目标" class="headerlink" title="多个小目标:"></a>多个小目标:</h3>
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-ZTdemzVB" src="//player.bilibili.com/player.html?aid=86258451&page=1&high_quality=1&danmaku=true"
+        <iframe class="bbplayer" id="mmedia-OiFnNoXj" src="//player.bilibili.com/player.html?aid=86258451&page=1&high_quality=1&danmaku=true"
             allowfullscreen="no"
             scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-ZTdemzVB").style.height=document.getElementById("mmedia-ZTdemzVB").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-OiFnNoXj").style.height=document.getElementById("mmedia-OiFnNoXj").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-ZTdemzVB").style.height=document.getElementById("mmedia-ZTdemzVB").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-OiFnNoXj").style.height=document.getElementById("mmedia-OiFnNoXj").scrollWidth*0.76+"px";
             };
         </script>
         
@@ -292,14 +292,14 @@
 
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-txeXiNhy" src="//player.bilibili.com/player.html?aid=86258451&page=2&high_quality=1&danmaku=true"
+        <iframe class="bbplayer" id="mmedia-plzcNpfd" src="//player.bilibili.com/player.html?aid=86258451&page=2&high_quality=1&danmaku=true"
             allowfullscreen="no"
             scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-txeXiNhy").style.height=document.getElementById("mmedia-txeXiNhy").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-plzcNpfd").style.height=document.getElementById("mmedia-plzcNpfd").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-txeXiNhy").style.height=document.getElementById("mmedia-txeXiNhy").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-plzcNpfd").style.height=document.getElementById("mmedia-plzcNpfd").scrollWidth*0.76+"px";
             };
         </script>
         
@@ -1487,9 +1487,9 @@ $$
       </categories>
       <tags>
         <tag>目标检测</tag>
-        <tag>深度学习</tag>
-        <tag>神经网络</tag>
         <tag>计算机视觉</tag>
+        <tag>神经网络</tag>
+        <tag>深度学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1871,9 +1871,9 @@ $$
         <category>自然语言处理</category>
       </categories>
       <tags>
+        <tag>神经网络</tag>
         <tag>深度学习</tag>
         <tag>自然语言处理</tag>
-        <tag>神经网络</tag>
       </tags>
   </entry>
   <entry>
@@ -2620,8 +2620,8 @@ $$
       </categories>
       <tags>
         <tag>机器学习</tag>
-        <tag>距离度量</tag>
         <tag>相似度</tag>
+        <tag>距离度量</tag>
       </tags>
   </entry>
   <entry>
@@ -3341,14 +3341,14 @@ $$
     <content><![CDATA[
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-lPiBwubW" src="//player.bilibili.com/player.html?aid=85098088&page=1&high_quality=1&danmaku=true"
+        <iframe class="bbplayer" id="mmedia-TJGcnJNL" src="//player.bilibili.com/player.html?aid=85098088&page=1&high_quality=1&danmaku=true"
             allowfullscreen="no"
             scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-lPiBwubW").style.height=document.getElementById("mmedia-lPiBwubW").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-TJGcnJNL").style.height=document.getElementById("mmedia-TJGcnJNL").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-lPiBwubW").style.height=document.getElementById("mmedia-lPiBwubW").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-TJGcnJNL").style.height=document.getElementById("mmedia-TJGcnJNL").scrollWidth*0.76+"px";
             };
         </script>
         ]]></content>
