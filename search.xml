@@ -223,14 +223,14 @@
 <h3 id="单个大目标"><a href="#单个大目标" class="headerlink" title="单个大目标:"></a>单个大目标:</h3>
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-MmYIcyas" src="//player.bilibili.com/player.html?aid=86257908&page=1&high_quality=1&danmaku=true"
+        <iframe class="bbplayer" id="mmedia-VDKAPMMn" src="//player.bilibili.com/player.html?aid=86257908&page=1&high_quality=1&danmaku=true"
             allowfullscreen="no"
             scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-MmYIcyas").style.height=document.getElementById("mmedia-MmYIcyas").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-VDKAPMMn").style.height=document.getElementById("mmedia-VDKAPMMn").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-MmYIcyas").style.height=document.getElementById("mmedia-MmYIcyas").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-VDKAPMMn").style.height=document.getElementById("mmedia-VDKAPMMn").scrollWidth*0.76+"px";
             };
         </script>
         
@@ -238,14 +238,14 @@
 <h3 id="多个小目标"><a href="#多个小目标" class="headerlink" title="多个小目标:"></a>多个小目标:</h3>
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-OiFnNoXj" src="//player.bilibili.com/player.html?aid=86258451&page=1&high_quality=1&danmaku=true"
+        <iframe class="bbplayer" id="mmedia-YeaVxySY" src="//player.bilibili.com/player.html?aid=86258451&page=1&high_quality=1&danmaku=true"
             allowfullscreen="no"
             scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-OiFnNoXj").style.height=document.getElementById("mmedia-OiFnNoXj").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-YeaVxySY").style.height=document.getElementById("mmedia-YeaVxySY").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-OiFnNoXj").style.height=document.getElementById("mmedia-OiFnNoXj").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-YeaVxySY").style.height=document.getElementById("mmedia-YeaVxySY").scrollWidth*0.76+"px";
             };
         </script>
         
@@ -292,14 +292,14 @@
 
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-plzcNpfd" src="//player.bilibili.com/player.html?aid=86258451&page=2&high_quality=1&danmaku=true"
+        <iframe class="bbplayer" id="mmedia-GYvwxDEo" src="//player.bilibili.com/player.html?aid=86258451&page=2&high_quality=1&danmaku=true"
             allowfullscreen="no"
             scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-plzcNpfd").style.height=document.getElementById("mmedia-plzcNpfd").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-GYvwxDEo").style.height=document.getElementById("mmedia-GYvwxDEo").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-plzcNpfd").style.height=document.getElementById("mmedia-plzcNpfd").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-GYvwxDEo").style.height=document.getElementById("mmedia-GYvwxDEo").scrollWidth*0.76+"px";
             };
         </script>
         
@@ -337,8 +337,38 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>Demo</tag>
         <tag>目标检测</tag>
+        <tag>Demo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>太阳变证</title>
+    <url>/posts/364ada3d.html/</url>
+    <content><![CDATA[<h2 id="变证治则"><a href="#变证治则" class="headerlink" title="变证治则"></a>变证治则</h2><p>太阳病三日,已发汗,若吐,若下,若温针,仍不解者,此为坏病,桂枝不中与之.观其脉证,知范何逆,随证治之.(16上)</p>
+<blockquote>
+<p>坏病并非固定,根据每个人的体质不同而不同,可虚可实,可寒可热.</p>
+</blockquote>
+<h2 id="辩寒热真假"><a href="#辩寒热真假" class="headerlink" title="辩寒热真假"></a>辩寒热真假</h2><p>病人身大热,反欲得衣者,热在皮肤,寒在骨髓也;身大寒,反不欲近衣者,寒在皮肤,热在骨髓也.(11)</p>
+<blockquote>
+<p>内寒外热:阴盛阳浮证</p>
+<p>内热外寒症状包括:</p>
+<ul>
+<li>胸脯灼热</li>
+<li>口渴心烦</li>
+<li>舌红苔黄</li>
+<li>大便干燥,小便短赤</li>
+<li><strong>手足厥冷</strong>(这里的冷并非全身冷)</li>
+</ul>
+<p><strong>这里的内热外寒证实际上是指厥阴病篇的热厥</strong></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>中医</category>
+      </categories>
+      <tags>
+        <tag>中医</tag>
+        <tag>伤寒论</tag>
+        <tag>太阳病</tag>
       </tags>
   </entry>
   <entry>
@@ -406,7 +436,7 @@
   </entry>
   <entry>
     <title>YOLO4总结</title>
-    <url>/posts/undefined.html/</url>
+    <url>/posts/eae05d4d.html/</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
@@ -1079,8 +1109,8 @@ $$
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>数学</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1486,10 +1516,10 @@ $$
         <category>计算机视觉</category>
       </categories>
       <tags>
+        <tag>深度学习</tag>
+        <tag>神经网络</tag>
         <tag>目标检测</tag>
         <tag>计算机视觉</tag>
-        <tag>神经网络</tag>
-        <tag>深度学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1871,9 +1901,9 @@ $$
         <category>自然语言处理</category>
       </categories>
       <tags>
-        <tag>神经网络</tag>
         <tag>深度学习</tag>
         <tag>自然语言处理</tag>
+        <tag>神经网络</tag>
       </tags>
   </entry>
   <entry>
@@ -2232,8 +2262,8 @@ $$
         <category>数学</category>
       </categories>
       <tags>
-        <tag>统计</tag>
         <tag>机器学习</tag>
+        <tag>统计</tag>
       </tags>
   </entry>
   <entry>
@@ -3341,14 +3371,14 @@ $$
     <content><![CDATA[
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-TJGcnJNL" src="//player.bilibili.com/player.html?aid=85098088&page=1&high_quality=1&danmaku=true"
+        <iframe class="bbplayer" id="mmedia-FgfmRARB" src="//player.bilibili.com/player.html?aid=85098088&page=1&high_quality=1&danmaku=true"
             allowfullscreen="no"
             scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-TJGcnJNL").style.height=document.getElementById("mmedia-TJGcnJNL").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-FgfmRARB").style.height=document.getElementById("mmedia-FgfmRARB").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-TJGcnJNL").style.height=document.getElementById("mmedia-TJGcnJNL").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-FgfmRARB").style.height=document.getElementById("mmedia-FgfmRARB").scrollWidth*0.76+"px";
             };
         </script>
         ]]></content>
