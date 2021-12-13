@@ -238,6 +238,13 @@
 <p>设有两个高斯函数的均值和标准差分别为$m_f,m_g$和$\sigma_f,\sigma_g$</p>
 <p>则两个高斯函数乘积所组成的高斯函数的均值和方差为：<br>$$<br>\left(<br>m_{f \times g}=\frac{m_f\sigma_g^2+m_g\sigma_f^2}{\sigma_f^2+\sigma_g^2},<br>\sigma_{f \times g}= \sqrt{\frac{\sigma_f^2\sigma_g^2}{\sigma_f^2+\sigma_g^2}}<br>\right)<br>$$<br>两个高斯函数卷积组成的高斯函数的均值和方差为：<br>$$<br>\left(<br>m_{ f\otimes g}=m_f + m_g,<br>\sigma_{f \otimes g}=\sqrt{\sigma_f^2+\sigma_g^2}<br>\right)<br>$$</p>
 ]]></content>
+      <categories>
+        <category>计算机视觉</category>
+      </categories>
+      <tags>
+        <tag>计算机视觉</tag>
+        <tag>数字图像处理</tag>
+      </tags>
   </entry>
   <entry>
     <title>SIFT算法总结</title>
