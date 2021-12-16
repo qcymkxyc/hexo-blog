@@ -89,10 +89,9 @@
 <meta property="og:description" content="概述SITF全名Scale-invariant feature transform,即尺度不变特征变换。实质上，SIFT所提取的特征是角点上的特征，且一定程度上保证它的旋转、尺度不变性。 尺度空间高斯金字塔尺度空间用更通俗的说法就是高斯金字塔，如下图所示：  高斯金字塔有如下特点：  下采样，金字塔每层长宽缩减为以前的一半 每层的高斯滤波器的$\sigma$不同  尺度空间在SIFT算法的尺度空间">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1337254665_2720.jpg">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2021-12-06T11-24-57.869Z.png">
-<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2021-12-10T10-19-27.731Z.png">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2021-12-06T11-16-16.630Z.png">
 <meta property="article:published_time" content="2021-11-25T07:42:29.000Z">
-<meta property="article:modified_time" content="2021-12-13T10:51:12.798Z">
+<meta property="article:modified_time" content="2021-12-16T10:29:42.484Z">
 <meta property="article:author" content="冒烟的乔">
 <meta property="article:tag" content="计算机视觉">
 <meta property="article:tag" content="数字图像处理">
@@ -438,30 +437,7 @@
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2021-12-06T11-24-57.869Z.png" alt=""></p>
 <p>其中，$k=2^{\frac{1}{n}}$,$\sigma_1=\sqrt{1.6^2-0.5^2}=1.52$</p>
 <h2 id="检测局部极值"><a href="#检测局部极值" class="headerlink" title="检测局部极值"></a>检测局部极值</h2><h3 id="查找初始关键点"><a href="#查找初始关键点" class="headerlink" title="查找初始关键点"></a>查找初始关键点</h3><p>在<code>SIFT</code>算法中，初始关键点定义为边缘点。那么，如何获取边缘点呢，我们最容易想到的就是<code>Canny</code>边缘检测，<code>Sobel</code>,<code>Laplacian</code>等。但在 <code>SIFT</code>算法中，是采用的高斯差分算法（<code>DoG</code>,<code>Difference of Gauss</code>）。</p>
-<p><strong>采用高斯差分算法的目的就是边缘检测</strong>,这里实际上是参考了<code>Marr-Hildreth</code>算法的边缘边缘检测。</p>
-<blockquote>
-<p>补充：<code>Marr-Hildreth</code>算法边缘检测</p>
-<p><code>Marr</code>和<code>Hildreth</code>认为：像<code>Sobel</code>和<code>Laplace</code>这样的算法大区域的模糊边缘，一个图像的灰度变化和图像的尺度是相关的。所以对于大的区域，应该用大的算子；对于小的区域，应该用小的算子。满足这个条件的有高斯拉普拉斯算子(<code>LoG</code>)。</p>
-<p>高斯拉普拉斯算子相当于是对图像先做高斯模糊，再做<code>Laplacian</code>变换：</p>
-<p>已知二维的高斯函数为：<br>$$<br>G(x,y)= exp(-\frac{x^2+y^2}{2\sigma^2})        \tag 3<br>$$<br>再做<code>Laplacian</code>变换为:<br>$$<br>\nabla^2G(x,y)=\frac{\partial^2G(x,y)}{\partial x^2}+\frac{\partial^2G(x,y)}{\partial y^2}    \tag 4<br>$$<br>上式可以变换为：<br>$$<br>\frac{\partial }{\partial x}<br>\left( \frac{-x}{\sigma^2} \cdot exp(-\frac{x^2+y^2}{2\sigma^2})  \right)+<br>\frac{\partial }{\partial y}<br>\left( \frac{-y}{\sigma^2} \cdot exp(-\frac{x^2+y^2}{2\sigma^2}) \right)<br>\tag 5<br>$$<br>进一步化简为：<br>$$<br>\left( \frac{x^2}{\sigma^4} - \frac{1}{\sigma^2}\right) \cdot exp(-\frac{x^2 + y^2}{2\sigma^2})+<br>\left( \frac{y^2}{\sigma^4} - \frac{1}{\sigma^2}\right) \cdot exp(-\frac{x^2 + y^2}{2\sigma^2})<br>\tag 6<br>$$<br>整理后得：<br>$$<br>\nabla^2G(x,y)= \left( \frac{x^2+y^2-2\sigma^2}{\sigma^4} \right) \cdot exp(-\frac{x^2+y^2}{2\sigma^2})        \tag 7<br>$$<br>倒立的<code>LoG</code>算子入如下图所示：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2021-12-10T10-19-27.731Z.png" alt=""></p>
-<p>其中，图a表示倒立的<code>LoG</code>算子。</p>
-<p>对于公式（7），也可以用高斯差分（<code>DoG</code>）来代替：<br>$$<br>D_G(x,y)=<br>\frac{1}{2\pi\sigma_1^2} \cdot exp(-\frac{x^2+y^2}{2 \sigma_1^2})-<br>\frac{1}{2\pi\sigma_2^2} \cdot exp(-\frac{x^2+y^2}{2 \sigma_2^2})<br>\tag 8<br>$$<br><strong>所以，高斯差分的目的实际上是求边缘</strong>。其中，$\sigma_1$以及$\sigma_2$和式（7）中的$\sigma$有如下对应关系：<br>$$<br>\sigma^2=\frac{\sigma_1^2\sigma_2^2}{\sigma_1^2-\sigma_2^2}ln\left[ \frac{\sigma_1^2}{\sigma_2^2} \right]    \tag 9<br>$$<br>通常，$\sigma_1$和$\sigma_2$的比例为$1:1.75$和$1:1.6$.</p>
-<p>也就是说，在用高斯差分时，先确定<code>LoG</code>中的$\sigma$的值，再利用$\sigma_1$和$\sigma_2$的比例计算$\sigma_1$和$\sigma_2$。</p>
-<blockquote>
-<p>补充：高斯滤波器的性质</p>
-<p>高斯核有两大性质：</p>
-<ol>
-<li>可分离性：即一个二维的高斯滤波可以分拆成两次一维滤波</li>
-</ol>
-<p>如我们用滤波器$h(x,y)$对图像$f(x,y)$进行滤波，有：<br>$$<br>f(x,y) \ast h(x,y)=f(x,y) \ast h_x(x) \ast h_y(y)    \tag {10}<br>$$<br>其中，$h(x,y)=exp(-\frac{x^2+y^2}{2\sigma^2})$,$h_x(x)=exp(-\frac{x^2}{2\sigma^2})$,$h_y(y)=exp(-\frac{y^2}{2\sigma^2})$.</p>
-<ol start="2">
-<li>可叠加性：两个高斯函数的乘积和卷积也是高斯函数</li>
-</ol>
-<p>设有两个高斯函数的均值和标准差分别为$m_f,m_g$和$\sigma_f,\sigma_g$</p>
-<p>则两个高斯函数乘积所组成的高斯函数的均值和方差为：<br>$$<br>\left(<br>m_{f \times g}=\frac{m_f\sigma_g^2+m_g\sigma_f^2}{\sigma_f^2+\sigma_g^2},<br>\sigma_{f \times g}= \sqrt{\frac{\sigma_f^2\sigma_g^2}{\sigma_f^2+\sigma_g^2}}<br>\right)<br>$$<br>两个高斯函数卷积组成的高斯函数的均值和方差为：<br>$$<br>\left(<br>m_{ f\otimes g}=m_f + m_g,<br>\sigma_{f \otimes g}=\sqrt{\sigma_f^2+\sigma_g^2}<br>\right)<br>$$</p>
-</blockquote>
-</blockquote>
+<p><strong>采用高斯差分算法的目的就是边缘检测</strong>,这里实际上是参考了<a href="/posts/d6a12e0a.html/" title="Marr-Hildreth算子">Marr-Hildreth算子</a>算法的边缘边缘检测。</p>
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2021-12-06T11-16-16.630Z.png" alt=""></p>
 <h2 id="关键点方向"><a href="#关键点方向" class="headerlink" title="关键点方向"></a>关键点方向</h2><h2 id="关键点描述子"><a href="#关键点描述子" class="headerlink" title="关键点描述子"></a>关键点描述子</h2>
       
@@ -617,7 +593,7 @@ var jiathis_config={
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
