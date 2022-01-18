@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="概述SITF全名Scale-invariant feature transform,即尺度不变特征变换。实质上，SIFT所提取的特征是角点上的特征，且一定程度上保证它的旋转、尺度不变性。 尺度空间高斯金字塔尺度空间用更通俗的说法就是高斯金字塔，如下图所示：  高斯金字塔有如下特点：  下采样，金字塔每层长宽缩减为以前的一半 每层的高斯滤波器的$\sigma$不同  尺度空间在SIFT算法的尺度空间">
+<meta name="description" content="概述SITF全名Scale-invariant feature transform,即尺度不变特征变换。实质上，SIFT所提取的特征是角点上的特征，且一定程度上保证它的旋转、尺度不变性。所以，SIFT本身并非一种匹配算法，SIFT实质上只是一种特征，由于SIFT提取的特征点比较稳定，我们在实际操作中仅仅是利用这种特征来做特征点匹配而已。 SIFT较为复杂，共分为以下几个步骤：  建立尺度空间 检测">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SIFT算法总结">
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/a82dd048.html/index.html">
 <meta property="og:site_name" content="冒烟的乔个人博客">
-<meta property="og:description" content="概述SITF全名Scale-invariant feature transform,即尺度不变特征变换。实质上，SIFT所提取的特征是角点上的特征，且一定程度上保证它的旋转、尺度不变性。 尺度空间高斯金字塔尺度空间用更通俗的说法就是高斯金字塔，如下图所示：  高斯金字塔有如下特点：  下采样，金字塔每层长宽缩减为以前的一半 每层的高斯滤波器的$\sigma$不同  尺度空间在SIFT算法的尺度空间">
+<meta property="og:description" content="概述SITF全名Scale-invariant feature transform,即尺度不变特征变换。实质上，SIFT所提取的特征是角点上的特征，且一定程度上保证它的旋转、尺度不变性。所以，SIFT本身并非一种匹配算法，SIFT实质上只是一种特征，由于SIFT提取的特征点比较稳定，我们在实际操作中仅仅是利用这种特征来做特征点匹配而已。 SIFT较为复杂，共分为以下几个步骤：  建立尺度空间 检测">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1337254665_2720.jpg">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2021-12-06T11-24-57.869Z.png">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2021-12-06T11-16-16.630Z.png">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2021-12-16T10-47-55.229Z.png">
 <meta property="article:published_time" content="2021-11-25T07:42:29.000Z">
-<meta property="article:modified_time" content="2021-12-16T11:12:58.428Z">
+<meta property="article:modified_time" content="2022-01-18T08:56:38.824Z">
 <meta property="article:author" content="冒烟的乔">
 <meta property="article:tag" content="计算机视觉">
 <meta property="article:tag" content="数字图像处理">
@@ -417,38 +417,46 @@
       
 
       
-        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><code>SITF</code>全名<code>Scale-invariant feature transform</code>,即尺度不变特征变换。实质上，<code>SIFT</code>所提取的特征是角点上的特征，且一定程度上保证它的旋转、尺度不变性。</p>
-<h2 id="尺度空间"><a href="#尺度空间" class="headerlink" title="尺度空间"></a>尺度空间</h2><h3 id="高斯金字塔"><a href="#高斯金字塔" class="headerlink" title="高斯金字塔"></a>高斯金字塔</h3><p>尺度空间用更通俗的说法就是高斯金字塔，如下图所示：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1337254665_2720.jpg" alt=""></p>
-<p>高斯金字塔有如下特点：</p>
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><code>SITF</code>全名<code>Scale-invariant feature transform</code>,即尺度不变特征变换。实质上，<code>SIFT</code>所提取的特征是角点上的特征，且一定程度上保证它的旋转、尺度不变性。所以，<code>SIFT</code>本身并非一种匹配算法，<code>SIFT</code>实质上只是一种特征，由于<code>SIFT</code>提取的特征点比较稳定，我们在实际操作中仅仅是利用这种特征来做特征点匹配而已。</p>
+<p><code>SIFT</code>较为复杂，共分为以下几个步骤：</p>
 <ul>
-<li>下采样，金字塔每层长宽缩减为以前的一半</li>
-<li>每层的高斯滤波器的$\sigma$不同</li>
+<li>建立尺度空间</li>
+<li>检测局部极值</li>
+<li>计算关键点方向</li>
+<li>建立关键点描述子</li>
 </ul>
-<h3 id="尺度空间-1"><a href="#尺度空间-1" class="headerlink" title="尺度空间"></a>尺度空间</h3><p>在<code>SIFT</code>算法的尺度空间中，每一次下采样使用不同的$\sigma$产生多张图片，每一次下采样产生的多张图片被称为一组（论文中被称为一个<code>octave</code>）；也就是说，如果图片有$n$次下采样就会产生$n$组图片。每一组产生的多张图片被称为层，层与层的区别就是$\sigma$不同。</p>
-<p>那么对于尺度空间我们需要确定三个数值：</p>
+<h2 id="尺度空间"><a href="#尺度空间" class="headerlink" title="尺度空间"></a>尺度空间</h2><h3 id="高斯金字塔"><a href="#高斯金字塔" class="headerlink" title="高斯金字塔"></a>高斯金字塔</h3><p>尺度空间用更通俗的说法就是高斯金字塔，高斯金字塔实际上就是隔点取点，对图像进行多次下采样。每做一次下采样图像的大小就变为了以前的一半，多次下采样之后就形成了一个类似金字塔的形状。如下图所示：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1337254665_2720.jpg" alt=""></p>
+<p>但仅仅是图像求高斯金字塔是不够的，我们需要对多次下采样的多个结果图像进行高斯模糊，每幅图的高斯模糊的$\sigma$的值是不同的。下面分别详述。</p>
+<h3 id="尺度空间-1"><a href="#尺度空间-1" class="headerlink" title="尺度空间"></a>尺度空间</h3><p>首先，在上述的求金字塔的过程中，需要补充一点:每一次下采样会下采样多张图片。例如，对原图$M \times N$大小的图片进行一次下采样，得到$\frac{M}{2} \times \frac{N}{2} $大小的图片是多张，而非一张。这样的多张图片称为一组（论文中被称为一个<code>octave</code>），这里的一组即一次下采样产生的多张图片。每一组的图片称为“层”，那么层的个数就为一组图像中图像的个数。</p>
+<p>此时，对于每一组中的每一层图像，之前提到过，我们对他们的高斯模糊的$\sigma$是不同的，所以需要确定$\sigma$的值。</p>
+<p>综上，现在对于尺度空间，我们需要确定以下三个数值：</p>
 <ul>
-<li>尺度空间的组数</li>
-<li>每一组的层数</li>
-<li>每一层的$\sigma$的值</li>
+<li>尺度空间的组数。也就是下采样的次数</li>
+<li>每一组的层数。一次下采样产生多少张图片</li>
+<li>每一层的$\sigma$的值。每张图片高斯模糊的$\sigma$值</li>
 </ul>
 <h4 id="尺度空间组数的确定"><a href="#尺度空间组数的确定" class="headerlink" title="尺度空间组数的确定"></a>尺度空间组数的确定</h4><p>组数（$O$）：<br>$$<br>O=\lfloor log_2(min(M,N)) \rfloor -     3 \tag {1}<br>$$<br>其中，$M$和$N$分别表示图片的长和宽.</p>
 <h4 id="尺度空间层数的确定"><a href="#尺度空间层数的确定" class="headerlink" title="尺度空间层数的确定"></a>尺度空间层数的确定</h4><p>层数$S$可以表示为：<br>$$<br>S = n+ 3 \tag 2<br>$$<br>其中，$n$表示需要提取的特征层的层数（后面会讲到）。</p>
 <h4 id="高斯滤波参数的确定"><a href="#高斯滤波参数的确定" class="headerlink" title="高斯滤波参数的确定"></a>高斯滤波参数的确定</h4><p>每层和每组的$\sigma$之间的关系如下图所示：</p>
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2021-12-06T11-24-57.869Z.png" alt=""></p>
-<p>其中，$k=2^{\frac{1}{n}}$,$\sigma_1=\sqrt{1.6^2-0.5^2}=1.52$</p>
-<h2 id="检测局部极值"><a href="#检测局部极值" class="headerlink" title="检测局部极值"></a>检测局部极值</h2><p>在<code>SIFT</code>算法中，局部极值点指的是角点。<code>SIFT</code>算法的做法是先找到所有的图像分隔边缘点，然后再剔除非角点的点（即包括边缘直线，边缘曲线等），剩下的就是角点本身了。</p>
+<p>其中，$k=2^{\frac{1}{n}}$,$\sigma_1=\sqrt{1.6^2-0.5^2}=1.52$。</p>
+<p>上图中，第一组的第一层的$\sigma$值为$1.52$,第二层就为$k \times 1.52$,第三层就为$k^2 \times 1.52$,以此类推。第二组的起始$\sigma$为$2\sigma_1$也就是$2 \times 1.52$,后面的$\sigma$以$k$倍递增。</p>
+<p>至此，我们就得到一个完整的高斯金字塔。</p>
+<h2 id="检测局部极值"><a href="#检测局部极值" class="headerlink" title="检测局部极值"></a>检测局部极值</h2><p>在<code>SIFT</code>算法中，局部极值点指的是角点。<code>SIFT</code>算法的做法是先找到所有的图像分隔边缘点，然后再剔除非角点的点（即包括边缘直线，边缘曲线等），剩下的就是角点本身了。但在找到角点后还没有完，<code>SIFT</code>会对角点进行再做一次精确筛选。</p>
 <h3 id="查找初始关键点"><a href="#查找初始关键点" class="headerlink" title="查找初始关键点"></a>查找初始关键点</h3><p>在<code>SIFT</code>算法中，初始关键点定义为边缘点。那么，如何获取边缘点呢，我们最容易想到的就是<code>Canny</code>边缘检测，<code>Sobel</code>,<code>Laplacian</code>等。但在 <code>SIFT</code>算法中，是采用的高斯差分算法（<code>DoG</code>,<code>Difference of Gauss</code>）。</p>
 <p><strong>采用高斯差分算法的目的就是边缘检测</strong>,这里实际上是参考了<a href="/posts/d6a12e0a.html/" title="Marr-Hildreth算子">Marr-Hildreth算子</a>的边缘检测。</p>
 <p>我们通过高斯差分算法得到了图像在不同尺度下的边缘点。</p>
 <p>具体做法如下：</p>
-<p>利用尺度空间中的相邻的层做差，得到高斯差分的结果，如下图所示：</p>
+<p>在<a href="#尺度空间">尺度空间</a>中，我们得到了高斯金字塔，我只需要对相邻的两个层做差，即得到了高斯差分金字塔，示意图如下图所示：</p>
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2021-12-06T11-16-16.630Z.png" alt=""></p>
-<p>由此，我们得到了图像的初始关键点。</p>
-<h3 id="改进关键点位置的精度"><a href="#改进关键点位置的精度" class="headerlink" title="改进关键点位置的精度"></a>改进关键点位置的精度</h3><p>我们现在得到的是图像的边缘。</p>
-<p><code>SIFT</code>算法认为一个关键点应该是$x$,$y$和$\sigma$（$\sigma$方向即上图中的$z$方向）三个方向上的极值点。如下图所示：</p>
+<p>从上图可以看出，我们已经得到了基本的图像边缘点，也就是图像的初始关键点。</p>
+<h3 id="改进关键点位置的精度"><a href="#改进关键点位置的精度" class="headerlink" title="改进关键点位置的精度"></a>改进关键点位置的精度</h3><p>我们现在得到的是图像的边缘。<code>SIFT</code>算法认为一个特征点不仅是在$x$和$y$方向有较高的梯度，而且在$\sigma$方向上也有较高的梯度，也就是在上一节我们提到的“层”上有较高的梯度。我们可以把$\sigma$轴看成$z$轴，然后在$x$,$y$和$z$三个方向上查找极值。</p>
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2021-12-16T10-47-55.229Z.png" alt=""></p>
-<p>实际上，我们可以直接用差分直接得到结果。在<code>SIFT</code>中，为了更加的精细，它采用了插值的方式。<code>SIFT</code>算法采用的插值方法是泰勒展开式（实际上用样条插值等都是可以的）</p>
+<p>然而，在图像中，$x$,$y$和$\sigma$的值都是离散值，如果利用直接求差分的方式并不准确。所以算法利用了函数拟合的方式，即先用几个点拟合一个函数，再在拟合好的函数中求极值。</p>
+<p>对于函数的拟合我们可以利用插值的方式，例如<code>三次样条插值</code>，<code>多项式插值</code>等。在论文中，作者采用了<code>泰勒展开式</code>。</p>
+<p>令向量$(x,y,\sigma)$为$s$,由泰勒展开式为：<br>$$<br>f(s)=f(s_0)+\frac{\partial f}{\partial s}(s - s_0)+ \frac{1}{2} \cdot \frac{\partial^2f}{\partial s^2}(s - s_0)^2 + R_n(s)        \tag 3<br>$$<br>其中，$R_n(s)$为近似量。</p>
+<p>令上式的$s_0$为$0$，上式可以近似为：<br>$$<br>f(s)=f(0)+\frac{\partial f}{\partial s}s+ \frac{\partial^2f}{\partial s^2}s^2         \tag 4<br>$$<br>其中<br>$$<br>\frac{\partial f}{\partial s}=<br>\begin{bmatrix}<br>\frac{\partial f}{\partial x} \<br>\frac{\partial f}{\partial y} \<br>\frac{\partial f}{\partial \sigma}<br>\end{bmatrix}<br>\tag 5<br>$$<br>$\frac{\partial^2f}{\partial s^2}$实际上为一个海森矩阵，令 $\frac{\partial^2f}{\partial s^2}$得到的海森矩阵为$H$，则$H$表示为：</p>
 <h2 id="关键点方向"><a href="#关键点方向" class="headerlink" title="关键点方向"></a>关键点方向</h2><h2 id="关键点描述子"><a href="#关键点描述子" class="headerlink" title="关键点描述子"></a>关键点描述子</h2>
       
     </div>
@@ -719,7 +727,7 @@ var jiathis_config={
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
