@@ -81,12 +81,12 @@
 
 
 
-<meta name="description" content="概述傅里叶变换的劣势关于傅里叶变换，请看傅里叶级数与傅里叶变换推导 我们知道,傅里叶级数是将一个波展开成无限个三角函数相叠加。但当一个噪声存在时，傅里叶级数拟合的效果并不佳，如下图所示：  上图中，是一个存在噪声的信号波。这种噪声表现为某一点不正常变化，而周围是正常的。但当我们用傅里叶级数从时域转频域时，傅里叶级数为了拟合这一噪声的影响，不得不使用高频基波来拟合这一噪声。但由于三角波是全局波，这又">
+<meta name="description" content="概述 傅里叶变换的劣势 关于傅里叶变换，请看傅里叶级数与傅里叶变换推导 我们知道,傅里叶级数是将一个波展开成无限个三角函数相叠加。但当一个噪声存在时，傅里叶级数拟合的效果并不佳，如下图所示：     上图中，是一个存在噪声的信号波。这种噪声表现为某一点不正常变化，而周围是正常的。但当我们用傅里叶级数从时域转频域时，傅里叶级数为了拟合这一噪声的影响，不得不使用高频基波来拟合这一噪声。但由于三角波是全">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Haar小波变换">
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/4f0e3ed4.html/index.html">
 <meta property="og:site_name" content="冒烟的乔个人博客">
-<meta property="og:description" content="概述傅里叶变换的劣势关于傅里叶变换，请看傅里叶级数与傅里叶变换推导 我们知道,傅里叶级数是将一个波展开成无限个三角函数相叠加。但当一个噪声存在时，傅里叶级数拟合的效果并不佳，如下图所示：  上图中，是一个存在噪声的信号波。这种噪声表现为某一点不正常变化，而周围是正常的。但当我们用傅里叶级数从时域转频域时，傅里叶级数为了拟合这一噪声的影响，不得不使用高频基波来拟合这一噪声。但由于三角波是全局波，这又">
+<meta property="og:description" content="概述 傅里叶变换的劣势 关于傅里叶变换，请看傅里叶级数与傅里叶变换推导 我们知道,傅里叶级数是将一个波展开成无限个三角函数相叠加。但当一个噪声存在时，傅里叶级数拟合的效果并不佳，如下图所示：     上图中，是一个存在噪声的信号波。这种噪声表现为某一点不正常变化，而周围是正常的。但当我们用傅里叶级数从时域转频域时，傅里叶级数为了拟合这一噪声的影响，不得不使用高频基波来拟合这一噪声。但由于三角波是全">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210727145724.jpg">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210728115405.jpg">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210727160954.png">
@@ -419,70 +419,147 @@
       
 
       
-        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="傅里叶变换的劣势"><a href="#傅里叶变换的劣势" class="headerlink" title="傅里叶变换的劣势"></a>傅里叶变换的劣势</h2><p>关于傅里叶变换，请看<a href="https://www.zhangqi2019.top/posts/fb91b52c.html/" target="_blank" rel="noopener">傅里叶级数与傅里叶变换推导</a></p>
+        <h1 id="概述">概述</h1>
+<h2 id="傅里叶变换的劣势">傅里叶变换的劣势</h2>
+<p>关于傅里叶变换，请看<a href="https://www.zhangqi2019.top/posts/fb91b52c.html/" target="_blank" rel="noopener">傅里叶级数与傅里叶变换推导</a></p>
 <p>我们知道,傅里叶级数是将一个波展开成无限个三角函数相叠加。但当一个噪声存在时，傅里叶级数拟合的效果并不佳，如下图所示：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210727145724.jpg" alt=""></p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210727145724.jpg">
+
+</div>
 <p>上图中，是一个存在噪声的信号波。这种噪声表现为某一点不正常变化，而周围是正常的。但当我们用傅里叶级数从时域转频域时，傅里叶级数为了拟合这一噪声的影响，不得不使用高频基波来拟合这一噪声。但由于三角波是全局波，这又会影响其他地方的分解。所以，综上所述，傅里叶对于突变的分解并不会很理想。</p>
 <p><strong>此外，傅里叶级数仅能提供频域信息，不能提供这个噪声发生的时间（也是由于傅里叶级数是全局波）</strong></p>
-<h2 id="局部波"><a href="#局部波" class="headerlink" title="局部波"></a>局部波</h2><p>局部波即当有一个噪声或扰动局部存在时，影响的仅是一个基波的局部。小波即是局部波，下面介绍Haar小波</p>
-<h1 id="Haar小波"><a href="#Haar小波" class="headerlink" title="Haar小波"></a>Haar小波</h1><h2 id="Haar尺度函数"><a href="#Haar尺度函数" class="headerlink" title="Haar尺度函数"></a>Haar尺度函数</h2><p>假设有一个信号波如下图所示：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210728115405.jpg" alt=""></p>
+<h2 id="局部波">局部波</h2>
+<p>局部波即当有一个噪声或扰动局部存在时，影响的仅是一个基波的局部。小波即是局部波，下面介绍Haar小波</p>
+<h1 id="haar小波">Haar小波</h1>
+<h2 id="haar尺度函数">Haar尺度函数</h2>
+<p>假设有一个信号波如下图所示：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210728115405.jpg">
+
+</div>
 <p>我们现在用很简单的基波去表示它，这个基波非常简单，如下图所示：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210727160954.png" alt=""></p>
-<p>函数$\phi(x)$表示一个基波函数，在小波中被称为尺度函数，也被称为父小波，$\phi(x)$的取值范围在$(0,1)$,且取值衡为1，用数学公式表示为：<br>$$<br>\phi(x)=<br>\begin{cases}<br>1, &amp; \text {if} &amp; 0 \leq x \leq 1 \<br>0, &amp; \text {others}<br>\end{cases}<br>\tag {1}<br>$$<br>对于不在$\phi(x)$返回内的我们可以通过平移以及乘以一个系数得到，这样我们就可以用$\phi(x)$来近似的拟合上图中的信号了。</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210727160954.png">
+
+</div>
+<p>函数<span class="math inline">\(\phi(x)\)</span>表示一个基波函数，在小波中被称为尺度函数，也被称为父小波，<span class="math inline">\(\phi(x)\)</span>的取值范围在<span class="math inline">\((0,1)\)</span>,且取值衡为1，用数学公式表示为： <span class="math display">\[
+\phi(x)=
+\begin{cases} 
+1, &amp; \text {if} &amp; 0 \leq x \leq 1 \\
+0, &amp; \text {others}
+\end{cases}
+\tag {1}
+\]</span> 对于不在<span class="math inline">\(\phi(x)\)</span>返回内的我们可以通过平移以及乘以一个系数得到，这样我们就可以用<span class="math inline">\(\phi(x)\)</span>来近似的拟合上图中的信号了。</p>
 <ul>
-<li>平移的函数我们用$\phi(x-k)$表示，他表示将函数$\phi(x)$向右平移$k$个单位，其中$k \in Z$,当$k&lt;0$时，表示$\phi(x)$向左平移了$k$个单位。</li>
-<li>乘以一个系数相当于压缩或者拉伸，我们用$a_k\phi(x)$表示，其中$a_k \in R$.当$a_k&lt;1$时，表示将$\phi(x)$压缩；当$a_k &gt;1$时，表示将$\phi(x)$拉伸</li>
+<li>平移的函数我们用<span class="math inline">\(\phi(x-k)\)</span>表示，他表示将函数<span class="math inline">\(\phi(x)\)</span>向右平移<span class="math inline">\(k\)</span>个单位，其中<span class="math inline">\(k \in Z\)</span>,当<span class="math inline">\(k&lt;0\)</span>时，表示<span class="math inline">\(\phi(x)\)</span>向左平移了<span class="math inline">\(k\)</span>个单位。</li>
+<li>乘以一个系数相当于压缩或者拉伸，我们用<span class="math inline">\(a_k\phi(x)\)</span>表示，其中<span class="math inline">\(a_k \in R\)</span>.当<span class="math inline">\(a_k&lt;1\)</span>时，表示将<span class="math inline">\(\phi(x)\)</span>压缩；当<span class="math inline">\(a_k &gt;1\)</span>时，表示将<span class="math inline">\(\phi(x)\)</span>拉伸</li>
 </ul>
-<p>综上，我们能够用$\phi(x)$通过平移和拉伸表示$x$轴上的波，用公式可以表示为：<br>$$<br>\sum_{k \in Z}a_k \phi(x-k), { a_k \in R}    \tag {2}<br>$$<br>从函数空间的角度看，对于一个取值范围为$(a,b),(其中a \in Z 且 b \in Z)$的波，会将其分解成$b-a$个基函数，基函数的坐标为$a_k$.当波的范围为无限时，此时的分解则为无限维的函数空间。换句话说，一个函数可由$\phi(x)$通过平移和拉伸线性张成。</p>
+<p>综上，我们能够用<span class="math inline">\(\phi(x)\)</span>通过平移和拉伸表示<span class="math inline">\(x\)</span>轴上的波，用公式可以表示为： <span class="math display">\[
+\sum_{k \in Z}a_k \phi(x-k), { a_k \in R}   \tag {2}
+\]</span> 从函数空间的角度看，对于一个取值范围为<span class="math inline">\((a,b),(其中a \in Z 且 b \in Z)\)</span>的波，会将其分解成<span class="math inline">\(b-a\)</span>个基函数，基函数的坐标为<span class="math inline">\(a_k\)</span>.当波的范围为无限时，此时的分解则为无限维的函数空间。换句话说，一个函数可由<span class="math inline">\(\phi(x)\)</span>通过平移和拉伸线性张成。</p>
 <p>最终我们拟合的效果如下图所示：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210728135704.jpg" alt=""></p>
-<p>可以看到，由于尺度函数$\phi(x)$的粒度太“粗”，导致我们拟合的结果存在锯齿状。我们并不能很好的去拟合原始的波。归根结底，还是$\phi(x)$的构造太粗糙，为了解决这个问题，我们完全可以去“精细化”尺度函数$\phi(x)$，从而减弱或消除这种锯齿状。那如何消除呢，其实方法也很简单——减短$\phi(x)$的周期。</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210728135704.jpg">
+
+</div>
+<p>可以看到，由于尺度函数<span class="math inline">\(\phi(x)\)</span>的粒度太“粗”，导致我们拟合的结果存在锯齿状。我们并不能很好的去拟合原始的波。归根结底，还是<span class="math inline">\(\phi(x)\)</span>的构造太粗糙，为了解决这个问题，我们完全可以去“精细化”尺度函数<span class="math inline">\(\phi(x)\)</span>，从而减弱或消除这种锯齿状。那如何消除呢，其实方法也很简单——减短<span class="math inline">\(\phi(x)\)</span>的周期。</p>
 <ul>
-<li>当我们用$\phi(2x)$时，有尺度函数$\phi(x)$的定义（1）。当$0&lt;2x&lt;1$时，$y=1$,即$0&lt;x&lt;0.5$时，$y=1$</li>
+<li>当我们用<span class="math inline">\(\phi(2x)\)</span>时，有尺度函数<span class="math inline">\(\phi(x)\)</span>的定义（1）。当<span class="math inline">\(0&lt;2x&lt;1\)</span>时，<span class="math inline">\(y=1\)</span>,即<span class="math inline">\(0&lt;x&lt;0.5\)</span>时，<span class="math inline">\(y=1\)</span></li>
 </ul>
-<p>看到没有，之前的$\phi(x)$在$(0,1)$上的一次取值，我们可以用两次$\phi(2x)$来表示它,即$\phi(2x)$和$\phi(2x - 1)$。这就意味着这种锯齿我们可以少一半，也就是粒度“更细一倍”。</p>
+<p>看到没有，之前的<span class="math inline">\(\phi(x)\)</span>在<span class="math inline">\((0,1)\)</span>上的一次取值，我们可以用两次<span class="math inline">\(\phi(2x)\)</span>来表示它,即<span class="math inline">\(\phi(2x)\)</span>和<span class="math inline">\(\phi(2x - 1)\)</span>。这就意味着这种锯齿我们可以少一半，也就是粒度“更细一倍”。</p>
 <ul>
-<li><p>当我们用$\phi(4x)$时，有尺度函数$\phi(x)$的定义（1）。当$0&lt;4x&lt;1$时，$y=1$,即$0&lt;x&lt;0.25$时，$y=1$</p>
-</li>
-<li><p>当我们用$\phi(8x)$时，有尺度函数$\phi(x)$的定义（1）。当$0&lt;8x&lt;1$时，$y=1$,即$0&lt;x&lt;0.125$时，$y=1$</p>
-<p>…</p>
-</li>
+<li><p>当我们用<span class="math inline">\(\phi(4x)\)</span>时，有尺度函数<span class="math inline">\(\phi(x)\)</span>的定义（1）。当<span class="math inline">\(0&lt;4x&lt;1\)</span>时，<span class="math inline">\(y=1\)</span>,即<span class="math inline">\(0&lt;x&lt;0.25\)</span>时，<span class="math inline">\(y=1\)</span></p></li>
+<li><p>当我们用<span class="math inline">\(\phi(8x)\)</span>时，有尺度函数<span class="math inline">\(\phi(x)\)</span>的定义（1）。当<span class="math inline">\(0&lt;8x&lt;1\)</span>时，<span class="math inline">\(y=1\)</span>,即<span class="math inline">\(0&lt;x&lt;0.125\)</span>时，<span class="math inline">\(y=1\)</span></p></li>
 </ul>
-<p><strong>当随着$x$前面的系数越来越大时，基波表示的粒度也就越来越细，当该系数趋于无限时，这种线性张成方式和原信号的差距将减少为无穷小</strong>。在我们表示原来的信号时，也就越来越像。但这里有一个要求，就是前面的系数必须要为2的倍数，这涉及到一个子空间的概念，这里先不解释为什么，后面会解释。下面我们用数学语言复述一遍。</p>
-<p>设$V_0$是所有形如（2）中的函数组成的空间，那么$j$级阶梯函数空间可以表示为$V_j$,他是由函数集<br>$$<br>\lbrace…,\phi(2^j + 1),\phi(2^j),\phi(2^j-1),….\rbrace    \tag {3}<br>$$<br>在实数域上线性张成的。用形如公式（2）的形式就可以表示为：<br>$$<br>\sum_{k \in Z}a_k \phi(2^jx-k), { a_k \in R 且 j \in z^+}    \tag {4}<br>$$<br>由于$j$越大，尺度函数的范围越小，于是有如下关系：<br>$$<br>V_0 \subset V_1 \subset V_2 \subset … \subset V_j \subset V_{j+1} …        \tag {5}<br>$$<br>可以看到,如果公式（4）前面的系数2的倍数，则公式（5）将不成立。换句话说，这种子空间的关系将不成立。这种不成立将影响到后续<code>Haar小波基</code>的生成。</p>
-<h2 id="Haar小波基函数"><a href="#Haar小波基函数" class="headerlink" title="Haar小波基函数"></a>Haar小波基函数</h2><p>现在我们能够用尺度函数$\phi(x)$来线性张成信号波了，但现在还不够。回忆一下傅里叶变换，我们把信号波分解成不同频率的基波的线性张成，再根据我们的需要做各种变换。但现在我们得到的尺度函数$\phi(x)$的“粒度”是一样的，换句话说，我们现在还不能像傅里叶级数那样分离出高频和低频。所以我们下一步要分离出高低频，变换出不同频率的基函数。</p>
+<p>...</p>
+<p><strong>当随着<span class="math inline">\(x\)</span>前面的系数越来越大时，基波表示的粒度也就越来越细，当该系数趋于无限时，这种线性张成方式和原信号的差距将减少为无穷小</strong>。在我们表示原来的信号时，也就越来越像。但这里有一个要求，就是前面的系数必须要为2的倍数，这涉及到一个子空间的概念，这里先不解释为什么，后面会解释。下面我们用数学语言复述一遍。</p>
+<p>设<span class="math inline">\(V_0\)</span>是所有形如（2）中的函数组成的空间，那么<span class="math inline">\(j\)</span>级阶梯函数空间可以表示为<span class="math inline">\(V_j\)</span>,他是由函数集 <span class="math display">\[
+\lbrace...,\phi(2^j + 1),\phi(2^j),\phi(2^j-1),....\rbrace  \tag {3}
+\]</span> 在实数域上线性张成的。用形如公式（2）的形式就可以表示为： <span class="math display">\[
+\sum_{k \in Z}a_k \phi(2^jx-k), { a_k \in R 且 j \in z^+}    \tag {4}
+\]</span> 由于<span class="math inline">\(j\)</span>越大，尺度函数的范围越小，于是有如下关系： <span class="math display">\[
+V_0 \subset V_1 \subset V_2 \subset ... \subset V_j \subset V_{j+1} ...     \tag {5}
+\]</span> 可以看到,如果公式（4）前面的系数2的倍数，则公式（5）将不成立。换句话说，这种子空间的关系将不成立。这种不成立将影响到后续<code>Haar小波基</code>的生成。</p>
+<h2 id="haar小波基函数">Haar小波基函数</h2>
+<p>现在我们能够用尺度函数<span class="math inline">\(\phi(x)\)</span>来线性张成信号波了，但现在还不够。回忆一下傅里叶变换，我们把信号波分解成不同频率的基波的线性张成，再根据我们的需要做各种变换。但现在我们得到的尺度函数<span class="math inline">\(\phi(x)\)</span>的“粒度”是一样的，换句话说，我们现在还不能像傅里叶级数那样分离出高频和低频。所以我们下一步要分离出高低频，变换出不同频率的基函数。</p>
 <p>在公式（5）中，我们得到了一种子空间的包含关系，而且我们知道，这种层层包含的空间中的基是“从粗到细”。我们这好可以利用这种关系构建分离出高低频的频域空间。<strong>但我们必须满足一个条件：由于基函数（基波）是一个基，我们必须保证基是正交的</strong></p>
-<p>举例来说，我们在$V_0$空间中有$k$个基$\phi(x-k)$,其中$k \in Z$.我们需要在$V_1$找到一个基$\psi(x)$,满足$\psi(x)$和$\phi(x-k)$均正交。用更数学的语言表达就是：在$V_1$空间中找到$V_0$的正交补。</p>
+<p>举例来说，我们在<span class="math inline">\(V_0\)</span>空间中有<span class="math inline">\(k\)</span>个基<span class="math inline">\(\phi(x-k)\)</span>,其中<span class="math inline">\(k \in Z\)</span>.我们需要在<span class="math inline">\(V_1\)</span>找到一个基<span class="math inline">\(\psi(x)\)</span>,满足<span class="math inline">\(\psi(x)\)</span>和<span class="math inline">\(\phi(x-k)\)</span>均正交。用更数学的语言表达就是：在<span class="math inline">\(V_1\)</span>空间中找到<span class="math inline">\(V_0\)</span>的正交补。</p>
 <blockquote>
 <p>正交补的定义：</p>
-<p>设$V_0$是内积空间$V$的子空间，$V_0$的正交补，记为$V_0^{\bot}$,是$V$上所有与$V_0$正交的矢量集合，即:<br>$$<br>V_0^{\bot}=\lbrace v \in V; \langle v,w \rangle = 0, w \in V_0 \rbrace    \tag {6}<br>$$<br>其中，$\langle v,w \rangle$表示内积</p>
+<p>设<span class="math inline">\(V_0\)</span>是内积空间<span class="math inline">\(V\)</span>的子空间，<span class="math inline">\(V_0\)</span>的正交补，记为<span class="math inline">\(V_0^{\bot}\)</span>,是<span class="math inline">\(V\)</span>上所有与<span class="math inline">\(V_0\)</span>正交的矢量集合，即: <span class="math display">\[
+V_0^{\bot}=\lbrace v \in V; \langle v,w \rangle = 0, w \in V_0 \rbrace    \tag {6}
+\]</span> 其中，<span class="math inline">\(\langle v,w \rangle\)</span>表示内积</p>
 </blockquote>
-<p>符合以上两点（正交性以及属于$V_1$空间）最简单的$\psi(x)$为：<br>$$<br>\psi(x) = \phi(2x) - \phi(2x - 1)    \tag {7}<br>$$<br>其对应的图像为：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210729173244.png" alt=""></p>
-<p>显然，公式（7）中$\psi(x)$ 是$V_1$空间中的元素。下面证明和$V_0$中的基正交：</p>
+<p>符合以上两点（正交性以及属于<span class="math inline">\(V_1\)</span>空间）最简单的<span class="math inline">\(\psi(x)\)</span>为： <span class="math display">\[
+\psi(x) = \phi(2x) - \phi(2x - 1)   \tag {7}
+\]</span> 其对应的图像为：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210729173244.png">
+
+</div>
+<p>显然，公式（7）中<span class="math inline">\(\psi(x)\)</span> 是<span class="math inline">\(V_1\)</span>空间中的元素。下面证明和<span class="math inline">\(V_0\)</span>中的基正交：</p>
 <blockquote>
-<p>显然$\psi(x)$和$\phi(x -k),k \neq 0$正交，因为$\psi(x)$仅在$(0,1)$范围内取值。</p>
-<p>$\psi(x)$和$\phi(x)$的内积可以写成：<br>$$<br>\int_{-\infty}^{\infty}\phi(x) \psi(x)dx=\int_0^{\frac{1}{2}}1dx-\int_{\frac{1}{2}}^{1}1dx=0<br>$$<br>故$\psi(x)$和$V_0$正交。</p>
-<p>故$\psi(x)$可以作为一个小波基。</p>
+<p>显然<span class="math inline">\(\psi(x)\)</span>和<span class="math inline">\(\phi(x -k),k \neq 0\)</span>正交，因为<span class="math inline">\(\psi(x)\)</span>仅在<span class="math inline">\((0,1)\)</span>范围内取值。</p>
+<p><span class="math inline">\(\psi(x)\)</span>和<span class="math inline">\(\phi(x)\)</span>的内积可以写成： <span class="math display">\[
+\int_{-\infty}^{\infty}\phi(x) \psi(x)dx=\int_0^{\frac{1}{2}}1dx-\int_{\frac{1}{2}}^{1}1dx=0
+\]</span> 故<span class="math inline">\(\psi(x)\)</span>和<span class="math inline">\(V_0\)</span>正交。</p>
+<p>故<span class="math inline">\(\psi(x)\)</span>可以作为一个小波基。</p>
 </blockquote>
-<p>以上只是在在$V_1$空间中找$V_0$的正交补，下面我们推广到更一般的情况。</p>
-<p>对于$V_j$和$V_{j+1}$,我们能找到空间$W_j$,使得$W_j$是$V_{j+1}$中$V_j$的正交补空间，即：<br>$$<br>V_{j+1}=V_j \bigoplus W_{j}        \tag {8}<br>$$<br>其中，$W_j$是由形如<br>$$<br>\sum_{k \in Z} a_k \psi(2^jx-k), a_k \in R        \tag {9}<br>$$<br>构成的空间，由$\psi(x)$的定义公式（7），则在$W_j$中的小波基为：<br>$$<br>\psi(2^jx)=\phi(2^{j+1}x)-\phi(2^{j+1}-1)    \tag {10}<br>$$<br>以此类推：<br>$$<br>V_j=V_{0} \bigoplus W_0 \bigoplus W_1 \bigoplus W_2 …        \tag {11}<br>$$<br>从公式（9）中可以看出，$V_j$是可以由$V_0$一步步“叠加”上来的，随着空间$W_i$中$i$值的增大，空间就”越来越细”(见公式10)，我们在这些空间中取基就足以将波分为高频和低频。</p>
-<h1 id="小波的分解和重构"><a href="#小波的分解和重构" class="headerlink" title="小波的分解和重构"></a>小波的分解和重构</h1><p>本节主要讲小波的应用，包括分解和重构，在开始之前我们需要简单的推导两个式子，便于后续计算.</p>
-<p>有公式（7）有$\psi(x) = \phi(2x) - \phi(2x - 1)$，有：<br>$$<br>[\psi(x)+\phi(x)]/2=[\phi(2x) - \phi(2x - 1) + \phi(x)]=[\phi(2x) - \phi(2x - 1) + \phi(2x) + \phi(2x - 1)] = 2\phi(2x)<br>$$<br>则：<br>$$<br>\phi(2x)=[\psi(x)+\phi(x)] / 2    \tag {12}<br>$$<br>同理利用公式（7），可推得：<br>$$<br>\phi(2x-1)= [\phi(x) - \psi(x)]/2    \tag{13}<br>$$<br>更一般的，对于所有的$x \in R$,下列关系成立：<br>$$<br>\phi(2^jx)=[\psi(2^{j-1}x)+\phi(2^{j-1}x)]/2    \tag {14}<br>$$</p>
-<p>$$<br>\phi(2^{j}x-1)=[\phi(2^{j-1}x)-\psi(2^{j-1}x)]/2     \tag {15}<br>$$</p>
-<h2 id="分解"><a href="#分解" class="headerlink" title="分解"></a>分解</h2><p>下面是一个小波分解的例子：</p>
-<p>假设一个信号波可由<code>Haar</code>尺度函数表示为：<br>$$<br>f(x)=2\phi(4x)+2\phi(4x-1)+\phi(4x-2)-\phi(4x-3)<br>$$<br>下面将以上信号波分解成小波表示形式。</p>
-<p>我们将每一个加法部分分开计算，由公式（14）和公式（15）：<br>$$<br>2 \cdot \phi(4x)=2 \cdot [\psi(2x)+\phi(2x)]/2 = \psi(2x)+\phi(2x)<br>$$</p>
-<p>$$<br>2 \cdot \phi(4x-1)=2 \cdot [\phi(2x) - \phi(2x)] /2 = \phi(2x) - \phi(2x)<br>$$</p>
-<p>$$<br>\phi(4x-2)=\phi[2(2x-1)]=[\psi(2x-1) + \phi(2x-1)]/2<br>$$</p>
-<p>$$<br>\phi(4x-3)=\phi[2(2x-1)-1]=[\phi(2x-1)- \psi(2x-1)]/2<br>$$</p>
-<p>以上四个式子合并，有：<br>$$<br>f(x) =  \psi(2x-1)+2\phi(2x)<br>$$<br>下面再对$2\phi(2x)$进行拆解：<br>$$<br>2 \cdot \phi(2x)=2 \cdot [\psi(x)+\phi(x)] / 2= \psi(x)+\phi(x)<br>$$<br>故最终的$f(x)$可以分解为：<br>$$<br>f(x)=\psi(2x-1)+\psi(x)+\phi(x)<br>$$</p>
-<h2 id="重构以及应用"><a href="#重构以及应用" class="headerlink" title="重构以及应用"></a>重构以及应用</h2><p>重构实际上就是基波的加权，在<code>傅里叶变换</code>中,我们称为反傅里叶变换。更一般的说，就是频域转时域。</p>
+<p>以上只是在在<span class="math inline">\(V_1\)</span>空间中找<span class="math inline">\(V_0\)</span>的正交补，下面我们推广到更一般的情况。</p>
+<p>对于<span class="math inline">\(V_j\)</span>和<span class="math inline">\(V_{j+1}\)</span>,我们能找到空间<span class="math inline">\(W_j\)</span>,使得<span class="math inline">\(W_j\)</span>是<span class="math inline">\(V_{j+1}\)</span>中<span class="math inline">\(V_j\)</span>的正交补空间，即： <span class="math display">\[
+V_{j+1}=V_j \bigoplus W_{j}     \tag {8}
+\]</span> 其中，<span class="math inline">\(W_j\)</span>是由形如 <span class="math display">\[
+\sum_{k \in Z} a_k \psi(2^jx-k), a_k \in R      \tag {9}
+\]</span> 构成的空间，由<span class="math inline">\(\psi(x)\)</span>的定义公式（7），则在<span class="math inline">\(W_j\)</span>中的小波基为： <span class="math display">\[
+\psi(2^jx)=\phi(2^{j+1}x)-\phi(2^{j+1}-1)   \tag {10}
+\]</span> 以此类推： <span class="math display">\[
+V_j=V_{0} \bigoplus W_0 \bigoplus W_1 \bigoplus W_2 ...     \tag {11}
+\]</span> 从公式（9）中可以看出，<span class="math inline">\(V_j\)</span>是可以由<span class="math inline">\(V_0\)</span>一步步“叠加”上来的，随着空间<span class="math inline">\(W_i\)</span>中<span class="math inline">\(i\)</span>值的增大，空间就&quot;越来越细&quot;(见公式10)，我们在这些空间中取基就足以将波分为高频和低频。</p>
+<h1 id="小波的分解和重构">小波的分解和重构</h1>
+<p>本节主要讲小波的应用，包括分解和重构，在开始之前我们需要简单的推导两个式子，便于后续计算.</p>
+<p>有公式（7）有<span class="math inline">\(\psi(x) = \phi(2x) - \phi(2x - 1)\)</span>，有： <span class="math display">\[
+[\psi(x)+\phi(x)]/2=[\phi(2x) - \phi(2x - 1) + \phi(x)]=[\phi(2x) - \phi(2x - 1) + \phi(2x) + \phi(2x - 1)] = 2\phi(2x)
+\]</span> 则： <span class="math display">\[
+\phi(2x)=[\psi(x)+\phi(x)] / 2  \tag {12}
+\]</span> 同理利用公式（7），可推得： <span class="math display">\[
+\phi(2x-1)= [\phi(x) - \psi(x)]/2   \tag{13}
+\]</span> 更一般的，对于所有的<span class="math inline">\(x \in R\)</span>,下列关系成立： <span class="math display">\[
+\phi(2^jx)=[\psi(2^{j-1}x)+\phi(2^{j-1}x)]/2    \tag {14}
+\]</span></p>
+<p><span class="math display">\[
+\phi(2^{j}x-1)=[\phi(2^{j-1}x)-\psi(2^{j-1}x)]/2    \tag {15}
+\]</span></p>
+<h2 id="分解">分解</h2>
+<p>下面是一个小波分解的例子：</p>
+<p>假设一个信号波可由<code>Haar</code>尺度函数表示为： <span class="math display">\[
+f(x)=2\phi(4x)+2\phi(4x-1)+\phi(4x-2)-\phi(4x-3)
+\]</span> 下面将以上信号波分解成小波表示形式。</p>
+<p>我们将每一个加法部分分开计算，由公式（14）和公式（15）： <span class="math display">\[
+2 \cdot \phi(4x)=2 \cdot [\psi(2x)+\phi(2x)]/2 = \psi(2x)+\phi(2x)
+\]</span></p>
+<p><span class="math display">\[
+2 \cdot \phi(4x-1)=2 \cdot [\phi(2x) - \phi(2x)] /2 = \phi(2x) - \phi(2x)
+\]</span></p>
+<p><span class="math display">\[
+\phi(4x-2)=\phi[2(2x-1)]=[\psi(2x-1) + \phi(2x-1)]/2
+\]</span></p>
+<p><span class="math display">\[
+\phi(4x-3)=\phi[2(2x-1)-1]=[\phi(2x-1)- \psi(2x-1)]/2
+\]</span></p>
+<p>以上四个式子合并，有： <span class="math display">\[
+f(x) =  \psi(2x-1)+2\phi(2x)
+\]</span> 下面再对<span class="math inline">\(2\phi(2x)\)</span>进行拆解： <span class="math display">\[
+2 \cdot \phi(2x)=2 \cdot [\psi(x)+\phi(x)] / 2= \psi(x)+\phi(x)
+\]</span> 故最终的<span class="math inline">\(f(x)\)</span>可以分解为： <span class="math display">\[
+f(x)=\psi(2x-1)+\psi(x)+\phi(x)
+\]</span></p>
+<h2 id="重构以及应用">重构以及应用</h2>
+<p>重构实际上就是基波的加权，在<code>傅里叶变换</code>中,我们称为反傅里叶变换。更一般的说，就是频域转时域。</p>
 <p><strong>通常在运用中，重构的参数不会完全使用分解时的参数，多数情况下，会少一部分，否则先分解再重构就没有意义</strong></p>
 <ul>
-<li>如果在重构时仅加权“细粒度”的<code>Haar波</code>,那么就仅提取变化较大的波。即低通滤波器</li>
-<li>如果在重构时仅加权“粗粒度”的<code>Haar波</code>,那么就仅提取变化较小的波。即高通滤波器</li>
+<li>如果在重构时仅加权“细粒度&quot;的<code>Haar波</code>,那么就仅提取变化较大的波。即低通滤波器</li>
+<li>如果在重构时仅加权“粗粒度&quot;的<code>Haar波</code>,那么就仅提取变化较小的波。即高通滤波器</li>
 </ul>
 <p>此外，在信号传输中，若只保留低频信号，可以仅传输分解后的权值，且仅传输低频的权值，接收方在收到权值后再重构成信号。这样即能够滤波，也能够极大的保证传输速度。</p>
 
@@ -737,7 +814,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#傅里叶变换的劣势"><span class="nav-number">1.1.</span> <span class="nav-text">傅里叶变换的劣势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#局部波"><span class="nav-number">1.2.</span> <span class="nav-text">局部波</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Haar小波"><span class="nav-number">2.</span> <span class="nav-text">Haar小波</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Haar尺度函数"><span class="nav-number">2.1.</span> <span class="nav-text">Haar尺度函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Haar小波基函数"><span class="nav-number">2.2.</span> <span class="nav-text">Haar小波基函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小波的分解和重构"><span class="nav-number">3.</span> <span class="nav-text">小波的分解和重构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分解"><span class="nav-number">3.1.</span> <span class="nav-text">分解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重构以及应用"><span class="nav-number">3.2.</span> <span class="nav-text">重构以及应用</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#傅里叶变换的劣势"><span class="nav-number">1.1.</span> <span class="nav-text">傅里叶变换的劣势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#局部波"><span class="nav-number">1.2.</span> <span class="nav-text">局部波</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#haar小波"><span class="nav-number">2.</span> <span class="nav-text">Haar小波</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#haar尺度函数"><span class="nav-number">2.1.</span> <span class="nav-text">Haar尺度函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#haar小波基函数"><span class="nav-number">2.2.</span> <span class="nav-text">Haar小波基函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小波的分解和重构"><span class="nav-number">3.</span> <span class="nav-text">小波的分解和重构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分解"><span class="nav-number">3.1.</span> <span class="nav-text">分解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重构以及应用"><span class="nav-number">3.2.</span> <span class="nav-text">重构以及应用</span></a></li></ol></li></ol></div>
             
 
           </div>

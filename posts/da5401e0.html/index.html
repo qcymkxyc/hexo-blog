@@ -81,12 +81,12 @@
 
 
 
-<meta name="description" content="Question Haar特征的流程 积分图的作用是什么 用分类器做目标检测的思路 为何人脸识别会用Adaboost  Haar特征Haar特征的流程Haar特征实际上非常简单：  即用一个类似于卷积层的模板滑过图片，用白色区域的和减去黑色区域的和即为Haar特征  但在Haar特征的模板多种多样，不同的模板有不同的作用，如下图所示：  上图中A和B检验的是竖直和水平的边缘，C模板是检测一条线模板">
+<meta name="description" content="Question  Haar特征的流程 积分图的作用是什么 用分类器做目标检测的思路 为何人脸识别会用Adaboost  Haar特征 Haar特征的流程 Haar特征实际上非常简单：  即用一个类似于卷积层的模板滑过图片，用白色区域的和减去黑色区域的和即为Haar特征  但在Haar特征的模板多种多样，不同的模板有不同的作用，如下图所示：     上图中A和B检验的是竖直和水平的边缘，C模板是检">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Haar特征">
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/da5401e0.html/index.html">
 <meta property="og:site_name" content="冒烟的乔个人博客">
-<meta property="og:description" content="Question Haar特征的流程 积分图的作用是什么 用分类器做目标检测的思路 为何人脸识别会用Adaboost  Haar特征Haar特征的流程Haar特征实际上非常简单：  即用一个类似于卷积层的模板滑过图片，用白色区域的和减去黑色区域的和即为Haar特征  但在Haar特征的模板多种多样，不同的模板有不同的作用，如下图所示：  上图中A和B检验的是竖直和水平的边缘，C模板是检测一条线模板">
+<meta property="og:description" content="Question  Haar特征的流程 积分图的作用是什么 用分类器做目标检测的思路 为何人脸识别会用Adaboost  Haar特征 Haar特征的流程 Haar特征实际上非常简单：  即用一个类似于卷积层的模板滑过图片，用白色区域的和减去黑色区域的和即为Haar特征  但在Haar特征的模板多种多样，不同的模板有不同的作用，如下图所示：     上图中A和B检验的是竖直和水平的边缘，C模板是检">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1328274-20180802215641326-115308739.png">
 <meta property="article:published_time" content="2020-03-30T09:08:48.000Z">
 <meta property="article:modified_time" content="2021-10-13T01:52:49.720Z">
@@ -415,27 +415,37 @@
       
 
       
-        <h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ul>
+        <h2 id="question">Question</h2>
+<ul>
 <li>Haar特征的流程</li>
 <li>积分图的作用是什么</li>
 <li>用分类器做目标检测的思路</li>
 <li>为何人脸识别会用Adaboost</li>
 </ul>
-<h2 id="Haar特征"><a href="#Haar特征" class="headerlink" title="Haar特征"></a>Haar特征</h2><h3 id="Haar特征的流程"><a href="#Haar特征的流程" class="headerlink" title="Haar特征的流程"></a>Haar特征的流程</h3><p>Haar特征实际上非常简单：</p>
+<h2 id="haar特征">Haar特征</h2>
+<h3 id="haar特征的流程">Haar特征的流程</h3>
+<p>Haar特征实际上非常简单：</p>
 <blockquote>
 <p>即用一个类似于卷积层的模板滑过图片，用白色区域的和减去黑色区域的和即为Haar特征</p>
 </blockquote>
 <p>但在Haar特征的模板多种多样，不同的模板有不同的作用，如下图所示：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1328274-20180802215641326-115308739.png" alt=""></p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1328274-20180802215641326-115308739.png">
+
+</div>
 <p>上图中A和B检验的是竖直和水平的边缘，C模板是检测一条线模板</p>
-<h3 id="积分图"><a href="#积分图" class="headerlink" title="积分图"></a>积分图</h3><blockquote>
-<p> 积分图的作用是加快Haar特征的计算的</p>
+<h3 id="积分图">积分图</h3>
+<blockquote>
+<p>积分图的作用是加快Haar特征的计算的</p>
 </blockquote>
 <p>因为在计算Haar特征时，如果不用积分图，一个区域的像素点会相加很多次，这在效率上很不划算，所以就会计算积分图（一句话，用空间换时间）</p>
 <p>至于具体如何做，就是从左上角往右下角叠加</p>
-<h2 id="关于基于Adaboost的人脸检测"><a href="#关于基于Adaboost的人脸检测" class="headerlink" title="关于基于Adaboost的人脸检测"></a>关于基于Adaboost的人脸检测</h2><h3 id="基于分类器的检测算法的大体流程"><a href="#基于分类器的检测算法的大体流程" class="headerlink" title="基于分类器的检测算法的大体流程"></a>基于分类器的检测算法的大体流程</h3><p>众所周知，分类器是不能直接进行目标检测的。用分类器做目标检测的大体思路是：先用不同大小的Bounding Box扫过图像（类似于穷举），再用分类器对Bounding Box内的图像进行判断，判断该Bounding Box中是否有目标（2分类问题）</p>
+<h2 id="关于基于adaboost的人脸检测">关于基于Adaboost的人脸检测</h2>
+<h3 id="基于分类器的检测算法的大体流程">基于分类器的检测算法的大体流程</h3>
+<p>众所周知，分类器是不能直接进行目标检测的。用分类器做目标检测的大体思路是：先用不同大小的Bounding Box扫过图像（类似于穷举），再用分类器对Bounding Box内的图像进行判断，判断该Bounding Box中是否有目标（2分类问题）</p>
 <p>在训练分类器时，有Ground Truth即标为正样本，无Ground Truth标为负样本</p>
-<h3 id="Haar-Adaboost级联人脸识别"><a href="#Haar-Adaboost级联人脸识别" class="headerlink" title="Haar +Adaboost级联人脸识别"></a>Haar +Adaboost级联人脸识别</h3><p>该流程分为两部分：</p>
+<h3 id="haar-adaboost级联人脸识别">Haar +Adaboost级联人脸识别</h3>
+<p>该流程分为两部分：</p>
 <ul>
 <li>用<strong>不同大小，不同形态</strong>的模板对图片提取Haar特征</li>
 <li>用Adaboost模型基于上述的目标检测思路进行识别</li>
@@ -453,10 +463,11 @@
 <li>随着数据流逐渐往后走，模型会相对的复杂，此时识别效果会上升。并且，由于Adaboost本身也是一个集成模型，随着分类器的增多，识别的精度也会上升，这就保证了识别的精度（此时可以保证识别效果）</li>
 </ul>
 </blockquote>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<h2 id="参考">参考</h2>
+<blockquote>
 <ul>
-<li><a href="https://www.cnblogs.com/zyly/p/9410563.html" target="_blank" rel="noopener">https://www.cnblogs.com/zyly/p/9410563.html</a></li>
-<li><a href="https://blog.csdn.net/liulina603/article/details/8617281" target="_blank" rel="noopener">https://blog.csdn.net/liulina603/article/details/8617281</a></li>
+<li>https://www.cnblogs.com/zyly/p/9410563.html</li>
+<li>https://blog.csdn.net/liulina603/article/details/8617281</li>
 </ul>
 </blockquote>
 
@@ -711,7 +722,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Haar特征"><span class="nav-number">2.</span> <span class="nav-text">Haar特征</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Haar特征的流程"><span class="nav-number">2.1.</span> <span class="nav-text">Haar特征的流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#积分图"><span class="nav-number">2.2.</span> <span class="nav-text">积分图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于基于Adaboost的人脸检测"><span class="nav-number">3.</span> <span class="nav-text">关于基于Adaboost的人脸检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于分类器的检测算法的大体流程"><span class="nav-number">3.1.</span> <span class="nav-text">基于分类器的检测算法的大体流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Haar-Adaboost级联人脸识别"><span class="nav-number">3.2.</span> <span class="nav-text">Haar +Adaboost级联人脸识别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#haar特征"><span class="nav-number">2.</span> <span class="nav-text">Haar特征</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#haar特征的流程"><span class="nav-number">2.1.</span> <span class="nav-text">Haar特征的流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#积分图"><span class="nav-number">2.2.</span> <span class="nav-text">积分图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于基于adaboost的人脸检测"><span class="nav-number">3.</span> <span class="nav-text">关于基于Adaboost的人脸检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于分类器的检测算法的大体流程"><span class="nav-number">3.1.</span> <span class="nav-text">基于分类器的检测算法的大体流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#haar-adaboost级联人脸识别"><span class="nav-number">3.2.</span> <span class="nav-text">Haar +Adaboost级联人脸识别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>

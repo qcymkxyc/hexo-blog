@@ -81,12 +81,12 @@
 
 
 
-<meta name="description" content="QuestionELMO ELMO的主旨思想 ELMO的流程 在多层情况下，ELMO的权值如何确定 在多层情况下，ELMO的最终结果如何得到  ELMO概述 在word2vec中任何一个词对应一个Word Embedding，但同一个词在不同的语境下表示的含义可能是不同的，所以ELMO认为相同的词在不同的语境下有不同的Embedding  算法流程ELMO的流程较为简单，总体用一个Bi-Direc">
+<meta name="description" content="Question ELMO  ELMO的主旨思想 ELMO的流程 在多层情况下，ELMO的权值如何确定 在多层情况下，ELMO的最终结果如何得到  ELMO 概述  在word2vec中任何一个词对应一个Word Embedding，但同一个词在不同的语境下表示的含义可能是不同的，所以ELMO认为相同的词在不同的语境下有不同的Embedding  算法流程 ELMO的流程较为简单，总体用一个Bi-">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ELMO、BERT以及GPT">
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/3a513c16.html/index.html">
 <meta property="og:site_name" content="冒烟的乔个人博客">
-<meta property="og:description" content="QuestionELMO ELMO的主旨思想 ELMO的流程 在多层情况下，ELMO的权值如何确定 在多层情况下，ELMO的最终结果如何得到  ELMO概述 在word2vec中任何一个词对应一个Word Embedding，但同一个词在不同的语境下表示的含义可能是不同的，所以ELMO认为相同的词在不同的语境下有不同的Embedding  算法流程ELMO的流程较为简单，总体用一个Bi-Direc">
+<meta property="og:description" content="Question ELMO  ELMO的主旨思想 ELMO的流程 在多层情况下，ELMO的权值如何确定 在多层情况下，ELMO的最终结果如何得到  ELMO 概述  在word2vec中任何一个词对应一个Word Embedding，但同一个词在不同的语境下表示的含义可能是不同的，所以ELMO认为相同的词在不同的语境下有不同的Embedding  算法流程 ELMO的流程较为简单，总体用一个Bi-">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/11864412-fa8c31b80704cc40.png">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/11864412-de0f3386271083e3.png">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/11864412-a92f25557abd193f.png">
@@ -417,25 +417,39 @@
       
 
       
-        <h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><h3 id="ELMO"><a href="#ELMO" class="headerlink" title="ELMO"></a>ELMO</h3><ul>
+        <h2 id="question">Question</h2>
+<h3 id="elmo">ELMO</h3>
+<ul>
 <li>ELMO的主旨思想</li>
 <li>ELMO的流程</li>
 <li>在多层情况下，ELMO的权值如何确定</li>
 <li>在多层情况下，ELMO的最终结果如何得到</li>
 </ul>
-<h2 id="ELMO-1"><a href="#ELMO-1" class="headerlink" title="ELMO"></a>ELMO</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><blockquote>
+<h2 id="elmo-1">ELMO</h2>
+<h3 id="概述">概述</h3>
+<blockquote>
 <p>在word2vec中任何一个词对应一个Word Embedding，但同一个词在不同的语境下表示的含义可能是不同的，所以ELMO认为相同的词在不同的语境下有不同的Embedding</p>
 </blockquote>
-<h3 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h3><p>ELMO的流程较为简单，总体用一个Bi-Directional RNN来拟合。正向和反向部分结构一样，这里以正向为例。</p>
+<h3 id="算法流程">算法流程</h3>
+<p>ELMO的流程较为简单，总体用一个Bi-Directional RNN来拟合。正向和反向部分结构一样，这里以正向为例。</p>
 <blockquote>
 <p>正向部分类似于Seq-to-Seq的Encoder，但输出是Many-To-Many的形式，每一个RNN的输出对应一个词的Embedding。</p>
 </blockquote>
 <p>将正向和反向的Embedding stack到一起即为一层对于一个词的Embedding。如下图所示。</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/11864412-fa8c31b80704cc40.png" alt=""></p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/11864412-fa8c31b80704cc40.png">
+
+</div>
 <p>但通常情况下会有多层输出，如下图所示：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/11864412-de0f3386271083e3.png" alt=""></p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/11864412-de0f3386271083e3.png">
+
+</div>
 <p>对于一个词的Embedding取哪一层是一个问题。而ELMO的做法是<strong>都要</strong>，他将两层的结果进行加权，如下图所示：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/11864412-a92f25557abd193f.png" alt=""></p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/11864412-a92f25557abd193f.png">
+
+</div>
 <p>但权值的确定有两种：</p>
 <ul>
 <li>要么靠人为设定</li>
@@ -695,7 +709,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ELMO"><span class="nav-number">1.1.</span> <span class="nav-text">ELMO</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ELMO-1"><span class="nav-number">2.</span> <span class="nav-text">ELMO</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法流程"><span class="nav-number">2.2.</span> <span class="nav-text">算法流程</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#elmo"><span class="nav-number">1.1.</span> <span class="nav-text">ELMO</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#elmo-1"><span class="nav-number">2.</span> <span class="nav-text">ELMO</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法流程"><span class="nav-number">2.2.</span> <span class="nav-text">算法流程</span></a></li></ol></li></ol></div>
             
 
           </div>

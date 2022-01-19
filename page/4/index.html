@@ -417,9 +417,11 @@
       
         
           
-          基本用法创建一个datasets：1234import tensorflow as tfdatasets = tf.data.DataSets.from_tensor_slices([1,2,3,4,5])datasets
-
-遍历datasets：12for elem in dataset:  pr
+          基本用法
+创建一个datasets：
+1234import tensorflow as tfdatasets = tf.data.DataSets.from_tensor_slices([1,2,3,4,5])datasets
+遍历datasets：
+12for elem in dataset:  
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -578,10 +580,9 @@
         
           
           产品文章
+
 B端和C端的本质区别
-
 2B中产品和定制的利弊权衡
-
 
 
           
@@ -742,13 +743,16 @@ B端和C端的本质区别
         
           
           Question
+
 RANSAC有什么用
 RANSAC的中文名叫什么
 RANSAC的流程
 
-RANSAC概述
+RANSAC
+概述
+
 RANSAC(Random Sample Consensus，随机采样一致）可以将数据中的噪声排除在外，从而使模型拟合正常点。
-RANSAC的基本假设是数据由“内点”和“外点”组成，内点即为正
+RANSAC的基本假设是数据由“内点”和“外点”组成，内点
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -907,16 +911,19 @@ RANSAC的基本假设是数据由“内点”和“外点”组成，内点即�
         
           
           Question
+
 Haar特征的流程
 积分图的作用是什么
 用分类器做目标检测的思路
 为何人脸识别会用Adaboost
 
-Haar特征Haar特征的流程Haar特征实际上非常简单：
+Haar特征
+Haar特征的流程
+Haar特征实际上非常简单：
 
 即用一个类似于卷积层的模板滑过图片，用白色区域的和减去黑色区域的和即为Haar特征
 
-但在Haar特征的模板多种多样，
+但在Haar特征的模板多种
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1075,15 +1082,18 @@ Haar特征Haar特征的流程Haar特征实际上非常简单：
         
           
           Question
+
 KL散度有什么性质
 KL散度主要的作用是什么
 JS散度有什么性质
 JS散度如何计算
 
 KL散度
+
 KL( Kullback–Leibler divergence)散度又名相对熵（relative entropy)，用来衡量两个分布之间的距离
 
-公式为：$$D(P||Q)=\sum_{
+公式为： \[
+D(P||Q)=\s
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1243,10 +1253,11 @@ KL( Kullback–Leibler divergence)散度又名相对熵（relative entropy)，�
           
           DeepLearningAi上的Attention机制似乎和李宏毅教程上的有一定出入，本文以李宏毅教程上的为准
 Question
+
 和LSTM层相比，Attention机制的优势是什么
 Attention 机制一般用在什么任务中
 Attention的流程
-Multi Head Attention好于s
+Multi Head Attention好于
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1406,6 +1417,7 @@ Multi Head Attention好于s
           
           Question
 
+
 在numpy中协方差矩阵是以行为单位计算还是以列为单位计算
 在numpy中计算协方差是有偏的还是无偏的
 协方差以及Pearson相识度的计算流程
@@ -1414,7 +1426,8 @@ Pearson相关度和协方差的区别
 spearman相似度计算的流程
 
 
-协方差首先说最简单的—
+协方差
+首先说最简单
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1573,11 +1586,13 @@ spearman相似度计算的流程
         
           
           Queston
+
 欧氏距离和曼哈顿距离的在几何上的区别
 Jaccard距离在什么场景用
 
-闵可夫斯基距离曼哈顿距离和欧式距离可以看成是特殊的闵可夫斯基距离。
-设有两个向量$P=(x_1,x_2,…,x_n)$和$Q=(y_1,y_2,..,y_n)$,则两个向量的欧式距离和曼哈顿距离可以分别表示为：$
+闵可夫斯基距离
+曼哈顿距离和欧式距离可以看成是特殊的闵可夫斯基距离。
+设有两个向量\(P=(x_1,x_2,...,x_n)\)和\(Q=(y_1,y_2,..,y_n)\),则两个向量的欧式距离和曼哈顿距离可
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1736,13 +1751,15 @@ Jaccard距离在什么场景用
         
           
           Question
+
 笛卡尔坐标系中多点共线，在Hough空间中表现如何
 在Hough变换中，如何保证多点共线，即保证共线的原理是什么
 霍夫变换对图像的输入有什么要求
-以$k$和$b$为基的空间的缺点在哪儿
+以\(k\)和\(b\)为基的空间的缺点在哪儿
 霍夫变换的大体流程
 
-霍夫变换原理对于笛卡尔坐标系中的一条线$y=kx+b$,可以转换成霍夫空间
+霍夫变换原理
+对于笛卡尔坐标系中的一条线\(y=kx+b\),可
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1900,17 +1917,20 @@ Jaccard距离在什么场景用
       
         
           
-          DTW距离Question
+          DTW距离
+Question
+
 DTW的作用
 DTW的大致流程
 
 DTW距离
+
 DTW全称Dynamic Time Warping，用于衡量两个不同长度的两个序列的距离
 
 
 构造匹配矩阵
 
-设序列1$Q=q_1,q_2,…,q_n$,序列2$C=c_1,c_2,…,c_m$ ,其中$n\neq m$,然后
+设序列1\(Q=q_1,q_2,...,q_n\),序列2\(C=c_1,c_2,...,c_m\) ,其中\
           ...
           <!--noindex-->
           <div class="post-button text-center">

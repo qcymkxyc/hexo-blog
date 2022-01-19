@@ -81,12 +81,12 @@
 
 
 
-<meta name="description" content="Question RANSAC有什么用 RANSAC的中文名叫什么 RANSAC的流程  RANSAC概述 RANSAC(Random Sample Consensus，随机采样一致）可以将数据中的噪声排除在外，从而使模型拟合正常点。 RANSAC的基本假设是数据由“内点”和“外点”组成，内点即为正常数据，外点(outliers)非正常数据（包括异常点、噪声等），而RANSAC的目的是将“外点”排">
+<meta name="description" content="Question  RANSAC有什么用 RANSAC的中文名叫什么 RANSAC的流程  RANSAC 概述  RANSAC(Random Sample Consensus，随机采样一致）可以将数据中的噪声排除在外，从而使模型拟合正常点。 RANSAC的基本假设是数据由“内点”和“外点”组成，内点即为正常数据，外点(outliers)非正常数据（包括异常点、噪声等），而RANSAC的目的是将“外">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RANSAC算法">
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/e108c696.html/index.html">
 <meta property="og:site_name" content="冒烟的乔个人博客">
-<meta property="og:description" content="Question RANSAC有什么用 RANSAC的中文名叫什么 RANSAC的流程  RANSAC概述 RANSAC(Random Sample Consensus，随机采样一致）可以将数据中的噪声排除在外，从而使模型拟合正常点。 RANSAC的基本假设是数据由“内点”和“外点”组成，内点即为正常数据，外点(outliers)非正常数据（包括异常点、噪声等），而RANSAC的目的是将“外点”排">
+<meta property="og:description" content="Question  RANSAC有什么用 RANSAC的中文名叫什么 RANSAC的流程  RANSAC 概述  RANSAC(Random Sample Consensus，随机采样一致）可以将数据中的噪声排除在外，从而使模型拟合正常点。 RANSAC的基本假设是数据由“内点”和“外点”组成，内点即为正常数据，外点(outliers)非正常数据（包括异常点、噪声等），而RANSAC的目的是将“外">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E6%95%B0%E6%8D%AE%E6%95%A3%E7%82%B9%E5%9B%BE.png">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E6%8B%9F%E5%90%88%E7%BB%93%E6%9E%9C.png">
 <meta property="article:published_time" content="2020-04-13T01:10:27.000Z">
@@ -414,36 +414,48 @@
       
 
       
-        <h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ul>
+        <h2 id="question">Question</h2>
+<ul>
 <li>RANSAC有什么用</li>
 <li>RANSAC的中文名叫什么</li>
 <li>RANSAC的流程</li>
 </ul>
-<h2 id="RANSAC"><a href="#RANSAC" class="headerlink" title="RANSAC"></a>RANSAC</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><blockquote>
+<h2 id="ransac">RANSAC</h2>
+<h3 id="概述">概述</h3>
+<blockquote>
 <p>RANSAC(Random Sample Consensus，随机采样一致）可以将数据中的噪声排除在外，从而使模型拟合正常点。</p>
 <p>RANSAC的基本假设是数据由“内点”和“外点”组成，内点即为正常数据，外点(outliers)非正常数据（包括异常点、噪声等），而RANSAC的目的是将“外点”排除在外，仅拟合内点。</p>
 </blockquote>
-<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><p>RANSAC是通过反复选择数据集去估计出模型，一直迭代到估计出认为比较好的模型。<br>具体的实现步骤可以分为以下几步：</p>
-<ol>
+<h3 id="流程">流程</h3>
+<p>RANSAC是通过反复选择数据集去估计出模型，一直迭代到估计出认为比较好的模型。 具体的实现步骤可以分为以下几步：</p>
+<ol style="list-style-type: decimal">
 <li>选择出可以估计出模型的最小数据集；(对于直线拟合来说就是两个点，对于计算Homography矩阵就是4个点)</li>
 <li>使用这个数据集来计算出数据模型；</li>
 <li>将所有数据带入这个模型，计算出“内点”的数目；(累加在一定误差范围内的适合当前迭代推出模型的数据)</li>
 <li>比较当前模型和之前推出的最好的模型的“内点“的数量，记录最大“内点”数的模型参数和“内点”数；</li>
 <li>重复1-4步，直到迭代结束或者当前模型已经足够好了(“内点数目大于一定数量”)。</li>
 </ol>
-<h2 id="实验代码"><a href="#实验代码" class="headerlink" title="实验代码"></a>实验代码</h2><h3 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">n_real = <span class="number">100</span></span><br><span class="line">n_fake = <span class="number">30</span></span><br><span class="line"></span><br><span class="line">x = np.random.uniform(low=<span class="number">0</span>,high = <span class="number">100</span>,size = n_real + n_fake)</span><br><span class="line"></span><br><span class="line">k,b = <span class="number">3</span>,<span class="number">7</span></span><br><span class="line">y = k * x + b</span><br><span class="line"></span><br><span class="line">x = np.random.normal(scale = <span class="number">20</span>,size = x.shape) + x</span><br><span class="line">y = np.random.normal(scale = <span class="number">20</span>,size = y.shape) + y</span><br><span class="line"></span><br><span class="line">y_fake = np.asarray([<span class="number">500</span>] *n_fake) + np.random.normal(scale=<span class="number">20</span>,size=n_fake)</span><br><span class="line">y[n_real:] = y_fake</span><br><span class="line"></span><br><span class="line">plt.scatter(x[:n_real],y[:n_real],label = <span class="string">"Real"</span>)</span><br><span class="line">plt.scatter(x[n_real:],y[n_real:],label = <span class="string">"Fake"</span>)</span><br><span class="line">plt.legend()</span><br></pre></td></tr></table></figure>
-
+<h2 id="实验代码">实验代码</h2>
+<h3 id="数据准备">数据准备</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">n_real = <span class="number">100</span></span><br><span class="line">n_fake = <span class="number">30</span></span><br><span class="line"></span><br><span class="line">x = np.random.uniform(low=<span class="number">0</span>,high = <span class="number">100</span>,size = n_real + n_fake)</span><br><span class="line"></span><br><span class="line">k,b = <span class="number">3</span>,<span class="number">7</span></span><br><span class="line">y = k * x + b</span><br><span class="line"></span><br><span class="line">x = np.random.normal(scale = <span class="number">20</span>,size = x.shape) + x</span><br><span class="line">y = np.random.normal(scale = <span class="number">20</span>,size = y.shape) + y</span><br><span class="line"></span><br><span class="line">y_fake = np.asarray([<span class="number">500</span>] *n_fake) + np.random.normal(scale=<span class="number">20</span>,size=n_fake)</span><br><span class="line">y[n_real:] = y_fake</span><br><span class="line"></span><br><span class="line">plt.scatter(x[:n_real],y[:n_real],label = <span class="string">"Real"</span>)</span><br><span class="line">plt.scatter(x[n_real:],y[n_real:],label = <span class="string">"Fake"</span>)</span><br><span class="line">plt.legend()</span><br></pre></td></tr></table></figure>
 <p>数据分布的散点图如下图：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E6%95%B0%E6%8D%AE%E6%95%A3%E7%82%B9%E5%9B%BE.png" alt=""></p>
-<h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><p>这里用线性回归来拟合散点图，对比不用 RANSAC和用RANSAC的区别，代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">i = <span class="number">0</span></span><br><span class="line">alpha = <span class="number">5</span> <span class="comment"># 判断的宽限条件</span></span><br><span class="line">best_model = <span class="literal">None</span></span><br><span class="line">best_fit_num = <span class="number">0</span> <span class="comment">#最多的拟合个数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> i &lt; <span class="number">100</span>:</span><br><span class="line">    model = LinearRegression()</span><br><span class="line">    </span><br><span class="line">    sample_i = np.random.choice(range(len(x)),size = <span class="number">2</span>)</span><br><span class="line">    sample_x = x[sample_i]</span><br><span class="line">    sample_y = y[sample_i]</span><br><span class="line">    temp_x = sample_x.reshape(<span class="number">-1</span>,<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    model.fit(temp_x,sample_y)</span><br><span class="line">    predict_y = model.predict(x.reshape(<span class="number">-1</span>,<span class="number">1</span>))</span><br><span class="line">    </span><br><span class="line">    current_fit_num = np.sum(np.abs(predict_y - y) &lt; alpha)</span><br><span class="line">    <span class="keyword">if</span> current_fit_num &gt; best_fit_num:</span><br><span class="line">        best_model = model</span><br><span class="line">        best_fit_num = current_fit_num</span><br><span class="line">    </span><br><span class="line">    i += <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">normal_model = LinearRegression()</span><br><span class="line">temp_x = x.reshape(<span class="number">-1</span>,<span class="number">1</span>)</span><br><span class="line">normal_model.fit(temp_x,y)</span><br></pre></td></tr></table></figure>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/数据散点图.png">
 
+</div>
+<h3 id="对比">对比</h3>
+<p>这里用线性回归来拟合散点图，对比不用 RANSAC和用RANSAC的区别，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">i = <span class="number">0</span></span><br><span class="line">alpha = <span class="number">5</span> <span class="comment"># 判断的宽限条件</span></span><br><span class="line">best_model = <span class="literal">None</span></span><br><span class="line">best_fit_num = <span class="number">0</span> <span class="comment">#最多的拟合个数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> i &lt; <span class="number">100</span>:</span><br><span class="line">    model = LinearRegression()</span><br><span class="line">    </span><br><span class="line">    sample_i = np.random.choice(range(len(x)),size = <span class="number">2</span>)</span><br><span class="line">    sample_x = x[sample_i]</span><br><span class="line">    sample_y = y[sample_i]</span><br><span class="line">    temp_x = sample_x.reshape(<span class="number">-1</span>,<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    model.fit(temp_x,sample_y)</span><br><span class="line">    predict_y = model.predict(x.reshape(<span class="number">-1</span>,<span class="number">1</span>))</span><br><span class="line">    </span><br><span class="line">    current_fit_num = np.sum(np.abs(predict_y - y) &lt; alpha)</span><br><span class="line">    <span class="keyword">if</span> current_fit_num &gt; best_fit_num:</span><br><span class="line">        best_model = model</span><br><span class="line">        best_fit_num = current_fit_num</span><br><span class="line">    </span><br><span class="line">    i += <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">normal_model = LinearRegression()</span><br><span class="line">temp_x = x.reshape(<span class="number">-1</span>,<span class="number">1</span>)</span><br><span class="line">normal_model.fit(temp_x,y)</span><br></pre></td></tr></table></figure>
 <p>得到的结果如下图所示：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E6%8B%9F%E5%90%88%E7%BB%93%E6%9E%9C.png" alt=""></p>
-<p>代码见：<a href="https://github.com/qcymkxyc/AlgorithmImplement/blob/master/notebooks/RANSAC.ipynb" target="_blank" rel="noopener">https://github.com/qcymkxyc/AlgorithmImplement/blob/master/notebooks/RANSAC.ipynb</a></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/拟合结果.png">
+
+</div>
+<p>代码见：https://github.com/qcymkxyc/AlgorithmImplement/blob/master/notebooks/RANSAC.ipynb</p>
+<h2 id="参考">参考</h2>
+<blockquote>
 <ul>
-<li><a href="https://lixin97.com/2019/04/10/RANSAC/" target="_blank" rel="noopener">https://lixin97.com/2019/04/10/RANSAC/</a></li>
+<li>https://lixin97.com/2019/04/10/RANSAC/</li>
 </ul>
 </blockquote>
 
@@ -694,7 +706,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RANSAC"><span class="nav-number">2.</span> <span class="nav-text">RANSAC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流程"><span class="nav-number">2.2.</span> <span class="nav-text">流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验代码"><span class="nav-number">3.</span> <span class="nav-text">实验代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据准备"><span class="nav-number">3.1.</span> <span class="nav-text">数据准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对比"><span class="nav-number">3.2.</span> <span class="nav-text">对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ransac"><span class="nav-number">2.</span> <span class="nav-text">RANSAC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流程"><span class="nav-number">2.2.</span> <span class="nav-text">流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验代码"><span class="nav-number">3.</span> <span class="nav-text">实验代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据准备"><span class="nav-number">3.1.</span> <span class="nav-text">数据准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对比"><span class="nav-number">3.2.</span> <span class="nav-text">对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>

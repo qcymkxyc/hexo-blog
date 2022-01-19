@@ -417,18 +417,21 @@
       
         
           
-          LBP特征Question
+          LBP特征
+Question
+
 LBP特征的流程
 LBP特征的改进点在哪里，解决了什么问题
 
 LBP特征
+
 LBP特征用于提取纹理特征
 
 
 将图像切分block，比如切分成16*16
-
 对每个block内以3*3为单位，提取LBP特征
-​    对比3*3的方格中周围的值和中间的值，如果周围的值大于中间的
+
+​ 对比3*3的方格中周围的值和中间的值，如果周围的值大于中间的
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -586,14 +589,17 @@ LBP特征用于提取纹理特征
       
         
           
-          Triplet NetworkQuestion
+          Triplet Network
+Question
+
 Triplet Network和Siamese Network相比哪个效果好
 Triplet Network的大体流程
 Triplet NetWork的主体思想是什么
-loss中$\alpha$的作用
+loss中\(\alpha\)的作用
 
 Triplet Network
-既然Siames
+
+既然S
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -751,13 +757,15 @@ Triplet Network
       
         
           
-          Siamese网络Question
+          Siamese网络
+Question
+
 孪生网络的两个网络结构需要相同吗？权重是否一定要一致？
 孪生网络的大体流程
 在生成的结果中，两个向量的相似程度如何计算？是直接算欧氏距离还是loss
 孪生网络中的loss中m的作用，增大m会有什么影响
 2-Channel的主体思想
-Triple Network的主
+Triple Network
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -916,12 +924,15 @@ Triple Network的主
         
           
           Cmd Markdown 简明语法手册
-1. 斜体和粗体使用 * 和 ** 表示斜体和粗体。
+
+1. 斜体和粗体
+使用 * 和 ** 表示斜体和粗体。
 示例：
 这是 斜体，这是 粗体。
-2. 分级标题使用 === 表示一级标题，使用 — 表示二级标题。
+2. 分级标题
+使用 === 表示一级标题，使用 --- 表示二级标题。
 示例：
-1234567这是一个一级标题============================这是一个二
+1234567这是一个一级标题============================
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1079,14 +1090,26 @@ Triple Network的主
       
         
           
-          效果当前效果本文章是对人物背景抠图的改进,先看效果图:
+          效果
+当前效果
+本文章是对人物背景抠图的改进,先看效果图:
 原图像:
+
+
+
 
 本次替换后:
 
-原效果对比人物背景抠图中的效果:
 
-可以看到,针对原效果中结果不太好的有明显改进.例如第一行第四张图片,人物的头发处有许多的”空洞”,在改进后得到了填充;第二行第一张图片,原效果背景也有许多”空洞”,改进后有明显改善
+
+
+原效果
+对比人物背景抠图中的效果:
+
+
+
+
+可以看到,针对原效果中结果不太好的有明显改进.例如第一行第四张图片,人物的头发处有许多的&quot;空洞&quot;,在改进后得到了填充;第二行第一张图片,
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1246,16 +1269,21 @@ Triple Network的主
           
           以下是YOLO V3的结构图：
 
-总的来说,YOLO V3针对V2的改进并不多,有以下几点: 
+
+
+
+总的来说,YOLO V3针对V2的改进并不多,有以下几点:
 
 网络结构的改变
+
 
 YOLO V3采用Darknet-53 的网络结构,整个网络采用全卷积结构,相比于ResNet-152和ResNet-101强很多,速度也更快
 
 
 Anchor Box
 
-由于 YOL
+
+由于
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1419,7 +1447,7 @@ Anchor Box
         
         
         
-            document.getElementById("mmedia-DkiMop
+            document.getElementById("mmedia-AHoeaY
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1578,15 +1606,18 @@ Anchor Box
         
           
           Question
+
 mAP的流程
 
-mAP的流程mAP是目标检测中最为常见的指标,要了解mAP(mean Average Precision),就必须了解recall和precision(目标检测中这两个指标的计算和略有机器学习不同)
+mAP的流程
+mAP是目标检测中最为常见的指标,要了解mAP(mean Average Precision),就必须了解recall和precision(目标检测中这两个指标的计算和略有机器学习不同)
 
 
 
-真\预
+真
 正
 负
+
 
 
 
@@ -1598,7 +1629,6 @@ FN
 负
 FP
 TN
-
 
           ...
           <!--noindex-->
@@ -1758,6 +1788,7 @@ TN
         
           
           Question
+
 Better体现在哪些方面
 Anchor Box的数据结构是怎样的
 Anchor Box 聚类的衡量标准是什么
@@ -1765,7 +1796,7 @@ Anchor Box 聚类的衡量标准是什么
 pass through层是怎么做的
 对于Faster，YOLOV2采用了什么办法
 何为WordTree，如何构成
-在WordTre
+在WordTr
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1925,12 +1956,13 @@ pass through层是怎么做的
           
           YOLO​ v1的总结,备忘
 Question
+
 对于不同尺寸的输入图像YOLO是怎么解决的
 YOLO V1输出的数据结构如何（几维数据，每一维数据分别代表什么）
 为何YOLO V1要用两个BBox
-标签中的$Confidence$如何确定
-$Confidence$是什么时候得到的
-YOLO的$Los
+标签中的\(Confidence\)如何确定
+\(Confidence\)是什么时候得到的
+YOLO
           ...
           <!--noindex-->
           <div class="post-button text-center">

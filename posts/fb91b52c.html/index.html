@@ -81,12 +81,12 @@
 
 
 
-<meta name="description" content="本篇博客来自于DR_CAN的傅里叶函数推导，加上自己的一些理解，感谢大神的分享。 三角函数系有三角函数系：$$[sin(0x),cos(0x),sinx,cosx,sin2x,cos2x,…,sin(nx),cos(nx)] \tag    1$$   三角函数系，实质上是一组互不相关的基。在数学中这被称为基函数,即一个函数空间中最基本的组成元素.在信号中则被称为基波.  任意一个周期函数可以理解">
+<meta name="description" content="本篇博客来自于DR_CAN的傅里叶函数推导，加上自己的一些理解，感谢大神的分享。 三角函数系 有三角函数系： \[ [sin(0x),cos(0x),sinx,cosx,sin2x,cos2x,...,sin(nx),cos(nx)] \tag    1 \]   三角函数系，实质上是一组互不相关的基。在数学中这被称为基函数,即一个函数空间中最基本的组成元素.在信号中则被称为基波. 任意一个周期函">
 <meta property="og:type" content="article">
 <meta property="og:title" content="傅里叶级数与傅里叶变换推导">
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/fb91b52c.html/index.html">
 <meta property="og:site_name" content="冒烟的乔个人博客">
-<meta property="og:description" content="本篇博客来自于DR_CAN的傅里叶函数推导，加上自己的一些理解，感谢大神的分享。 三角函数系有三角函数系：$$[sin(0x),cos(0x),sinx,cosx,sin2x,cos2x,…,sin(nx),cos(nx)] \tag    1$$   三角函数系，实质上是一组互不相关的基。在数学中这被称为基函数,即一个函数空间中最基本的组成元素.在信号中则被称为基波.  任意一个周期函数可以理解">
+<meta property="og:description" content="本篇博客来自于DR_CAN的傅里叶函数推导，加上自己的一些理解，感谢大神的分享。 三角函数系 有三角函数系： \[ [sin(0x),cos(0x),sinx,cosx,sin2x,cos2x,...,sin(nx),cos(nx)] \tag    1 \]   三角函数系，实质上是一组互不相关的基。在数学中这被称为基函数,即一个函数空间中最基本的组成元素.在信号中则被称为基波. 任意一个周期函">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210709114728.jpg">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210709115517.jpeg">
 <meta property="article:published_time" content="2021-06-18T08:10:27.000Z">
@@ -417,47 +417,119 @@
 
       
         <p>本篇博客来自于<code>DR_CAN</code>的<a href="https://www.bilibili.com/video/BV1Et411R78v" target="_blank" rel="noopener">傅里叶函数推导</a>，加上自己的一些理解，感谢大神的分享。</p>
-<h1 id="三角函数系"><a href="#三角函数系" class="headerlink" title="三角函数系"></a>三角函数系</h1><p>有三角函数系：<br>$$<br>[sin(0x),cos(0x),sinx,cosx,sin2x,cos2x,…,sin(nx),cos(nx)] \tag    1<br>$$</p>
+<h1 id="三角函数系">三角函数系</h1>
+<p>有三角函数系： <span class="math display">\[
+[sin(0x),cos(0x),sinx,cosx,sin2x,cos2x,...,sin(nx),cos(nx)] \tag    1
+\]</span></p>
 <blockquote>
 <ul>
-<li><p>三角函数系，实质上是一组互不相关的基。在数学中这被称为基函数,即一个函数空间中最基本的组成元素.在信号中则被称为基波.</p>
-</li>
-<li><p>任意一个周期函数可以理解成在一个函数空间中的元素，为了表征这个元素，就需要基本元素通过加权和来得到它，这个基本元素就是基，对于函数空间而言，这个基被称为基函数。用数学术语叫做线性张成。</p>
-</li>
-<li><p>类似于欧几里得空间中的基向量，每一个基函数不能由其他基函数表征，否则这个基函数将没有存在的意义。这类似于线性空间中的线性无关。</p>
-</li>
-<li><p>级数的其中一个应用就是基的加权，无穷级数就是无限维情况下基的加权。有的情况下有的基的权重太小，删除这些维，就得到这个值的近似值。</p>
-</li>
+<li><p>三角函数系，实质上是一组互不相关的基。在数学中这被称为基函数,即一个函数空间中最基本的组成元素.在信号中则被称为基波.</p></li>
+<li><p>任意一个周期函数可以理解成在一个函数空间中的元素，为了表征这个元素，就需要基本元素通过加权和来得到它，这个基本元素就是基，对于函数空间而言，这个基被称为基函数。用数学术语叫做线性张成。</p></li>
+<li><p>类似于欧几里得空间中的基向量，每一个基函数不能由其他基函数表征，否则这个基函数将没有存在的意义。这类似于线性空间中的线性无关。</p></li>
+<li><p>级数的其中一个应用就是基的加权，无穷级数就是无限维情况下基的加权。有的情况下有的基的权重太小，删除这些维，就得到这个值的近似值。</p></li>
 </ul>
 </blockquote>
-<p>可以证明，三角函数的所有基必正交：<br>$$<br>\int_{-\pi}^{\pi}sin(nx)cos(mx)dx=0,其中(m\neq{n})    \tag 2<br>$$</p>
-<p>$$<br>\int_{-\pi}^{\pi}sin(nx)sin(mx)dx=0,其中(m\neq{n})    \tag 3<br>$$</p>
-<p>$$<br>\int_{-\pi}^{\pi}cos(nx)cos(mx)dx=0,其中(m\neq{n})    \tag 4<br>$$</p>
-<p>当$m=n$ 时，有：<br>$$<br>\int_{-\pi}^{\pi}cos(mx)cos(mx)dx=\pi    \tag 5<br>$$</p>
+<p>可以证明，三角函数的所有基必正交： <span class="math display">\[
+\int_{-\pi}^{\pi}sin(nx)cos(mx)dx=0,其中(m\neq{n})    \tag 2
+\]</span></p>
+<p><span class="math display">\[
+\int_{-\pi}^{\pi}sin(nx)sin(mx)dx=0,其中(m\neq{n})    \tag 3
+\]</span></p>
+<p><span class="math display">\[
+\int_{-\pi}^{\pi}cos(nx)cos(mx)dx=0,其中(m\neq{n})    \tag 4
+\]</span></p>
+<p>当<span class="math inline">\(m=n\)</span> 时，有： <span class="math display">\[
+\int_{-\pi}^{\pi}cos(mx)cos(mx)dx=\pi   \tag 5
+\]</span></p>
 <p>以上被称为三角函数的正交性</p>
-<h1 id="三角级数"><a href="#三角级数" class="headerlink" title="三角级数"></a>三角级数</h1><p>对于一个以周期为$2\pi$的周期函数$f(x)$(即$f(x)=f(x+2\pi)$),可以展开为三角级数：<br>$$<br>f(x) =\sum_{n=0}^{\infty}a_n{cos(nx)}+\sum_{n=0}^{\infty}b_n{sin(nx)}    \tag 6<br>$$</p>
+<h1 id="三角级数">三角级数</h1>
+<p>对于一个以周期为<span class="math inline">\(2\pi\)</span>的周期函数<span class="math inline">\(f(x)\)</span>(即<span class="math inline">\(f(x)=f(x+2\pi)\)</span>),可以展开为三角级数： <span class="math display">\[
+f(x) =\sum_{n=0}^{\infty}a_n{cos(nx)}+\sum_{n=0}^{\infty}b_n{sin(nx)}   \tag 6
+\]</span></p>
 <hr>
-<p>下面计算$a_n$和$b_n$，第一步先求$a_0$</p>
+<p>下面计算<span class="math inline">\(a_n\)</span>和<span class="math inline">\(b_n\)</span>，第一步先求<span class="math inline">\(a_0\)</span></p>
 <p>经过变换，有：</p>
-<p>$$<br>f(x)=a_0cos(0x)+b_0sin(0x)+\sum_{n=1}^{\infty}a_ncos(nx)+b_nsin(nx)    \tag 7<br>$$</p>
-<p>$$<br>f(x)=a_0+\sum_{n=1}^{\infty}a_ncos(nx)+b_nsin(nx)    \tag 8<br>$$</p>
-<p>两边同时积分，有：<br>$$<br>\int_{-\pi}^{\pi}f(x)dx=\int_{-\pi}^{\pi}a_0dx+\int_{-\pi}^{\pi}\sum_{n=1}^{\infty}{a_ncos(nx)}dx+\int_{-\pi}^{\pi}\sum_{n=1}^{\infty}{b_nsin(nx)}dx    \tag 9<br>$$</p>
-<p>$$<br>\int_{-\pi}^{\pi}f(x)dx=\int_{-\pi}^{\pi}a_0dx+\int_{-\pi}^{\pi}\sum_{n=1}^{\infty}{ a_n \times 1 \times cos(nx)}dx+\int_{-\pi}^{\pi}\sum_{n=1}^{\infty}{b_n \times 1 \times sin(nx)}dx    \tag {10}<br>$$</p>
-<p>根据三角函数的正交性，有：<br>$$<br>\int_{-\pi}^{\pi}f(x)dx=\int_{-\pi}^{\pi}a_0dx    \tag {11}<br>$$<br>则：<br>$$<br>a_0=\frac{1}{2\pi}\int_{-\pi}^{\pi}f(x)dx    \tag {12}<br>$$</p>
+<p><span class="math display">\[
+f(x)=a_0cos(0x)+b_0sin(0x)+\sum_{n=1}^{\infty}a_ncos(nx)+b_nsin(nx) \tag 7
+\]</span></p>
+<p><span class="math display">\[
+f(x)=a_0+\sum_{n=1}^{\infty}a_ncos(nx)+b_nsin(nx)   \tag 8
+\]</span></p>
+<p>两边同时积分，有： <span class="math display">\[
+\int_{-\pi}^{\pi}f(x)dx=\int_{-\pi}^{\pi}a_0dx+\int_{-\pi}^{\pi}\sum_{n=1}^{\infty}{a_ncos(nx)}dx+\int_{-\pi}^{\pi}\sum_{n=1}^{\infty}{b_nsin(nx)}dx    \tag 9
+\]</span></p>
+<p><span class="math display">\[
+\int_{-\pi}^{\pi}f(x)dx=\int_{-\pi}^{\pi}a_0dx+\int_{-\pi}^{\pi}\sum_{n=1}^{\infty}{ a_n \times 1 \times cos(nx)}dx+\int_{-\pi}^{\pi}\sum_{n=1}^{\infty}{b_n \times 1 \times sin(nx)}dx \tag {10}
+\]</span></p>
+<p>根据三角函数的正交性，有： <span class="math display">\[
+\int_{-\pi}^{\pi}f(x)dx=\int_{-\pi}^{\pi}a_0dx  \tag {11}
+\]</span> 则： <span class="math display">\[
+a_0=\frac{1}{2\pi}\int_{-\pi}^{\pi}f(x)dx   \tag {12}
+\]</span></p>
 <hr>
-<p>下面求$a_n$,在（6）中两边同时乘以$cos(mx)$,再积分（$m\in Z$），有：<br>$$<br>\int_{-\pi}^{\pi}f(x)cos(mx)dx=\int_{\pi}^{\pi}a_0cos(mx)dx+\int_{\pi}^{\pi}\sum_{n=1}^{\infty}cos(nx) \times a_n \times cos(mx)dx+\int_{\pi}^{\pi}\sum_{n=1}^{\infty}sin(nx) \times b_n \times cos(mx)dx    \tag {13}<br>$$<br>根据三角级数的性质可得：<br>$$<br>\int_{-\pi}^{\pi}f(x)cos(mx)dx=\int_{\pi}^{\pi}a_m(cos^2(mx))dx=a_m\pi    \tag {14}<br>$$<br>则：<br>$$<br>a_n=\frac{1}{\pi}\int_{\pi}^{\pi}f(x)cos(nx)dx    \tag {15}<br>$$<br>同理可得：<br>$$<br>b_n=\frac{1}{\pi}\int_{\pi}^{\pi}f(x)sin(nx)dx    \tag {16}<br>$$</p>
-<h1 id="傅里叶级数"><a href="#傅里叶级数" class="headerlink" title="傅里叶级数"></a>傅里叶级数</h1><p>在很多情况下，周期函数的周期不为$2\pi$,对于周期不为$2\pi$的周期函数，将其压缩为$2\pi$，再对其进行三角级数的变换。设存在一个周期函数$f(t)$，其周期为$2L$,有：<br>$$<br>f(t)=f(t+2L)    \tag {17}<br>$$<br>将函数$f(t)$压缩为$(0,2\pi)$的函数为：<br>$$<br>x=\frac{t}{2L} \times 2\pi    \tag {18}<br>$$<br>可得：<br>$$<br>x=\frac{\pi}{L} \times t    \tag {19}<br>$$</p>
-<p>$$<br>t = \frac{L}{\pi}x    \tag {20}<br>$$</p>
-<p>对函数$f(t)$换元，有：<br>$$<br>f(t)=f(\frac{L}{\pi}x)=g(x)    \tag {21}<br>$$<br>此时，函数$g(x)$为以$2\pi$为周期的周期函数,有：<br>$$<br>g(x)=\frac{a_0}{2}+\sum_{n=1}^{\infty}[a_ncos(nx)+b_nsin(nx)]    \tag {22}<br>$$</p>
-<p>当$x=-\pi$时，有$t=-L$;当$x=\pi$时，有$t=L$.且$x$在$(-\pi,\pi)$范围内单调递增。由公式（16）~(18),有：<br>$$<br>a_0=\frac{1}{\pi}\int_{-\pi}^{\pi}g(x)dx=\frac{1}{\pi}\int_{-L}^{L}f(t)d(\frac{\pi}{L}t)=\frac{1}{\pi}\frac{\pi}{L}\int_{-L}^{L}f(t)dt=\frac{1}{L}\int_{-L}^{L}f(t)dt    \tag {23}<br>$$</p>
-<p>同理，有：<br>$$<br>a_n = \frac{1}{L}\int_{-L}^{L}f(t)cos(\frac{n\pi}{L}t)dt    \tag {24}<br>$$</p>
-<p>$$<br>b_n = \frac{1}{L}\int_{-L}^{L}f(t)sin(\frac{n\pi}{L}t)dt    \tag {25}<br>$$</p>
+<p>下面求<span class="math inline">\(a_n\)</span>,在（6）中两边同时乘以<span class="math inline">\(cos(mx)\)</span>,再积分（<span class="math inline">\(m\in Z\)</span>），有： <span class="math display">\[
+\int_{-\pi}^{\pi}f(x)cos(mx)dx=\int_{\pi}^{\pi}a_0cos(mx)dx+\int_{\pi}^{\pi}\sum_{n=1}^{\infty}cos(nx) \times a_n \times cos(mx)dx+\int_{\pi}^{\pi}\sum_{n=1}^{\infty}sin(nx) \times b_n \times cos(mx)dx   \tag {13}
+\]</span> 根据三角级数的性质可得： <span class="math display">\[
+\int_{-\pi}^{\pi}f(x)cos(mx)dx=\int_{\pi}^{\pi}a_m(cos^2(mx))dx=a_m\pi  \tag {14}
+\]</span> 则： <span class="math display">\[
+a_n=\frac{1}{\pi}\int_{\pi}^{\pi}f(x)cos(nx)dx  \tag {15}
+\]</span> 同理可得： <span class="math display">\[
+b_n=\frac{1}{\pi}\int_{\pi}^{\pi}f(x)sin(nx)dx  \tag {16}
+\]</span></p>
+<h1 id="傅里叶级数">傅里叶级数</h1>
+<p>在很多情况下，周期函数的周期不为<span class="math inline">\(2\pi\)</span>,对于周期不为<span class="math inline">\(2\pi\)</span>的周期函数，将其压缩为<span class="math inline">\(2\pi\)</span>，再对其进行三角级数的变换。设存在一个周期函数<span class="math inline">\(f(t)\)</span>，其周期为<span class="math inline">\(2L\)</span>,有： <span class="math display">\[
+f(t)=f(t+2L)    \tag {17}
+\]</span> 将函数<span class="math inline">\(f(t)\)</span>压缩为<span class="math inline">\((0,2\pi)\)</span>的函数为： <span class="math display">\[
+x=\frac{t}{2L} \times 2\pi  \tag {18}
+\]</span> 可得： <span class="math display">\[
+x=\frac{\pi}{L} \times t    \tag {19}
+\]</span></p>
+<p><span class="math display">\[
+t = \frac{L}{\pi}x  \tag {20}
+\]</span></p>
+<p>对函数<span class="math inline">\(f(t)\)</span>换元，有： <span class="math display">\[
+f(t)=f(\frac{L}{\pi}x)=g(x) \tag {21}
+\]</span> 此时，函数<span class="math inline">\(g(x)\)</span>为以<span class="math inline">\(2\pi\)</span>为周期的周期函数,有： <span class="math display">\[
+g(x)=\frac{a_0}{2}+\sum_{n=1}^{\infty}[a_ncos(nx)+b_nsin(nx)]   \tag {22}
+\]</span></p>
+<p>当<span class="math inline">\(x=-\pi\)</span>时，有<span class="math inline">\(t=-L\)</span>;当<span class="math inline">\(x=\pi\)</span>时，有<span class="math inline">\(t=L\)</span>.且<span class="math inline">\(x\)</span>在<span class="math inline">\((-\pi,\pi)\)</span>范围内单调递增。由公式（16）~(18),有： <span class="math display">\[
+a_0=\frac{1}{\pi}\int_{-\pi}^{\pi}g(x)dx=\frac{1}{\pi}\int_{-L}^{L}f(t)d(\frac{\pi}{L}t)=\frac{1}{\pi}\frac{\pi}{L}\int_{-L}^{L}f(t)dt=\frac{1}{L}\int_{-L}^{L}f(t)dt   \tag {23}
+\]</span></p>
+<p>同理，有： <span class="math display">\[
+a_n = \frac{1}{L}\int_{-L}^{L}f(t)cos(\frac{n\pi}{L}t)dt    \tag {24}
+\]</span></p>
+<p><span class="math display">\[
+b_n = \frac{1}{L}\int_{-L}^{L}f(t)sin(\frac{n\pi}{L}t)dt    \tag {25}
+\]</span></p>
 <hr>
-<p>在工程中，$t$是从$0$开始，则$t$的取值范围为$(0,2L)$,令$T=2L$,并令$\omega=\frac{\pi}{L}$,（$\omega$被称为基频率，实质上就是周期的倒数）即在式（19）中$x=\omega \times t$,即$\omega$为$x$和$t$的比例。则式（22）可以替换为：<br>$$<br>f(t)=\frac{a_0}{2}+\sum_{n=1}^{\infty}[a_ncos(n \omega t) + b_nsin(n \omega t)]        \tag {26}<br>$$<br>则式（23）可以变为：<br>$$<br>a_0=\frac{1}{T/2}\int_{0}^{T}f(t)dt=\frac{2}{T}\int_{0}^{T}f(t)dt    \tag {27}<br>$$<br>式(24)可变为：<br>$$<br>a_n = \frac{1}{L}\int_{-L}^{L}f(t)cos(\frac{n\pi}{L}t)dt=\frac{2}{T}\int_{0}^{T}f(t)cos(n \omega t)dt    \tag {28}<br>$$<br>式（25）可以变为：<br>$$<br>b_n = \frac{1}{L}\int_{-L}^{L}f(t)sin(\frac{n\pi}{L}t)dt=\frac{2}{T}\int_{0}^{T}f(t)sin(n \omega t)dt    \tag {29}<br>$$</p>
-<h1 id="傅里叶级数的复数表达形式"><a href="#傅里叶级数的复数表达形式" class="headerlink" title="傅里叶级数的复数表达形式"></a>傅里叶级数的复数表达形式</h1><p>欧拉公式：<br>$$<br>e^{i\theta}=cos\theta+isin\theta    \tag {30}<br>$$<br>则由欧拉公式(29)可得：<br>$$<br>cos\theta = \frac{1}{2}(e^{i\theta}+e^{-i\theta})    \tag {31}<br>$$</p>
-<p>$$<br>sin\theta = \frac{1}{2}i(e^{i\theta}-e^{-i\theta})    \tag {32}<br>$$</p>
-<p>则式（26）可由欧拉公式表示为：<br>$$<br>f(t)=\frac{a_0}{2}+\sum_{n=1}^{\infty}[a_n \cdot \frac{1}{2}(e^{in \omega t} + e^{-in \omega t}) -  \frac{1}{2}i \cdot b_n \cdot (e^{in \omega t} - e ^{-in \omega t})]    \tag {33}<br>$$<br>化简为：<br>$$<br>f(t)=\frac{a_0}{2}+\sum_{n=1}^{\infty}\frac{a_n - ib_n}{2}e^{in \omega t} + \sum_{n=1}^{\infty}\frac{a_n + ib_n}{2}e^{-in \omega t}    \tag {34}<br>$$</p>
-<p>再化简为：<br>$$<br>f(t) = \sum_{n=0}^{0}\frac{a_0}{2} \cdot e^{i n \omega t}+\sum_{n=1}^{\infty}\frac{a_{n-1}b_n}{2} \cdot e^{in \omega t}+\sum_{n=-\infty}^{-1}\frac{a_{-n}+ib_{-n}}{2} \cdot e^{in \omega t}    \tag {35}<br>$$<br><strong>上式合并</strong>，有：<br>$$<br>f(t)= \sum_{n=-\infty}^{\infty}C_n \cdot e^{in \omega t}    \tag {36}<br>$$<br>其中：</p>
+<p>在工程中，<span class="math inline">\(t\)</span>是从<span class="math inline">\(0\)</span>开始，则<span class="math inline">\(t\)</span>的取值范围为<span class="math inline">\((0,2L)\)</span>,令<span class="math inline">\(T=2L\)</span>,并令<span class="math inline">\(\omega=\frac{\pi}{L}\)</span>,（<span class="math inline">\(\omega\)</span>被称为基频率，实质上就是周期的倒数）即在式（19）中<span class="math inline">\(x=\omega \times t\)</span>,即<span class="math inline">\(\omega\)</span>为<span class="math inline">\(x\)</span>和<span class="math inline">\(t\)</span>的比例。则式（22）可以替换为： <span class="math display">\[
+f(t)=\frac{a_0}{2}+\sum_{n=1}^{\infty}[a_ncos(n \omega t) + b_nsin(n \omega t)]     \tag {26}
+\]</span> 则式（23）可以变为： <span class="math display">\[
+a_0=\frac{1}{T/2}\int_{0}^{T}f(t)dt=\frac{2}{T}\int_{0}^{T}f(t)dt   \tag {27}
+\]</span> 式(24)可变为： <span class="math display">\[
+a_n = \frac{1}{L}\int_{-L}^{L}f(t)cos(\frac{n\pi}{L}t)dt=\frac{2}{T}\int_{0}^{T}f(t)cos(n \omega t)dt   \tag {28}
+\]</span> 式（25）可以变为： <span class="math display">\[
+b_n = \frac{1}{L}\int_{-L}^{L}f(t)sin(\frac{n\pi}{L}t)dt=\frac{2}{T}\int_{0}^{T}f(t)sin(n \omega t)dt   \tag {29}
+\]</span></p>
+<h1 id="傅里叶级数的复数表达形式">傅里叶级数的复数表达形式</h1>
+<p>欧拉公式： <span class="math display">\[
+e^{i\theta}=cos\theta+isin\theta    \tag {30}
+\]</span> 则由欧拉公式(29)可得： <span class="math display">\[
+cos\theta = \frac{1}{2}(e^{i\theta}+e^{-i\theta})   \tag {31}
+\]</span></p>
+<p><span class="math display">\[
+sin\theta = \frac{1}{2}i(e^{i\theta}-e^{-i\theta})  \tag {32}
+\]</span></p>
+<p>则式（26）可由欧拉公式表示为： <span class="math display">\[
+f(t)=\frac{a_0}{2}+\sum_{n=1}^{\infty}[a_n \cdot \frac{1}{2}(e^{in \omega t} + e^{-in \omega t}) -  \frac{1}{2}i \cdot b_n \cdot (e^{in \omega t} - e ^{-in \omega t})] \tag {33}
+\]</span> 化简为： <span class="math display">\[
+f(t)=\frac{a_0}{2}+\sum_{n=1}^{\infty}\frac{a_n - ib_n}{2}e^{in \omega t} + \sum_{n=1}^{\infty}\frac{a_n + ib_n}{2}e^{-in \omega t} \tag {34}
+\]</span></p>
+<p>再化简为： <span class="math display">\[
+f(t) = \sum_{n=0}^{0}\frac{a_0}{2} \cdot e^{i n \omega t}+\sum_{n=1}^{\infty}\frac{a_{n-1}b_n}{2} \cdot e^{in \omega t}+\sum_{n=-\infty}^{-1}\frac{a_{-n}+ib_{-n}}{2} \cdot e^{in \omega t} \tag {35}
+\]</span> <strong>上式合并</strong>，有： <span class="math display">\[
+f(t)= \sum_{n=-\infty}^{\infty}C_n \cdot e^{in \omega t}    \tag {36}
+\]</span> 其中：</p>
 <!--
 $$
 C_n= \begin{cases}
@@ -467,109 +539,64 @@ C_n= \begin{cases}
 \end{cases}
 $$
 -->
-
-<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-  <msub>
-    <mi>C</mi>
-    <mi>n</mi>
-  </msub>
-  <mo>=</mo>
-  <mrow>
-    <mo>{</mo>
-    <mtable columnalign="left left" rowspacing=".2em" columnspacing="1em" displaystyle="false">
-      <mtr>
-        <mtd>
-          <mfrac>
-            <mrow>
-              <mi>a</mi>
-              <mn>0</mn>
-            </mrow>
-            <mn>2</mn>
-          </mfrac>
-          <mo>,</mo>
-        </mtd>
-        <mtd>
-          <mtext>n=0</mtext>
-        </mtd>
-      </mtr>
-      <mtr>
-        <mtd>
-          <mfrac>
-            <mrow>
-              <msub>
-                <mi>a</mi>
-                <mi>n</mi>
-              </msub>
-              <mo>&#x2212;<!-- − --></mo>
-              <mi>i</mi>
-              <msub>
-                <mi>b</mi>
-                <mi>n</mi>
-              </msub>
-            </mrow>
-            <mn>2</mn>
-          </mfrac>
-          <mo>,</mo>
-        </mtd>
-        <mtd>
-          <mtext>n=1,2,3,4,....</mtext>
-        </mtd>
-      </mtr>
-      <mtr>
-        <mtd>
-          <mfrac>
-            <mrow>
-              <msub>
-                <mi>a</mi>
-                <mrow class="MJX-TeXAtom-ORD">
-                  <mo>&#x2212;<!-- − --></mo>
-                  <mi>n</mi>
-                </mrow>
-              </msub>
-              <mo>+</mo>
-              <mi>i</mi>
-              <msub>
-                <mi>b</mi>
-                <mrow class="MJX-TeXAtom-ORD">
-                  <mo>&#x2212;<!-- − --></mo>
-                  <mi>n</mi>
-                </mrow>
-              </msub>
-            </mrow>
-            <mn>2</mn>
-          </mfrac>
-        </mtd>
-        <mtd>
-          <mtext>n=-1,-2,-3,-4,....</mtext>
-        </mtd>
-      </mtr>
-    </mtable>
-    <mo fence="true" stretchy="true" symmetric="true"></mo>
-  </mrow>
-</math>
-
-
-
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"> <msub> <mi>C</mi> <mi>n</mi> </msub> <mo>=</mo> <mrow> <mo>{</mo> <mtable columnalign="left left" rowspacing=".2em" columnspacing="1em" displaystyle="false"> <mtr> <mtd> <mfrac> <mrow> <mi>a</mi> <mn>0</mn> </mrow> <mn>2</mn> </mfrac> <mo>,</mo> </mtd> <mtd> <mtext>n=0</mtext> </mtd> </mtr> <mtr> <mtd> <mfrac> <mrow> <msub> <mi>a</mi> <mi>n</mi> </msub> <mo>−<!-- − --></mo> <mi>i</mi> <msub> <mi>b</mi> <mi>n</mi> </msub> </mrow> <mn>2</mn> </mfrac> <mo>,</mo> </mtd> <mtd> <mtext>n=1,2,3,4,....</mtext> </mtd> </mtr> <mtr> <mtd> <mfrac> <mrow> <msub> <mi>a</mi> <mrow class="MJX-TeXAtom-ORD"> <mo>−<!-- − --></mo> <mi>n</mi> </mrow> </msub> <mo>+</mo> <mi>i</mi> <msub> <mi>b</mi> <mrow class="MJX-TeXAtom-ORD"> <mo>−<!-- − --></mo> <mi>n</mi> </mrow> </msub> </mrow> <mn>2</mn> </mfrac> </mtd> <mtd> <mtext>n=-1,-2,-3,-4,....</mtext> </mtd> </mtr> </mtable> <mo fence="true" stretchy="true" symmetric="true"></mo> </mrow> </math></p>
 <hr>
-<p>下面计算$C_n$，当$n=0$时，由式（27），有：<br>$$<br>C_0=\frac{1}{2} \cdot \frac{2}{T} \int_{0}^{T}f(t)dt=\frac{1}{T} \int_{0}^{T}f(t)dt    \tag {37}<br>$$<br>当$n$为正整数时，将式（28）和式（29）代入，化简，得：<br>$$<br>C_n=\frac{1}{T}\int_{0}^{T}f(t) \cdot e^{-in \omega t}dt  ; ; \text {,n=(1,2,3,4,….)}    \tag {38}<br>$$<br>同理，可得：<br>$$<br>C_n=\frac{1}{T}\int_{0}^{T}f(t)e^{-in \omega t}dt \text{ n=-1,-2,-3,-4,…}    \tag {39}<br>$$<br>通过上式，可以发现，式（37）~（39）可以统一为一个式子,即：<br>$$<br>C_n=\frac{1}{T}\int_0^{T}f(t) \cdot e^{-in \omega t}dt    \tag {40}<br>$$</p>
+<p>下面计算<span class="math inline">\(C_n\)</span>，当<span class="math inline">\(n=0\)</span>时，由式（27），有： <span class="math display">\[
+C_0=\frac{1}{2} \cdot \frac{2}{T} \int_{0}^{T}f(t)dt=\frac{1}{T} \int_{0}^{T}f(t)dt \tag {37}
+\]</span> 当<span class="math inline">\(n\)</span>为正整数时，将式（28）和式（29）代入，化简，得： <span class="math display">\[
+C_n=\frac{1}{T}\int_{0}^{T}f(t) \cdot e^{-in \omega t}dt  \; \; \text {,n=(1,2,3,4,....)}   \tag {38}
+\]</span> 同理，可得： <span class="math display">\[
+C_n=\frac{1}{T}\int_{0}^{T}f(t)e^{-in \omega t}dt \text{ n=-1,-2,-3,-4,...} \tag {39}
+\]</span> 通过上式，可以发现，式（37）~（39）可以统一为一个式子,即： <span class="math display">\[
+C_n=\frac{1}{T}\int_0^{T}f(t) \cdot e^{-in \omega t}dt  \tag {40}
+\]</span></p>
 <hr>
-<p>结合式（36）和式（40），我们得到<strong>傅里叶级数最终的复数表达形式</strong>：<br>$$<br>f(t)= \sum_{n=-\infty}^{\infty}C_n \cdot e^{in \omega t}    \tag {41}<br>$$<br>其中：<br>$$<br>C_n=\frac{1}{T}\int_0^{T}f(t) \cdot e^{-in \omega t}dt<br>$$</p>
-<h1 id="傅里叶变换"><a href="#傅里叶变换" class="headerlink" title="傅里叶变换"></a>傅里叶变换</h1><p>补充，<strong>频谱图</strong>：</p>
+<p>结合式（36）和式（40），我们得到<strong>傅里叶级数最终的复数表达形式</strong>： <span class="math display">\[
+f(t)= \sum_{n=-\infty}^{\infty}C_n \cdot e^{in \omega t}    \tag {41}
+\]</span> 其中： <span class="math display">\[
+C_n=\frac{1}{T}\int_0^{T}f(t) \cdot e^{-in \omega t}dt
+\]</span></p>
+<h1 id="傅里叶变换">傅里叶变换</h1>
+<p>补充，<strong>频谱图</strong>：</p>
 <blockquote>
-<p>傅里叶级数是将一个周期函数$f(t)$展开成多个三角级数相加，从图上看，就如下图所示：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210709114728.jpg" alt=""></p>
-<p>上图实际上少了傅里叶变换结果的值，也就是$C_n$的值。我们现在从另外一个方向（频域）看上图，得到的图可能是如下：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210709115517.jpeg" alt=""></p>
-<p>上图中，横轴是频域的频率（更确切的说是三角级数的基函数$e^{in \omega t}$本身，这里只是用频率$\omega$来指代基函数）,纵轴是线性张成的权重，即上式$C_n$,也是傅里叶变换的结果$F(t)$。<strong>(并非$f(t)$).</strong>.需要注意的是，$C_n$也可能是一个复数，此时，上图就是一个三维平面。</p>
+<p>傅里叶级数是将一个周期函数<span class="math inline">\(f(t)\)</span>展开成多个三角级数相加，从图上看，就如下图所示：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210709114728.jpg">
+
+</div>
+<p>上图实际上少了傅里叶变换结果的值，也就是<span class="math inline">\(C_n\)</span>的值。我们现在从另外一个方向（频域）看上图，得到的图可能是如下：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210709115517.jpeg">
+
+</div>
+<p>上图中，横轴是频域的频率（更确切的说是三角级数的基函数<span class="math inline">\(e^{in \omega t}\)</span>本身，这里只是用频率<span class="math inline">\(\omega\)</span>来指代基函数）,纵轴是线性张成的权重，即上式<span class="math inline">\(C_n\)</span>,也是傅里叶变换的结果<span class="math inline">\(F(t)\)</span>。<strong>(并非<span class="math inline">\(f(t)\)</span>).</strong>.需要注意的是，<span class="math inline">\(C_n\)</span>也可能是一个复数，此时，上图就是一个三维平面。</p>
 </blockquote>
-<p>傅里叶级数成立的条件是$f(t)$必须是一个周期为$L$的周期函数，但在工程中很多时候，$f(t)$不一定是周期函数，自然而然就不能用傅里叶级数。<strong>对于一个非周期函数，令$L \to \infty$,也就是说，令周期趋近于无穷大，此时$f(t)$可以看成一个周期为正无穷的周期函数，对于该周期函数，就可以用傅里叶级数分解</strong>。从而演变成傅里叶变换。</p>
-<p>对于以$T$为周期的周期函数$f_T(t)=f_T(t+T)$,由之前的推导，有：<br>$$<br>f_T(t)= \sum_{n=-\infty}^{\infty}C_n \cdot e^{in \omega_0 t}    \tag {42}<br>$$<br>其中<br>$$<br>C_n=\frac{1}{T}\int_{-\frac{T}{2}}^{\frac{T}{2}}f_T(t) \cdot e^{-in \omega_0 t}dt    \tag {43}<br>$$<br>上式为傅里叶级数的一般形式，</p>
-<p>当$T\to \infty$时，此时的周期$T$可以忽略不计，有：<br>$$<br>\lim_{T \to \infty}f_T(t)=f(t)    \tag {44}<br>$$<br>$\Delta \omega$表示在频域上两个相邻基频率的差距，有：<br>$$<br>\Delta \omega=(n+1) \omega_0 - n \omega_0= \omega_0 = \frac{2 \pi}{T}    \tag {45}<br>$$<br>当$T \to \infty$时，有$\Delta \omega \to 0$，即此时基频率之间会无限接近。换句话说，<strong>此时的傅里叶级数由离散转为连续</strong>。</p>
-<p>现在将式（42）代入式（41）中 ，有：<br>$$<br>f(t)= \sum_{n= - \infty}^{\infty} \left[ \frac{1}{T}\int_{-\frac{T}{2}}^{\frac{T}{2}}f(t) \cdot e^{-in \omega_0 t}dt \right] \cdot e^{in \omega_0 t} \tag {46}<br>$$<br>由于$\Delta \omega=\frac{2 \pi}{T}$,则有$T=\frac{2 \pi}{\Delta \omega}$,代入式（46）中，有：<br>$$<br>f(t)= \sum_{n= - \infty}^{\infty} \left[ \frac{\Delta \omega}{2 \pi}\int_{-\frac{T}{2}}^{\frac{T}{2}}f(t) \cdot e^{-in \omega_0 t}dt \right] \cdot e^{in \omega_0 t} \tag {47}<br>$$<br>当$T \to \infty$时，有</p>
+<p>傅里叶级数成立的条件是<span class="math inline">\(f(t)\)</span>必须是一个周期为<span class="math inline">\(L\)</span>的周期函数，但在工程中很多时候，<span class="math inline">\(f(t)\)</span>不一定是周期函数，自然而然就不能用傅里叶级数。<strong>对于一个非周期函数，令<span class="math inline">\(L \to \infty\)</span>,也就是说，令周期趋近于无穷大，此时<span class="math inline">\(f(t)\)</span>可以看成一个周期为正无穷的周期函数，对于该周期函数，就可以用傅里叶级数分解</strong>。从而演变成傅里叶变换。</p>
+<p>对于以<span class="math inline">\(T\)</span>为周期的周期函数<span class="math inline">\(f_T(t)=f_T(t+T)\)</span>,由之前的推导，有： <span class="math display">\[
+f_T(t)= \sum_{n=-\infty}^{\infty}C_n \cdot e^{in \omega_0 t}    \tag {42}
+\]</span> 其中 <span class="math display">\[
+C_n=\frac{1}{T}\int_{-\frac{T}{2}}^{\frac{T}{2}}f_T(t) \cdot e^{-in \omega_0 t}dt   \tag {43}
+\]</span> 上式为傅里叶级数的一般形式，</p>
+<p>当<span class="math inline">\(T\to \infty\)</span>时，此时的周期<span class="math inline">\(T\)</span>可以忽略不计，有： <span class="math display">\[
+\lim_{T \to \infty}f_T(t)=f(t)  \tag {44}
+\]</span> <span class="math inline">\(\Delta \omega\)</span>表示在频域上两个相邻基频率的差距，有： <span class="math display">\[
+\Delta \omega=(n+1) \omega_0 - n \omega_0= \omega_0 = \frac{2 \pi}{T}   \tag {45}
+\]</span> 当<span class="math inline">\(T \to \infty\)</span>时，有<span class="math inline">\(\Delta \omega \to 0\)</span>，即此时基频率之间会无限接近。换句话说，<strong>此时的傅里叶级数由离散转为连续</strong>。</p>
+<p>现在将式（42）代入式（41）中 ，有： <span class="math display">\[
+f(t)= \sum_{n= - \infty}^{\infty} \left[ \frac{1}{T}\int_{-\frac{T}{2}}^{\frac{T}{2}}f(t) \cdot e^{-in \omega_0 t}dt \right] \cdot e^{in \omega_0 t} \tag {46}
+\]</span> 由于<span class="math inline">\(\Delta \omega=\frac{2 \pi}{T}\)</span>,则有<span class="math inline">\(T=\frac{2 \pi}{\Delta \omega}\)</span>,代入式（46）中，有： <span class="math display">\[
+f(t)= \sum_{n= - \infty}^{\infty} \left[ \frac{\Delta \omega}{2 \pi}\int_{-\frac{T}{2}}^{\frac{T}{2}}f(t) \cdot e^{-in \omega_0 t}dt \right] \cdot e^{in \omega_0 t} \tag {47}
+\]</span> 当<span class="math inline">\(T \to \infty\)</span>时，有</p>
 <ul>
-<li>$\sum_{n = -\infty}^{\infty} \Delta \omega=\int_{-\infty}^{\infty}d \omega$(即从离散形式变为连续形式)</li>
+<li><span class="math inline">\(\sum_{n = -\infty}^{\infty} \Delta \omega=\int_{-\infty}^{\infty}d \omega\)</span>(即从离散形式变为连续形式)</li>
 </ul>
-<p>则，<br>$$<br>f(t)=\frac{1}{2\pi}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}f(t) \cdot e^{-i \omega t}dt \cdot e^{i \omega t}d \omega    \tag {48}<br>$$<br>令$F(t)=\int_{-\infty}^{\infty}f(t)e^{-i \omega t}dt$,则上式等于：<br>$$<br>f(t)=\frac{1}{2 \pi}\int_{-\infty}^{\infty}F(t)e^{i \omega t}d \omega    \tag {49}<br>$$<br>其中<br>$$<br>F(t)=\int_{-\infty}^{\infty}f(t)e^{-i \omega t}dt    \tag {50}<br>$$<br>式（50）称为傅里叶变换（FT），也就是$f(t)$在频域的分量，式（49）称为傅里叶变换的逆变换，是一个从频域反向合成时域函数的过程。</p>
+<p>则， <span class="math display">\[
+f(t)=\frac{1}{2\pi}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}f(t) \cdot e^{-i \omega t}dt \cdot e^{i \omega t}d \omega  \tag {48}
+\]</span> 令<span class="math inline">\(F(t)=\int_{-\infty}^{\infty}f(t)e^{-i \omega t}dt\)</span>,则上式等于： <span class="math display">\[
+f(t)=\frac{1}{2 \pi}\int_{-\infty}^{\infty}F(t)e^{i \omega t}d \omega   \tag {49}
+\]</span> 其中 <span class="math display">\[
+F(t)=\int_{-\infty}^{\infty}f(t)e^{-i \omega t}dt   \tag {50}
+\]</span> 式（50）称为傅里叶变换（FT），也就是<span class="math inline">\(f(t)\)</span>在频域的分量，式（49）称为傅里叶变换的逆变换，是一个从频域反向合成时域函数的过程。</p>
 <p>至此，傅里叶变换推导完毕。</p>
 
       

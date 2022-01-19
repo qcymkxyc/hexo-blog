@@ -81,12 +81,12 @@
 
 
 
-<meta name="description" content="Question 一阶差分和二阶差分求边缘各有什么优缺点 在边缘检测前一般要做什么 Prewitt算子的解释 Sobel算子相比于Prewitt算子的优势是什么  梯度和差分基础基于边缘突变的分割思想十分简单，如果一个像素点在分割的边缘上，那么，该像素点在某个方向上必定是突变的（这个方向不仅限于$x$和$y$）。鉴于以上思想，基于边缘的分割可以分割点、线甚至边缘。 衡量某个像素在某个方向上是否是突">
+<meta name="description" content="Question  一阶差分和二阶差分求边缘各有什么优缺点 在边缘检测前一般要做什么 Prewitt算子的解释 Sobel算子相比于Prewitt算子的优势是什么  梯度和差分基础 基于边缘突变的分割思想十分简单，如果一个像素点在分割的边缘上，那么，该像素点在某个方向上必定是突变的（这个方向不仅限于\(x\)和\(y\)）。鉴于以上思想，基于边缘的分割可以分割点、线甚至边缘。 衡量某个像素在某个方">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图像分割（一）：基于边缘突变的分割">
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/d2113c07.html/index.html">
 <meta property="og:site_name" content="冒烟的乔个人博客">
-<meta property="og:description" content="Question 一阶差分和二阶差分求边缘各有什么优缺点 在边缘检测前一般要做什么 Prewitt算子的解释 Sobel算子相比于Prewitt算子的优势是什么  梯度和差分基础基于边缘突变的分割思想十分简单，如果一个像素点在分割的边缘上，那么，该像素点在某个方向上必定是突变的（这个方向不仅限于$x$和$y$）。鉴于以上思想，基于边缘的分割可以分割点、线甚至边缘。 衡量某个像素在某个方向上是否是突">
+<meta property="og:description" content="Question  一阶差分和二阶差分求边缘各有什么优缺点 在边缘检测前一般要做什么 Prewitt算子的解释 Sobel算子相比于Prewitt算子的优势是什么  梯度和差分基础 基于边缘突变的分割思想十分简单，如果一个像素点在分割的边缘上，那么，该像素点在某个方向上必定是突变的（这个方向不仅限于\(x\)和\(y\)）。鉴于以上思想，基于边缘的分割可以分割点、线甚至边缘。 衡量某个像素在某个方">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E5%9B%BE%E5%83%8F%E5%B7%AE%E5%88%86.png">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E5%AD%A4%E7%AB%8B%E7%82%B9%E6%A3%80%E6%B5%8B.png">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%BA%BF%E6%A3%80%E6%B5%8B.png">
@@ -422,22 +422,33 @@
       
 
       
-        <h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ul>
+        <h2 id="question">Question</h2>
+<ul>
 <li><a href="#一阶差分和二阶差分衡量边缘突变比较">一阶差分和二阶差分求边缘各有什么优缺点</a></li>
 <li><a href="#边缘模型">在边缘检测前一般要做什么</a></li>
 <li><a href="#基本的检测模型">Prewitt算子的解释</a></li>
 <li><a href="#基本的检测模型">Sobel算子相比于Prewitt算子的优势是什么</a></li>
 </ul>
-<h2 id="梯度和差分基础"><a href="#梯度和差分基础" class="headerlink" title="梯度和差分基础"></a>梯度和差分基础</h2><p>基于边缘突变的分割思想十分简单，如果一个像素点在分割的边缘上，那么，该像素点在某个方向上必定是突变的（这个方向不仅限于$x$和$y$）。鉴于以上思想，基于边缘的分割可以分割点、线甚至边缘。</p>
+<h2 id="梯度和差分基础">梯度和差分基础</h2>
+<p>基于边缘突变的分割思想十分简单，如果一个像素点在分割的边缘上，那么，该像素点在某个方向上必定是突变的（这个方向不仅限于<span class="math inline">\(x\)</span>和<span class="math inline">\(y\)</span>）。鉴于以上思想，基于边缘的分割可以分割点、线甚至边缘。</p>
 <p>衡量某个像素在某个方向上是否是突变的，我们最容易想到的是梯度，梯度向量的方向表示变换最大的方向，而梯度的幅值表示变换的大小。</p>
-<p>图像在$x$和$y$两个方向上的梯度即为差分，可以表示为：<br>$$<br>\frac{\partial{f}}{\partial{x}}=f’(x)=f(x+1)-f(x)    \tag{1}<br>$$</p>
-<p>$$<br>\frac{\partial{f}}{\partial{y}}=f’(y)=f(y+1)-f(y)    \tag{2}<br>$$</p>
-<p>图像在$x$和$y$上的二阶差分为（二阶差分同样可以衡量突变）：<br>$$<br>\frac{\partial^2{f}}{\partial{x^2}}=f’(x+1) - f’(x)=f(x+2)-2f(x+1)+f(x)    \tag{3}<br>$$</p>
-<p>$$<br>\frac{\partial^2{f}}{\partial{y^2}}=f’(y+1) - f’(y)=f(y+2)-2f(y+1)+f(y)    \tag{4}<br>$$</p>
-<h2 id="一阶差分和二阶差分衡量边缘突变比较"><a href="#一阶差分和二阶差分衡量边缘突变比较" class="headerlink" title="一阶差分和二阶差分衡量边缘突变比较"></a>一阶差分和二阶差分衡量边缘突变比较</h2><p>设有图像在$x$方向如下图表所示，则其一阶导数和二阶导数的结果如下：</p>
+<p>图像在<span class="math inline">\(x\)</span>和<span class="math inline">\(y\)</span>两个方向上的梯度即为差分，可以表示为： <span class="math display">\[
+\frac{\partial{f}}{\partial{x}}=f&#39;(x)=f(x+1)-f(x)   \tag{1}
+\]</span></p>
+<p><span class="math display">\[
+\frac{\partial{f}}{\partial{y}}=f&#39;(y)=f(y+1)-f(y)   \tag{2}
+\]</span></p>
+<p>图像在<span class="math inline">\(x\)</span>和<span class="math inline">\(y\)</span>上的二阶差分为（二阶差分同样可以衡量突变）： <span class="math display">\[
+\frac{\partial^2{f}}{\partial{x^2}}=f&#39;(x+1) - f&#39;(x)=f(x+2)-2f(x+1)+f(x) \tag{3}
+\]</span></p>
+<p><span class="math display">\[
+\frac{\partial^2{f}}{\partial{y^2}}=f&#39;(y+1) - f&#39;(y)=f(y+2)-2f(y+1)+f(y) \tag{4}
+\]</span></p>
+<h2 id="一阶差分和二阶差分衡量边缘突变比较">一阶差分和二阶差分衡量边缘突变比较</h2>
+<p>设有图像在<span class="math inline">\(x\)</span>方向如下图表所示，则其一阶导数和二阶导数的结果如下：</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>编号</th>
 <th>0</th>
 <th>1</th>
@@ -461,7 +472,8 @@
 <th>19</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>原始数据</td>
 <td>5</td>
 <td>5</td>
@@ -484,7 +496,7 @@
 <td>0</td>
 <td>0</td>
 </tr>
-<tr>
+<tr class="even">
 <td>一阶差分</td>
 <td></td>
 <td>0</td>
@@ -507,7 +519,7 @@
 <td>0</td>
 <td>0</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>二阶差分</td>
 <td></td>
 <td></td>
@@ -530,10 +542,10 @@
 <td>1</td>
 <td>0</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>其对应的图像如下：</p>
-<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/图像差分.png" style="zoom:80%;" />
-
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/图像差分.png" style="zoom:80%;"></p>
 <p>通过观察以上图像可以得出以下几点特性：</p>
 <ul>
 <li>二阶导数对平缓的像素变化不敏感（例如编号从1到6的像素，一阶差分为-1，而二阶差分为0）</li>
@@ -547,83 +559,128 @@
 <li>对于突变的边缘，二阶导更敏感，且二阶导可以分辨光线的明亮变化</li>
 </ul>
 </blockquote>
-<h2 id="孤立点检测"><a href="#孤立点检测" class="headerlink" title="孤立点检测"></a>孤立点检测</h2><p>通常孤立点同时在两个方向上变化均比较剧烈，所以根据前文所述，二阶差分对于突变更加敏感，所以二阶差分更适合孤立点检测。</p>
+<h2 id="孤立点检测">孤立点检测</h2>
+<p>通常孤立点同时在两个方向上变化均比较剧烈，所以根据前文所述，二阶差分对于突变更加敏感，所以二阶差分更适合孤立点检测。</p>
 <p>所以，这里会用到拉普拉斯算子（拉普拉斯算子即是二阶差分在图像中一种应用）.</p>
 <blockquote>
 <p><strong>补充：拉普拉斯算子</strong></p>
-<p>拉普拉斯算子定义为：<br>$$<br>\nabla^2f(x,y)=\frac{\partial^2f}{\partial{x^2}} + \frac{\partial^2f}{\partial{y^2}}    \tag{5}<br>$$<br>也就是说，拉普拉斯算子为$x$和$y$两个方向上的二阶差分之和，也即$x$和$y$的变化程度之和。</p>
-<p>由前面的二阶差分展开公式，可得拉普拉斯算子为：<br>$$<br>\nabla^2f(x,y)=f(x+1,y)+f(x-1,y)+f(x,y+1)+f(x,y-1)-4f(x,y)<br>$$<br>实际上，拉普拉斯算子就是一个滤波器，上式的滤波模板可表示为：</p>
+<p>拉普拉斯算子定义为： <span class="math display">\[
+\nabla^2f(x,y)=\frac{\partial^2f}{\partial{x^2}} + \frac{\partial^2f}{\partial{y^2}}   \tag{5}
+\]</span> 也就是说，拉普拉斯算子为<span class="math inline">\(x\)</span>和<span class="math inline">\(y\)</span>两个方向上的二阶差分之和，也即<span class="math inline">\(x\)</span>和<span class="math inline">\(y\)</span>的变化程度之和。</p>
+<p>由前面的二阶差分展开公式，可得拉普拉斯算子为： <span class="math display">\[
+\nabla^2f(x,y)=f(x+1,y)+f(x-1,y)+f(x,y+1)+f(x,y-1)-4f(x,y)
+\]</span> 实际上，拉普拉斯算子就是一个滤波器，上式的滤波模板可表示为：</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>0</th>
 <th>1</th>
 <th>0</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>1</td>
 <td>-4</td>
 <td>1</td>
 </tr>
-<tr>
+<tr class="even">
 <td>0</td>
 <td>1</td>
 <td>0</td>
 </tr>
-</tbody></table>
-<p>但上式实际上仅考虑了$x$和$y$的两个方向上的变化，对于正反$45^.$的变化并未考虑，所以，通常情况下，会加上45度角的检测，此时的拉普拉斯算子的滤波模板为：</p>
+</tbody>
+</table>
+<p>但上式实际上仅考虑了<span class="math inline">\(x\)</span>和<span class="math inline">\(y\)</span>的两个方向上的变化，对于正反<span class="math inline">\(45^.\)</span>的变化并未考虑，所以，通常情况下，会加上45度角的检测，此时的拉普拉斯算子的滤波模板为：</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>1</th>
 <th>1</th>
 <th>1</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>1</td>
 <td>-8</td>
 <td>1</td>
 </tr>
-<tr>
+<tr class="even">
 <td>1</td>
 <td>1</td>
 <td>1</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>以上模板即检测四个方向变化的模板。</p>
 </blockquote>
-<p>用以上模板对图像进行滤波，设滤波后的某一个点的结果为$R(x,y)$，若：</p>
-<p>$$<br>g(x,y)=\begin{cases} 1,&amp;\text{ |R(x,y)|} \geq T \ 0,  &amp;\text{other} \end{cases}    \tag{6}<br>$$<br>在结果$g(x,y)$中，为1的点即为孤立点。</p>
-<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><p>下面是孤立点检测的Demo。</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E5%AD%A4%E7%AB%8B%E7%82%B9%E6%A3%80%E6%B5%8B.png" alt=""></p>
+<p>用以上模板对图像进行滤波，设滤波后的某一个点的结果为<span class="math inline">\(R(x,y)\)</span>，若：</p>
+<p><span class="math display">\[
+g(x,y)=\begin{cases} 1,&amp;\text{ |R(x,y)|} \geq T \\ 0,  &amp;\text{other} \end{cases}    \tag{6}
+\]</span> 在结果<span class="math inline">\(g(x,y)\)</span>中，为1的点即为孤立点。</p>
+<h3 id="demo">Demo</h3>
+<p>下面是孤立点检测的Demo。</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/孤立点检测.png">
+
+</div>
 <p>上图中，图一为原图片，图二为通过拉普拉斯变换后的结果，图三为通过阈值筛选后的结果，阈值取百分之99的分位数。</p>
-<h2 id="线检测"><a href="#线检测" class="headerlink" title="线检测"></a>线检测</h2><p>对于线的检测，同样用拉普拉斯变换，但前文提到，由于拉普拉斯的检测结果有<code>双边性</code>,也就是说检测的结果有两个边缘，此时需要保留其中一个边缘，另一个略去。如下图所示：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%BA%BF%E6%A3%80%E6%B5%8B.png" alt=""></p>
+<h2 id="线检测">线检测</h2>
+<p>对于线的检测，同样用拉普拉斯变换，但前文提到，由于拉普拉斯的检测结果有<code>双边性</code>,也就是说检测的结果有两个边缘，此时需要保留其中一个边缘，另一个略去。如下图所示：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/线检测.png">
+
+</div>
 <p>上图中，图一是原始图像，图二是经过拉普拉斯模板过滤后的图像，图三是图二取绝对值的结果，图四为取图二取正值的结果。</p>
-<h2 id="基本的检测模型"><a href="#基本的检测模型" class="headerlink" title="基本的检测模型"></a>基本的检测模型</h2><p><strong>由于一阶导数和二阶导数对噪声都较为敏感，所以通常情况下，在进行边缘检测之前要滤波处理</strong></p>
+<h2 id="基本的检测模型">基本的检测模型</h2>
+<p><strong>由于一阶导数和二阶导数对噪声都较为敏感，所以通常情况下，在进行边缘检测之前要滤波处理</strong></p>
 <p>实际上，由上面可知，一阶导数和二阶导数实现边缘检测，但又各有优势和劣势，所以对于检测一个物体的边缘，一阶导和二阶导都是可以的。这里先介绍一阶导。介绍一阶导的边缘提取通常需要用<code>Sobel</code>算子。</p>
 <blockquote>
 <p><strong>补充：Sobel算子以及Prewitt算子</strong></p>
 <p>如公式（1）和公式（2），要用一阶导的模板过滤图像仅用两个窗格即可：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E4%B8%80%E9%98%B6%E5%AF%BC%E8%BE%B9%E7%BC%98%E6%A2%AF%E5%BA%A6%E6%A8%A1%E6%9D%BF.png" alt=""></p>
-<p>但以上模板对于中心点对称的边缘计算不是很有用。所以一阶的模板通常也采用$3\times3$的模板，$3\times3$的模板定义如下：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/3X3%E6%A8%A1%E6%9D%BF.png" alt=""></p>
-<p>$3\times3$的模板满足中心对称，以下是<code>Prewitt</code>算子：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/prewitt%E6%A8%A1%E6%9D%BF.png" alt=""></p>
-<p>其中，左上图表示$y$方向上的检测，右上图表示$x$方向上的检测。从检测算子中可以看出，实际上<code>Prewitt</code>算子并非计算两个相邻像素之间的差分，而是跳过一行（列）来计算差分，以此来保证中心对称性。其公式表示为：<br>$$<br>g_x=\frac{\partial{f}}{\partial{x}}=(z_7+z_8+z_9)-(z_1+z_2+z_3)    \tag{7}<br>$$</p>
-<p>$$<br>g_y=\frac{\partial{f}}{\partial{y}}=(z_3+z_6+z_9)-(z_1+z_4+z_7)    \tag{8}<br>$$</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/一阶导边缘梯度模板.png">
+
+</div>
+<p>但以上模板对于中心点对称的边缘计算不是很有用。所以一阶的模板通常也采用<span class="math inline">\(3\times3\)</span>的模板，<span class="math inline">\(3\times3\)</span>的模板定义如下：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/3X3模板.png">
+
+</div>
+<p><span class="math inline">\(3\times3\)</span>的模板满足中心对称，以下是<code>Prewitt</code>算子：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/prewitt模板.png">
+
+</div>
+<p>其中，左上图表示<span class="math inline">\(y\)</span>方向上的检测，右上图表示<span class="math inline">\(x\)</span>方向上的检测。从检测算子中可以看出，实际上<code>Prewitt</code>算子并非计算两个相邻像素之间的差分，而是跳过一行（列）来计算差分，以此来保证中心对称性。其公式表示为： <span class="math display">\[
+g_x=\frac{\partial{f}}{\partial{x}}=(z_7+z_8+z_9)-(z_1+z_2+z_3)   \tag{7}
+\]</span></p>
+<p><span class="math display">\[
+g_y=\frac{\partial{f}}{\partial{y}}=(z_3+z_6+z_9)-(z_1+z_4+z_7)   \tag{8}
+\]</span></p>
 <p>此外，就是<code>Sobel</code>算子，<code>Sobel</code>是在<code>Prewitt</code>算子的基础上进行改进，其模板如下：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Sobel%E7%AE%97%E5%AD%90%E6%A8%A1%E6%9D%BF.png" alt=""></p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Sobel算子模板.png">
+
+</div>
 <p><strong><code>Sobel</code>算子相较于<code>Prewitt</code>算子可以平滑图像，所以通常对于一维的边缘提取，我们用<code>Sobel</code>算子</strong></p>
 </blockquote>
-<p>从<code>Sobel</code>算子可以看出，实际上<code>Sobel</code>算子仅能检测单个方向的边缘，要想综合两个方向的边缘，最容易想到的是类似于求梯度值的方式，即相加求平方根，求平方根太过费时，书上采用求绝对值再求和的方式：<br>$$<br>M(x,y)\approx|g_x|+|g_y|    \tag{9}<br>$$</p>
-<h3 id="Demo-1"><a href="#Demo-1" class="headerlink" title="Demo"></a>Demo</h3><p>以下是通过<code>Sobel</code>进行边缘检测的Demo：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201104162047.png" alt=""></p>
-<p>上图中，图一为原图像，图二为$x$方向的梯度的绝对值，图三为$y$方向上的梯度的绝对值，图四为两个方向绝对值之和。</p>
+<p>从<code>Sobel</code>算子可以看出，实际上<code>Sobel</code>算子仅能检测单个方向的边缘，要想综合两个方向的边缘，最容易想到的是类似于求梯度值的方式，即相加求平方根，求平方根太过费时，书上采用求绝对值再求和的方式： <span class="math display">\[
+M(x,y)\approx|g_x|+|g_y|    \tag{9}
+\]</span></p>
+<h3 id="demo-1">Demo</h3>
+<p>以下是通过<code>Sobel</code>进行边缘检测的Demo：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201104162047.png">
+
+</div>
+<p>上图中，图一为原图像，图二为<span class="math inline">\(x\)</span>方向的梯度的绝对值，图三为<span class="math inline">\(y\)</span>方向上的梯度的绝对值，图四为两个方向绝对值之和。</p>
 <p><strong>通常情况下，在进行边缘检测之前需要对图像进行平滑处理，以减少噪声对边缘检测的影响</strong>。下图是先用均值滤波对原图像进行处理，再用<code>Sobel</code>进行边缘检测的结果。</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201104162051.png" alt=""></p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201104162051.png">
+
+</div>
 <p>可以看到，在经过平滑处理后的结果明显好于没有平滑处理的。</p>
 
       
@@ -875,7 +932,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度和差分基础"><span class="nav-number">2.</span> <span class="nav-text">梯度和差分基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一阶差分和二阶差分衡量边缘突变比较"><span class="nav-number">3.</span> <span class="nav-text">一阶差分和二阶差分衡量边缘突变比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#孤立点检测"><span class="nav-number">4.</span> <span class="nav-text">孤立点检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo"><span class="nav-number">4.1.</span> <span class="nav-text">Demo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线检测"><span class="nav-number">5.</span> <span class="nav-text">线检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本的检测模型"><span class="nav-number">6.</span> <span class="nav-text">基本的检测模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo-1"><span class="nav-number">6.1.</span> <span class="nav-text">Demo</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度和差分基础"><span class="nav-number">2.</span> <span class="nav-text">梯度和差分基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一阶差分和二阶差分衡量边缘突变比较"><span class="nav-number">3.</span> <span class="nav-text">一阶差分和二阶差分衡量边缘突变比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#孤立点检测"><span class="nav-number">4.</span> <span class="nav-text">孤立点检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#demo"><span class="nav-number">4.1.</span> <span class="nav-text">Demo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线检测"><span class="nav-number">5.</span> <span class="nav-text">线检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本的检测模型"><span class="nav-number">6.</span> <span class="nav-text">基本的检测模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#demo-1"><span class="nav-number">6.1.</span> <span class="nav-text">Demo</span></a></li></ol></li></ol></div>
             
 
           </div>

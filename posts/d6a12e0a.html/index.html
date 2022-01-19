@@ -81,12 +81,12 @@
 
 
 
-<meta name="description" content="概述Marr-Hildreth算子是边缘检测算子的一种，相比于Sobel和Laplace这样的算子，其对于大区域，有更好的泛化性。 高斯拉普拉斯算子Marr和Hildreth认为：像Sobel和Laplace这样的算法大区域的模糊边缘，一个图像的灰度变化和图像的尺度是相关的。所以对于大的区域，应该用大的算子；对于小的区域，应该用小的算子。满足这个条件的有高斯拉普拉斯算子(LoG)。 高斯拉普拉斯算">
+<meta name="description" content="概述 Marr-Hildreth算子是边缘检测算子的一种，相比于Sobel和Laplace这样的算子，其对于大区域，有更好的泛化性。 高斯拉普拉斯算子 Marr和Hildreth认为：像Sobel和Laplace这样的算法大区域的模糊边缘，一个图像的灰度变化和图像的尺度是相关的。所以对于大的区域，应该用大的算子；对于小的区域，应该用小的算子。满足这个条件的有高斯拉普拉斯算子(LoG)。 高斯拉普拉">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Marr-Hildreth算子">
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/d6a12e0a.html/index.html">
 <meta property="og:site_name" content="冒烟的乔个人博客">
-<meta property="og:description" content="概述Marr-Hildreth算子是边缘检测算子的一种，相比于Sobel和Laplace这样的算子，其对于大区域，有更好的泛化性。 高斯拉普拉斯算子Marr和Hildreth认为：像Sobel和Laplace这样的算法大区域的模糊边缘，一个图像的灰度变化和图像的尺度是相关的。所以对于大的区域，应该用大的算子；对于小的区域，应该用小的算子。满足这个条件的有高斯拉普拉斯算子(LoG)。 高斯拉普拉斯算">
+<meta property="og:description" content="概述 Marr-Hildreth算子是边缘检测算子的一种，相比于Sobel和Laplace这样的算子，其对于大区域，有更好的泛化性。 高斯拉普拉斯算子 Marr和Hildreth认为：像Sobel和Laplace这样的算法大区域的模糊边缘，一个图像的灰度变化和图像的尺度是相关的。所以对于大的区域，应该用大的算子；对于小的区域，应该用小的算子。满足这个条件的有高斯拉普拉斯算子(LoG)。 高斯拉普拉">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2021-12-10T10-19-27.731Z.png">
 <meta property="article:published_time" content="2021-12-13T10:50:39.000Z">
 <meta property="article:modified_time" content="2021-12-14T02:09:26.413Z">
@@ -414,24 +414,68 @@
       
 
       
-        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><code>Marr-Hildreth</code>算子是边缘检测算子的一种，相比于<code>Sobel</code>和<code>Laplace</code>这样的算子，其对于大区域，有更好的泛化性。</p>
-<h2 id="高斯拉普拉斯算子"><a href="#高斯拉普拉斯算子" class="headerlink" title="高斯拉普拉斯算子"></a>高斯拉普拉斯算子</h2><p><code>Marr</code>和<code>Hildreth</code>认为：像<code>Sobel</code>和<code>Laplace</code>这样的算法大区域的模糊边缘，一个图像的灰度变化和图像的尺度是相关的。所以对于大的区域，应该用大的算子；对于小的区域，应该用小的算子。满足这个条件的有高斯拉普拉斯算子(<code>LoG</code>)。</p>
+        <h2 id="概述">概述</h2>
+<p><code>Marr-Hildreth</code>算子是边缘检测算子的一种，相比于<code>Sobel</code>和<code>Laplace</code>这样的算子，其对于大区域，有更好的泛化性。</p>
+<h2 id="高斯拉普拉斯算子">高斯拉普拉斯算子</h2>
+<p><code>Marr</code>和<code>Hildreth</code>认为：像<code>Sobel</code>和<code>Laplace</code>这样的算法大区域的模糊边缘，一个图像的灰度变化和图像的尺度是相关的。所以对于大的区域，应该用大的算子；对于小的区域，应该用小的算子。满足这个条件的有高斯拉普拉斯算子(<code>LoG</code>)。</p>
 <p>高斯拉普拉斯算子相当于是对图像先做高斯模糊，再做<code>Laplacian</code>变换：</p>
-<p>已知二维的高斯函数为：<br>$$<br>G(x,y)= exp(-\frac{x^2+y^2}{2\sigma^2})        \tag 1<br>$$<br>再做<code>Laplacian</code>变换为:<br>$$<br>\nabla^2G(x,y)=\frac{\partial^2G(x,y)}{\partial x^2}+\frac{\partial^2G(x,y)}{\partial y^2}    \tag 2<br>$$<br>上式可以变换为：<br>$$<br>\frac{\partial }{\partial x}<br>\left( \frac{-x}{\sigma^2} \cdot exp(-\frac{x^2+y^2}{2\sigma^2})  \right)+<br>\frac{\partial }{\partial y}<br>\left( \frac{-y}{\sigma^2} \cdot exp(-\frac{x^2+y^2}{2\sigma^2}) \right)<br>\tag 3<br>$$<br>进一步化简为：<br>$$<br>\left( \frac{x^2}{\sigma^4} - \frac{1}{\sigma^2}\right) \cdot exp(-\frac{x^2 + y^2}{2\sigma^2})+<br>\left( \frac{y^2}{\sigma^4} - \frac{1}{\sigma^2}\right) \cdot exp(-\frac{x^2 + y^2}{2\sigma^2})<br>\tag 4<br>$$<br>整理后得：<br>$$<br>\nabla^2G(x,y)= \left( \frac{x^2+y^2-2\sigma^2}{\sigma^4} \right) \cdot exp(-\frac{x^2+y^2}{2\sigma^2})        \tag 5<br>$$<br>倒立的<code>LoG</code>算子入如下图所示：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2021-12-10T10-19-27.731Z.png" alt=""></p>
+<p>已知二维的高斯函数为： <span class="math display">\[
+G(x,y)= exp(-\frac{x^2+y^2}{2\sigma^2})     \tag 1
+\]</span> 再做<code>Laplacian</code>变换为: <span class="math display">\[
+\nabla^2G(x,y)=\frac{\partial^2G(x,y)}{\partial x^2}+\frac{\partial^2G(x,y)}{\partial y^2}  \tag 2
+\]</span> 上式可以变换为： <span class="math display">\[
+\frac{\partial }{\partial x}
+\left( \frac{-x}{\sigma^2} \cdot exp(-\frac{x^2+y^2}{2\sigma^2})  \right)+
+\frac{\partial }{\partial y}
+\left( \frac{-y}{\sigma^2} \cdot exp(-\frac{x^2+y^2}{2\sigma^2}) \right)
+\tag 3
+\]</span> 进一步化简为： <span class="math display">\[
+\left( \frac{x^2}{\sigma^4} - \frac{1}{\sigma^2}\right) \cdot exp(-\frac{x^2 + y^2}{2\sigma^2})+
+\left( \frac{y^2}{\sigma^4} - \frac{1}{\sigma^2}\right) \cdot exp(-\frac{x^2 + y^2}{2\sigma^2})
+\tag 4
+\]</span> 整理后得： <span class="math display">\[
+\nabla^2G(x,y)= \left( \frac{x^2+y^2-2\sigma^2}{\sigma^4} \right) \cdot exp(-\frac{x^2+y^2}{2\sigma^2})     \tag 5
+\]</span> 倒立的<code>LoG</code>算子入如下图所示：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/火狐截图_2021-12-10T10-19-27.731Z.png">
+
+</div>
 <p>其中，图a表示倒立的<code>LoG</code>算子。</p>
-<h2 id="高斯差分算子"><a href="#高斯差分算子" class="headerlink" title="高斯差分算子"></a>高斯差分算子</h2><p>对于公式（5），也可以用高斯差分（<code>DoG</code>）来代替：<br>$$<br>D_G(x,y)=<br>\frac{1}{2\pi\sigma_1^2} \cdot exp(-\frac{x^2+y^2}{2 \sigma_1^2})-<br>\frac{1}{2\pi\sigma_2^2} \cdot exp(-\frac{x^2+y^2}{2 \sigma_2^2})<br>\tag 6<br>$$<br><strong>所以，高斯差分的目的实际上是求边缘</strong>。其中，$\sigma_1$以及$\sigma_2$和式（7）中的$\sigma$有如下对应关系：<br>$$<br>\sigma^2=\frac{\sigma_1^2\sigma_2^2}{\sigma_1^2-\sigma_2^2}ln\left[ \frac{\sigma_1^2}{\sigma_2^2} \right]    \tag 7<br>$$<br>通常，$\sigma_1$和$\sigma_2$的比例为$1:1.75$和$1:1.6$.</p>
-<p>也就是说，在用高斯差分时，先确定<code>LoG</code>中的$\sigma$的值，再利用$\sigma_1$和$\sigma_2$的比例计算$\sigma_1$和$\sigma_2$。</p>
-<h2 id="补充：高斯滤波器的性质"><a href="#补充：高斯滤波器的性质" class="headerlink" title="补充：高斯滤波器的性质"></a>补充：高斯滤波器的性质</h2><p>通常在计算二维的高斯滤波器时，不是直接的计算其滤波器，而是将其拆为两个单维的高斯滤波器。这使得其在计算效率上大大提高，下面说明高斯滤波器的性质。</p>
-<h3 id="可分离性"><a href="#可分离性" class="headerlink" title="可分离性"></a>可分离性</h3><ul>
+<h2 id="高斯差分算子">高斯差分算子</h2>
+<p>对于公式（5），也可以用高斯差分（<code>DoG</code>）来代替： <span class="math display">\[
+D_G(x,y)=
+\frac{1}{2\pi\sigma_1^2} \cdot exp(-\frac{x^2+y^2}{2 \sigma_1^2})-
+\frac{1}{2\pi\sigma_2^2} \cdot exp(-\frac{x^2+y^2}{2 \sigma_2^2})
+\tag 6
+\]</span> <strong>所以，高斯差分的目的实际上是求边缘</strong>。其中，<span class="math inline">\(\sigma_1\)</span>以及<span class="math inline">\(\sigma_2\)</span>和式（7）中的<span class="math inline">\(\sigma\)</span>有如下对应关系： <span class="math display">\[
+\sigma^2=\frac{\sigma_1^2\sigma_2^2}{\sigma_1^2-\sigma_2^2}ln\left[ \frac{\sigma_1^2}{\sigma_2^2} \right]   \tag 7
+\]</span> 通常，<span class="math inline">\(\sigma_1\)</span>和<span class="math inline">\(\sigma_2\)</span>的比例为<span class="math inline">\(1:1.75\)</span>和<span class="math inline">\(1:1.6\)</span>.</p>
+<p>也就是说，在用高斯差分时，先确定<code>LoG</code>中的<span class="math inline">\(\sigma\)</span>的值，再利用<span class="math inline">\(\sigma_1\)</span>和<span class="math inline">\(\sigma_2\)</span>的比例计算<span class="math inline">\(\sigma_1\)</span>和<span class="math inline">\(\sigma_2\)</span>。</p>
+<h2 id="补充高斯滤波器的性质">补充：高斯滤波器的性质</h2>
+<p>通常在计算二维的高斯滤波器时，不是直接的计算其滤波器，而是将其拆为两个单维的高斯滤波器。这使得其在计算效率上大大提高，下面说明高斯滤波器的性质。</p>
+<h3 id="可分离性">可分离性</h3>
+<ul>
 <li>可分离性：即一个二维的高斯滤波可以分拆成两次一维滤波</li>
 </ul>
-<p>如我们用滤波器$h(x,y)$对图像$f(x,y)$进行滤波，有：<br>$$<br>f(x,y) \ast h(x,y)=f(x,y) \ast h_x(x) \ast h_y(y)    \tag {10}<br>$$<br>其中，$h(x,y)=exp(-\frac{x^2+y^2}{2\sigma^2})$,$h_x(x)=exp(-\frac{x^2}{2\sigma^2})$,$h_y(y)=exp(-\frac{y^2}{2\sigma^2})$.</p>
-<h3 id="可叠加性"><a href="#可叠加性" class="headerlink" title="可叠加性"></a>可叠加性</h3><ul>
+<p>如我们用滤波器<span class="math inline">\(h(x,y)\)</span>对图像<span class="math inline">\(f(x,y)\)</span>进行滤波，有： <span class="math display">\[
+f(x,y) \ast h(x,y)=f(x,y) \ast h_x(x) \ast h_y(y)   \tag {10}
+\]</span> 其中，<span class="math inline">\(h(x,y)=exp(-\frac{x^2+y^2}{2\sigma^2})\)</span>,<span class="math inline">\(h_x(x)=exp(-\frac{x^2}{2\sigma^2})\)</span>,<span class="math inline">\(h_y(y)=exp(-\frac{y^2}{2\sigma^2})\)</span>.</p>
+<h3 id="可叠加性">可叠加性</h3>
+<ul>
 <li>可叠加性：两个高斯函数的乘积和卷积也是高斯函数</li>
 </ul>
-<p>设有两个高斯函数的均值和标准差分别为$m_f,m_g$和$\sigma_f,\sigma_g$</p>
-<p>则两个高斯函数乘积所组成的高斯函数的均值和方差为：<br>$$<br>\left(<br>m_{f \times g}=\frac{m_f\sigma_g^2+m_g\sigma_f^2}{\sigma_f^2+\sigma_g^2},<br>\sigma_{f \times g}= \sqrt{\frac{\sigma_f^2\sigma_g^2}{\sigma_f^2+\sigma_g^2}}<br>\right)<br>$$<br>两个高斯函数卷积组成的高斯函数的均值和方差为：<br>$$<br>\left(<br>m_{ f\otimes g}=m_f + m_g,<br>\sigma_{f \otimes g}=\sqrt{\sigma_f^2+\sigma_g^2}<br>\right)<br>$$</p>
+<p>设有两个高斯函数的均值和标准差分别为<span class="math inline">\(m_f,m_g\)</span>和<span class="math inline">\(\sigma_f,\sigma_g\)</span></p>
+<p>则两个高斯函数乘积所组成的高斯函数的均值和方差为： <span class="math display">\[
+\left( 
+m_{f \times g}=\frac{m_f\sigma_g^2+m_g\sigma_f^2}{\sigma_f^2+\sigma_g^2}, 
+\sigma_{f \times g}= \sqrt{\frac{\sigma_f^2\sigma_g^2}{\sigma_f^2+\sigma_g^2}} 
+\right)
+\]</span> 两个高斯函数卷积组成的高斯函数的均值和方差为： <span class="math display">\[
+\left(
+m_{ f\otimes g}=m_f + m_g,
+\sigma_{f \otimes g}=\sqrt{\sigma_f^2+\sigma_g^2}
+\right)
+\]</span></p>
 
       
     </div>
@@ -682,7 +726,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高斯拉普拉斯算子"><span class="nav-number">2.</span> <span class="nav-text">高斯拉普拉斯算子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高斯差分算子"><span class="nav-number">3.</span> <span class="nav-text">高斯差分算子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充：高斯滤波器的性质"><span class="nav-number">4.</span> <span class="nav-text">补充：高斯滤波器的性质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可分离性"><span class="nav-number">4.1.</span> <span class="nav-text">可分离性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可叠加性"><span class="nav-number">4.2.</span> <span class="nav-text">可叠加性</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高斯拉普拉斯算子"><span class="nav-number">2.</span> <span class="nav-text">高斯拉普拉斯算子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高斯差分算子"><span class="nav-number">3.</span> <span class="nav-text">高斯差分算子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充高斯滤波器的性质"><span class="nav-number">4.</span> <span class="nav-text">补充：高斯滤波器的性质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可分离性"><span class="nav-number">4.1.</span> <span class="nav-text">可分离性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可叠加性"><span class="nav-number">4.2.</span> <span class="nav-text">可叠加性</span></a></li></ol></li></ol></div>
             
 
           </div>

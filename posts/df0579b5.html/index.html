@@ -81,14 +81,14 @@
 
 
 
-<meta name="description" content="基本用法创建一个datasets：1234import tensorflow as tfdatasets &#x3D; tf.data.DataSets.from_tensor_slices([1,2,3,4,5])datasets  遍历datasets：12for elem in dataset:  print(elem.numpy())  迭代器单独取出datasets中的数：123it &#x3D; iter">
+<meta name="description" content="基本用法 创建一个datasets： 1234import tensorflow as tfdatasets &#x3D; tf.data.DataSets.from_tensor_slices([1,2,3,4,5])datasets 遍历datasets： 12for elem in dataset:  print(elem.numpy()) 迭代器单独取出datasets中的数： 123it &#x3D; it">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tensorflow Dataset模块笔记">
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/df0579b5.html/index.html">
 <meta property="og:site_name" content="冒烟的乔个人博客">
-<meta property="og:description" content="基本用法创建一个datasets：1234import tensorflow as tfdatasets &#x3D; tf.data.DataSets.from_tensor_slices([1,2,3,4,5])datasets  遍历datasets：12for elem in dataset:  print(elem.numpy())  迭代器单独取出datasets中的数：123it &#x3D; iter">
-<meta property="og:image" content="http://blog.zhangqi2019.top/posts/df0579b5.html/Tensorflow-Dataset%E6%A8%A1%E5%9D%97%E7%AC%94%E8%BF%B9/1.png">
-<meta property="og:image" content="http://blog.zhangqi2019.top/posts/df0579b5.html/Tensorflow-Dataset%E6%A8%A1%E5%9D%97%E7%AC%94%E8%BF%B9/2.png">
+<meta property="og:description" content="基本用法 创建一个datasets： 1234import tensorflow as tfdatasets &#x3D; tf.data.DataSets.from_tensor_slices([1,2,3,4,5])datasets 遍历datasets： 12for elem in dataset:  print(elem.numpy()) 迭代器单独取出datasets中的数： 123it &#x3D; it">
+<meta property="og:image" content="http://blog.zhangqi2019.top/Tensorflow-Dataset%E6%A8%A1%E5%9D%97%E7%AC%94%E8%BF%B9/1.png">
+<meta property="og:image" content="http://blog.zhangqi2019.top/Tensorflow-Dataset%E6%A8%A1%E5%9D%97%E7%AC%94%E8%BF%B9/2.png">
 <meta property="article:published_time" content="2020-04-20T07:45:36.000Z">
 <meta property="article:modified_time" content="2021-10-13T01:52:49.720Z">
 <meta property="article:author" content="冒烟的乔">
@@ -96,7 +96,7 @@
 <meta property="article:tag" content="编程">
 <meta property="article:tag" content="Tensorflow">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://blog.zhangqi2019.top/posts/df0579b5.html/Tensorflow-Dataset%E6%A8%A1%E5%9D%97%E7%AC%94%E8%BF%B9/1.png">
+<meta name="twitter:image" content="http://blog.zhangqi2019.top/Tensorflow-Dataset%E6%A8%A1%E5%9D%97%E7%AC%94%E8%BF%B9/1.png">
 
 
 
@@ -416,34 +416,39 @@
       
 
       
-        <h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><h3 id="创建一个datasets："><a href="#创建一个datasets：" class="headerlink" title="创建一个datasets："></a>创建一个datasets：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">datasets = tf.data.DataSets.from_tensor_slices([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line">datasets</span><br></pre></td></tr></table></figure>
-
-<h3 id="遍历datasets："><a href="#遍历datasets：" class="headerlink" title="遍历datasets："></a>遍历datasets：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> dataset:</span><br><span class="line">  print(elem.numpy())</span><br></pre></td></tr></table></figure>
-
-<h3 id="迭代器单独取出datasets中的数："><a href="#迭代器单独取出datasets中的数：" class="headerlink" title="迭代器单独取出datasets中的数："></a>迭代器单独取出datasets中的数：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">it = iter(dataset)</span><br><span class="line"></span><br><span class="line">print(next(it).numpy())</span><br></pre></td></tr></table></figure>
-
-<h3 id="reduce函数"><a href="#reduce函数" class="headerlink" title="reduce函数"></a>reduce函数</h3><p>dataset可以用类似于spark中的map、reduce计算结果<strong>（但用法略有不同）</strong></p>
+        <h2 id="基本用法">基本用法</h2>
+<h3 id="创建一个datasets">创建一个datasets：</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">datasets = tf.data.DataSets.from_tensor_slices([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line">datasets</span><br></pre></td></tr></table></figure>
+<h3 id="遍历datasets">遍历datasets：</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> dataset:</span><br><span class="line">  print(elem.numpy())</span><br></pre></td></tr></table></figure>
+<h3 id="迭代器单独取出datasets中的数">迭代器单独取出datasets中的数：</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">it = iter(dataset)</span><br><span class="line"></span><br><span class="line">print(next(it).numpy())</span><br></pre></td></tr></table></figure>
+<h3 id="reduce函数">reduce函数</h3>
+<p>dataset可以用类似于spark中的map、reduce计算结果<strong>（但用法略有不同）</strong></p>
 <blockquote>
 <p>reduce函数的第一个参数就是后面lambda函数的state，然后reduce函数会遍历datasets中的每一个元素，转换为lambda函数中的value，直到返回结果。</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">datasets = tf.data.DataSets.from_tensor_slices([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line">print(dataset.reduce(<span class="number">0</span>, <span class="keyword">lambda</span> state, value: state + value).numpy())</span><br></pre></td></tr></table></figure>
-
-<h3 id="map函数"><a href="#map函数" class="headerlink" title="map函数"></a>map函数</h3><blockquote>
+<h3 id="map函数">map函数</h3>
+<blockquote>
 <p>map函数也是同样的道理</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">y = dataset.map(<span class="keyword">lambda</span> x:x**<span class="number">2</span>)</span><br><span class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> y:</span><br><span class="line">    print(elem.numpy())</span><br></pre></td></tr></table></figure>
-
-<h2 id="数据的结构"><a href="#数据的结构" class="headerlink" title="数据的结构"></a>数据的结构</h2><h3 id="TypeSpec"><a href="#TypeSpec" class="headerlink" title="TypeSpec"></a>TypeSpec</h3><p>通过数据的element_spec属性可以看数据的Type</p>
+<h2 id="数据的结构">数据的结构</h2>
+<h3 id="typespec">TypeSpec</h3>
+<p>通过数据的element_spec属性可以看数据的Type</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dataset1 = tf.data.Dataset.from_tensor_slices(tf.random.uniform([<span class="number">4</span>, <span class="number">10</span>]))</span><br><span class="line"></span><br><span class="line">dataset1.element_spec</span><br><span class="line"></span><br><span class="line"><span class="comment"># 结果为：</span></span><br><span class="line"><span class="comment"># TensorSpec(shape=(10,), dtype=tf.float32, name=None)</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="数据的合并"><a href="#数据的合并" class="headerlink" title="数据的合并"></a>数据的合并</h3><p>多个子数据集可以合并成为一个总的数据集，<strong>这些子数据集可以有不同的TypeSpec</strong></p>
+<h3 id="数据的合并">数据的合并</h3>
+<p>多个子数据集可以合并成为一个总的数据集，<strong>这些子数据集可以有不同的TypeSpec</strong></p>
 <blockquote>
 <p>通过zip函数即可合并</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">dataset1 = tf.data.Dataset.from_tensor_slices(</span><br><span class="line">    tf.random.uniform([<span class="number">4</span>, <span class="number">10</span>], minval=<span class="number">1</span>, maxval=<span class="number">10</span>, dtype=tf.int32))</span><br><span class="line">    </span><br><span class="line">dataset2 = tf.data.Dataset.from_tensor_slices(</span><br><span class="line">   (tf.random.uniform([<span class="number">4</span>]),</span><br><span class="line">    tf.random.uniform([<span class="number">4</span>, <span class="number">100</span>], maxval=<span class="number">100</span>, dtype=tf.int32)))</span><br><span class="line"></span><br><span class="line">dataset3 = tf.data.Dataset.zip((dataset1, dataset2))</span><br><span class="line"></span><br><span class="line"><span class="string">'''打印数据'''</span></span><br><span class="line"><span class="keyword">for</span> a, (b,c) <span class="keyword">in</span> dataset3:</span><br><span class="line">  print(<span class="string">'shapes: &#123;a.shape&#125;, &#123;b.shape&#125;, &#123;c.shape&#125;'</span>.format(a=a, b=b, c=c))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 结果为</span></span><br><span class="line">shapes: (<span class="number">10</span>,), (), (<span class="number">100</span>,)</span><br><span class="line">shapes: (<span class="number">10</span>,), (), (<span class="number">100</span>,)</span><br><span class="line">shapes: (<span class="number">10</span>,), (), (<span class="number">100</span>,)</span><br><span class="line">shapes: (<span class="number">10</span>,), (), (<span class="number">100</span>,)</span><br></pre></td></tr></table></figure>
-
-<h2 id="读取输入数据"><a href="#读取输入数据" class="headerlink" title="读取输入数据"></a>读取输入数据</h2><h3 id="方式一：直接从Numpy读取"><a href="#方式一：直接从Numpy读取" class="headerlink" title="方式一：直接从Numpy读取"></a>方式一：直接从Numpy读取</h3><p>如果数据足够小，最简单也最便捷的方式是直接从numpy中读取，调用<code>from_tensor_slices</code>即可</p>
-<h3 id="方式二：用生成器读取"><a href="#方式二：用生成器读取" class="headerlink" title="方式二：用生成器读取"></a>方式二：用生成器读取</h3><p>由于内存的限制，所以大部分情况下，我们都会从generator中读取，<strong>但此方式有一定的局限性</strong>，有以下几点需要注意：</p>
+<h2 id="读取输入数据">读取输入数据</h2>
+<h3 id="方式一直接从numpy读取">方式一：直接从Numpy读取</h3>
+<p>如果数据足够小，最简单也最便捷的方式是直接从numpy中读取，调用<code>from_tensor_slices</code>即可</p>
+<h3 id="方式二用生成器读取">方式二：用生成器读取</h3>
+<p>由于内存的限制，所以大部分情况下，我们都会从generator中读取，<strong>但此方式有一定的局限性</strong>，有以下几点需要注意：</p>
 <blockquote>
 <ul>
 <li>只能在同一进程下写一个生成器</li>
@@ -459,53 +464,59 @@
 </ul>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">count</span><span class="params">(stop)</span>:</span></span><br><span class="line">  i = <span class="number">0</span></span><br><span class="line">  <span class="keyword">while</span> i&lt;stop:</span><br><span class="line">    <span class="keyword">yield</span> i</span><br><span class="line">    i += <span class="number">1</span></span><br><span class="line">    </span><br><span class="line"><span class="comment"># 如果generator的参数仅有一个，则args外层也一定要加一个list包住，否则报错</span></span><br><span class="line">ds_counter = tf.data.Dataset.from_generator(count, args=[<span class="number">25</span>], output_types=tf.int32, output_shapes = (), )  </span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> count_batch <span class="keyword">in</span> ds_counter.repeat().batch(<span class="number">10</span>).take(<span class="number">10</span>):</span><br><span class="line">  print(count_batch.numpy())</span><br></pre></td></tr></table></figure>
-
 <ul>
-<li><p><code>repeat</code>表示该生成器循环多少次，如果不填，则表示一直循环</p>
-</li>
-<li><p><code>batch</code>表示一次循环取多少个数据</p>
-</li>
-<li><p><code>take</code>表示基于前面的结果一次取多少个数据</p>
-</li>
+<li><p><code>repeat</code>表示该生成器循环多少次，如果不填，则表示一直循环</p></li>
+<li><p><code>batch</code>表示一次循环取多少个数据</p></li>
+<li><p><code>take</code>表示基于前面的结果一次取多少个数据</p></li>
 </ul>
-<h3 id="方式三：TFRecord"><a href="#方式三：TFRecord" class="headerlink" title="方式三：TFRecord"></a>方式三：TFRecord</h3><h2 id="Batch-Data"><a href="#Batch-Data" class="headerlink" title="Batch Data"></a>Batch Data</h2><h3 id="Simple-Batch"><a href="#Simple-Batch" class="headerlink" title="Simple Batch"></a>Simple Batch</h3><blockquote>
+<h3 id="方式三tfrecord">方式三：TFRecord</h3>
+<h2 id="batch-data">Batch Data</h2>
+<h3 id="simple-batch">Simple Batch</h3>
+<blockquote>
 <p>最简单的方式就是调用batch函数，batch中的值表示一个batch取几个，代码如下：</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">inc_dataset = tf.data.Dataset.range(<span class="number">100</span>)</span><br><span class="line">dec_dataset = tf.data.Dataset.range(<span class="number">0</span>, <span class="number">-100</span>, <span class="number">-1</span>)</span><br><span class="line">dataset = tf.data.Dataset.zip((inc_dataset, dec_dataset))</span><br><span class="line">batched_dataset = dataset.batch(<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> batch <span class="keyword">in</span> batched_dataset.take(<span class="number">4</span>):</span><br><span class="line">  print([arr.numpy() <span class="keyword">for</span> arr <span class="keyword">in</span> batch])</span><br></pre></td></tr></table></figure>
-
 <blockquote>
-<p> 如果在取batch的过程中想忽略掉最后一个batch(因为最后一个数可能数据不齐)，则加入参数<code>drop_remainder</code>即可。</p>
+<p>如果在取batch的过程中想忽略掉最后一个batch(因为最后一个数可能数据不齐)，则加入参数<code>drop_remainder</code>即可。</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">batched_dataset = dataset.batch(<span class="number">7</span>, drop_remainder=<span class="literal">True</span>)</span><br><span class="line">batched_dataset</span><br></pre></td></tr></table></figure>
-
-<h3 id="Batching-tensors-with-padding"><a href="#Batching-tensors-with-padding" class="headerlink" title="Batching tensors with padding"></a>Batching tensors with padding</h3><blockquote>
-<p> 当遇到输入数据的维度不齐时，可以调用<code>padded_batch</code>函数，该函数可以将不整齐的输入数据补齐，如下：</p>
+<h3 id="batching-tensors-with-padding">Batching tensors with padding</h3>
+<blockquote>
+<p>当遇到输入数据的维度不齐时，可以调用<code>padded_batch</code>函数，该函数可以将不整齐的输入数据补齐，如下：</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">dataset = tf.data.Dataset.range(<span class="number">100</span>)</span><br><span class="line">dataset = dataset.map(<span class="keyword">lambda</span> x: tf.fill([tf.cast(x, tf.int32)], x))</span><br><span class="line"><span class="keyword">for</span> batch <span class="keyword">in</span> dataset.take(<span class="number">5</span>):</span><br><span class="line">  print(batch.numpy())</span><br><span class="line">  print()</span><br><span class="line">    </span><br><span class="line">print(<span class="string">"==================================="</span>)</span><br><span class="line">dataset = dataset.padded_batch(<span class="number">4</span>, padded_shapes=(<span class="literal">None</span>,))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> batch <span class="keyword">in</span> dataset.take(<span class="number">2</span>):</span><br><span class="line">  print(batch.numpy())</span><br><span class="line">  print()</span><br></pre></td></tr></table></figure>
-
-<p> 结果为：</p>
+<p>结果为：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[]</span><br><span class="line"></span><br><span class="line">[1]</span><br><span class="line"></span><br><span class="line">[2 2]</span><br><span class="line"></span><br><span class="line">[3 3 3]</span><br><span class="line"></span><br><span class="line">[4 4 4 4]</span><br><span class="line"></span><br><span class="line">===================================</span><br><span class="line">[[0 0 0]</span><br><span class="line"> [1 0 0]</span><br><span class="line"> [2 2 0]</span><br><span class="line"> [3 3 3]]</span><br><span class="line"></span><br><span class="line">[[4 4 4 4 0 0 0]</span><br><span class="line"> [5 5 5 5 5 0 0]</span><br><span class="line"> [6 6 6 6 6 6 0]</span><br><span class="line"> [7 7 7 7 7 7 7]]</span><br></pre></td></tr></table></figure>
-
-<h2 id="Training-workflows"><a href="#Training-workflows" class="headerlink" title="Training workflows"></a>Training workflows</h2><h3 id="Processing-multiple-epochs"><a href="#Processing-multiple-epochs" class="headerlink" title="Processing multiple epochs"></a>Processing multiple epochs</h3><blockquote>
+<h2 id="training-workflows">Training workflows</h2>
+<h3 id="processing-multiple-epochs">Processing multiple epochs</h3>
+<blockquote>
 <p>repeat函数即可实现epoch循环</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_batch_sizes</span><span class="params">(ds)</span>:</span></span><br><span class="line">  batch_sizes = [batch.shape[<span class="number">0</span>] <span class="keyword">for</span> batch <span class="keyword">in</span> ds]</span><br><span class="line">  plt.bar(range(len(batch_sizes)), batch_sizes)</span><br><span class="line">  plt.xlabel(<span class="string">'Batch number'</span>)</span><br><span class="line">  plt.ylabel(<span class="string">'Batch size'</span>)</span><br><span class="line"></span><br><span class="line">titanic_file = tf.keras.utils.get_file(<span class="string">"train.csv"</span>, <span class="string">"https://storage.googleapis.com/tf-datasets/titanic/train.csv"</span>)</span><br><span class="line">titanic_lines = tf.data.TextLineDataset(titanic_file)</span><br><span class="line"></span><br><span class="line">titanic_batches = titanic_lines.repeat(<span class="number">3</span>).batch(<span class="number">128</span>)</span><br><span class="line">plot_batch_sizes(titanic_batches)</span><br></pre></td></tr></table></figure>
-
 <p>得到的结果如下图所示：</p>
-<p><img src="Tensorflow-Dataset%E6%A8%A1%E5%9D%97%E7%AC%94%E8%BF%B9/1.png" alt=""></p>
+<div class="figure">
+<img src="/Tensorflow-Dataset模块笔迹/1.png">
+
+</div>
 <p>教程中还提到另外一种方式：</p>
-<p><img src="Tensorflow-Dataset%E6%A8%A1%E5%9D%97%E7%AC%94%E8%BF%B9/2.png" alt=""></p>
-<h3 id="Randomly-shuffling-input-data"><a href="#Randomly-shuffling-input-data" class="headerlink" title="Randomly shuffling input data"></a>Randomly shuffling input data</h3><p>调用<code>shuffle</code>函数即可，这里重点说明一下<code>shuffle</code>函数中的<code>buffer_size</code>参数：</p>
+<div class="figure">
+<img src="/Tensorflow-Dataset模块笔迹/2.png">
+
+</div>
+<h3 id="randomly-shuffling-input-data">Randomly shuffling input data</h3>
+<p>调用<code>shuffle</code>函数即可，这里重点说明一下<code>shuffle</code>函数中的<code>buffer_size</code>参数：</p>
 <p>tensorflow中的打乱顺序是通过采样实现的。也就是说，给定一个<code>batch_size</code>，在数据集中抽取这么多个（<code>batch_size</code>个数据）数据，从而达到打乱顺序的目的。但有时候，原数据集太大，这么抽很耗时，所以就有了<code>buffer</code>，buffer的作用是代替原数据集来进行抽样，即<code>batch</code>中的数据是从<code>buffer</code>里面抽，这个buffer越大，越能够代表原数据集，所以<code>buffer_size</code>参数实际上是代表<code>buffer</code>的大小的。</p>
 <p>以下是原文：</p>
 <blockquote>
-<p>This dataset fills a buffer with <code>buffer_size</code> elements, then randomly<br>samples elements from this buffer, replacing the selected elements with new<br>elements. For perfect shuffling, a buffer size greater than or equal to the<br>full size of the dataset is required.</p>
-<p>For instance, if your dataset contains 10,000 elements but <code>buffer_size</code> is<br>set to 1,000, then <code>shuffle</code> will initially select a random element from<br>only the first 1,000 elements in the buffer. Once an element is selected,<br>its space in the buffer is replaced by the next (i.e. 1,001-st) element,<br>maintaining the 1,000 element buffer.</p>
+<p>This dataset fills a buffer with <code>buffer_size</code> elements, then randomly samples elements from this buffer, replacing the selected elements with new elements. For perfect shuffling, a buffer size greater than or equal to the full size of the dataset is required.</p>
+<p>For instance, if your dataset contains 10,000 elements but <code>buffer_size</code> is set to 1,000, then <code>shuffle</code> will initially select a random element from only the first 1,000 elements in the buffer. Once an element is selected, its space in the buffer is replaced by the next (i.e. 1,001-st) element, maintaining the 1,000 element buffer.</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">lines = tf.data.TextLineDataset(titanic_file)</span><br><span class="line">counter = tf.data.experimental.Counter()</span><br><span class="line"></span><br><span class="line">dataset = tf.data.Dataset.zip((counter, lines))</span><br><span class="line">dataset = dataset.shuffle(buffer_size=<span class="number">100</span>)</span><br><span class="line">dataset = dataset.batch(<span class="number">20</span>)</span><br><span class="line">dataset</span><br></pre></td></tr></table></figure>
-
-<h2 id="Preprocessing-data"><a href="#Preprocessing-data" class="headerlink" title="Preprocessing data"></a>Preprocessing data</h2><h3 id="数据map"><a href="#数据map" class="headerlink" title="数据map"></a>数据map</h3><p>见 <a href="#map函数">map函数</a></p>
-<h3 id="py-function函数"><a href="#py-function函数" class="headerlink" title="py_function函数"></a>py_function函数</h3><blockquote>
+<h2 id="preprocessing-data">Preprocessing data</h2>
+<h3 id="数据map">数据map</h3>
+<p>见 <a href="#map函数">map函数</a></p>
+<h3 id="py_function函数">py_function函数</h3>
+<blockquote>
 <p><code>py_function</code>使得tensorflow可以调用非tensorflow库，如下：</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x ** <span class="number">2</span></span><br><span class="line"></span><br><span class="line">x = np.arange(<span class="number">12</span>).reshape(<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line">tf.py_function(f,[x],[tf.int32])</span><br></pre></td></tr></table></figure>
@@ -761,7 +772,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本用法"><span class="nav-number">1.</span> <span class="nav-text">基本用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个datasets："><span class="nav-number">1.1.</span> <span class="nav-text">创建一个datasets：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历datasets："><span class="nav-number">1.2.</span> <span class="nav-text">遍历datasets：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代器单独取出datasets中的数："><span class="nav-number">1.3.</span> <span class="nav-text">迭代器单独取出datasets中的数：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reduce函数"><span class="nav-number">1.4.</span> <span class="nav-text">reduce函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map函数"><span class="nav-number">1.5.</span> <span class="nav-text">map函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据的结构"><span class="nav-number">2.</span> <span class="nav-text">数据的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TypeSpec"><span class="nav-number">2.1.</span> <span class="nav-text">TypeSpec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据的合并"><span class="nav-number">2.2.</span> <span class="nav-text">数据的合并</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读取输入数据"><span class="nav-number">3.</span> <span class="nav-text">读取输入数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方式一：直接从Numpy读取"><span class="nav-number">3.1.</span> <span class="nav-text">方式一：直接从Numpy读取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方式二：用生成器读取"><span class="nav-number">3.2.</span> <span class="nav-text">方式二：用生成器读取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方式三：TFRecord"><span class="nav-number">3.3.</span> <span class="nav-text">方式三：TFRecord</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Batch-Data"><span class="nav-number">4.</span> <span class="nav-text">Batch Data</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Simple-Batch"><span class="nav-number">4.1.</span> <span class="nav-text">Simple Batch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Batching-tensors-with-padding"><span class="nav-number">4.2.</span> <span class="nav-text">Batching tensors with padding</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Training-workflows"><span class="nav-number">5.</span> <span class="nav-text">Training workflows</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Processing-multiple-epochs"><span class="nav-number">5.1.</span> <span class="nav-text">Processing multiple epochs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Randomly-shuffling-input-data"><span class="nav-number">5.2.</span> <span class="nav-text">Randomly shuffling input data</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Preprocessing-data"><span class="nav-number">6.</span> <span class="nav-text">Preprocessing data</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据map"><span class="nav-number">6.1.</span> <span class="nav-text">数据map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#py-function函数"><span class="nav-number">6.2.</span> <span class="nav-text">py_function函数</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本用法"><span class="nav-number">1.</span> <span class="nav-text">基本用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个datasets"><span class="nav-number">1.1.</span> <span class="nav-text">创建一个datasets：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历datasets"><span class="nav-number">1.2.</span> <span class="nav-text">遍历datasets：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代器单独取出datasets中的数"><span class="nav-number">1.3.</span> <span class="nav-text">迭代器单独取出datasets中的数：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reduce函数"><span class="nav-number">1.4.</span> <span class="nav-text">reduce函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map函数"><span class="nav-number">1.5.</span> <span class="nav-text">map函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据的结构"><span class="nav-number">2.</span> <span class="nav-text">数据的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#typespec"><span class="nav-number">2.1.</span> <span class="nav-text">TypeSpec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据的合并"><span class="nav-number">2.2.</span> <span class="nav-text">数据的合并</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读取输入数据"><span class="nav-number">3.</span> <span class="nav-text">读取输入数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方式一直接从numpy读取"><span class="nav-number">3.1.</span> <span class="nav-text">方式一：直接从Numpy读取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方式二用生成器读取"><span class="nav-number">3.2.</span> <span class="nav-text">方式二：用生成器读取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方式三tfrecord"><span class="nav-number">3.3.</span> <span class="nav-text">方式三：TFRecord</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#batch-data"><span class="nav-number">4.</span> <span class="nav-text">Batch Data</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#simple-batch"><span class="nav-number">4.1.</span> <span class="nav-text">Simple Batch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#batching-tensors-with-padding"><span class="nav-number">4.2.</span> <span class="nav-text">Batching tensors with padding</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#training-workflows"><span class="nav-number">5.</span> <span class="nav-text">Training workflows</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#processing-multiple-epochs"><span class="nav-number">5.1.</span> <span class="nav-text">Processing multiple epochs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#randomly-shuffling-input-data"><span class="nav-number">5.2.</span> <span class="nav-text">Randomly shuffling input data</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#preprocessing-data"><span class="nav-number">6.</span> <span class="nav-text">Preprocessing data</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据map"><span class="nav-number">6.1.</span> <span class="nav-text">数据map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#py_function函数"><span class="nav-number">6.2.</span> <span class="nav-text">py_function函数</span></a></li></ol></li></ol></div>
             
 
           </div>

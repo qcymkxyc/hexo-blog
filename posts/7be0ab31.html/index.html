@@ -81,12 +81,12 @@
 
 
 
-<meta name="description" content="Question 双边滤波的作用 双边滤波的原理  概述双边滤波是一个非线性滤波器，他能做到既平滑降噪，又保持边缘信息，在实际运用中很有用 原理考虑高斯滤波，高斯滤波是利用空间域来达到平滑的效果。设在一个以$q$ 为中心的窗口中，某一点$p$的高斯滤波权重为：$$G_{\sigma}(||p - q||) &#x3D; \frac{1}{2\pi\sigma^2}e^{-\frac{||p-q||^2}{2">
+<meta name="description" content="Question  双边滤波的作用 双边滤波的原理  概述 双边滤波是一个非线性滤波器，他能做到既平滑降噪，又保持边缘信息，在实际运用中很有用 原理 考虑高斯滤波，高斯滤波是利用空间域来达到平滑的效果。设在一个以\(q\) 为中心的窗口中，某一点\(p\)的高斯滤波权重为： \[ G_{\sigma}(||p - q||) &#x3D; \frac{1}{2\pi\sigma^2}e^{-\frac{||p">
 <meta property="og:type" content="article">
 <meta property="og:title" content="双边滤波">
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/7be0ab31.html/index.html">
 <meta property="og:site_name" content="冒烟的乔个人博客">
-<meta property="og:description" content="Question 双边滤波的作用 双边滤波的原理  概述双边滤波是一个非线性滤波器，他能做到既平滑降噪，又保持边缘信息，在实际运用中很有用 原理考虑高斯滤波，高斯滤波是利用空间域来达到平滑的效果。设在一个以$q$ 为中心的窗口中，某一点$p$的高斯滤波权重为：$$G_{\sigma}(||p - q||) &#x3D; \frac{1}{2\pi\sigma^2}e^{-\frac{||p-q||^2}{2">
+<meta property="og:description" content="Question  双边滤波的作用 双边滤波的原理  概述 双边滤波是一个非线性滤波器，他能做到既平滑降噪，又保持边缘信息，在实际运用中很有用 原理 考虑高斯滤波，高斯滤波是利用空间域来达到平滑的效果。设在一个以\(q\) 为中心的窗口中，某一点\(p\)的高斯滤波权重为： \[ G_{\sigma}(||p - q||) &#x3D; \frac{1}{2\pi\sigma^2}e^{-\frac{||p">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210319102529.png">
 <meta property="article:published_time" content="2021-03-19T01:18:42.000Z">
 <meta property="article:modified_time" content="2021-11-19T10:06:48.499Z">
@@ -414,22 +414,35 @@
       
 
       
-        <h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><ul>
+        <h2 id="question">Question</h2>
+<ul>
 <li><a href="#概述">双边滤波的作用</a></li>
 <li><a href="#原理">双边滤波的原理</a></li>
 </ul>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>双边滤波是一个非线性滤波器，<strong>他能做到既平滑降噪，又保持边缘信息</strong>，在实际运用中很有用</p>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>考虑高斯滤波，高斯滤波是利用空间域来达到平滑的效果。设在一个以$q$ 为中心的窗口中，某一点$p$的高斯滤波权重为：<br>$$<br>G_{\sigma}(||p - q||) = \frac{1}{2\pi\sigma^2}e^{-\frac{||p-q||^2}{2\sigma^2}}<br>$$<br>则当前像素点$q$的滤波结果可以表示为：<br>$$<br>GF(I)<em>{q}=\sum</em>{p \in S}{G_{\sigma}{(||p - q||)}I_{q}}<br>$$<br>其中，$S$表示以$q$为中心的窗口的所有像素点。</p>
-<p>而双边滤波不仅考虑空间的位置信息，还考虑颜色上的距离：<br>$$<br>BF[I]<em>q=\frac{1}{W_p}\sum</em>{p\in{S}}G_{\sigma_s}(||p - q||)G_{\sigma_r}(|I_p-I_q|)I_q<br>$$<br>其中，$\frac{1}{W_p}$为归一化因子，$G_{\sigma_s}(||p-q||)$表示空间位置上的差距，即普通的高斯滤波核。$G_{\sigma_r}$表示颜色上的差距，其也是用高斯核，但其输入已经改为两个像素值。</p>
+<h2 id="概述">概述</h2>
+<p>双边滤波是一个非线性滤波器，<strong>他能做到既平滑降噪，又保持边缘信息</strong>，在实际运用中很有用</p>
+<h2 id="原理">原理</h2>
+<p>考虑高斯滤波，高斯滤波是利用空间域来达到平滑的效果。设在一个以<span class="math inline">\(q\)</span> 为中心的窗口中，某一点<span class="math inline">\(p\)</span>的高斯滤波权重为： <span class="math display">\[
+G_{\sigma}(||p - q||) = \frac{1}{2\pi\sigma^2}e^{-\frac{||p-q||^2}{2\sigma^2}}
+\]</span> 则当前像素点<span class="math inline">\(q\)</span>的滤波结果可以表示为： <span class="math display">\[
+GF(I)_{q}=\sum_{p \in S}{G_{\sigma}{(||p - q||)}I_{q}}
+\]</span> 其中，<span class="math inline">\(S\)</span>表示以<span class="math inline">\(q\)</span>为中心的窗口的所有像素点。</p>
+<p>而双边滤波不仅考虑空间的位置信息，还考虑颜色上的距离： <span class="math display">\[
+BF[I]_q=\frac{1}{W_p}\sum_{p\in{S}}G_{\sigma_s}(||p - q||)G_{\sigma_r}(|I_p-I_q|)I_q
+\]</span> 其中，<span class="math inline">\(\frac{1}{W_p}\)</span>为归一化因子，<span class="math inline">\(G_{\sigma_s}(||p-q||)\)</span>表示空间位置上的差距，即普通的高斯滤波核。<span class="math inline">\(G_{\sigma_r}\)</span>表示颜色上的差距，其也是用高斯核，但其输入已经改为两个像素值。</p>
 <p>下面考虑两种情况：</p>
-<ol>
+<ol style="list-style-type: decimal">
 <li>该像素值位于一个区域的中间时</li>
 <li>该像素值位于一个区域的边缘时</li>
 </ol>
-<p>当一个像素值位于区域中间时，由于该区域的颜色颜色相差不大，所以，$|I_p - I_q|$较小，这导致$G_{\sigma_r}$较大，甚至接近1，此时核函数就相当于高斯核，起到区域内平滑的效果。</p>
-<p>当一个像素点位于区域的边缘时，由于该区域的颜色相差较大，此时，$|I_p-I_q|$较大，这导致$G_{\sigma_{r}}$反而较小。这导致了$q$点的权重较小，通过加权就会产生很明显的“断崖”效果。如下图所示：</p>
-<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210319102529.png" alt=""></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<p>当一个像素值位于区域中间时，由于该区域的颜色颜色相差不大，所以，<span class="math inline">\(|I_p - I_q|\)</span>较小，这导致<span class="math inline">\(G_{\sigma_r}\)</span>较大，甚至接近1，此时核函数就相当于高斯核，起到区域内平滑的效果。</p>
+<p>当一个像素点位于区域的边缘时，由于该区域的颜色相差较大，此时，<span class="math inline">\(|I_p-I_q|\)</span>较大，这导致<span class="math inline">\(G_{\sigma_{r}}\)</span>反而较小。这导致了<span class="math inline">\(q\)</span>点的权重较小，通过加权就会产生很明显的“断崖”效果。如下图所示：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210319102529.png">
+
+</div>
+<h2 id="参考">参考</h2>
+<ul>
 <li><a href="https://blog.csdn.net/u013066730/article/details/87859184" target="_blank" rel="noopener">Bilateral Filters（双边滤波算法）原理及实现</a></li>
 </ul>
 
@@ -682,7 +695,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">2.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">3.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">2.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">3.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
