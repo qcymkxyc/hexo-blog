@@ -494,8 +494,14 @@ E(u,v)=\sum_{x,y}[f(x+u,y+v)-f(x,y)]^2            \tag 9
 <p>但是，类似于空间核的高斯滤波器，<code>Harris</code>在位置上越靠近<span class="math inline">\((x,y)\)</span>的像素点的贡献越大，越远离<span class="math inline">\((x,y)\)</span>的像素点的贡献越小。所以在<code>Harris</code>中加入了权重参数，由此，公式（9）演变为： <span class="math display">\[
 E(u,v)=\sum_{x,y}W(x,y)[f(x+u,y+v)-f(x,y)]^2          \tag {10}
 \]</span> 其中，<span class="math inline">\(W(x,y)\)</span>表示在位置<span class="math inline">\((x,y)\)</span>上的权重。</p>
-<p>在上式中，计算<span class="math inline">\(E(u,v)\)</span>的值会非常慢，所以，在<code>SIFT</code>中，用了泰勒展开式来简化计算。我们知道，二维的泰勒展开式为： $$ f(x,y)= f(x_a,y_a)+ f_x^{'}(x_a,y_a)(x-x_a) + f_y^{'}(x,y)(y-y_a) + \ f_{xx}<sup>{&quot;}(x-x_a)</sup>2+f_{xy}^{&quot;}(x-x_a)(y-y_a) + f_{yx}^{&quot;}(x-x_a)(y-y_a) + \ f_{xy}^{&quot;}(x-x_a)(y-y_a) + f_{yy}<sup>{&quot;}(y-y_a)</sup>2 + O(n) </p>
-<p><span class="math inline">\($ 其中，\)</span>f_x<span class="math inline">\(和\)</span>f_{xx}<span class="math inline">\(分别表示对\)</span>f(x,y)<span class="math inline">\(在\)</span>x<span class="math inline">\(方向上的一阶和二阶求导，\)</span>y<span class="math inline">\(同理。\)</span>O(n)$为一个无穷小量</p>
+<p>在上式中，计算<span class="math inline">\(E(u,v)\)</span>的值会非常慢，所以，在<code>SIFT</code>中，用了泰勒展开式来简化计算。我们知道，二维的泰勒展开式为： <span class="math display">\[
+f(x,y)=
+f(x_a,y_a)+ 
+f_x^{&#39;}(x_a,y_a)(x-x_a) +  f_y^{&#39;}(x,y)(y-y_a) + \\
+\frac{1}{2!}f_{xx}^{&quot;}(x-x_a)^2+\frac{1}{2!}f_{xy}^{&quot;}(x-x_a)(y-y_a) + \frac{1}{2!}f_{yx}^{&quot;}(x-x_a)(y-y_a) + \\
+\frac{1}{2!}f_{xy}^{&quot;}(x-x_a)(y-y_a) + \frac{1}{2!}f_{yy}^{&quot;}(y-y_a)^2 + O(n)
+\tag {11}
+\]</span> 其中，<span class="math inline">\(f_x\)</span>和<span class="math inline">\(f_{xx}\)</span>分别表示对<span class="math inline">\(f(x,y)\)</span>在<span class="math inline">\(x\)</span>方向上的一阶和二阶求导，<span class="math inline">\(y\)</span>同理。<span class="math inline">\(O(n)\)</span>为一个无穷小量</p>
 </blockquote>
 <h2 id="关键点方向">关键点方向</h2>
 <h2 id="关键点描述子">关键点描述子</h2>
