@@ -126,12 +126,12 @@
 
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-uzAPFFSB" src="//player.bilibili.com/player.html?aid=86257908&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
+        <iframe class="bbplayer" id="mmedia-shNIVOco" src="//player.bilibili.com/player.html?aid=86257908&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-uzAPFFSB").style.height=document.getElementById("mmedia-uzAPFFSB").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-shNIVOco").style.height=document.getElementById("mmedia-shNIVOco").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-uzAPFFSB").style.height=document.getElementById("mmedia-uzAPFFSB").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-shNIVOco").style.height=document.getElementById("mmedia-shNIVOco").scrollWidth*0.76+"px";
             };
         </script>
         
@@ -139,12 +139,12 @@
 
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-WgHoafNt" src="//player.bilibili.com/player.html?aid=86258451&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
+        <iframe class="bbplayer" id="mmedia-JCyBptUR" src="//player.bilibili.com/player.html?aid=86258451&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-WgHoafNt").style.height=document.getElementById("mmedia-WgHoafNt").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-JCyBptUR").style.height=document.getElementById("mmedia-JCyBptUR").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-WgHoafNt").style.height=document.getElementById("mmedia-WgHoafNt").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-JCyBptUR").style.height=document.getElementById("mmedia-JCyBptUR").scrollWidth*0.76+"px";
             };
         </script>
         
@@ -207,12 +207,12 @@
 
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-plAvyjvc" src="//player.bilibili.com/player.html?aid=86258451&page=2&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
+        <iframe class="bbplayer" id="mmedia-gVlrlBZr" src="//player.bilibili.com/player.html?aid=86258451&page=2&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-plAvyjvc").style.height=document.getElementById("mmedia-plAvyjvc").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-gVlrlBZr").style.height=document.getElementById("mmedia-gVlrlBZr").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-plAvyjvc").style.height=document.getElementById("mmedia-plAvyjvc").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-gVlrlBZr").style.height=document.getElementById("mmedia-gVlrlBZr").scrollWidth*0.76+"px";
             };
         </script>
         
@@ -269,8 +269,8 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>Demo</tag>
         <tag>目标检测</tag>
+        <tag>Demo</tag>
       </tags>
   </entry>
   <entry>
@@ -497,11 +497,83 @@ E(u,v)=\sum_{x,y}W(x,y)[f(x+u,y+v)-f(x,y)]^2          \tag {10}
 <p>在上式中，计算<span class="math inline">\(E(u,v)\)</span>的值会非常慢，所以，在<code>SIFT</code>中，用了泰勒展开式来简化计算。我们知道，二维的泰勒展开式为： <span class="math display">\[
 f(x,y)=
 f(x_a,y_a)+ 
-f_x^{&#39;}(x_a,y_a)(x-x_a) +  f_y^{&#39;}(x,y)(y-y_a) + \\
-\frac{1}{2!}f_{xx}^{&quot;}(x-x_a)^2+\frac{1}{2!}f_{xy}^{&quot;}(x-x_a)(y-y_a) + \frac{1}{2!}f_{yx}^{&quot;}(x-x_a)(y-y_a) + \\
-\frac{1}{2!}f_{xy}^{&quot;}(x-x_a)(y-y_a) + \frac{1}{2!}f_{yy}^{&quot;}(y-y_a)^2 + O(n)
+f_x(x_a,y_a)(x-x_a) +  f_y(x,y)(y-y_a) + \\
+\frac{1}{2!}f_{xx}(x-x_a)^2+\frac{1}{2!}f_{xy}(x-x_a)(y-y_a) + \frac{1}{2!}f_{yx}(x-x_a)(y-y_a) + \\
+\frac{1}{2!}f_{xy}(x-x_a)(y-y_a) + \frac{1}{2!}f_{yy}(y-y_a)^2 + O(n)
 \tag {11}
-\]</span> 其中，<span class="math inline">\(f_x\)</span>和<span class="math inline">\(f_{xx}\)</span>分别表示对<span class="math inline">\(f(x,y)\)</span>在<span class="math inline">\(x\)</span>方向上的一阶和二阶求导，<span class="math inline">\(y\)</span>同理。<span class="math inline">\(O(n)\)</span>为一个无穷小量</p>
+\]</span> 其中，<span class="math inline">\(f_x\)</span>和<span class="math inline">\(f_{xx}\)</span>分别表示对<span class="math inline">\(f(x,y)\)</span>在<span class="math inline">\(x\)</span>方向上的一阶和二阶求导，<span class="math inline">\(y\)</span>同理。<span class="math inline">\(O(n)\)</span>为一个无穷小量.</p>
+<p>现在我们对<span class="math inline">\(f(x+u,y+v)\)</span>进行泰勒一阶展开，如下所示： <span class="math display">\[
+f(x+u,y+v) \approx f(x,y) + f_x(x,y)u + f_y(x,y)v     \tag {12}
+\]</span> 则公式(10)可以化简为： <span class="math display">\[
+E(u,v)= \sum_{x,y}W(x,y)[f_x(x,y)u + f_y(x,y)v]^2     \tag {13}
+\]</span> 我们再次对公式（13）中的<span class="math inline">\([f_x(x,y)u+f_y(x,y)v]^2\)</span>化简，有： <span class="math display">\[
+[f_x(x,y)u+f_y(x,y)v]^2=
+\begin{bmatrix}
+[f_x(x,y) ,f_y(x,y)]
+\begin{bmatrix}
+u \\
+v
+\end{bmatrix}
+\end{bmatrix}^2
+\\=\begin{bmatrix}
+[f_x(x,y) ,f_y(x,y)]
+\begin{bmatrix}
+u \\
+v
+\end{bmatrix}
+\end{bmatrix}^T
+\begin{bmatrix}
+[f_x(x,y) ,f_y(x,y)]
+\begin{bmatrix}
+u \\
+v
+\end{bmatrix}
+\end{bmatrix} \\
+= [u,v]\begin{bmatrix}
+f_x(x,y)  \\
+f_y(x,y)
+\end{bmatrix}
+[f_x(x,y) ,f_y(x,y)]
+\begin{bmatrix}
+u \\
+v
+\end{bmatrix} \\
+= [u,v] 
+\begin{bmatrix}
+f_x^2(x,y) &amp; f_x(x,y) f_y(x,y) \\
+f_x(x,y) f_y(x,y) &amp; f_y^2(x,y)
+\end{bmatrix}
+\begin{bmatrix}
+u \\
+v
+\end{bmatrix} 
+\tag {14}
+\]</span> 令矩阵<span class="math inline">\(\begin{bmatrix} f_x^2(x,y) &amp; f_x(x,y) f_y(x,y) \\ f_x(x,y) f_y(x,y) &amp; f_y^2(x,y) \end{bmatrix}\)</span>为<span class="math inline">\(M\)</span>,实质上<span class="math inline">\(M\)</span>就是一个海森矩阵，则公式(13)可以化简为： <span class="math display">\[
+E(u,v)=\sum_{x,y}W(x,y)[u,v]M
+\begin{bmatrix}
+u \\
+v
+\end{bmatrix}
+\tag {15}
+\]</span> 其中，<span class="math inline">\(u\)</span>,<span class="math inline">\(v\)</span>和<span class="math inline">\(W(x,y)\)</span>的值我们都是知道的。</p>
+<p>前面我们说到，如果一个点角点上，其在两个方向上的变化都比较大，现在我们对<span class="math inline">\(M\)</span>进行主成分分解（<span class="math inline">\(M\)</span>为实对称矩阵，一定存在两个特征向量，且这两个特征向量正交）.设<span class="math inline">\(M\)</span>对应的两个特征值分别为<span class="math inline">\(\lambda_1\)</span>和<span class="math inline">\(\lambda_2\)</span>,其中<span class="math inline">\(\lambda_1&gt; \lambda_2\)</span>.分以下三种情况：</p>
+<ul>
+<li>如果分解的特征值均比较大，即<span class="math inline">\(\lambda_1 \approx \lambda_2\)</span>说明在两个方向上的都有较大的变动，此时说明该点在角点上</li>
+<li>如果分解的特征值有一个比较大，且远大于另一个，即<span class="math inline">\(\lambda_1 &gt;&gt; \lambda_2\)</span>，则说明该点在边缘上</li>
+<li>如果两个特征值都比较小，此时也有<span class="math inline">\(\lambda_1 \approx \lambda_2\)</span>，此时在平坦区域</li>
+</ul>
+<p>所以我们现在要找角点，即找上述的第一种情况，两个特征值都比较大的点</p>
+<p>在<code>Harris</code>中，并没有直接求<span class="math inline">\(M\)</span>的特征值，因为求<span class="math inline">\(M\)</span>的特征值计算速度过慢，而是利用另一种方式筛选第一种情况的点.</p>
+<p>下面补充两条公式：</p>
+<blockquote>
+<p>矩阵的迹等于特征值的和,同时，也等于对角线上的元素之和.对于(15)中的<span class="math inline">\(M\)</span>,有： <span class="math display">\[
+Tr(M)=\lambda_1  +  \lambda_2=f_x^2(x,y) + f_y^2(x,y)       \tag {16}
+\]</span> 其中,<span class="math inline">\(Tr(M)\)</span>表示矩阵<span class="math inline">\(M\)</span>的迹</p>
+<p>矩阵的行列式等于特征值之积，有： <span class="math display">\[
+Det(M)= \lambda_1\lambda_2=f_x^2(x,y)f_y^2(x,y)-[f_{xy}(x,y)]^2         \tag {17}
+\]</span> 其中，<span class="math inline">\(Det(M)\)</span>表示矩阵<span class="math inline">\(M\)</span>的行列式</p>
+</blockquote>
+<p>首先，我们要筛选</p>
 </blockquote>
 <h2 id="关键点方向">关键点方向</h2>
 <h2 id="关键点描述子">关键点描述子</h2>
@@ -4980,12 +5052,12 @@ D_w(A,P) + \alpha \leqslant D_w(A,N)
     <content><![CDATA[
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-AHoeaYOq" src="//player.bilibili.com/player.html?aid=85098088&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
+        <iframe class="bbplayer" id="mmedia-ApMEWNCA" src="//player.bilibili.com/player.html?aid=85098088&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-AHoeaYOq").style.height=document.getElementById("mmedia-AHoeaYOq").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-ApMEWNCA").style.height=document.getElementById("mmedia-ApMEWNCA").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-AHoeaYOq").style.height=document.getElementById("mmedia-AHoeaYOq").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-ApMEWNCA").style.height=document.getElementById("mmedia-ApMEWNCA").scrollWidth*0.76+"px";
             };
         </script>
         
