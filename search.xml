@@ -126,12 +126,12 @@
 
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-shNIVOco" src="//player.bilibili.com/player.html?aid=86257908&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
+        <iframe class="bbplayer" id="mmedia-ziSBYsTb" src="//player.bilibili.com/player.html?aid=86257908&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-shNIVOco").style.height=document.getElementById("mmedia-shNIVOco").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-ziSBYsTb").style.height=document.getElementById("mmedia-ziSBYsTb").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-shNIVOco").style.height=document.getElementById("mmedia-shNIVOco").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-ziSBYsTb").style.height=document.getElementById("mmedia-ziSBYsTb").scrollWidth*0.76+"px";
             };
         </script>
         
@@ -139,12 +139,12 @@
 
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-JCyBptUR" src="//player.bilibili.com/player.html?aid=86258451&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
+        <iframe class="bbplayer" id="mmedia-Ktyovviu" src="//player.bilibili.com/player.html?aid=86258451&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-JCyBptUR").style.height=document.getElementById("mmedia-JCyBptUR").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-Ktyovviu").style.height=document.getElementById("mmedia-Ktyovviu").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-JCyBptUR").style.height=document.getElementById("mmedia-JCyBptUR").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-Ktyovviu").style.height=document.getElementById("mmedia-Ktyovviu").scrollWidth*0.76+"px";
             };
         </script>
         
@@ -207,12 +207,12 @@
 
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-gVlrlBZr" src="//player.bilibili.com/player.html?aid=86258451&page=2&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
+        <iframe class="bbplayer" id="mmedia-bDRXvyvF" src="//player.bilibili.com/player.html?aid=86258451&page=2&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-gVlrlBZr").style.height=document.getElementById("mmedia-gVlrlBZr").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-bDRXvyvF").style.height=document.getElementById("mmedia-bDRXvyvF").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-gVlrlBZr").style.height=document.getElementById("mmedia-gVlrlBZr").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-bDRXvyvF").style.height=document.getElementById("mmedia-bDRXvyvF").scrollWidth*0.76+"px";
             };
         </script>
         
@@ -269,8 +269,118 @@
         <category>计算机视觉</category>
       </categories>
       <tags>
-        <tag>目标检测</tag>
         <tag>Demo</tag>
+        <tag>目标检测</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>气血津液</title>
+    <url>/posts/f05e7890.html/</url>
+    <content><![CDATA[<h1 id="精">精</h1>
+<h2 id="精和气血的关系">精和气血的关系</h2>
+<p>精是构成人体的基本物质,也是人体生长发育及各种功能活动的物质基础.<strong>可以说,精是人体一切的基础,是所有的原料</strong></p>
+<p>广义的精就是广义的气，精是所有的原料，其能化生气血，其化生的气主要指元气。</p>
+<pre class="mermaid">graph LR
+A[精]  -->|化生| B[元气]
+A -->|化生| C[血]
+B -->|化生| D[神]
+C --> |化生| A</pre>
+<blockquote>
+<ul>
+<li>精是所有的原料，若肾精虚弱(精虚一般由于房事过多)，则需要直接补精，补气补血则治标不治本.精虚和气血两虚很像,因为精虚,则元气的来源和血的来源减少,气血自然虚弱,气虚则少气懒言，血虚则面色萎黄,所以很像气血两虚证.</li>
+<li>补精适用的方剂——龟鹿二仙胶，龟鹿二仙胶，由鹿角胶，龟板胶，枸杞子，人参四味药组成，鹿角胶和龟板胶补精，人参补元气，标本兼治。</li>
+</ul>
+</blockquote>
+<h2 id="精的分类及转化流程">精的分类及转化流程</h2>
+<p>精大体分为先天之精和后天之精两类,如下图所示:</p>
+<pre class="mermaid">graph LR
+A[精] --- B[先天之精]
+A --- C[后天之精]
+C --- 水谷之精
+C --- 脏腑之精
+B --> D[生殖之精]</pre>
+<ul>
+<li>先天之精禀受于父母之精,来源于先天</li>
+<li>后天之精实际上来源于脾胃,也就是来源于我们所说的食物中的营养物质,由脾胃的运化功能转化为后天之精,通过脏腑的运化到达各个脏腑变为脏腑之精,多余的形成后天之精,保存于肾中.所以如果先天之精不足,可用后天之精来补充.但临床上,不是什么食物都行的,如果以后天补先天,还是需要针对性的补精的食物,例如上文所述的龟鹿二仙胶,此外还有紫河车,鹿胎</li>
+<li>生殖之精是由于先天之精由后天之精充养后,不断充盈,转化而来</li>
+</ul>
+<p>肾精的转化流程如下图所示:</p>
+<pre class="mermaid">graph LR
+A[水谷之精] --> |脾胃吸收|B[脏腑之精] 
+B--> |多余部分| C[后天之精]
+B -->|生成| 脏腑之气
+C -->|充养| E[先天之精]
+E -->|生成| 元气
+E -->|生成| F[生殖之精]</pre>
+<h1 id="气">气</h1>
+<p>气属阳,血属阴,气可以理解为人体的动力,气足则精力充沛,百病不生;气虚较为复杂,在各个脏腑和全身表现不同,后面详细述之,现在先概括气的来源.</p>
+<h2 id="气的来源">气的来源</h2>
+<p>气的来源分为三条途径:</p>
+<ul>
+<li>来源于精的生成.即由精所化,我们称为元气,<strong>为气的主要组成部分</strong>,我们所说的吃人参补气,即是补元气,事实上,但凡气虚,都是以补元气为主.此外,我们所说的精气,实际上是把精和气混淆,有时候并没有分得很清楚,两者亦能相互转化.所以我们可以看到,龟鹿二仙胶中即有人参又有两胶,实际上是精气双补,为大补之药.但龟鹿二仙胶吃过多会滋腻碍胃,必要时需要加陈皮或砂仁以减少滋腻</li>
+<li>来源于脾胃.脾胃为后天之本,气血生化之源.后天之本即后天之精.如果我们没有吃饭,就没有力气,就是此来源不足所致.此外,如果此人虚弱,脾胃运化功能不足,不论什么虚,需先补脾胃,否则吃药并没有什么效果.</li>
+<li>来源于自然界的清气.这主要依靠肺的呼吸功能.</li>
+</ul>
+<pre class="mermaid">graph LR
+A[气] ---  C[来源于肾精的转化] 
+C -.- 元气 
+A --- D[来源于脾胃]
+D-.- B[脾胃的运化功能]
+B --- 行于脉内为营气
+B --- 行于脉外为卫气
+B --- 由脏腑之精转化为脏腑之气
+A --- E[来源于自然界的清气]
+E -.- F[肺的呼吸功能] 
+F -.- 宗气的一部分</pre>
+<h2 id="气虚">气虚</h2>
+<p>气虚则少气懒言,易疲倦,觉多,觉醒后少气懒言稍微好转(适量睡觉生气),脉弱,汗多等,这是气虚的基本症状.但少气懒言等前面的症状是气虚到一定程度才会有,若有轻微气虚,是不会有少气懒言这些症状的,或者说这些症状不明显.</p>
+<p>此外,气虚表现在各个脏腑差异很大,例如在心,由于心主血脉,心气虚在推动血液无力,出现心慌气短等症状,在脾,则脾失健运,可能出现食少纳呆,水肿等症状.治疗也相差很远,例如肾气丸方(即崔氏八味丸)阴阳双补以达到补肾气的目的.再如脾气下陷用补中益气汤,用黄芪和升麻以助脾气升清.</p>
+<p>一般气虚自然补气,补气药中,人参为补气首选,因为人参直接补元气,元气又通过三焦遍布全身.</p>
+<p>较为有名的方剂:四君子汤</p>
+<blockquote>
+<p>四君子汤:人参,白术,茯苓,甘草</p>
+<p>人参为君,大补元气脾气,白术为臣,与茯苓相配燥湿利水且健脾,帮助中焦运化吸收,甘草作用有二:1,补脾气2,缓和</p>
+</blockquote>
+<h2 id="气的功能">气的功能</h2>
+<ul>
+<li>推动作用:例如气行血,气行津液</li>
+<li>温煦:类似于阳气的作用</li>
+<li>防御:即卫气的作用</li>
+<li>固摄:例如气虚则气不摄血,虚汗多,固摄不住津液</li>
+<li>气化:即气的转化</li>
+</ul>
+<h2 id="气的运动">气的运动</h2>
+<p>气的运动归纳为升降出入.</p>
+<p>正常的气在不同的脏腑运动是不同的,一般来说,在上的降,例如心和肺在上焦,主降.在下的升,如肝和肾,脾胃在中间一升一降.所以人的气的升降在脏腑间是平衡的,如下图所示:</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/2022-02-02 120739.jpg" style="zoom: 25%;"></p>
+<p>上图中,肝属春,时辰上属上午,理论上,若肝不升,在上午或春天用药效果会好一些.肺属秋,加强肺的属降功能则应该在秋天或下午用药.</p>
+<p><strong>在腑中,气的运动基本上以降为顺</strong></p>
+<h2 id="气机失调">气机失调</h2>
+<h3 id="气滞">气滞</h3>
+<p>气滞分为两种:虚和实,虚即为气虚型的气滞,理解为气虚推动作用减弱,应当补气行气;实则为气的阻塞,应当用行气药</p>
+<p>气滞的表现为胀,不同的是实胀据按,虚胀喜按,由此判定是实证还是虚证</p>
+<p>特别需要注意的一点<strong>:若是虚胀,单用行气药,会更加严重</strong>,因为行气药是耗气的,用行气药只会越用越虚.固虚胀应该补气药和行气药一起用.</p>
+<h2 id="气的分类">气的分类</h2>
+<pre class="mermaid">graph LR
+A[气] --- B[卫气]
+B --- D[肥腠理,斯开阖,卫外而为固]
+A --- C[营气]
+C --- E[水谷之精气]
+A --- G[宗气]
+G --- 自然界之清气与水谷精气结于胸中
+A --- I[元气]
+I --- 由精所化
+D --- F[来源于水谷精气]
+E --- F</pre>
+<p>我们所说的气虚造成的虚汗证实际上就是卫气虚<strong>,但并非所有的卫气虚造成的虚汗证都用玉屏风散</strong>(黄芪、白术、防风),黄芪和白术主升,主将气向上向外发散,但这个气来源来自于元气,若元气虚亏,用玉屏风散后前几付有效,后来无效,且会造成元气更加虚亏.所以,若此人本就元气虚亏,应是补气药和黄芪白术等药一起用,即补气又提气.</p>
+<h1 id="血">血</h1>
+]]></content>
+      <categories>
+        <category>中医</category>
+      </categories>
+      <tags>
+        <tag>中医</tag>
+        <tag>中医基础理论</tag>
       </tags>
   </entry>
   <entry>
@@ -599,6 +709,7 @@ Det(M)= \lambda_1\lambda_2=f_x^2(x,y)f_y^2(x,y)-[f_{xy}(x,y)]^2         \tag {17
 <p>栝蒌实一枚(捣) 薤白半斤 白酒七升</p>
 <p>右三味,同煮,取二升,分温再服.</p>
 <p>胸痹不得卧,心痛彻背者,栝蒌薤白半夏汤主之.</p>
+<p>气</p>
 ]]></content>
       <categories>
         <category>中医</category>
@@ -4804,7 +4915,9 @@ D_w(A,P) + \alpha \leqslant D_w(A,N)
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* nth element in the fibonacci series.</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param </span>n &gt;= 0</span></span><br><span class="line"><span class="comment">* <span class="doctag">@return </span>the nth element, &gt;= 0.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fib</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">1</span>, b = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">var</span> tmp;</span><br><span class="line">  <span class="keyword">while</span> (--n &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">    tmp = a;</span><br><span class="line">    a += b;</span><br><span class="line">    b = tmp;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.write(fib(<span class="number">10</span>));</span><br></pre></td></tr></table></figure>
 <h3 id="流程图">7. 流程图</h3>
 <h4 id="示例">示例</h4>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">st&#x3D;&gt;start: Start:&gt;https:&#x2F;&#x2F;www.zybuluo.com</span><br><span class="line">io&#x3D;&gt;inputoutput: verification</span><br><span class="line">op&#x3D;&gt;operation: Your Operation</span><br><span class="line">cond&#x3D;&gt;condition: Yes or No?</span><br><span class="line">sub&#x3D;&gt;subroutine: Your Subroutine</span><br><span class="line">e&#x3D;&gt;end</span><br><span class="line"></span><br><span class="line">st-&gt;io-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;sub-&gt;io</span><br></pre></td></tr></table></figure>
+<div id="flowchart-0" class="flow-chart">
+
+</div>
 <h4 id="更多语法参考流程图语法参考">更多语法参考：<a href="http://adrai.github.io/flowchart.js/" target="_blank" rel="noopener">流程图语法参考</a></h4>
 <h3 id="序列图">8. 序列图</h3>
 <h4 id="示例-1">示例 1</h4>
@@ -4932,7 +5045,20 @@ D_w(A,P) + \alpha \leqslant D_w(A,N)
 <hr>
 <ol>
 <li id="fn1"><p>这是一个 <em>注脚</em> 的 <strong>文本</strong>。<a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>这是另一个 <em>注脚</em> 的 <strong>文本</strong>。<a href="#fnref2">↩</a></p></li>
+<li id="fn2">这是另一个 <em>注脚</em> 的 <strong>文本</strong>。
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script>
+<textarea id="flowchart-0-code" style="display: none">st=>start: Start:>https://www.zybuluo.com
+io=>inputoutput: verification
+op=>operation: Your Operation
+cond=>condition: Yes or No?
+sub=>subroutine: Your Subroutine
+e=>end
+
+st->io->op->cond
+cond(yes)->e
+cond(no)->sub->io</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script>
+<a href="#fnref2">↩</a></li>
 </ol>
 </div>
 ]]></content>
@@ -5052,12 +5178,12 @@ D_w(A,P) + \alpha \leqslant D_w(A,N)
     <content><![CDATA[
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-ApMEWNCA" src="//player.bilibili.com/player.html?aid=85098088&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
+        <iframe class="bbplayer" id="mmedia-ssRToeWD" src="//player.bilibili.com/player.html?aid=85098088&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-ApMEWNCA").style.height=document.getElementById("mmedia-ApMEWNCA").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-ssRToeWD").style.height=document.getElementById("mmedia-ssRToeWD").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-ApMEWNCA").style.height=document.getElementById("mmedia-ApMEWNCA").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-ssRToeWD").style.height=document.getElementById("mmedia-ssRToeWD").scrollWidth*0.76+"px";
             };
         </script>
         
