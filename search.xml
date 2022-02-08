@@ -694,8 +694,11 @@ R=Det(M)-k \cdot (Tr(M))^2        \tag {18}
 </ul>
 <p>我们需要选择第一种情况，即<span class="math inline">\(R\)</span>大于0且<span class="math inline">\(|R|\)</span>较大的点</p>
 <p>下面说明为何会这样判断。</p>
-<p>由式（18），可以变换为： $$ R=_1 _2 - k(_1 + _2)^2 \ =(1 - 2k)_1 _2 - k(_1^2 + _2^2)</p>
-<p> $$</p>
+<p>由式（18），可以变换为： <span class="math display">\[
+R=\lambda_1 \lambda_2 - k(\lambda_1 + \lambda_2)^2            \\
+=(1 - 2k)\lambda_1 \lambda_2 - k(\lambda_1^2 + \lambda_2^2)
+\tag {19}
+\]</span></p>
 <ul>
 <li>若是角点的情况，<span class="math inline">\(\lambda_1\)</span>和<span class="math inline">\(\lambda_2\)</span>均较大，且<span class="math inline">\(\lambda_1 \approx \lambda_2\)</span>,上式可以改成：</li>
 </ul>
