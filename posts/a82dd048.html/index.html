@@ -93,7 +93,7 @@
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2021-12-16T10-47-55.229Z.png">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/v2-4cb0479e245d307e6b2ffe07f38067fd_720w.jpg">
 <meta property="article:published_time" content="2021-11-25T07:42:29.000Z">
-<meta property="article:modified_time" content="2022-02-08T09:25:30.558Z">
+<meta property="article:modified_time" content="2022-02-15T08:25:32.692Z">
 <meta property="article:author" content="冒烟的乔">
 <meta property="article:tag" content="计算机视觉">
 <meta property="article:tag" content="数字图像处理">
@@ -654,6 +654,17 @@ R \approx (1-2k) \lambda_1^2-2k\lambda_1^2        \\
 </ul>
 </blockquote>
 <h2 id="关键点方向">关键点方向</h2>
+<p>在得到关键点之后，我们需要计算出关键点的方向。</p>
+<p>实际上，确定关键点的方向很简单，我们只要算出该点的梯度方向，即为关键点的方向。但论文中并未只求该点的梯度，而是求该点周围的点的梯度，然后进行统计，频度最高的方向即为该点的方向。</p>
+<p>在<a href="#改进关键点位置的精度">改进关键点位置的精度</a>一节中，我们求得关键点的<span class="math inline">\(\sigma\)</span>的值，也就是式（3）泰勒展开式的极值点。首先，我们需要根据<span class="math inline">\(\sigma\)</span>的值找出在高斯金字塔中（注意，不是高斯差分金字塔）距离<span class="math inline">\(\sigma\)</span>最近的层，设该层为<span class="math inline">\(F\)</span>.</p>
+<p>在层<span class="math inline">\(F\)</span>中，以该关键点为圆心,<span class="math inline">\(1.5 \sigma\)</span>为半径划定一个领域，求此领域内所有点的梯度幅值和梯度方向。设领域内的任意一点为<span class="math inline">\((x^F,y^F)\)</span>,则其梯度幅值<span class="math inline">\(M(x^F,y^F)\)</span>为： <span class="math display">\[
+M(x,y)=[(F(x^F+1,y^F)-F(x^F-1,y^F))^2+(F(x^F,y^F+1)-F(x^F,y^F-1))^2]^{1/2}          \tag {22}
+\]</span> 其中，<span class="math inline">\(F(x^F,y^F)\)</span>表示在层<span class="math inline">\(F\)</span>中坐标<span class="math inline">\((x^F,y^F)\)</span>的像素值。</p>
+<p>方向角<span class="math inline">\(\theta(x,y)\)</span>表示为： <span class="math display">\[
+\theta (x,y)=arctan[\frac{F(x^F,y^F+1)-F(x^F,y^F-1)}{F(x^F+1,y^F)-F(x^F-1,y^F)}]        \tag {23}
+\]</span> 像<code>HOG</code>算子一样，我们对梯度方向进行直方图统计，<strong>但进行统计叠加的并不是频数，而是幅度值乘以高斯权重</strong>。</p>
+<p>上述幅度值即为式（22）的幅度值，高斯权重是以<span class="math inline">\(1.5 \sigma\)</span>为参数的高斯权重。</p>
+<p>在得到直方图之后，值最大对应的方向即为该点的方向。若第二大值超过第一大值的<span class="math inline">\(80 \%\)</span>,则该关键点有一个副方向。</p>
 <h2 id="关键点描述子">关键点描述子</h2>
 
       
