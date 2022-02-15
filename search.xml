@@ -725,7 +725,11 @@ R \approx (1-2k) \lambda_1^2-2k\lambda_1^2        \\
 M(x,y)=[(F(x^F+1,y^F)-F(x^F-1,y^F))^2+(F(x^F,y^F+1)-F(x^F,y^F-1))^2]^{1/2}          \tag {22}
 \]</span> 其中，<span class="math inline">\(F(x^F,y^F)\)</span>表示在层<span class="math inline">\(F\)</span>中坐标<span class="math inline">\((x^F,y^F)\)</span>的像素值。</p>
 <p>方向角<span class="math inline">\(\theta(x,y)\)</span>表示为： <span class="math display">\[
-\theta (x,y)=arctan[\frac{F(x^F,y^F+1)-F(x^F,y^F-1)}{F(x^F+1,y^F)-F(x^F-1,y^F)}]        \tag {23}
+\theta (x,y)=arctan
+\left[
+\frac{F(x^F,y^F+1)-F(x^F,y^F-1)}{F(x^F+1,y^F)-F(x^F-1,y^F)}
+\right]
+\tag {23}
 \]</span> 像<code>HOG</code>算子一样，我们对梯度方向进行直方图统计，<strong>但进行统计叠加的并不是频数，而是幅度值乘以高斯权重</strong>。</p>
 <p>上述幅度值即为式（22）的幅度值，高斯权重是以<span class="math inline">\(1.5 \sigma\)</span>为参数的高斯权重。</p>
 <p>在得到直方图之后，值最大对应的方向即为该点的方向。若第二大值超过第一大值的<span class="math inline">\(80 \%\)</span>,则该关键点有一个副方向。</p>
