@@ -812,6 +812,21 @@ M(x,y)=[(F(x^F+1,y^F)-F(x^F-1,y^F))^2+(F(x^F,y^F+1)-F(x^F,y^F-1))^2]^{1/2}      
 <p>上述幅度值即为式（22）的幅度值，高斯权重是以<span class="math inline">\(1.5 \sigma\)</span>为参数的高斯权重。</p>
 <p>在得到直方图之后，值最大对应的方向即为该点的方向。若第二大值超过第一大值的<span class="math inline">\(80 \%\)</span>,则该关键点有一个副方向。</p>
 <h2 id="关键点描述子">关键点描述子</h2>
+<p>由于我们需要计算关键点之间的距离，所以我们需要量化关键点，这一步就是量化关键点，更确切的说是将一个关键点变为一个向量，以便计算相互之间的距离。</p>
+<p>这里量化的指标还是梯度。同确定<a href="#关键点方向">关键点方向</a>一样，还是以该关键点为中心，确定一个领域，这里选定的领域为<span class="math inline">\(16 \times 16\)</span>的像素点，计算其梯度方向。如下图的左上图所示：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/屏幕截图.png">
+
+</div>
+<p>上图中<span class="math inline">\(16 \times 16\)</span>的领域以<span class="math inline">\(4 \times 4\)</span>的子区域为一个单位计算直方图。在此直方图中，以<span class="math inline">\(45^ \circ\)</span>为一个bin进行统计，那么共有<span class="math inline">\(8\)</span>个bin，以梯度幅值为直方图统计的量，再乘以高斯权重（这里步骤完全同<a href="#关键点方向">关键点方向</a>，这里不再详细阐述）。如上图右上和右下所示。</p>
+<p>那个共有<span class="math inline">\(16\)</span>个子区域，每个子区域有<span class="math inline">\(8\)</span>个bin,也就是<span class="math inline">\(8\)</span>维的向量。所以，一个关键点的描述子为<span class="math inline">\(16 \times 8= 128\)</span>维的向量（16代表16个子区域，8代表每个子区域的8维的bin）</p>
+<p>为了保证<code>SIFT</code>的旋转不变性，这里在计算梯度方向时，<strong>是将方向旋转到关键点的主方向，再进行统计直方图计算的。</strong>（也就是说，以主方向为0角度）</p>
+<p>为了降低光照对结果的影响，<code>SIFT</code>对描述子的结果进行了归一化，这样线性的光照变换就不会对结果有影响（例如光照增强，像素值同比例增加等）</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li>冈萨雷斯《数字图像处理》第四版</li>
+<li><a href="https://www.bilibili.com/video/BV1Qb411W7cK?from=search&amp;seid=2827726263307974389&amp;spm_id_from=333.337.0.0" target="_blank" rel="noopener">B站SIFT讲解(会飞的吴克)</a></li>
+</ul>
 ]]></content>
       <categories>
         <category>计算机视觉</category>
