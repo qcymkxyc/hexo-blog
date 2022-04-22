@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="目标检测,计算机视觉," />
+  <meta name="keywords" content="中医,中医基础理论," />
 
 
 
@@ -81,21 +81,20 @@
 
 
 
-<meta name="description" content="YOLO​ v1的总结,备忘 Question  对于不同尺寸的输入图像YOLO是怎么解决的 YOLO V1输出的数据结构如何（几维数据，每一维数据分别代表什么） 为何YOLO V1要用两个BBox 标签中的\(Confidence\)如何确定 \(Confidence\)是什么时候得到的 YOLO的\(Loss\)是\(L1 Loss\)还是\(L2 Loss\) YOLO V1的优点及缺点">
+<meta name="description" content="藏精  精气是构成人体的基本物质，也是人体生长发育及各种功能活动的物质基础。故《素问.金匮真言论》说：夫经者，生于本也。  精气阴阳 上文精气中的精和气是两个概念，气由精所化（气功中有炼精化气）。但在中医中，有时将他们混用。 肾中精气又分为两极：肾阴和肾阳（又称元阴元阳）  阳主动，主功能 阴主静，主物质  精的分类 在精的基础上可分为两种： 先天之精 先天之精是禀受于父母的生殖之精，与生俱来，藏">
 <meta property="og:type" content="article">
-<meta property="og:title" content="YOLO V1总结">
-<meta property="og:url" content="http://blog.zhangqi2019.top/posts/16c1a0a5.html/index.html">
+<meta property="og:title" content="藏象-肾">
+<meta property="og:url" content="http://blog.zhangqi2019.top/posts/9f0b914d.html/index.html">
 <meta property="og:site_name" content="冒烟的乔个人博客">
-<meta property="og:description" content="YOLO​ v1的总结,备忘 Question  对于不同尺寸的输入图像YOLO是怎么解决的 YOLO V1输出的数据结构如何（几维数据，每一维数据分别代表什么） 为何YOLO V1要用两个BBox 标签中的\(Confidence\)如何确定 \(Confidence\)是什么时候得到的 YOLO的\(Loss\)是\(L1 Loss\)还是\(L2 Loss\) YOLO V1的优点及缺点">
-<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210319133657.png">
-<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/YOLOV1%E7%BB%93%E6%9E%84.jpg">
-<meta property="article:published_time" content="2019-10-23T03:28:20.000Z">
-<meta property="article:modified_time" content="2021-10-13T01:52:49.720Z">
+<meta property="og:description" content="藏精  精气是构成人体的基本物质，也是人体生长发育及各种功能活动的物质基础。故《素问.金匮真言论》说：夫经者，生于本也。  精气阴阳 上文精气中的精和气是两个概念，气由精所化（气功中有炼精化气）。但在中医中，有时将他们混用。 肾中精气又分为两极：肾阴和肾阳（又称元阴元阳）  阳主动，主功能 阴主静，主物质  精的分类 在精的基础上可分为两种： 先天之精 先天之精是禀受于父母的生殖之精，与生俱来，藏">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229190653.png">
+<meta property="article:published_time" content="2022-04-22T09:47:09.000Z">
+<meta property="article:modified_time" content="2022-04-22T09:48:22.668Z">
 <meta property="article:author" content="冒烟的乔">
-<meta property="article:tag" content="目标检测">
-<meta property="article:tag" content="计算机视觉">
+<meta property="article:tag" content="中医">
+<meta property="article:tag" content="中医基础理论">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210319133657.png">
+<meta name="twitter:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229190653.png">
 
 
 
@@ -125,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://blog.zhangqi2019.top/posts/16c1a0a5.html/"/>
+  <link rel="canonical" href="http://blog.zhangqi2019.top/posts/9f0b914d.html/"/>
 
 
 
 
 
-  <title>YOLO V1总结 | 冒烟的乔个人博客</title>
+  <title>藏象-肾 | 冒烟的乔个人博客</title>
   
 
 
@@ -316,7 +315,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.zhangqi2019.top/posts/16c1a0a5.html/">
+    <link itemprop="mainEntityOfPage" href="http://blog.zhangqi2019.top/posts/9f0b914d.html/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="冒烟的乔">
@@ -333,7 +332,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">YOLO V1总结</h2>
+          <h2 class="post-title" itemprop="name headline">藏象-肾</h2>
         
 
         <div class="post-meta">
@@ -345,8 +344,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-23T11:28:20+08:00">
-                2019-10-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-04-22T17:47:09+08:00">
+                2022-04-22
               </time>
             
 
@@ -368,8 +367,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机视觉</span>
+                  <a href="/categories/%E4%B8%AD%E5%8C%BB/" itemprop="url" rel="index">
+                    <span itemprop="name">中医</span>
                   </a>
                 </span>
 
@@ -386,8 +385,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/posts/16c1a0a5.html/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/posts/16c1a0a5.html/" itemprop="commentCount"></span>
+                <a href="/posts/9f0b914d.html/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/posts/9f0b914d.html/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -415,102 +414,66 @@
       
 
       
-        <p>YOLO​ v1的总结,备忘</p>
-<h2 id="question">Question</h2>
+        <h2 id="藏精">藏精</h2>
+<blockquote>
+<p>精气是构成人体的基本物质，也是人体生长发育及各种功能活动的物质基础。故《素问.金匮真言论》说：夫经者，生于本也。</p>
+</blockquote>
+<h3 id="精气阴阳">精气阴阳</h3>
+<p>上文精气中的精和气是两个概念，气由精所化（气功中有炼精化气）。但在中医中，有时将他们混用。</p>
+<p>肾中精气又分为两极：肾阴和肾阳（又称元阴元阳）</p>
 <ul>
-<li>对于不同尺寸的输入图像YOLO是怎么解决的</li>
-<li>YOLO V1输出的数据结构如何（几维数据，每一维数据分别代表什么）</li>
-<li>为何YOLO V1要用两个BBox</li>
-<li>标签中的<span class="math inline">\(Confidence\)</span>如何确定</li>
-<li><span class="math inline">\(Confidence\)</span>是什么时候得到的</li>
-<li>YOLO的<span class="math inline">\(Loss\)</span>是<span class="math inline">\(L1 Loss\)</span>还是<span class="math inline">\(L2 Loss\)</span></li>
-<li>YOLO V1的优点及缺点</li>
+<li>阳主动，主功能</li>
+<li>阴主静，主物质</li>
 </ul>
-<h2 id="网络设计">网络设计</h2>
-<p>YOLO算法的设计理念是将图像分成<span class="math inline">\(s \times s\)</span>的网络结构,每个网格分别来判定是否目标在其中,这其中运用了用卷积层来代替全连接层,这项技术是Idea的关键.所以最终的结果是</p>
-<p><span class="math display">\[s \times  s \times(B \times 5 + C)\]</span></p>
-<p>其中,B表示BBox的个数,C代表类别个数,5表示(x,y,w,h,confidence)。</p>
-<p>总体的网络图如下图所示：</p>
+<h3 id="精的分类">精的分类</h3>
+<p>在精的基础上可分为两种：</p>
+<h4 id="先天之精">先天之精</h4>
+<p>先天之精是禀受于父母的生殖之精，与生俱来，藏于肾中。</p>
+<h4 id="后天之精">后天之精</h4>
+<blockquote>
+<p>肾者主水，受五脏六腑之精而藏之</p>
+</blockquote>
+<p>后天之精来源于脾胃运化后的水谷之精，水谷之精生成脏腑之精营养五脏（实际上是以化身津液气血的形式），剩余部分归于肾中，为后天之精。后天之精的生成过程如下图所示：</p>
 <div class="figure">
-<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210319133657.png">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229190653.png">
 
 </div>
-<h2 id="训练">训练</h2>
-<p>由于YOLO算法是将图像切割成方格并预测的思想,所以对图像的输入尺寸并不敏感.</p>
-<p>在输出方面,如下图所示:</p>
-<div class="figure">
-<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/YOLOV1结构.jpg">
-
-</div>
-<ol style="list-style-type: decimal">
-<li>Feature Map中的一个值给出一个预测,为何输出中却是两个BBox?</li>
-</ol>
-<blockquote>
-<p>YOLO由3类标签组成:类别,置信度,BBox位置.其中Feature Map中的一个值有两个BBox,而仅有一个One-Hot类别向量.之所以用两个BBox,文中的解释是:两个BBox用结果好的那个,另一个舍去,这样总好过仅用一个BBox的结果.</p>
-<p>那么,怎么样判定哪一个BBox结果好呢,答案是IOU,即<span class="math inline">\(IOU_{pred}^{truth}\)</span>,选择IOU大的那个</p>
-</blockquote>
-<ol start="2" style="list-style-type: decimal">
-<li>训练集中的confidence如何确定?</li>
-</ol>
-<blockquote>
-<p>在1中可以得到<span class="math inline">\(IOU_{pred}^{truth}\)</span>,如果该Feature Map值中有物体,则为IOU,否则为0.</p>
-<p><span class="math display">\[ confidenc标签=\begin{cases} IOU_{pred}^{truth},&amp;有物体\\ 0,&amp;无物体 \end{cases}\]</span></p>
-<p>值得说明的是,两个BBox,一个为<span class="math inline">\(IOU_{pred}^{truth}\)</span>,另一个的confidence也为0</p>
-</blockquote>
-<h2 id="loss函数">LOSS函数</h2>
-<p>由于<code>YOLO</code>的结果分为三部分（即位置，confidence以及class），所以，其<code>loss</code>函数也分为三部分： <span class="math display">\[
-loss= \sum_{i=0}^{s^2}\sum_{j=0}^{B}{ coord_{err}+confidence_{err}+class_{err}}
-\]</span> 其中，<span class="math inline">\(coord_{err}\)</span>表示坐标的<code>loss</code>,<span class="math inline">\(confidence_{err}\)</span>表示置信度的<code>loss</code>,<span class="math inline">\(class_{err}\)</span>表示分类的<code>loss</code>。</p>
+<h4 id="两者又互为依存">两者又互为依存</h4>
 <ul>
-<li><p>坐标的<code>loss</code>可以展开为： <span class="math display">\[
-  coord_{err}=\lambda_{coord}\sum_{i=0}^{S^2}\sum_{j=0}^{B}1_{ij}^{obj}[(x_i-\hat{x_i})^2+(y_i-\hat{y_i})^2]+\lambda_{coord}\sum_{i=0}^{S^2}\sum_{j=0}^{B}1_{ij}^{obj}[(\sqrt{w_i}-\sqrt{\hat{w_i}})^2+(\sqrt{h_i}-\sqrt{\hat{h_i}})^2]
-  \]</span> 其中，有帽的表示标注值，否则表示预测值。<span class="math inline">\(\lambda_{coord}\)</span>表示坐标权重，实际上也可以看成坐标的<code>loss</code>在总的<code>loss</code>中所占的权重。<span class="math inline">\(1_{ij}^{obj}\)</span>表示该方格是否有物体，有物体则为1，否则为0。可以看出，坐标的<code>loss</code>仅关心有物体的<code>cell</code>，无物体的不计入<code>loss</code>范围内。</p></li>
-<li><p><span class="math inline">\(confidence\)</span>的<code>loss</code>展开为：</p></li>
+<li>“先天之精”有赖于“后天之精”的不断培育和充养。</li>
 </ul>
-<p><span class="math display">\[
-confidence_{err}=\sum_{i=0}^{S^2}\sum_{j=0}^{B}1_{ij}^{obj}(C_i-\hat{C_i})^2+\lambda_{noobj}\sum_{i=0}^{S^2}\sum_{j=0}^{B}1_{ij}^{noobj}(C_i-\hat{C_i})^2
-\]</span></p>
-<p>​ 其中，<span class="math inline">\(\lambda_{noobj}\)</span>表示没有物体的权重，在实际的预测任务中，有物体的<code>cell</code>会多于没有物体的<code>cell</code>,这就造成两者的不均衡，所以这里加入一个权重参数，以平衡两者。论文中<span class="math inline">\(\lambda_{noobj}=0.5\)</span>.</p>
+<p>即如“后天之精”的来源所述，“先天之精”需要“水谷之精”消耗后的充养。</p>
 <ul>
-<li>class的loss展开为：</li>
+<li>“后天之精”的化生，依赖于“先天之精”的活力资助。</li>
 </ul>
-<p><span class="math display">\[
-\sum_{i=0}^{S^2}1_{i}^{obj}\sum_{c\in{classes}}(p_i(c)-\hat{p_i}(c))^2
-\]</span></p>
-<p>​ 同坐标的<code>loss</code>一样，分类的<code>loss</code>也仅用有物体的<code>cell</code>，并且，<strong>分类也是采用的回归</strong>，非<code>Cross-Entropy</code>.</p>
-<p>整体的Loss如下所示：</p>
-<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"> <mtable displaystyle="true"> <mlabeledtr> <mtd id="mjx-eqn-1"> <mtext>(1)</mtext> </mtd> <mtd> <mi>L</mi> <mi>o</mi> <mi>s</mi> <mi>s</mi> <mo>=</mo> <msub> <mi>λ<!-- λ --></mi> <mrow class="MJX-TeXAtom-ORD"> <mi>c</mi> <mi>o</mi> <mi>o</mi> <mi>r</mi> <mi>d</mi> </mrow> </msub> <munderover> <mo>∑<!-- ∑ --></mo> <mrow class="MJX-TeXAtom-ORD"> <mi>i</mi> <mo>=</mo> <mn>0</mn> </mrow> <mrow class="MJX-TeXAtom-ORD"> <msup> <mi>S</mi> <mn>2</mn> </msup> </mrow> </munderover> <munderover> <mo>∑<!-- ∑ --></mo> <mrow class="MJX-TeXAtom-ORD"> <mi>j</mi> <mo>=</mo> <mn>0</mn> </mrow> <mrow class="MJX-TeXAtom-ORD"> <mi>B</mi> </mrow> </munderover> <mstyle mathsize="1.2em"> <msubsup> <mn>1</mn> <mrow class="MJX-TeXAtom-ORD"> <mi>i</mi> <mi>j</mi> </mrow> <mrow class="MJX-TeXAtom-ORD"> <mi>o</mi> <mi>b</mi> <mi>j</mi> </mrow> </msubsup> <mo stretchy="false">[</mo> <mo stretchy="false">(</mo> <msub> <mi>x</mi> <mi>i</mi> </msub> <mo>−<!-- − --></mo> <mrow class="MJX-TeXAtom-ORD"> <mover> <msub> <mi>x</mi> <mi>i</mi> </msub> <mo stretchy="false">^<!-- ^ --></mo> </mover> </mrow> <msup> <mo stretchy="false">)</mo> <mn>2</mn> </msup> <mo>+</mo> <mo stretchy="false">(</mo> <msub> <mi>y</mi> <mi>i</mi> </msub> <mo>−<!-- − --></mo> <mrow class="MJX-TeXAtom-ORD"> <mover> <msub> <mi>y</mi> <mi>i</mi> </msub> <mo stretchy="false">^<!-- ^ --></mo> </mover> </mrow> <msup> <mo stretchy="false">)</mo> <mn>2</mn> </msup> <mo stretchy="false">]</mo> <mo>+</mo> </mstyle> <mspace linebreak="newline"> <msub> <mi>λ<!-- λ --></mi> <mrow class="MJX-TeXAtom-ORD"> <mi>c</mi> <mi>o</mi> <mi>o</mi> <mi>r</mi> <mi>d</mi> </mrow> </msub> <munderover> <mo>∑<!-- ∑ --></mo> <mrow class="MJX-TeXAtom-ORD"> <mi>i</mi> <mo>=</mo> <mn>0</mn> </mrow> <mrow class="MJX-TeXAtom-ORD"> <msup> <mi>S</mi> <mn>2</mn> </msup> </mrow> </munderover> <munderover> <mo>∑<!-- ∑ --></mo> <mrow class="MJX-TeXAtom-ORD"> <mi>j</mi> <mo>=</mo> <mn>0</mn> </mrow> <mrow class="MJX-TeXAtom-ORD"> <mi>B</mi> </mrow> </munderover> <mstyle mathsize="1.2em"> <msubsup> <mn>1</mn> <mrow class="MJX-TeXAtom-ORD"> <mi>i</mi> <mi>j</mi> </mrow> <mrow class="MJX-TeXAtom-ORD"> <mi>o</mi> <mi>b</mi> <mi>j</mi> </mrow> </msubsup> <mo stretchy="false">[</mo> <mo stretchy="false">(</mo> <msqrt> <msub> <mi>w</mi> <mi>i</mi> </msub> </msqrt> <mo>−<!-- − --></mo> <msqrt> <mrow class="MJX-TeXAtom-ORD"> <mover> <msub> <mi>w</mi> <mi>i</mi> </msub> <mo stretchy="false">^<!-- ^ --></mo> </mover> </mrow> </msqrt> <msup> <mo stretchy="false">)</mo> <mn>2</mn> </msup> <mo>+</mo> </mstyle> <mspace linebreak="newline"> <mo stretchy="false">(</mo> <msqrt> <msub> <mi>h</mi> <mi>i</mi> </msub> </msqrt> <mo>−<!-- − --></mo> <msqrt> <mrow class="MJX-TeXAtom-ORD"> <mover> <msub> <mi>h</mi> <mi>i</mi> </msub> <mo stretchy="false">^<!-- ^ --></mo> </mover> </mrow> </msqrt> <msup> <mo stretchy="false">)</mo> <mn>2</mn> </msup> <mo stretchy="false">]</mo> <mo>+</mo> <munderover> <mo>∑<!-- ∑ --></mo> <mrow class="MJX-TeXAtom-ORD"> <mi>i</mi> <mo>=</mo> <mn>0</mn> </mrow> <mrow class="MJX-TeXAtom-ORD"> <mi>S</mi> </mrow> </munderover> <munderover> <mo>∑<!-- ∑ --></mo> <mrow class="MJX-TeXAtom-ORD"> <mi>j</mi> <mo>=</mo> <mn>0</mn> </mrow> <mrow class="MJX-TeXAtom-ORD"> <mi>B</mi> </mrow> </munderover> <mstyle mathsize="1.2em"> <msubsup> <mn>1</mn> <mrow class="MJX-TeXAtom-ORD"> <mi>i</mi> <mi>j</mi> </mrow> <mrow class="MJX-TeXAtom-ORD"> <mi>o</mi> <mi>b</mi> <mi>j</mi> </mrow> </msubsup> <mo stretchy="false">(</mo> <msub> <mi>c</mi> <mi>i</mi> </msub> <mo>−<!-- − --></mo> <mrow class="MJX-TeXAtom-ORD"> <mover> <msub> <mi>c</mi> <mi>i</mi> </msub> <mo stretchy="false">^<!-- ^ --></mo> </mover> </mrow> <msup> <mo stretchy="false">)</mo> <mn>2</mn> </msup> <mo>+</mo> </mstyle> <mspace linebreak="newline"> <msub> <mi>λ<!-- λ --></mi> <mrow class="MJX-TeXAtom-ORD"> <mi>n</mi> <mi>o</mi> <mi>o</mi> <mi>b</mi> <mi>j</mi> </mrow> </msub> <munderover> <mo>∑<!-- ∑ --></mo> <mrow class="MJX-TeXAtom-ORD"> <mi>i</mi> <mo>=</mo> <mn>0</mn> </mrow> <mrow class="MJX-TeXAtom-ORD"> <mi>S</mi> </mrow> </munderover> <munderover> <mo>∑<!-- ∑ --></mo> <mrow class="MJX-TeXAtom-ORD"> <mi>j</mi> <mo>=</mo> <mn>0</mn> </mrow> <mrow class="MJX-TeXAtom-ORD"> <mi>B</mi> </mrow> </munderover> <mstyle mathsize="1.2em"> <msubsup> <mn>1</mn> <mrow class="MJX-TeXAtom-ORD"> <mi>i</mi> <mi>j</mi> </mrow> <mrow class="MJX-TeXAtom-ORD"> <mi>n</mi> <mi>o</mi> <mi>o</mi> <mi>b</mi> <mi>j</mi> </mrow> </msubsup> <mo stretchy="false">(</mo> <msub> <mi>c</mi> <mi>i</mi> </msub> <mo>−<!-- − --></mo> <mrow class="MJX-TeXAtom-ORD"> <mover> <msub> <mi>c</mi> <mi>i</mi> </msub> <mo stretchy="false">^<!-- ^ --></mo> </mover> </mrow> <msup> <mo stretchy="false">)</mo> <mn>2</mn> </msup> <mo>+</mo> </mstyle> <mspace linebreak="newline"> <munderover> <mo>∑<!-- ∑ --></mo> <mrow class="MJX-TeXAtom-ORD"> <mi>i</mi> <mo>=</mo> <mn>0</mn> </mrow> <mrow class="MJX-TeXAtom-ORD"> <msup> <mi>S</mi> <mn>2</mn> </msup> </mrow> </munderover> <mstyle mathsize="1.2em"> <msubsup> <mn>1</mn> <mrow class="MJX-TeXAtom-ORD"> <mi>i</mi> <mi>j</mi> </mrow> <mrow class="MJX-TeXAtom-ORD"> <mi>o</mi> <mi>b</mi> <mi>j</mi> </mrow> </msubsup> <munder> <mo>∑<!-- ∑ --></mo> <mrow class="MJX-TeXAtom-ORD"> <mi>C</mi> <mo>∈<!-- ∈ --></mo> <mrow class="MJX-TeXAtom-ORD"> <mi>c</mi> <mi>l</mi> <mi>a</mi> <mi>s</mi> <mi>s</mi> </mrow> </mrow> </munder> <mo stretchy="false">[</mo> <msub> <mi>p</mi> <mi>i</mi> </msub> <mo stretchy="false">(</mo> <mi>c</mi> <mo stretchy="false">)</mo> <mo>−<!-- − --></mo> <mrow class="MJX-TeXAtom-ORD"> <mover> <msub> <mi>p</mi> <mi>i</mi> </msub> <mo stretchy="false">^<!-- ^ --></mo> </mover> </mrow> <mo stretchy="false">(</mo> <mi>c</mi> <mo stretchy="false">)</mo> <msup> <mo stretchy="false">]</mo> <mn>2</mn> </msup> </mstyle> </mspace></mspace></mspace></mspace></mtd> </mlabeledtr> </mtable> </math></p>
-<!-- 以下公式hexo无法换行,用以下公式生成MathML,粘贴在上面
-$$
-Loss=\lambda_{coord}\sum_{i=0}^{S^2}\sum_{j=0}^{B}\large 1_{ij}^{obj}[(x_i-\hat{x_i})^2+(y_i-\hat{y_i})^2] + \\
-\lambda_{coord}\sum_{i=0}^{S^2}\sum_{j=0}^{B}\large 1_{ij}^{obj}[(\sqrt{w_i}-\sqrt{\hat{w_i}})^2+\\
-(\sqrt{h_i}-\sqrt{\hat{h_i}})^2]+ \sum_{i=0}^{S}\sum_{j=0}^{B} \large 1_{ij}^{obj} (c_i-\hat{c_i})^2 + \\ 
-\lambda_{noobj}\sum_{i=0}^{S}\sum_{j=0}^{B} \large 1_{ij}^{noobj} (c_i-\hat{c_i})^2 +\\
-\sum_{i=0}^{S^2}\large 1_{ij}^{obj}\sum_{C\in{class}}[p_i(c)-\hat{p_i}(c)]^2
-$$
--->
-<p>YOLO 算法的LOSS是一个L2 LOSS</p>
-<h2 id="预测">预测</h2>
-<p>对于模型得出的<span class="math inline">\(S\times S \times 2\)</span>个BBox</p>
+<p>“后天之精”依赖于脾胃的运化，而脾胃的功能强弱依赖于“脾气”，而“脾气”的化生和精气又有密布可分的关系。</p>
+<h3 id="病例特征">病例特征</h3>
+<h2 id="主水">主水</h2>
+<p>肾对于水主要在于分离浊中之清和浊中之浊。</p>
+<h3 id="浊中之清">浊中之清</h3>
+<p>主水主要分为两个方面：蒸腾（维持体内津液代谢）以及控制尿液。</p>
+<p>肾中水的来源包括两个方面：</p>
 <blockquote>
 <ol style="list-style-type: decimal">
-<li><p>先用NMS得出一系列BBox(依据是confidence)</p></li>
-<li><p>再在这些框中选最大概率的类别</p></li>
+<li>小肠的分清别浊</li>
+<li>肺的肃降</li>
 </ol>
 </blockquote>
-<h2 id="优点以及缺点">优点以及缺点</h2>
 <blockquote>
-<p>优点:</p>
+<p>当水液输送到肾时，主要有两个去向:</p>
 <ol style="list-style-type: decimal">
-<li>速度快</li>
-<li>End-2-End</li>
-</ol>
-<p>缺点:</p>
-<ol style="list-style-type: decimal">
-<li><p>小物体效果不好</p></li>
-<li><p>定位不准确</p></li>
+<li>向下走，至膀胱形成尿液（即排尿）</li>
+<li>向上走，再次输送到全身，再利用（即蒸腾）</li>
 </ol>
 </blockquote>
+<p>此外，肾的来源</p>
+<h3 id="水的蒸腾">水的蒸腾</h3>
+<p>在蒸腾中，也分为两方面：</p>
+<ul>
+<li>肾会将小肠排至肾的水液向上蒸腾（即分离出浊中之清）</li>
+<li>将排至肾的水液再蒸腾</li>
+</ul>
+<h3 id="排尿">排尿</h3>
 
       
     </div>
@@ -528,9 +491,9 @@ $$
       
         <div class="post-tags">
           
-            <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" rel="tag"><i class="fa fa-tag"></i> 目标检测</a>
+            <a href="/tags/%E4%B8%AD%E5%8C%BB/" rel="tag"><i class="fa fa-tag"></i> 中医</a>
           
-            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" rel="tag"><i class="fa fa-tag"></i> 计算机视觉</a>
+            <a href="/tags/%E4%B8%AD%E5%8C%BB%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/" rel="tag"><i class="fa fa-tag"></i> 中医基础理论</a>
           
         </div>
       
@@ -543,8 +506,8 @@ $$
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/posts/10cdf8fe.html/" rel="next" title="人物背景抠图">
-                <i class="fa fa-chevron-left"></i> 人物背景抠图
+              <a href="/posts/6637e8bf.html/" rel="next" title="《结网》总结">
+                <i class="fa fa-chevron-left"></i> 《结网》总结
               </a>
             
           </div>
@@ -552,10 +515,6 @@ $$
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/5ca973ed.html/" rel="prev" title="YOLO9000总结">
-                YOLO9000总结 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -761,7 +720,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络设计"><span class="nav-number">2.</span> <span class="nav-text">网络设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练"><span class="nav-number">3.</span> <span class="nav-text">训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#loss函数"><span class="nav-number">4.</span> <span class="nav-text">LOSS函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预测"><span class="nav-number">5.</span> <span class="nav-text">预测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优点以及缺点"><span class="nav-number">6.</span> <span class="nav-text">优点以及缺点</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#藏精"><span class="nav-number">1.</span> <span class="nav-text">藏精</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#精气阴阳"><span class="nav-number">1.1.</span> <span class="nav-text">精气阴阳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#精的分类"><span class="nav-number">1.2.</span> <span class="nav-text">精的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#先天之精"><span class="nav-number">1.2.1.</span> <span class="nav-text">先天之精</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后天之精"><span class="nav-number">1.2.2.</span> <span class="nav-text">后天之精</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#两者又互为依存"><span class="nav-number">1.2.3.</span> <span class="nav-text">两者又互为依存</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#病例特征"><span class="nav-number">1.3.</span> <span class="nav-text">病例特征</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主水"><span class="nav-number">2.</span> <span class="nav-text">主水</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#浊中之清"><span class="nav-number">2.1.</span> <span class="nav-text">浊中之清</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#水的蒸腾"><span class="nav-number">2.2.</span> <span class="nav-text">水的蒸腾</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排尿"><span class="nav-number">2.3.</span> <span class="nav-text">排尿</span></a></li></ol></li></ol></div>
             
 
           </div>
