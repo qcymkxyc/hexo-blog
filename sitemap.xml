@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.zhangqi2019.top/posts/6637e8be.html/</loc>
+    
+    <lastmod>2022-04-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://blog.zhangqi2019.top/posts/9f0b914d.html/</loc>
     
     <lastmod>2022-04-22</lastmod>
@@ -576,6 +585,13 @@
   
   <url>
     <loc>http://blog.zhangqi2019.top/tags/%E6%95%B0%E5%AD%A6/</loc>
+    <lastmod>2022-04-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.zhangqi2019.top/tags/%E4%B8%AD%E5%8C%BB%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2022-04-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
