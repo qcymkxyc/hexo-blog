@@ -5008,6 +5008,99 @@ J_{\epsilon}=1-J(A,B)=\frac{|A\bigcup{B}-A\bigcap{B}|}{|A\bigcup{B}|}
       </tags>
   </entry>
   <entry>
+    <title>衡量指标汇总</title>
+    <url>/posts/88a0752d.html/</url>
+    <content><![CDATA[<h2 id="far以及frr">FAR以及FRR</h2>
+<h3 id="question">Question</h3>
+<blockquote>
+<ul>
+<li>FAR和FRR的全分别叫什么</li>
+<li>FAR和FRR表示什么意义</li>
+<li>FAR和FRR的如何计算</li>
+</ul>
+</blockquote>
+<h3 id="概要">概要</h3>
+<blockquote>
+<p>FAR和FRR是做指纹识别、人脸识别、手写识别等的常用指标，他们的全名如下</p>
+<ul>
+<li><p>误识率（FAR，false acceptance rate）</p></li>
+<li><p>拒识率（FRR，false rejection rate）</p></li>
+</ul>
+</blockquote>
+<h3 id="计算方式">计算方式</h3>
+<p>对于匹配的结果又以下几种可能：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/指纹匹配-1584601149727.png">
+
+</div>
+<p>其中，<em>=&gt;</em>表示模型的识别结果。</p>
+<p><span class="math display">\[
+误识率（FAR）=\frac{不同的人=&gt;相同的人}{（不同的人=&gt;相同的人） + （不同的人 =&gt;不同的人）}
+\]</span></p>
+<p><span class="math display">\[
+拒识率（FRR）=\frac{相同的人=&gt;不同的人}{（相同的人=&gt;不同的人+相同的人=&gt;相同的人）}
+\]</span></p>
+<h3 id="表示的意义">表示的意义</h3>
+<blockquote>
+<p>误识率（FAR）：<strong>度量的是他人可以冒充本人的程度</strong>，这个值越高，表示他人模仿本人更容易</p>
+<p>拒识率（FRR）：度量的是对本人一致性的衡量</p>
+</blockquote>
+<p><strong>在实际项目中，通常误识率比拒识率重要</strong>，因为拒识率即使较高，在指纹识别时可以多打几次。但若误识率较高，他人就能轻易冒充本人的指纹，所造成的麻烦会大得多。</p>
+<h2 id="recall以及precision">Recall以及Precision</h2>
+<h3 id="question-1">Question</h3>
+<ul>
+<li><span class="math inline">\(Precision\)</span>和<span class="math inline">\(Recall\)</span>的意义是什么</li>
+<li><span class="math inline">\(Precision\)</span>和<span class="math inline">\(Recall\)</span>的计算公式</li>
+</ul>
+<h3 id="两个指标的意义">两个指标的意义</h3>
+<ul>
+<li><span class="math inline">\(Precision\)</span>表示有多少正确的被检测</li>
+<li><span class="math inline">\(Recall\)</span>表示模型结果认为正确的有多少对了</li>
+</ul>
+<h3 id="两个指标的计算公式">两个指标的计算公式</h3>
+<p>以下是<span class="math inline">\(Precision\)</span>和<span class="math inline">\(Recall\)</span>的计算公式：</p>
+<p>对于一个分类器，有以下四种可能：</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">真</th>
+<th align="center">正</th>
+<th align="left">负</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">正</td>
+<td align="center">TP</td>
+<td align="left">FN</td>
+</tr>
+<tr class="even">
+<td align="right">负</td>
+<td align="center">FP</td>
+<td align="left">TN</td>
+</tr>
+</tbody>
+</table>
+<p>其计算公式表示为：</p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"> <mrow> <mo>{</mo> <mtable columnalign="left left" rowspacing=".2em" columnspacing="1em" displaystyle="false"> <mtr> <mtd> <mi>R</mi> <mi>e</mi> <mi>c</mi> <mi>a</mi> <mi>l</mi> <mi>l</mi> <mo>=</mo> <mfrac> <mrow> <mi>T</mi> <mi>P</mi> </mrow> <mrow> <mo stretchy="false">(</mo> <mi>T</mi> <mi>P</mi> <mo>+</mo> <mi>F</mi> <mi>N</mi> <mo stretchy="false">)</mo> </mrow> </mfrac> </mtd> </mtr> <mtr> <mtd> <mi>P</mi> <mi>r</mi> <mi>e</mi> <mi>c</mi> <mi>i</mi> <mi>s</mi> <mi>i</mi> <mi>o</mi> <mo>=</mo> <mfrac> <mrow> <mi>T</mi> <mi>P</mi> </mrow> <mrow> <mo stretchy="false">(</mo> <mi>F</mi> <mi>P</mi> <mo>+</mo> <mi>T</mi> <mi>P</mi> <mo stretchy="false">)</mo> </mrow> </mfrac> </mtd> </mtr> </mtable> <mo fence="true" stretchy="true" symmetric="true"></mo> </mrow> </math></p>
+<!--
+$$
+\begin{cases} Recall = \frac{TP}{(TP+FN)} \\ Precision=\frac{TP}{(FP + TP)}\end{cases}
+$$
+
+
+
+-->
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>指标计算</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hough变换</title>
     <url>/posts/e9f2d7e8.html/</url>
     <content><![CDATA[<h2 id="question">Question</h2>
