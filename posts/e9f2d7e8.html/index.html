@@ -81,13 +81,18 @@
 
 
 
-<meta name="description" content="## Question  1. 笛卡尔坐标系中多点共线，在Hough空间中表现如何 2. 在Hough变换中，如何保证多点共线，即保证共线的原理是什么 3. 霍夫变换对图像的输入有什么要求 4. [以$k$和$b$为基的空间的缺点在哪儿](#霍夫变换原理) 5. 霍夫变换的大体流程  ## 霍夫变换原理  对于笛卡尔坐标系中的一条线$y&#x3D;kx+b$,可以转换成霍夫空间下的一个点（霍夫空间是以">
+<meta name="description" content="Question  笛卡尔坐标系中多点共线，在Hough空间中表现如何 在Hough变换中，如何保证多点共线，即保证共线的原理是什么 霍夫变换对图像的输入有什么要求 以\(k\)和\(b\)为基的空间的缺点在哪儿 霍夫变换的大体流程  霍夫变换原理 对于笛卡尔坐标系中的一条线\(y&#x3D;kx+b\),可以转换成霍夫空间下的一个点（霍夫空间是以\(k\)和\(b\)为坐标），如下图所示：     那么，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hough变换">
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/e9f2d7e8.html/index.html">
 <meta property="og:site_name" content="冒烟的乔个人博客">
-<meta property="og:description" content="## Question  1. 笛卡尔坐标系中多点共线，在Hough空间中表现如何 2. 在Hough变换中，如何保证多点共线，即保证共线的原理是什么 3. 霍夫变换对图像的输入有什么要求 4. [以$k$和$b$为基的空间的缺点在哪儿](#霍夫变换原理) 5. 霍夫变换的大体流程  ## 霍夫变换原理  对于笛卡尔坐标系中的一条线$y&#x3D;kx+b$,可以转换成霍夫空间下的一个点（霍夫空间是以">
+<meta property="og:description" content="Question  笛卡尔坐标系中多点共线，在Hough空间中表现如何 在Hough变换中，如何保证多点共线，即保证共线的原理是什么 霍夫变换对图像的输入有什么要求 以\(k\)和\(b\)为基的空间的缺点在哪儿 霍夫变换的大体流程  霍夫变换原理 对于笛卡尔坐标系中的一条线\(y&#x3D;kx+b\),可以转换成霍夫空间下的一个点（霍夫空间是以\(k\)和\(b\)为坐标），如下图所示：     那么，">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424185145272-8035578-1584177392001.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424185846412-1947419957-1584177461604.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424190504412-864862338-1584177533599.png">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424213944022-348637873.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424215910740-145827126.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424221329412-431224652-1584178146121.png">
 <meta property="article:published_time" content="2020-03-14T09:10:23.000Z">
 <meta property="article:modified_time" content="2021-10-13T01:52:49.720Z">
 <meta property="article:author" content="冒烟的乔">
@@ -95,7 +100,7 @@
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="计算机视觉">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424213944022-348637873.png">
+<meta name="twitter:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424185145272-8035578-1584177392001.png">
 
 
 
@@ -415,62 +420,59 @@
       
 
       
-        
+        <h2 id="question">Question</h2>
+<ol style="list-style-type: decimal">
+<li>笛卡尔坐标系中多点共线，在Hough空间中表现如何</li>
+<li>在Hough变换中，如何保证多点共线，即保证共线的原理是什么</li>
+<li>霍夫变换对图像的输入有什么要求</li>
+<li><a href="#霍夫变换原理">以<span class="math inline">\(k\)</span>和<span class="math inline">\(b\)</span>为基的空间的缺点在哪儿</a></li>
+<li>霍夫变换的大体流程</li>
+</ol>
+<h2 id="霍夫变换原理">霍夫变换原理</h2>
+<p>对于笛卡尔坐标系中的一条线<span class="math inline">\(y=kx+b\)</span>,可以转换成霍夫空间下的一个点（霍夫空间是以<span class="math inline">\(k\)</span>和<span class="math inline">\(b\)</span>为坐标），如下图所示：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424185145272-8035578-1584177392001.png">
 
+</div>
+<p>那么，对于笛卡尔坐标系中的一个点<span class="math inline">\((x_1,y_1)\)</span>，则转换为霍夫空间下的一条线，如下图所示：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424185846412-1947419957-1584177461604.png">
 
-## Question
+</div>
+<p><strong>它表示经过改点的所有直线</strong></p>
+<p>那么，在笛卡尔坐标系中经过两点的直线，表现为在霍夫空间下两条直线的交点：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424190504412-864862338-1584177533599.png">
 
-1. 笛卡尔坐标系中多点共线，在Hough空间中表现如何
-2. 在Hough变换中，如何保证多点共线，即保证共线的原理是什么
-3. 霍夫变换对图像的输入有什么要求
-4. [以$k$和$b$为基的空间的缺点在哪儿](#霍夫变换原理)
-5. 霍夫变换的大体流程
+</div>
+<p>三点共线在霍夫空间中表现为三条线相交于一点：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424213944022-348637873.png" style="zoom:80%;"></p>
+<p><strong>再次引申，如果多个点共线，那么在Hough空间中表现为多条线相交于一点</strong></p>
+<p><strong>如果一条线是垂直于x轴的，那么该线在Hough空间中无法表示（此时为<span class="math inline">\(\infty\)</span>）</strong>，所以这里将k和q表示的Hough空间转换为极坐标，如下：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424215910740-145827126.png">
 
-## 霍夫变换原理
+</div>
+<p>同以<em>k</em>和<em>q</em> 组成的Hough空间，三点共线表示为三线相交，以下是两个Hough空间的对比图：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424221329412-431224652-1584178146121.png">
 
-对于笛卡尔坐标系中的一条线$y=kx+b$,可以转换成霍夫空间下的一个点（霍夫空间是以$k$和$b$为坐标），如下图所示：
+</div>
+<h2 id="流程">流程</h2>
+<ol style="list-style-type: decimal">
+<li><p>首先，获取一个二值化图像</p></li>
+<li><p>建立一个矩阵<span class="math inline">\(H\)</span>，行为<span class="math inline">\(p\)</span>的所有取值，列为<span class="math inline">\(\theta\)</span>（<span class="math inline">\(\theta\)</span>的取值范围为(-90,180)）</p></li>
+<li><p>遍历图像中的所有边缘点，得到该点的坐标<span class="math inline">\((x,y)\)</span>，再遍历<span class="math inline">\(\theta\)</span>的取值，通过公式<span class="math inline">\(p=xcos{\theta}+ysin{\theta}\)</span> 得到<span class="math inline">\(p\)</span>,用伪代码表示为：</p></li>
+</ol>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> each edge Point(x,y):</span><br><span class="line">	<span class="keyword">for</span> theta <span class="keyword">in</span> range(<span class="number">-90</span>,<span class="number">90</span>):</span><br><span class="line">		p = x * cos(theta) + y * sin(theta)</span><br><span class="line">		H(theta,p) += <span class="number">1</span></span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure></p>
+<ol start="4" style="list-style-type: decimal">
+<li>在<span class="math inline">\(H\)</span>中找出最大的n个值即找出n条直线</li>
+</ol>
+<h2 id="参考">参考</h2>
+<blockquote>
+<p>https://www.cnblogs.com/php-rearch/p/6760683.html</p>
+</blockquote>
 
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424185145272-8035578-1584177392001.png)
-
-那么，对于笛卡尔坐标系中的一个点$(x_1,y_1)$，则转换为霍夫空间下的一条线，如下图所示：
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424185846412-1947419957-1584177461604.png)
-
-**它表示经过改点的所有直线**
-
-那么，在笛卡尔坐标系中经过两点的直线，表现为在霍夫空间下两条直线的交点：
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424190504412-864862338-1584177533599.png)
-
-三点共线在霍夫空间中表现为三条线相交于一点：
-
-<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424213944022-348637873.png" style="zoom:80%;">
-
-**再次引申，如果多个点共线，那么在Hough空间中表现为多条线相交于一点**
-
-**如果一条线是垂直于x轴的，那么该线在Hough空间中无法表示（此时为$\infty$）**，所以这里将k和q表示的Hough空间转换为极坐标，如下：
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424215910740-145827126.png)
-
-同以*k*和*q* 组成的Hough空间，三点共线表示为三线相交，以下是两个Hough空间的对比图：
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1085343-20170424221329412-431224652-1584178146121.png)
-
-## 流程
-
-1. 首先，获取一个二值化图像
-
-2. 建立一个矩阵$H$，行为$p$的所有取值，列为$\theta$（$\theta$的取值范围为(-90,180)）
-
-3. 遍历图像中的所有边缘点，得到该点的坐标$(x,y)$，再遍历$\theta$的取值，通过公式$p=xcos{\theta}+ysin{\theta}$ 得到$p$,用伪代码表示为：
-
-   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> each edge Point(x,y):</span><br><span class="line">	<span class="keyword">for</span> theta <span class="keyword">in</span> range(<span class="number">-90</span>,<span class="number">90</span>):</span><br><span class="line">		p = x * cos(theta) + y * sin(theta)</span><br><span class="line">		H(theta,p) += <span class="number">1</span></span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-
-4. 在$H$中找出最大的n个值即找出n条直线
-
-## 参考
-
-> https://www.cnblogs.com/php-rearch/p/6760683.html
       
     </div>
     
@@ -597,8 +599,17 @@ var jiathis_config={
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -703,6 +714,22 @@ var jiathis_config={
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#霍夫变换原理"><span class="nav-number">2.</span> <span class="nav-text">霍夫变换原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流程"><span class="nav-number">3.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

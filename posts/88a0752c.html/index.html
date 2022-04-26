@@ -81,12 +81,19 @@
 
 
 
-<meta name="description" content="奈奎斯特采样定理：信号的采样频率必须大于被测信号最高频率的两倍时，采样之后的数字信号能够完整保留原始信号的信息。  # 傅里叶变换  设一个周期信号为$f(t)$，其[傅里叶变换](https:&#x2F;&#x2F;www.zhangqi2019.top&#x2F;posts&#x2F;fb91b52c.html&#x2F;)可以表示为: $$ F(\mu)&#x3D;\xi\lbrace f(t)\rbrace&#x3D;\int_{-\infty}^{\in">
+<meta name="description" content="奈奎斯特采样定理：信号的采样频率必须大于被测信号最高频率的两倍时，采样之后的数字信号能够完整保留原始信号的信息。 傅里叶变换 设一个周期信号为\(f(t)\)，其傅里叶变换可以表示为: \[ F(\mu)&#x3D;\xi\lbrace f(t)\rbrace&#x3D;\int_{-\infty}^{\infty}f(t) \cdot e^{-i \omega t}dt   \tag 1 \] 其中，\(\xi\)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="奈奎斯特采样定理推导">
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/88a0752c.html/index.html">
 <meta property="og:site_name" content="冒烟的乔个人博客">
-<meta property="og:description" content="奈奎斯特采样定理：信号的采样频率必须大于被测信号最高频率的两倍时，采样之后的数字信号能够完整保留原始信号的信息。  # 傅里叶变换  设一个周期信号为$f(t)$，其[傅里叶变换](https:&#x2F;&#x2F;www.zhangqi2019.top&#x2F;posts&#x2F;fb91b52c.html&#x2F;)可以表示为: $$ F(\mu)&#x3D;\xi\lbrace f(t)\rbrace&#x3D;\int_{-\infty}^{\in">
+<meta property="og:description" content="奈奎斯特采样定理：信号的采样频率必须大于被测信号最高频率的两倍时，采样之后的数字信号能够完整保留原始信号的信息。 傅里叶变换 设一个周期信号为\(f(t)\)，其傅里叶变换可以表示为: \[ F(\mu)&#x3D;\xi\lbrace f(t)\rbrace&#x3D;\int_{-\infty}^{\infty}f(t) \cdot e^{-i \omega t}dt   \tag 1 \] 其中，\(\xi\)">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/972e8186a6266c18b8a19347e2d8d316.jpeg">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/42f71c70646d19ccb0835d9c136078b4.jpeg">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/3f3884bf7e9421e12635d8d0aa18d220.jpeg">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/iofdsalknfdsaoifadsfoid.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/fodafdassfj.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/fioanlfko.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/fasiofaf.png">
 <meta property="article:published_time" content="2021-10-27T08:33:12.000Z">
 <meta property="article:modified_time" content="2021-11-25T07:43:20.633Z">
 <meta property="article:author" content="冒烟的乔">
@@ -94,6 +101,7 @@
 <meta property="article:tag" content="计算机视觉">
 <meta property="article:tag" content="数字图像处理">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/972e8186a6266c18b8a19347e2d8d316.jpeg">
 
 
 
@@ -413,269 +421,189 @@
       
 
       
-        
-奈奎斯特采样定理：信号的采样频率必须大于被测信号最高频率的两倍时，采样之后的数字信号能够完整保留原始信号的信息。
+        <p>奈奎斯特采样定理：信号的采样频率必须大于被测信号最高频率的两倍时，采样之后的数字信号能够完整保留原始信号的信息。</p>
+<h1 id="傅里叶变换">傅里叶变换</h1>
+<p>设一个周期信号为<span class="math inline">\(f(t)\)</span>，其<a href="https://www.zhangqi2019.top/posts/fb91b52c.html/" target="_blank" rel="noopener">傅里叶变换</a>可以表示为: <span class="math display">\[
+F(\mu)=\xi\lbrace f(t)\rbrace=\int_{-\infty}^{\infty}f(t) \cdot e^{-i \omega t}dt   \tag 1
+\]</span> 其中，<span class="math inline">\(\xi\)</span>表示对时域信号<span class="math inline">\(f(t)\)</span>进行傅里叶变换。<span class="math inline">\(F(\mu)\)</span>是变换后的频域函数，且是一个正负方向无限扩展的函数。</p>
+<p>下图是一个方波的傅里叶变换的结果：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/972e8186a6266c18b8a19347e2d8d316.jpeg">
 
-# 傅里叶变换
-
-设一个周期信号为$f(t)$，其[傅里叶变换](https://www.zhangqi2019.top/posts/fb91b52c.html/)可以表示为:
-$$
-F(\mu)=\xi\lbrace f(t)\rbrace=\int_{-\infty}^{\infty}f(t) \cdot e^{-i \omega t}dt	\tag 1
-$$
-其中，$\xi$表示对时域信号$f(t)$进行傅里叶变换。$F(\mu)$是变换后的频域函数，且是一个正负方向无限扩展的函数。
-
-下图是一个方波的傅里叶变换的结果：
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/972e8186a6266c18b8a19347e2d8d316.jpeg)
-
-但在实际中，$F(\mu )$不会是一个无限扩展的函数，$F(\mu)$会受到模拟信号带宽的限制.即:
-$$
+</div>
+<p>但在实际中，<span class="math inline">\(F(\mu )\)</span>不会是一个无限扩展的函数，<span class="math inline">\(F(\mu)\)</span>会受到模拟信号带宽的限制.即: <span class="math display">\[
 F(\mu)=
 \begin{cases} 
-F(\mu) & \text {if $|\mu| < k$ } \\
-0 & \text {others}
+F(\mu) &amp; \text {if $|\mu| &lt; k$ } \\
+0 &amp; \text {others}
 \end{cases}
 \tag 2
-$$
-
-# 冲激函数及冲激串
-
-## 冲激函数及性质
-
-定义冲激函数$\delta(t)$：
-$$
+\]</span></p>
+<h1 id="冲激函数及冲激串">冲激函数及冲激串</h1>
+<h2 id="冲激函数及性质">冲激函数及性质</h2>
+<p>定义冲激函数<span class="math inline">\(\delta(t)\)</span>： <span class="math display">\[
 \delta(t)=
 \begin{cases}
-1& \text {if $t=0$ } \\
-0 & \text{others}
-\end{cases}		
+1&amp; \text {if $t=0$ } \\
+0 &amp; \text{others}
+\end{cases}     
 \tag 3
-$$
-冲激函数具有以下性质：
-
-* $\int_{-\infty}^{\infty}f(t) \cdot \delta(t) dt=f(0)$
-* $\int_{-\infty}^{\infty}\delta(t)dt=1$
-* $\int_{-\infty}^{\infty}f(t ) \cdot \delta(t- t_0) dt=f(t_0)$
-
-## 冲激函数的傅里叶变换
-
-冲激函数$\delta{(t)}$的傅里叶变换为：
-$$
+\]</span> 冲激函数具有以下性质：</p>
+<ul>
+<li><span class="math inline">\(\int_{-\infty}^{\infty}f(t) \cdot \delta(t) dt=f(0)\)</span></li>
+<li><span class="math inline">\(\int_{-\infty}^{\infty}\delta(t)dt=1\)</span></li>
+<li><span class="math inline">\(\int_{-\infty}^{\infty}f(t ) \cdot \delta(t- t_0) dt=f(t_0)\)</span></li>
+</ul>
+<h2 id="冲激函数的傅里叶变换">冲激函数的傅里叶变换</h2>
+<p>冲激函数<span class="math inline">\(\delta{(t)}\)</span>的傅里叶变换为： <span class="math display">\[
 \xi\lbrace \delta(t)\rbrace = F(\mu)=\int_{-\infty}^{\infty}\delta(t)e^{-j2\pi\mu t} dt
-$$
-根据冲激函数的性质1，有:
-$$
-\xi\lbrace \delta(t)\rbrace =e^{-j2\pi\mu \cdot 0}=1	\tag 4
-$$
-
-
-下面求$\delta{(t-t_0)}$的傅里叶变换：
-$$
+\]</span> 根据冲激函数的性质1，有: <span class="math display">\[
+\xi\lbrace \delta(t)\rbrace =e^{-j2\pi\mu \cdot 0}=1    \tag 4
+\]</span></p>
+<p>下面求<span class="math inline">\(\delta{(t-t_0)}\)</span>的傅里叶变换： <span class="math display">\[
 \xi\lbrace \delta(t  - t_0)\rbrace = \int_{-\infty}^{\infty}\delta(t-t_0) \cdot e^{-j2\pi\mu t} dt
-$$
-同理，由冲激函数的性质3，有：
-$$
-\xi\lbrace \delta(t  - t_0)\rbrace = e^{-j2\pi\mu t_0} 		\tag 5
-$$
-
-## 冲激串
-
-当我们用$f(t) \cdot \delta(t)$时，即是对$t=0$时刻的$f(t)$函数采样。但我们希望对$f(t)$的多个时刻采样。现在我们只需要对$\delta(t)$平移，则平移后的函数可以表示为
-$$
+\]</span> 同理，由冲激函数的性质3，有： <span class="math display">\[
+\xi\lbrace \delta(t  - t_0)\rbrace = e^{-j2\pi\mu t_0}      \tag 5
+\]</span></p>
+<h2 id="冲激串">冲激串</h2>
+<p>当我们用<span class="math inline">\(f(t) \cdot \delta(t)\)</span>时，即是对<span class="math inline">\(t=0\)</span>时刻的<span class="math inline">\(f(t)\)</span>函数采样。但我们希望对<span class="math inline">\(f(t)\)</span>的多个时刻采样。现在我们只需要对<span class="math inline">\(\delta(t)\)</span>平移，则平移后的函数可以表示为 <span class="math display">\[
 \delta(t-n\Delta t)
-$$
-其中，$n \in Z$,$\Delta t$表示偏移。所以$t-n \Delta t$表示以$\Delta t$的$n$偏移
+\]</span> 其中，<span class="math inline">\(n \in Z\)</span>,<span class="math inline">\(\Delta t\)</span>表示偏移。所以<span class="math inline">\(t-n \Delta t\)</span>表示以<span class="math inline">\(\Delta t\)</span>的<span class="math inline">\(n\)</span>偏移</p>
+<p>对平移后的函数进行相加，有： <span class="math display">\[
+S_{\Delta T}(t)=\sum_{n=-\infty}^{+\infty}\delta(t-n\Delta t)   \tag 6
+\]</span> 上式称为冲激串。其函数图像如下图所示：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/42f71c70646d19ccb0835d9c136078b4.jpeg">
 
-对平移后的函数进行相加，有：
-$$
-S_{\Delta T}(t)=\sum_{n=-\infty}^{+\infty}\delta(t-n\Delta t)	\tag 6
-$$
-上式称为冲激串。其函数图像如下图所示：
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/42f71c70646d19ccb0835d9c136078b4.jpeg)
-
-**将$S_{\Delta T}(t)$与$f(t)$相乘则表示以$\Delta t$为间隔采样**
-
-## 冲激串的傅里叶变换
-
-### 补充：傅里叶变换的一个性质
-
-在推导冲激串$S_{\Delta{t}}(t)$的傅里叶变换之前，需要补充一个傅里叶变换的性质：
-
-> 对于信号$f(t)$，有傅里叶变换$F( \mu )$.即：
-> $$
-> \xi\lbrace f(t)\rbrace = F(\mu)=\int_{-\infty}^{\infty}f(t)e^{-j2\pi\mu t} dt
-> $$
-> 当我们把$f(t)$进行反傅里叶变换,有：
-> $$
-> \xi^{-1}\lbrace f(t)\rbrace =\int_{-\infty}^{\infty}f(t)e^{j2\pi\mu t} dt=\int_{-\infty}^{\infty}f(t)e^{-j2\pi\mu \cdot (-t)} dt
-> $$
-> 可以看到，上面两个等式互为相反数。即有：
-> $$
-> \xi\lbrace f(-t)\rbrace=\xi^{-1}\lbrace f(t)\rbrace
-> $$
-> 即，**一个函数的傅里叶变换和反傅里叶变换互为相反数**
-
-### 冲激串的傅里叶级数
-
-由于冲激串$S_{\Delta t}(t)$是一个离散函数我们可以用傅里叶级数对他进行分解，有：
-$$
-S_{\Delta t}(t)=\sum_{n=-\infty}^{\infty}c_n \cdot e^{\frac{j \cdot 2\pi n}{\Delta T}\cdot t}		\tag 7
-$$
-其中
-$$
-c_n=\frac{1}{\Delta t}\int_{-\frac{\Delta t}{2}}^{\frac{\Delta t}{2}}\delta(t) \cdot e^{-j\frac{2 \pi n}{\Delta T}t}dt		\tag 8
-$$
-根据冲激函数的性质1，有：
-$$
-c_n=\frac{1}{\Delta t} \cdot e^{-j \frac{2 \pi n}{\Delta t} \cdot 0}=\frac{1}{\Delta t}		\tag 9
-$$
-故有：
-$$
-S_{\Delta t}(t)=\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}e^{j \cdot \frac{2 \pi n}{\Delta t} \cdot t}		\tag {10}
-$$
-
-### 冲激串的傅里叶变换
-
-对冲激串$S_{\Delta t}(t)$进行傅里叶变换，有：
-$$
-\xi \lbrace S_{\Delta t}(t) \rbrace = \frac{1}{\Delta t} \sum_{n=-\infty}^{\infty} \xi \lbrace e^{j \cdot \frac{2 \pi n}{\Delta t}t} \rbrace 		\tag {11}
-$$
-
-$\xi \lbrace e^{j \cdot \frac{2 \pi n}{\Delta t}t} \rbrace$可以写成$\xi \lbrace e^{-j \cdot 2 \pi \cdot t \cdot (\frac{-n}{\Delta t})  } \rbrace$，由公式（5）可知：
-$$
+</div>
+<p><strong>将<span class="math inline">\(S_{\Delta T}(t)\)</span>与<span class="math inline">\(f(t)\)</span>相乘则表示以<span class="math inline">\(\Delta t\)</span>为间隔采样</strong></p>
+<h2 id="冲激串的傅里叶变换">冲激串的傅里叶变换</h2>
+<h3 id="补充傅里叶变换的一个性质">补充：傅里叶变换的一个性质</h3>
+<p>在推导冲激串<span class="math inline">\(S_{\Delta{t}}(t)\)</span>的傅里叶变换之前，需要补充一个傅里叶变换的性质：</p>
+<blockquote>
+<p>对于信号<span class="math inline">\(f(t)\)</span>，有傅里叶变换<span class="math inline">\(F( \mu )\)</span>.即： <span class="math display">\[
+\xi\lbrace f(t)\rbrace = F(\mu)=\int_{-\infty}^{\infty}f(t)e^{-j2\pi\mu t} dt
+\]</span> 当我们把<span class="math inline">\(f(t)\)</span>进行反傅里叶变换,有： <span class="math display">\[
+\xi^{-1}\lbrace f(t)\rbrace =\int_{-\infty}^{\infty}f(t)e^{j2\pi\mu t} dt=\int_{-\infty}^{\infty}f(t)e^{-j2\pi\mu \cdot (-t)} dt
+\]</span> 可以看到，上面两个等式互为相反数。即有： <span class="math display">\[
+\xi\lbrace f(-t)\rbrace=\xi^{-1}\lbrace f(t)\rbrace
+\]</span> 即，<strong>一个函数的傅里叶变换和反傅里叶变换互为相反数</strong></p>
+</blockquote>
+<h3 id="冲激串的傅里叶级数">冲激串的傅里叶级数</h3>
+<p>由于冲激串<span class="math inline">\(S_{\Delta t}(t)\)</span>是一个离散函数我们可以用傅里叶级数对他进行分解，有： <span class="math display">\[
+S_{\Delta t}(t)=\sum_{n=-\infty}^{\infty}c_n \cdot e^{\frac{j \cdot 2\pi n}{\Delta T}\cdot t}       \tag 7
+\]</span> 其中 <span class="math display">\[
+c_n=\frac{1}{\Delta t}\int_{-\frac{\Delta t}{2}}^{\frac{\Delta t}{2}}\delta(t) \cdot e^{-j\frac{2 \pi n}{\Delta T}t}dt      \tag 8
+\]</span> 根据冲激函数的性质1，有： <span class="math display">\[
+c_n=\frac{1}{\Delta t} \cdot e^{-j \frac{2 \pi n}{\Delta t} \cdot 0}=\frac{1}{\Delta t}     \tag 9
+\]</span> 故有： <span class="math display">\[
+S_{\Delta t}(t)=\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}e^{j \cdot \frac{2 \pi n}{\Delta t} \cdot t}        \tag {10}
+\]</span></p>
+<h3 id="冲激串的傅里叶变换-1">冲激串的傅里叶变换</h3>
+<p>对冲激串<span class="math inline">\(S_{\Delta t}(t)\)</span>进行傅里叶变换，有： <span class="math display">\[
+\xi \lbrace S_{\Delta t}(t) \rbrace = \frac{1}{\Delta t} \sum_{n=-\infty}^{\infty} \xi \lbrace e^{j \cdot \frac{2 \pi n}{\Delta t}t} \rbrace        \tag {11}
+\]</span></p>
+<p><span class="math inline">\(\xi \lbrace e^{j \cdot \frac{2 \pi n}{\Delta t}t} \rbrace\)</span>可以写成<span class="math inline">\(\xi \lbrace e^{-j \cdot 2 \pi \cdot t \cdot (\frac{-n}{\Delta t}) } \rbrace\)</span>，由公式（5）可知： <span class="math display">\[
 \delta \left( \mu-(\frac{-n}{\Delta t}) \right)=
 e^{-j \cdot 2 \pi \cdot t \cdot (\frac{-n}{\Delta t})  }=
-\delta \left( \mu+\frac{n}{\Delta t} \right)	\tag {12}
-$$
-由之前补充的傅里叶变换的性质，有
-$$
-\xi \lbrace e^{j \cdot \frac{2 \pi n}{\Delta t}t} \rbrace=\delta(-(\mu+\frac{n}{\Delta t}))		\tag {13}
-$$
-又由于函数$\delta(t)$是一个偶函数，有:
-$$
-\delta(-(\mu+\frac{n}{\Delta t}))	=\delta(\mu+\frac{n}{\Delta t})	=\xi \lbrace e^{j \cdot \frac{2 \pi n}{\Delta t}t} \rbrace	\tag {14}
-$$
-综上，可得$e^{j \cdot \frac{2 \pi n}{\Delta t}t}$傅里叶变换的最终结果：
-$$
+\delta \left( \mu+\frac{n}{\Delta t} \right)    \tag {12}
+\]</span> 由之前补充的傅里叶变换的性质，有 <span class="math display">\[
+\xi \lbrace e^{j \cdot \frac{2 \pi n}{\Delta t}t} \rbrace=\delta(-(\mu+\frac{n}{\Delta t}))     \tag {13}
+\]</span> 又由于函数<span class="math inline">\(\delta(t)\)</span>是一个偶函数，有: <span class="math display">\[
+\delta(-(\mu+\frac{n}{\Delta t}))   =\delta(\mu+\frac{n}{\Delta t}) =\xi \lbrace e^{j \cdot \frac{2 \pi n}{\Delta t}t} \rbrace  \tag {14}
+\]</span> 综上，可得<span class="math inline">\(e^{j \cdot \frac{2 \pi n}{\Delta t}t}\)</span>傅里叶变换的最终结果： <span class="math display">\[
 \delta \lbrace e^{-j \cdot 2 \pi \cdot t \cdot (\frac{-n}{\Delta t})  } \rbrace=
-\delta \left( \mu+\frac{n}{\Delta t} \right)	\tag {15}
-$$
-
->注：书上(《数字图像处理》（刚萨雷斯版）)直接一步得到如下结果：
->$$
->\xi \lbrace e^{j \cdot \frac{2 \pi n}{\Delta t}t} \rbrace 	= \delta(\mu - \frac{n}{\Delta t})
->$$
->但我这里推了两遍都是式（12）的结果。如果哪位大神能推出这个结果的请告知。
-
-由式（11）得到的冲激串$S_{\Delta t}(t)$的傅里叶变换，可变换为：
-$$
+\delta \left( \mu+\frac{n}{\Delta t} \right)    \tag {15}
+\]</span></p>
+<blockquote>
+<p>注：书上(《数字图像处理》（刚萨雷斯版）)直接一步得到如下结果： <span class="math display">\[
+\xi \lbrace e^{j \cdot \frac{2 \pi n}{\Delta t}t} \rbrace  = \delta(\mu - \frac{n}{\Delta t})
+\]</span> 但我这里推了两遍都是式（12）的结果。如果哪位大神能推出这个结果的请告知。</p>
+</blockquote>
+<p>由式（11）得到的冲激串<span class="math inline">\(S_{\Delta t}(t)\)</span>的傅里叶变换，可变换为： <span class="math display">\[
 \xi \lbrace S_{\Delta t}(t) \rbrace 
 =\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty} \xi \lbrace e^{j \cdot \frac{2 \pi n}{\Delta t}t} \rbrace 
 =\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}  \delta(\mu + \frac{n}{\Delta t})
 \tag {16}
-$$
-由于$n \in (-\infty,\infty)$,有：
-$$
+\]</span> 由于<span class="math inline">\(n \in (-\infty,\infty)\)</span>,有： <span class="math display">\[
 \xi \lbrace S_{\Delta t}(t) \rbrace 
-=\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}  \delta(\mu - \frac{n}{\Delta t})		\tag {17}
-$$
+=\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}  \delta(\mu - \frac{n}{\Delta t})     \tag {17}
+\]</span></p>
+<h1 id="模拟信号采样">模拟信号采样</h1>
+<h2 id="模拟信号采样的傅里叶变换">模拟信号采样的傅里叶变换</h2>
+<p>现在我们对模拟信号<span class="math inline">\(f(t)\)</span>进行采样，如何采样呢？就是用模拟信号<span class="math inline">\(f(t)\)</span>乘以冲激串函数<span class="math inline">\(S_{\Delta t}(t)\)</span>.下图是一个采样的例子：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/3f3884bf7e9421e12635d8d0aa18d220.jpeg">
 
-# 模拟信号采样
-
-## 模拟信号采样的傅里叶变换
-
-现在我们对模拟信号$f(t)$进行采样，如何采样呢？就是用模拟信号$f(t)$乘以冲激串函数$S_{\Delta t}(t)$.下图是一个采样的例子：
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/3f3884bf7e9421e12635d8d0aa18d220.jpeg)
-
-我们对采样后的结果进行傅里叶变换，如下：
-$$
+</div>
+<p>我们对采样后的结果进行傅里叶变换，如下： <span class="math display">\[
 \xi (f(t) \cdot S_{\Delta t}(t))
-$$
-根据`卷积定理`,有：
-$$
+\]</span> 根据<code>卷积定理</code>,有： <span class="math display">\[
 \xi (f(t) \cdot S_{\Delta t}(t))
 =\xi \lbrace f(t) \rbrace \ast \xi \lbrace S_{\Delta t}(t) \rbrace 
 = F(\mu) \ast \xi \lbrace S_{\Delta t}(t) \rbrace
 \tag {18}
-$$
-其中，$\ast$表示卷积
-
-> 补充：卷积定理
->
-> 设有两个信号函数$f_1(t)$和$f_2(t)$,其对应的傅里叶变换为$F_1(\mu)=\xi \lbrace f_1(t) \rbrace$和$F_2(\mu)=\xi \lbrace f_2(t) \rbrace$,则如下等式成立：
-> $$
-> F_1(\mu) \ast F_2(\mu)=\xi \lbrace f_1(t) \cdot f_2(t) \rbrace		\tag {19}
-> $$
->
-> $$
-> \xi \lbrace f_1(t) \ast f_2(t) \rbrace = F_1(\mu) \cdot F_2(\mu)	\tag {20}
-> $$
->
-> 其中，$\ast$代表卷积，定义如下：
-> $$
-> f(t) \ast h(t)=\int_{-\infty}^{\infty}f(\tau)h(t- \tau)d\tau		\tag {21}
-> $$
-> 也就是说：
->
-> * **时域的乘积的傅里叶变换等于频域的卷积**
-> * **时域卷积的傅里叶变换等于频域的乘积**
-
-在式（18）中，根据式（21）卷积的定义，有：
-$$
+\]</span> 其中，<span class="math inline">\(\ast\)</span>表示卷积</p>
+<blockquote>
+<p>补充：卷积定理</p>
+<p>设有两个信号函数<span class="math inline">\(f_1(t)\)</span>和<span class="math inline">\(f_2(t)\)</span>,其对应的傅里叶变换为<span class="math inline">\(F_1(\mu)=\xi \lbrace f_1(t) \rbrace\)</span>和<span class="math inline">\(F_2(\mu)=\xi \lbrace f_2(t) \rbrace\)</span>,则如下等式成立： <span class="math display">\[
+F_1(\mu) \ast F_2(\mu)=\xi \lbrace f_1(t) \cdot f_2(t) \rbrace        \tag {19}
+\]</span></p>
+<p><span class="math display">\[
+\xi \lbrace f_1(t) \ast f_2(t) \rbrace = F_1(\mu) \cdot F_2(\mu)  \tag {20}
+\]</span></p>
+<p>其中，<span class="math inline">\(\ast\)</span>代表卷积，定义如下： <span class="math display">\[
+f(t) \ast h(t)=\int_{-\infty}^{\infty}f(\tau)h(t- \tau)d\tau      \tag {21}
+\]</span> 也就是说：</p>
+<ul>
+<li><strong>时域的乘积的傅里叶变换等于频域的卷积</strong></li>
+<li><strong>时域卷积的傅里叶变换等于频域的乘积</strong></li>
+</ul>
+</blockquote>
+<p>在式（18）中，根据式（21）卷积的定义，有： <span class="math display">\[
 F(\mu) \ast \xi \lbrace S_{\Delta t}(t) \rbrace = 
-\int_{-\infty}^{\infty}F(\tau) \cdot \frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}  \delta(\mu - \tau - \frac{n}{\Delta t})	dt		\tag {22}
-$$
-
-$$
-= \frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}\int_{-\infty}^{\infty}F(\tau) \cdot  \delta(\mu - \tau - \frac{n}{\Delta t})	dt		\tag {23}
-$$
-
-在式（23）中，由于$\delta(t)$为偶函数，则有：
-$$
+\int_{-\infty}^{\infty}F(\tau) \cdot \frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}  \delta(\mu - \tau - \frac{n}{\Delta t})  dt      \tag {22}
+\]</span></p>
+<p><span class="math display">\[
+= \frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}\int_{-\infty}^{\infty}F(\tau) \cdot  \delta(\mu - \tau - \frac{n}{\Delta t}) dt      \tag {23}
+\]</span></p>
+<p>在式（23）中，由于<span class="math inline">\(\delta(t)\)</span>为偶函数，则有： <span class="math display">\[
 \delta(\mu - \tau- \frac{n}{\Delta t})
 =\delta(-(\mu - \tau - \frac{n}{\Delta t}))
 =\delta(\tau-\mu+\frac{n}{\Delta t})
 =\delta(\tau-(\mu - \frac{n}{\Delta t}))
 \tag {24}
-$$
-则式（23）可以转换为：
-$$
-\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}\int_{-\infty}^{\infty}F(\tau) \cdot  \delta(\mu - \tau - \frac{n}{\Delta t})	dt	=
-\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}\int_{-\infty}^{\infty}F(\tau) \cdot  \delta(\tau - (\mu - \frac{n}{\Delta t}))	dt	
+\]</span> 则式（23）可以转换为： <span class="math display">\[
+\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}\int_{-\infty}^{\infty}F(\tau) \cdot  \delta(\mu - \tau - \frac{n}{\Delta t})   dt  =
+\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}\int_{-\infty}^{\infty}F(\tau) \cdot  \delta(\tau - (\mu - \frac{n}{\Delta t})) dt  
 \tag {25}
-$$
-根据冲激函数的性质，式（25）可以化为：
-$$
-\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}\int_{-\infty}^{\infty}F(\tau) \cdot  \delta(\tau - (\mu - \frac{n}{\Delta t}))	dt	=
-\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}F(\mu - \frac{n}{\Delta t})		\tag {26}
-$$
-**式（26）就是信号$f(t)$采样后的傅里叶变换的最终结果。**
-
-理论上，$F(\mu)$是一个范围无限的函数，但在实际的运用中，由于带宽的限制，$\mu$是有范围的，设设备的带宽上线为$\mu_{max}$,则有：
-$$
+\]</span> 根据冲激函数的性质，式（25）可以化为： <span class="math display">\[
+\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}\int_{-\infty}^{\infty}F(\tau) \cdot  \delta(\tau - (\mu - \frac{n}{\Delta t})) dt  =
+\frac{1}{\Delta t} \sum_{n=-\infty}^{\infty}F(\mu - \frac{n}{\Delta t})     \tag {26}
+\]</span> <strong>式（26）就是信号<span class="math inline">\(f(t)\)</span>采样后的傅里叶变换的最终结果。</strong></p>
+<p>理论上，<span class="math inline">\(F(\mu)\)</span>是一个范围无限的函数，但在实际的运用中，由于带宽的限制，<span class="math inline">\(\mu\)</span>是有范围的，设设备的带宽上线为<span class="math inline">\(\mu_{max}\)</span>,则有： <span class="math display">\[
 F(\mu)=
 \begin{cases}
-F(\mu), & \text {if $|\mu| < \mu_{max}$} \\
-0, & \text others
+F(\mu), &amp; \text {if $|\mu| &lt; \mu_{max}$} \\
+0, &amp; \text others
 \end{cases}
 \tag {27}
-$$
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/iofdsalknfdsaoifadsfoid.png)
+\]</span> <img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/iofdsalknfdsaoifadsfoid.png"></p>
+<p>这说明<span class="math inline">\(F(\mu)\)</span>是一个以<span class="math inline">\(2 \mu_{max}\)</span>为长度的函数，而在式（26）中，相当于对<span class="math inline">\(F(\mu)\)</span>平移<span class="math inline">\(\frac{n}{\Delta t}（n \in Z）\)</span>个单位，再叠加。当<span class="math inline">\(\frac{1}{\Delta t}\)</span>小于<span class="math inline">\(2 \mu_{max}\)</span>时，式（26）中平移的两个函数就会重叠，如下图所示：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/fodafdassfj.png">
 
-这说明$F(\mu)$是一个以$2 \mu_{max}$为长度的函数，而在式（26）中，相当于对$F(\mu)$平移$\frac{n}{\Delta t}（n \in Z）$个单位，再叠加。当$\frac{1}{\Delta t}$小于$2 \mu_{max}$时，式（26）中平移的两个函数就会重叠，如下图所示：
+</div>
+<p>当<span class="math inline">\(\frac{1}{\Delta t}=2 \mu_{max}\)</span>时，有：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/fioanlfko.png">
 
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/fodafdassfj.png)
+</div>
+<p>当<span class="math inline">\(\frac{1}{\Delta t}&gt;2 \mu_{max}\)</span>时，有：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/fasiofaf.png">
 
-当$\frac{1}{\Delta t}=2 \mu_{max}$时，有：
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/fioanlfko.png)
-
-当$\frac{1}{\Delta t}>2 \mu_{max}$时，有：
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/fasiofaf.png)
-
+</div>
 
       
     </div>
@@ -803,8 +731,17 @@ var jiathis_config={
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -909,6 +846,22 @@ var jiathis_config={
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#傅里叶变换"><span class="nav-number">1.</span> <span class="nav-text">傅里叶变换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#冲激函数及冲激串"><span class="nav-number">2.</span> <span class="nav-text">冲激函数及冲激串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#冲激函数及性质"><span class="nav-number">2.1.</span> <span class="nav-text">冲激函数及性质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#冲激函数的傅里叶变换"><span class="nav-number">2.2.</span> <span class="nav-text">冲激函数的傅里叶变换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#冲激串"><span class="nav-number">2.3.</span> <span class="nav-text">冲激串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#冲激串的傅里叶变换"><span class="nav-number">2.4.</span> <span class="nav-text">冲激串的傅里叶变换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#补充傅里叶变换的一个性质"><span class="nav-number">2.4.1.</span> <span class="nav-text">补充：傅里叶变换的一个性质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#冲激串的傅里叶级数"><span class="nav-number">2.4.2.</span> <span class="nav-text">冲激串的傅里叶级数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#冲激串的傅里叶变换-1"><span class="nav-number">2.4.3.</span> <span class="nav-text">冲激串的傅里叶变换</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模拟信号采样"><span class="nav-number">3.</span> <span class="nav-text">模拟信号采样</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模拟信号采样的傅里叶变换"><span class="nav-number">3.1.</span> <span class="nav-text">模拟信号采样的傅里叶变换</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

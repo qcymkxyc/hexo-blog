@@ -81,12 +81,21 @@
 
 
 
-<meta name="description" content="## Question  * 边界追踪的目的 * 表示和描述一般用在图像处理的什么地方 * Moore边界追踪的大体流程 * 链码的主体思想 * 标记图的作用 * 标记图的主体思想 * 标记图如何解决旋转不变性 * 标记图解决缩放有哪两种方式，分别是什么，各自的优缺点是什么 * 形状数的目的 * 致密度如何计算 * 圆度率如何计算 * 何为区域的拓扑特性 * 拓扑特性有些什么，如何计算    #">
+<meta name="description" content="Question  边界追踪的目的 表示和描述一般用在图像处理的什么地方 Moore边界追踪的大体流程 链码的主体思想 标记图的作用 标记图的主体思想 标记图如何解决旋转不变性 标记图解决缩放有哪两种方式，分别是什么，各自的优缺点是什么 形状数的目的 致密度如何计算 圆度率如何计算 何为区域的拓扑特性 拓扑特性有些什么，如何计算  图像（区域）的表示和描述 所有Demo见：https:&#x2F;&#x2F;gith">
 <meta property="og:type" content="article">
 <meta property="og:title" content="区域的表示和描述">
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/d4747641.html/index.html">
 <meta property="og:site_name" content="冒烟的乔个人博客">
-<meta property="og:description" content="## Question  * 边界追踪的目的 * 表示和描述一般用在图像处理的什么地方 * Moore边界追踪的大体流程 * 链码的主体思想 * 标记图的作用 * 标记图的主体思想 * 标记图如何解决旋转不变性 * 标记图解决缩放有哪两种方式，分别是什么，各自的优缺点是什么 * 形状数的目的 * 致密度如何计算 * 圆度率如何计算 * 何为区域的拓扑特性 * 拓扑特性有些什么，如何计算    #">
+<meta property="og:description" content="Question  边界追踪的目的 表示和描述一般用在图像处理的什么地方 Moore边界追踪的大体流程 链码的主体思想 标记图的作用 标记图的主体思想 标记图如何解决旋转不变性 标记图解决缩放有哪两种方式，分别是什么，各自的优缺点是什么 形状数的目的 致密度如何计算 圆度率如何计算 何为区域的拓扑特性 拓扑特性有些什么，如何计算  图像（区域）的表示和描述 所有Demo见：https:&#x2F;&#x2F;gith">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E8%BE%B9%E7%95%8C%E8%BF%BD%E8%B8%AA.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E9%93%BE%E7%A0%811.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E9%93%BE%E7%A0%812.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E9%93%BE%E7%A0%813.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Freeman%E5%8E%9F%E5%9B%BE%E5%83%8F.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Freeman%E4%BA%8C%E5%80%BC%E5%8C%96%E5%90%8E%E7%9A%84%E5%9B%BE%E7%89%87.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/freeman%E5%A4%96%E8%BE%B9%E6%A1%86.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Freeman%E7%BB%93%E6%9E%9C.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E6%A0%87%E8%AE%B0%E5%9B%BE.png">
 <meta property="article:published_time" content="2020-07-30T08:27:48.000Z">
 <meta property="article:modified_time" content="2021-10-13T01:52:49.720Z">
 <meta property="article:author" content="冒烟的乔">
@@ -94,6 +103,7 @@
 <meta property="article:tag" content="Demo">
 <meta property="article:tag" content="计算机视觉">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/%E8%BE%B9%E7%95%8C%E8%BF%BD%E8%B8%AA.png">
 
 
 
@@ -413,222 +423,177 @@
       
 
       
-        
-## Question
+        <h2 id="question">Question</h2>
+<ul>
+<li>边界追踪的目的</li>
+<li>表示和描述一般用在图像处理的什么地方</li>
+<li>Moore边界追踪的大体流程</li>
+<li>链码的主体思想</li>
+<li>标记图的作用</li>
+<li>标记图的主体思想</li>
+<li>标记图如何解决旋转不变性</li>
+<li>标记图解决缩放有哪两种方式，分别是什么，各自的优缺点是什么</li>
+<li>形状数的目的</li>
+<li>致密度如何计算</li>
+<li>圆度率如何计算</li>
+<li>何为区域的拓扑特性</li>
+<li>拓扑特性有些什么，如何计算</li>
+</ul>
+<h1 id="图像区域的表示和描述">图像（区域）的表示和描述</h1>
+<p>所有Demo见：https://github.com/qcymkxyc/Image-Process/blob/master/notebooks/%E5%9B%BE%E5%83%8F%E8%A1%A8%E7%A4%BA%E4%B8%8E%E6%8F%8F%E8%BF%B0.ipynb</p>
+<ul>
+<li>表示：顾名思义，如何表示这一个区域。需要说明的是，像素仅是表示一个区域 的一种方式。（比如对于一个矩形，可以用另一种表示方式：四条线段）</li>
+<li>描述：如何表示该区域的特性，例如纹理，梯度等</li>
+</ul>
+<p><strong>该流程是在图像分割之后，对分割后的单元（区域）进一步处理的流程</strong></p>
+<h2 id="表示">表示</h2>
+<h3 id="边界追踪moore边界追踪">边界追踪（Moore边界追踪）</h3>
+<p>Moore边界追踪是最基本的像素级的表示方式</p>
+<blockquote>
+<p>边界追踪的目的是找一个物体（区域）的外边缘，或提取孔洞的外边缘</p>
+</blockquote>
+<p>Moore边界追踪的步骤如下：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/边界追踪.png">
 
-* 边界追踪的目的
-* 表示和描述一般用在图像处理的什么地方
-* Moore边界追踪的大体流程
-* 链码的主体思想
-* 标记图的作用
-* 标记图的主体思想
-* 标记图如何解决旋转不变性
-* 标记图解决缩放有哪两种方式，分别是什么，各自的优缺点是什么
-* 形状数的目的
-* 致密度如何计算
-* 圆度率如何计算
-* 何为区域的拓扑特性
-* 拓扑特性有些什么，如何计算
+</div>
+<h3 id="链码">链码</h3>
+<p>链码是以线段为单位来表示区域的外边界，相比于边界追踪，其泛化性更好，鲁棒性也更高。</p>
+<p>链码又叫<strong>弗雷曼链码</strong></p>
+<blockquote>
+<p>链码的主旨思想是将多个像素组成的线段根据方向进行分类，这样，一个封闭曲线就由一系列方向化的线段表示。</p>
+</blockquote>
+<h4 id="详细步骤">详细步骤</h4>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/链码1.png">
 
+</div>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/链码2.png">
 
+</div>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/链码3.png">
 
-# 图像（区域）的表示和描述
+</div>
+<h4 id="算法代码实现">算法代码实现</h4>
+<p>Freeman链码提取实现的代码较多，见https://github.com/qcymkxyc/Image-Process/blob/master/src/chapter11/freeman_code.py</p>
+<h4 id="demo">Demo</h4>
+<p><strong>提取原图像：</strong></p>
+<p>Demo的任务是给定一个封闭曲线，给出其对应的Freeman链码，原图像如下图所示：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Freeman原图像.png">
 
-所有Demo见：https://github.com/qcymkxyc/Image-Process/blob/master/notebooks/%E5%9B%BE%E5%83%8F%E8%A1%A8%E7%A4%BA%E4%B8%8E%E6%8F%8F%E8%BF%B0.ipynb
-
-* 表示：顾名思义，如何表示这一个区域。需要说明的是，像素仅是表示一个区域 的一种方式。（比如对于一个矩形，可以用另一种表示方式：四条线段）
-* 描述：如何表示该区域的特性，例如纹理，梯度等
-
-**该流程是在图像分割之后，对分割后的单元（区域）进一步处理的流程**
-
-## 表示
-
-### 边界追踪（Moore边界追踪）
-
-Moore边界追踪是最基本的像素级的表示方式
-
-> 边界追踪的目的是找一个物体（区域）的外边缘，或提取孔洞的外边缘
-
-Moore边界追踪的步骤如下：
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/边界追踪.png)
-
-### 链码
-
-链码是以线段为单位来表示区域的外边界，相比于边界追踪，其泛化性更好，鲁棒性也更高。
-
-链码又叫**弗雷曼链码**
-
-> 链码的主旨思想是将多个像素组成的线段根据方向进行分类，这样，一个封闭曲线就由一系列方向化的线段表示。
-
-#### 详细步骤
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/链码1.png)
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/链码2.png)
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/链码3.png)
-
-#### 算法代码实现
-
-Freeman链码提取实现的代码较多，见https://github.com/qcymkxyc/Image-Process/blob/master/src/chapter11/freeman_code.py
-
-#### Demo
-
-**提取原图像：**
-
-Demo的任务是给定一个封闭曲线，给出其对应的Freeman链码，原图像如下图所示：
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Freeman原图像.png)
-
-**原图像二值化：**
-
-对其进行均值滤波，并用$OTSU$算法进行二值化后
-
-主要代码：
-
+</div>
+<p><strong>原图像二值化：</strong></p>
+<p>对其进行均值滤波，并用<span class="math inline">\(OTSU\)</span>算法进行二值化后</p>
+<p>主要代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tmp_img = cv2.blur(img,(<span class="number">9</span>,<span class="number">9</span>))</span><br><span class="line">th,tmp_img = cv2.threshold(tmp_img,<span class="number">0</span>,<span class="number">255</span>,cv2.THRESH_BINARY + cv2.THRESH_OTSU)</span><br><span class="line">plt.imshow(tmp_img)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>二值化后的图像为：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Freeman二值化后的图片.png">
 
-二值化后的图像为：
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Freeman二值化后的图片.png)
-
-**构建Freeman链码**
-
-主要代码如下：
-
+</div>
+<p><strong>构建Freeman链码</strong></p>
+<p>主要代码如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">black_img = np.zeros_like(img)</span><br><span class="line"></span><br><span class="line"><span class="comment"># plt.imshow(cv2.findContours(black_img,contours,1,[255,255,255],2))</span></span><br><span class="line"></span><br><span class="line">tmp_img = cv2.blur(img, (<span class="number">9</span>, <span class="number">9</span>))</span><br><span class="line">th, tmp_img = cv2.threshold(</span><br><span class="line">    tmp_img, <span class="number">0</span>, <span class="number">255</span>, cv2.THRESH_BINARY + cv2.THRESH_OTSU)</span><br><span class="line">image, contours, hierarchy = cv2.findContours(</span><br><span class="line">    tmp_img, cv2.RETR_LIST, cv2.CHAIN_APPROX_NONE)</span><br><span class="line">contour = contours[<span class="number">-1</span>]</span><br><span class="line">contour = np.reshape(contour, (contour.shape[<span class="number">0</span>], contour.shape[<span class="number">-1</span>]))</span><br><span class="line">x = [i[<span class="number">0</span>] <span class="keyword">for</span> i <span class="keyword">in</span> contour]</span><br><span class="line">y = [i[<span class="number">1</span>] <span class="keyword">for</span> i <span class="keyword">in</span> contour]</span><br><span class="line">plt.plot(x, y)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line">r = freeman_code.get_freeman_coordination(tmp_img, contour)</span><br><span class="line"></span><br><span class="line">x = [i[<span class="number">0</span>] <span class="keyword">for</span> i <span class="keyword">in</span> r]</span><br><span class="line">y = [i[<span class="number">1</span>] <span class="keyword">for</span> i <span class="keyword">in</span> r]</span><br><span class="line"></span><br><span class="line">plt.plot(x,y)</span><br></pre></td></tr></table></figure>
+<p>获取其外边框，且该外边框上的像素点必须是连续的，所以在调用opencv的<span class="math inline">\(findContours\)</span>方法时必须用cv2.CHAIN_APPROX_NONE​,该参数表示提取的边缘是严格8连接的，提取的外边框如下图所示：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/freeman外边框.png">
 
-获取其外边框，且该外边框上的像素点必须是连续的，所以在调用opencv的$findContours$方法时必须用cv2.CHAIN_APPROX_NONE​,该参数表示提取的边缘是严格8连接的，提取的外边框如下图所示：
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/freeman外边框.png)
-
-在获取外边框后，对外边框进行Freeman编码，编码的结果为一系列在Freeman网格中的坐标，部分如下所示：
-
+</div>
+<p>在获取外边框后，对外边框进行Freeman编码，编码的结果为一系列在Freeman网格中的坐标，部分如下所示：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[(<span class="number">4</span>, <span class="number">1</span>),</span><br><span class="line"> (<span class="number">4</span>, <span class="number">1</span>),</span><br><span class="line"> (<span class="number">4</span>, <span class="number">1</span>),</span><br><span class="line"> (<span class="number">4</span>, <span class="number">1</span>),</span><br><span class="line"> (<span class="number">3</span>, <span class="number">2</span>),</span><br><span class="line"> (<span class="number">3</span>, <span class="number">2</span>),</span><br><span class="line"> (<span class="number">3</span>, <span class="number">2</span>),</span><br><span class="line"> (<span class="number">3</span>, <span class="number">2</span>),</span><br><span class="line"> (<span class="number">3</span>, <span class="number">2</span>),</span><br><span class="line"> ...</span><br></pre></td></tr></table></figure>
+<p>对Freeman坐标进行画图，结果为：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Freeman结果.png">
 
-对Freeman坐标进行画图，结果为：
+</div>
+<h3 id="标记图">标记图</h3>
+<blockquote>
+<p>标记图可用来识别不同形状的闭合区域。例如可用来识别矩形和三角形</p>
+</blockquote>
+<h4 id="主要过程">主要过程</h4>
+<p>标记图较为简单，主要分为两步：</p>
+<ul>
+<li>找到该区域的质心（质心等于该区域所有的点的平均）</li>
+<li>计算质心到每一个边界点的距离以及角度（即以质心为圆心旋转<span class="math inline">\(360^\circ\)</span>查看该质心到边界的距离）</li>
+</ul>
+<p>最终会形成一个<strong>标记图</strong>，如下：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/标记图.png">
 
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/Freeman结果.png)
-
-### 标记图
-
-> 标记图可用来识别不同形状的闭合区域。例如可用来识别矩形和三角形
-
-#### 主要过程
-
-标记图较为简单，主要分为两步：
-
-* 找到该区域的质心（质心等于该区域所有的点的平均）
-* 计算质心到每一个边界点的距离以及角度（即以质心为圆心旋转$360^\circ$查看该质心到边界的距离）
-
-最终会形成一个**标记图**，如下：
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/标记图.png)
-
-如果该区域是一个四边形，会出现四个波峰；如果是三角形，则会出现三个波峰，由此我们可以判定该区域的形状。
-
-#### 标记图旋转不变性
-
-在标记图中解决旋转不变性较为容易，即选择离质心最远的点作为起始点，那么反应到标记图中则是起始点为最高的波峰。
-
-#### 标记图缩放解决
-
-书中解决缩放问题有两种方式：
-
-1. 归一化
-   $$
+</div>
+<p>如果该区域是一个四边形，会出现四个波峰；如果是三角形，则会出现三个波峰，由此我们可以判定该区域的形状。</p>
+<h4 id="标记图旋转不变性">标记图旋转不变性</h4>
+<p>在标记图中解决旋转不变性较为容易，即选择离质心最远的点作为起始点，那么反应到标记图中则是起始点为最高的波峰。</p>
+<h4 id="标记图缩放解决">标记图缩放解决</h4>
+<p>书中解决缩放问题有两种方式：</p>
+<ol style="list-style-type: decimal">
+<li>归一化 <span class="math display">\[
    \frac{距离}{max(距离) - min(距离)}
-   $$
-
-**该方式的缺点是对噪声敏感**
-
-2. 样本/方差
-   $$
+   \]</span></li>
+</ol>
+<p><strong>该方式的缺点是对噪声敏感</strong></p>
+<ol start="2" style="list-style-type: decimal">
+<li>样本/方差 <span class="math display">\[
    \frac{样本}{方差}
-   $$
-   
-
-**相比于归一化，该方式更加的稳定**
-
-
-
-### 骨架
-
-骨架见[这篇博客](http://blog.zhangqi2019.top/posts/311496b5.html/)
-
-## 边界描述
-
-边界描述实际上是对区域边缘的描述，这种描述有粗有细，也就是说有泛化的描述也有精确的描述，他们各有各用途。
-
-* 泛化描述：形状数
-* 细致描述：
-  * 边界像素个数
-  * 统计矩
-
-### 形状数
-
-> 形状数的目的：保证Freeman链码的旋转不变性
-
-形状数是在Freeman链码的基础上做两步事情：
-
-* 差分（这里的差分并非数学上的差分）
-* 差分结果排序（这里也非单纯的排序，后面会详细说明）
-
-
-
-## 区域描述
-
-### 偏心率
-
-* 边界的直径：封闭曲线内的最大直径（长轴）
-* 短轴：垂直于长轴的轴
-
-长轴和短轴组成可包住区域的边框
-$$
+   \]</span></li>
+</ol>
+<p><strong>相比于归一化，该方式更加的稳定</strong></p>
+<h3 id="骨架">骨架</h3>
+<p>骨架见<a href="http://blog.zhangqi2019.top/posts/311496b5.html/">这篇博客</a></p>
+<h2 id="边界描述">边界描述</h2>
+<p>边界描述实际上是对区域边缘的描述，这种描述有粗有细，也就是说有泛化的描述也有精确的描述，他们各有各用途。</p>
+<ul>
+<li>泛化描述：形状数</li>
+<li>细致描述：</li>
+<li>边界像素个数</li>
+<li>统计矩</li>
+</ul>
+<h3 id="形状数">形状数</h3>
+<blockquote>
+<p>形状数的目的：保证Freeman链码的旋转不变性</p>
+</blockquote>
+<p>形状数是在Freeman链码的基础上做两步事情：</p>
+<ul>
+<li>差分（这里的差分并非数学上的差分）</li>
+<li>差分结果排序（这里也非单纯的排序，后面会详细说明）</li>
+</ul>
+<h2 id="区域描述">区域描述</h2>
+<h3 id="偏心率">偏心率</h3>
+<ul>
+<li>边界的直径：封闭曲线内的最大直径（长轴）</li>
+<li>短轴：垂直于长轴的轴</li>
+</ul>
+<p>长轴和短轴组成可包住区域的边框 <span class="math display">\[
 偏心率=\frac{短轴}{长轴}
-$$
-
-**偏心率可以表示为总体形状的描述子**
-
-### 致密度描述子
-
-影响致密度的两个因素为：
-
-* 区域的形状
-* 区域是否有孔洞
-
-#### 致密度
-
-致密度的公式为：
-$$
+\]</span></p>
+<p><strong>偏心率可以表示为总体形状的描述子</strong></p>
+<h3 id="致密度描述子">致密度描述子</h3>
+<p>影响致密度的两个因素为：</p>
+<ul>
+<li>区域的形状</li>
+<li>区域是否有孔洞</li>
+</ul>
+<h4 id="致密度">致密度</h4>
+<p>致密度的公式为： <span class="math display">\[
 致密度 = \frac{周长^2}{面积}
-$$
-
-#### 圆度率
-
-圆度率：一个区域的面积与具有相同周长的一个圆（最致密的形状，也就是说没有孔洞）的面积之比。
-
-圆度率$R_c$可以表示为：
-$$
+\]</span></p>
+<h4 id="圆度率">圆度率</h4>
+<p>圆度率：一个区域的面积与具有相同周长的一个圆（最致密的形状，也就是说没有孔洞）的面积之比。</p>
+<p>圆度率<span class="math inline">\(R_c\)</span>可以表示为： <span class="math display">\[
 R_c=\frac{4\pi A}{P^2}
-$$
-其中，$A$表示区域面积，$P$表示其对应的周长
-
-###  拓扑描述子
-
-拓扑特性定义：未受任何变形影响的图形的性质
-
-拓扑描述子包括以下几个：
-
-* 孔洞数
-* 连通分量数
-* 欧拉数。欧拉数=连通分量数-孔洞数
-
-
-
-### 纹理描述
-
+\]</span> 其中，<span class="math inline">\(A\)</span>表示区域面积，<span class="math inline">\(P\)</span>表示其对应的周长</p>
+<h3 id="拓扑描述子">拓扑描述子</h3>
+<p>拓扑特性定义：未受任何变形影响的图形的性质</p>
+<p>拓扑描述子包括以下几个：</p>
+<ul>
+<li>孔洞数</li>
+<li>连通分量数</li>
+<li>欧拉数。欧拉数=连通分量数-孔洞数</li>
+</ul>
+<h3 id="纹理描述">纹理描述</h3>
 
       
     </div>
@@ -756,8 +721,17 @@ var jiathis_config={
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -862,6 +836,22 @@ var jiathis_config={
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图像区域的表示和描述"><span class="nav-number"></span> <span class="nav-text">图像（区域）的表示和描述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#表示"><span class="nav-number">1.</span> <span class="nav-text">表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#边界追踪moore边界追踪"><span class="nav-number">1.1.</span> <span class="nav-text">边界追踪（Moore边界追踪）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链码"><span class="nav-number">1.2.</span> <span class="nav-text">链码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#详细步骤"><span class="nav-number">1.2.1.</span> <span class="nav-text">详细步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#算法代码实现"><span class="nav-number">1.2.2.</span> <span class="nav-text">算法代码实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#demo"><span class="nav-number">1.2.3.</span> <span class="nav-text">Demo</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标记图"><span class="nav-number">1.3.</span> <span class="nav-text">标记图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主要过程"><span class="nav-number">1.3.1.</span> <span class="nav-text">主要过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标记图旋转不变性"><span class="nav-number">1.3.2.</span> <span class="nav-text">标记图旋转不变性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标记图缩放解决"><span class="nav-number">1.3.3.</span> <span class="nav-text">标记图缩放解决</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#骨架"><span class="nav-number">1.4.</span> <span class="nav-text">骨架</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#边界描述"><span class="nav-number">2.</span> <span class="nav-text">边界描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#形状数"><span class="nav-number">2.1.</span> <span class="nav-text">形状数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区域描述"><span class="nav-number">3.</span> <span class="nav-text">区域描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#偏心率"><span class="nav-number">3.1.</span> <span class="nav-text">偏心率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#致密度描述子"><span class="nav-number">3.2.</span> <span class="nav-text">致密度描述子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#致密度"><span class="nav-number">3.2.1.</span> <span class="nav-text">致密度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#圆度率"><span class="nav-number">3.2.2.</span> <span class="nav-text">圆度率</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拓扑描述子"><span class="nav-number">3.3.</span> <span class="nav-text">拓扑描述子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#纹理描述"><span class="nav-number">3.4.</span> <span class="nav-text">纹理描述</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

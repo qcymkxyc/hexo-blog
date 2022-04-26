@@ -81,12 +81,15 @@
 
 
 
-<meta name="description" content="# 概述  &#96;SSD&#96;全称&#96;Single Shot MultiBox Detector&#96;，是一个&#96;One-Stage&#96;的目标检测模型，以下是&#96;SSD&#96;和&#96;YOLO&#96;以及&#96;Faster RCNN&#96;的对比结果图。可以看到&#96;SSD&#96;比&#96;YOLO&#96;和&#96;Faster RCNN&#96;强很多（无论是速度上还是精度上）。  ![](https:&#x2F;&#x2F;blog-1253764997.cos.ap-chongqing.m">
+<meta name="description" content="概述 SSD全称Single Shot MultiBox Detector，是一个One-Stage的目标检测模型，以下是SSD和YOLO以及Faster RCNN的对比结果图。可以看到SSD比YOLO和Faster RCNN强很多（无论是速度上还是精度上）。     主要改进点 实质上,SSD在YOLO的基础上就仅进行了三点改进，一下分别阐述： 多尺度特征图检测 YOLO对于小目标的检测效果不好">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SSD模型">
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/719cc2e5.html/index.html">
 <meta property="og:site_name" content="冒烟的乔个人博客">
-<meta property="og:description" content="# 概述  &#96;SSD&#96;全称&#96;Single Shot MultiBox Detector&#96;，是一个&#96;One-Stage&#96;的目标检测模型，以下是&#96;SSD&#96;和&#96;YOLO&#96;以及&#96;Faster RCNN&#96;的对比结果图。可以看到&#96;SSD&#96;比&#96;YOLO&#96;和&#96;Faster RCNN&#96;强很多（无论是速度上还是精度上）。  ![](https:&#x2F;&#x2F;blog-1253764997.cos.ap-chongqing.m">
+<meta property="og:description" content="概述 SSD全称Single Shot MultiBox Detector，是一个One-Stage的目标检测模型，以下是SSD和YOLO以及Faster RCNN的对比结果图。可以看到SSD比YOLO和Faster RCNN强很多（无论是速度上还是精度上）。     主要改进点 实质上,SSD在YOLO的基础上就仅进行了三点改进，一下分别阐述： 多尺度特征图检测 YOLO对于小目标的检测效果不好">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210506134247.jpg">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210512145819.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210512150349.png">
 <meta property="article:published_time" content="2021-05-06T05:34:51.000Z">
 <meta property="article:modified_time" content="2021-10-13T01:52:49.720Z">
 <meta property="article:author" content="冒烟的乔">
@@ -94,6 +97,7 @@
 <meta property="article:tag" content="目标检测">
 <meta property="article:tag" content="计算机视觉">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210506134247.jpg">
 
 
 
@@ -413,59 +417,46 @@
       
 
       
-        
-# 概述
+        <h1 id="概述">概述</h1>
+<p><code>SSD</code>全称<code>Single Shot MultiBox Detector</code>，是一个<code>One-Stage</code>的目标检测模型，以下是<code>SSD</code>和<code>YOLO</code>以及<code>Faster RCNN</code>的对比结果图。可以看到<code>SSD</code>比<code>YOLO</code>和<code>Faster RCNN</code>强很多（无论是速度上还是精度上）。</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210506134247.jpg">
 
-`SSD`全称`Single Shot MultiBox Detector`，是一个`One-Stage`的目标检测模型，以下是`SSD`和`YOLO`以及`Faster RCNN`的对比结果图。可以看到`SSD`比`YOLO`和`Faster RCNN`强很多（无论是速度上还是精度上）。
+</div>
+<h1 id="主要改进点">主要改进点</h1>
+<p>实质上,<code>SSD</code>在<code>YOLO</code>的基础上就仅进行了三点改进，一下分别阐述：</p>
+<h2 id="多尺度特征图检测">多尺度特征图检测</h2>
+<p><code>YOLO</code>对于小目标的检测效果不好，所以在<code>SSD</code>中，用多尺度特征图来解决小目标的问题，下图是<code>SSD</code>模型和<code>YOLO</code>模型的对比，如图所示： <img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210512145819.png"></p>
+<p>从上图可以看出：</p>
+<ul>
+<li><code>SSD</code>的主干网络是<code>VGG16</code>,<code>SSD</code>的第一个<code>Feature Map</code>是<code>VGG</code>中的<code>Conv5_3</code>,也就是<code>VGG16</code>第5个阶段的第3个卷积层</li>
+<li>对于<code>VGG16</code>后两层全连接层，<code>SSD</code>利用<span class="math inline">\(3 \times 3\)</span>的卷积层和<span class="math inline">\(1 \times 1\)</span>的卷积层实现</li>
+<li><code>SSD</code>模型有6个<code>Feature Map</code>对应的输出，每一个输出加入<span class="math inline">\(3 \times 3\)</span> 的卷积层得到最终结果</li>
+<li>在<code>Conv6</code>中的<span class="math inline">\(3 \times 3\)</span>的卷积并不是普通的卷积，而是用的<code>Dilation Conv</code>（带孔卷积）</li>
+<li>在<code>Conv5_3</code> 之后（也就是第一个输出<code>Feature Map</code>）接一个<code>L2 Normalization</code>,<code>L2 Normalization</code>不同于<code>Batch Normalization</code>，<code>Batch Normalization</code>是在[batch_size,width,height]三个维度上做归一化，而<code>L2 Normalization</code>是在<strong><code>Channel</code></strong>的维度上做归一化</li>
+</ul>
+<h3 id="dilation-conv">Dilation Conv</h3>
+<p><code>Dilation Conv</code>的目的是扩大卷积的视野，如下图：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210512150349.png">
 
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210506134247.jpg)
-
-# 主要改进点
-
-实质上,`SSD`在`YOLO`的基础上就仅进行了三点改进，一下分别阐述：
-
-## 多尺度特征图检测
-`YOLO`对于小目标的检测效果不好，所以在`SSD`中，用多尺度特征图来解决小目标的问题，下图是`SSD`模型和`YOLO`模型的对比，如图所示：
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210512145819.png)
-
-从上图可以看出：
-
-* `SSD`的主干网络是`VGG16`,`SSD`的第一个`Feature Map`是`VGG`中的`Conv5_3`,也就是`VGG16`第5个阶段的第3个卷积层
-* 对于`VGG16`后两层全连接层，`SSD`利用$3 \times 3$的卷积层和$1 \times 1$的卷积层实现
-* `SSD`模型有6个`Feature Map`对应的输出，每一个输出加入$3 \times 3$ 的卷积层得到最终结果
-* 在`Conv6`中的$3 \times 3$的卷积并不是普通的卷积，而是用的`Dilation Conv`（带孔卷积）
-* 在`Conv5_3` 之后（也就是第一个输出`Feature Map`）接一个`L2 Normalization`,`L2 Normalization`不同于`Batch Normalization`，`Batch Normalization`是在[batch_size,width,height]三个维度上做归一化，而`L2 Normalization`是在**`Channel`**的维度上做归一化
-
-### Dilation Conv
-
-`Dilation Conv`的目的是扩大卷积的视野，如下图：
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210512150349.png)
-
-图中，(a)是普通的卷积层，(b)的扩张率为2，此时视野变成$7 \times 7$,（c）扩张率为4,此时视野变成$15 \times 15$
-
-## Default Box
-
-`Default Box`基本上等同于`Faster RCNN`中的`Anchor Box`，其数量上稍有不同，这里不再详述。
-
-# Loss函数
-
-由于`SSD`模型采用了`Default box`,所以，`loss`函数和`Faster RCNN`大同小异，但需要值得注意的是，在`SSD`中并没有`confidence`这一概念，在`SSD`中会在`class`部分多添加一类表示背景.所以,`SSD`的`loss`仅有两部分。一下是`SSD`模型的总体`loss`:
-$$
+</div>
+<p>图中，(a)是普通的卷积层，(b)的扩张率为2，此时视野变成<span class="math inline">\(7 \times 7\)</span>,（c）扩张率为4,此时视野变成<span class="math inline">\(15 \times 15\)</span></p>
+<h2 id="default-box">Default Box</h2>
+<p><code>Default Box</code>基本上等同于<code>Faster RCNN</code>中的<code>Anchor Box</code>，其数量上稍有不同，这里不再详述。</p>
+<h1 id="loss函数">Loss函数</h1>
+<p>由于<code>SSD</code>模型采用了<code>Default box</code>,所以，<code>loss</code>函数和<code>Faster RCNN</code>大同小异，但需要值得注意的是，在<code>SSD</code>中并没有<code>confidence</code>这一概念，在<code>SSD</code>中会在<code>class</code>部分多添加一类表示背景.所以,<code>SSD</code>的<code>loss</code>仅有两部分。一下是<code>SSD</code>模型的总体<code>loss</code>: <span class="math display">\[
 L(x,c,l,g) = \frac{1}{N}(L_{conf}(x,c)+ \alpha L_{loc}(x,l,g)) \tag 1
-$$
+\]</span></p>
+<h3 id="位置loss">位置Loss</h3>
+<p>位置<code>loss</code>基本上完全同<code>Faster RCNN</code>,也是预测<code>Anchor Box</code>和<code>Ground Truth</code>的偏差，其内部所用的<code>loss</code>也是<code>smooth L1</code></p>
+<h2 id="分类loss">分类Loss</h2>
+<p>分类<code>loss</code>用<code>Cross Entropy</code></p>
+<h1 id="参考">参考</h1>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/33544892" target="_blank" rel="noopener">目标检测|SSD原理与实现</a></li>
+</ul>
 
-### 位置Loss
-
-位置`loss`基本上完全同`Faster RCNN`,也是预测`Anchor Box`和`Ground Truth`的偏差，其内部所用的`loss`也是`smooth L1`
-
-## 分类Loss
-
-分类`loss`用`Cross Entropy`
-
-# 参考
-
-* [目标检测|SSD原理与实现](https://zhuanlan.zhihu.com/p/33544892)
       
     </div>
     
@@ -592,8 +583,17 @@ var jiathis_config={
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -698,6 +698,22 @@ var jiathis_config={
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主要改进点"><span class="nav-number">2.</span> <span class="nav-text">主要改进点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#多尺度特征图检测"><span class="nav-number">2.1.</span> <span class="nav-text">多尺度特征图检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dilation-conv"><span class="nav-number">2.1.1.</span> <span class="nav-text">Dilation Conv</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#default-box"><span class="nav-number">2.2.</span> <span class="nav-text">Default Box</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#loss函数"><span class="nav-number">3.</span> <span class="nav-text">Loss函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#位置loss"><span class="nav-number">3.0.1.</span> <span class="nav-text">位置Loss</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分类loss"><span class="nav-number">3.1.</span> <span class="nav-text">分类Loss</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

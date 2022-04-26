@@ -81,12 +81,12 @@
 
 
 
-<meta name="description" content="## Question  &gt; 1. 在numpy中协方差矩阵是以行为单位计算还是以列为单位计算 &gt; 2. 在numpy中计算协方差是有偏的还是无偏的 &gt; 3. 协方差以及Pearson相识度的计算流程 &gt; 4. Pearson相关度和协方差的区别 &gt; 5. 什么时候适合用spearman相关度 &gt; 6. spearman相似度计算的流程  ## 协方差  首先说最简单的——协方差，协方差的计算比">
+<meta name="description" content="Question   在numpy中协方差矩阵是以行为单位计算还是以列为单位计算 在numpy中计算协方差是有偏的还是无偏的 协方差以及Pearson相识度的计算流程 Pearson相关度和协方差的区别 什么时候适合用spearman相关度 spearman相似度计算的流程   协方差 首先说最简单的——协方差，协方差的计算比较简单： \[ Cov(x,y)&#x3D;E[(x-\overline{x})\">
 <meta property="og:type" content="article">
 <meta property="og:title" content="对Pearson，Spearman，协方差等相关性的总结">
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/75634b1e.html/index.html">
 <meta property="og:site_name" content="冒烟的乔个人博客">
-<meta property="og:description" content="## Question  &gt; 1. 在numpy中协方差矩阵是以行为单位计算还是以列为单位计算 &gt; 2. 在numpy中计算协方差是有偏的还是无偏的 &gt; 3. 协方差以及Pearson相识度的计算流程 &gt; 4. Pearson相关度和协方差的区别 &gt; 5. 什么时候适合用spearman相关度 &gt; 6. spearman相似度计算的流程  ## 协方差  首先说最简单的——协方差，协方差的计算比">
+<meta property="og:description" content="Question   在numpy中协方差矩阵是以行为单位计算还是以列为单位计算 在numpy中计算协方差是有偏的还是无偏的 协方差以及Pearson相识度的计算流程 Pearson相关度和协方差的区别 什么时候适合用spearman相关度 spearman相似度计算的流程   协方差 首先说最简单的——协方差，协方差的计算比较简单： \[ Cov(x,y)&#x3D;E[(x-\overline{x})\">
 <meta property="article:published_time" content="2020-03-19T10:09:28.000Z">
 <meta property="article:modified_time" content="2021-10-13T01:52:49.720Z">
 <meta property="article:author" content="冒烟的乔">
@@ -413,60 +413,51 @@
       
 
       
-        
-## Question
-
-> 1. 在numpy中协方差矩阵是以行为单位计算还是以列为单位计算
-> 2. 在numpy中计算协方差是有偏的还是无偏的
-> 3. 协方差以及Pearson相识度的计算流程
-> 4. Pearson相关度和协方差的区别
-> 5. 什么时候适合用spearman相关度
-> 6. spearman相似度计算的流程
-
-## 协方差
-
-首先说最简单的——协方差，协方差的计算比较简单：
-$$
+        <h2 id="question">Question</h2>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>在numpy中协方差矩阵是以行为单位计算还是以列为单位计算</li>
+<li>在numpy中计算协方差是有偏的还是无偏的</li>
+<li>协方差以及Pearson相识度的计算流程</li>
+<li>Pearson相关度和协方差的区别</li>
+<li>什么时候适合用spearman相关度</li>
+<li>spearman相似度计算的流程</li>
+</ol>
+</blockquote>
+<h2 id="协方差">协方差</h2>
+<p>首先说最简单的——协方差，协方差的计算比较简单： <span class="math display">\[
 Cov(x,y)=E[(x-\overline{x})\cdot(y-\overline{y})]
-$$
-或者将 $x$ 和$y$的协方差表示为,设$x$和$y$均为**维度为n的向量**，则两个向量的协方差可以表示为：
-$$
+\]</span> 或者将 <span class="math inline">\(x\)</span> 和<span class="math inline">\(y\)</span>的协方差表示为,设<span class="math inline">\(x\)</span>和<span class="math inline">\(y\)</span>均为<strong>维度为n的向量</strong>，则两个向量的协方差可以表示为： <span class="math display">\[
 Cov(x,y)=\frac{1}{n}\sum_{i=1}^{n}{(x_i-\overline{x})(y_i-\overline{y})}
-$$
-对于一个矩阵如何计算向量呢，在numpy中，是将矩阵**以行为单位看成是一个feature**（即一行一个feature），计算相关性（**所以，在计算特征的相关度时需要transform一下**）。并且，在numpy中计算方差基本都是使用无偏估计（也就是自由度为1）。下面是演示代码：
-
+\]</span> 对于一个矩阵如何计算向量呢，在numpy中，是将矩阵<strong>以行为单位看成是一个feature</strong>（即一行一个feature），计算相关性（<strong>所以，在计算特征的相关度时需要transform一下</strong>）。并且，在numpy中计算方差基本都是使用无偏估计（也就是自由度为1）。下面是演示代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">x = np.arange(<span class="number">12</span>).reshape(<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line">print(np.cov(x))</span><br></pre></td></tr></table></figure>
-
-结果为：
-
+<p>结果为：</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="number">1.66666667</span> <span class="number">1.66666667</span> <span class="number">1.66666667</span>]</span><br><span class="line"> [<span class="number">1.66666667</span> <span class="number">1.66666667</span> <span class="number">1.66666667</span>]</span><br><span class="line"> [<span class="number">1.66666667</span> <span class="number">1.66666667</span> <span class="number">1.66666667</span>]]</span><br></pre></td></tr></table></figure>
-
-总结一下：
-
-1. numpy的协方差矩阵计算是以行为单位计算
-2. 在计算协方差时是用$n-1$计算的
-
-## Pearson相关性
-
-**Pearson相关度可以看成是归一化后的协方差**，公式为：
-$$
+<p>总结一下：</p>
+<ol style="list-style-type: decimal">
+<li>numpy的协方差矩阵计算是以行为单位计算</li>
+<li>在计算协方差时是用<span class="math inline">\(n-1\)</span>计算的</li>
+</ol>
+<h2 id="pearson相关性">Pearson相关性</h2>
+<p><strong>Pearson相关度可以看成是归一化后的协方差</strong>，公式为： <span class="math display">\[
 Pearson-correlation = \frac{cov(x,y)}{\sqrt{cov(x,x)*cov(y,y)}}
-$$
-
-## Spearman相关性
-
->  Spearman主要是用于测量两个时间距离的相似度，因为如果用Pearson相似度测量两个时间序列的相似度，数字的序列性将无法体现。
-
-### 算法流程
-
-1. 对两个序列（向量）进行排序，获取每个数字在序列中的个数，例如$x=[12,2,7,90]$得到的结果为$rankx=[3,1,2,4]$
-2. 对两个序列排序的结果进行pearson相似度的计算
-
-## 参考
-
-> * https://www.cnblogs.com/weiyinfu/p/10693445.html
-> * https://blog.csdn.net/lambsnow/article/details/79972145
-
+\]</span></p>
+<h2 id="spearman相关性">Spearman相关性</h2>
+<blockquote>
+<p>Spearman主要是用于测量两个时间距离的相似度，因为如果用Pearson相似度测量两个时间序列的相似度，数字的序列性将无法体现。</p>
+</blockquote>
+<h3 id="算法流程">算法流程</h3>
+<ol style="list-style-type: decimal">
+<li>对两个序列（向量）进行排序，获取每个数字在序列中的个数，例如<span class="math inline">\(x=[12,2,7,90]\)</span>得到的结果为<span class="math inline">\(rankx=[3,1,2,4]\)</span></li>
+<li>对两个序列排序的结果进行pearson相似度的计算</li>
+</ol>
+<h2 id="参考">参考</h2>
+<blockquote>
+<ul>
+<li>https://www.cnblogs.com/weiyinfu/p/10693445.html</li>
+<li>https://blog.csdn.net/lambsnow/article/details/79972145</li>
+</ul>
+</blockquote>
 
       
     </div>
@@ -594,8 +585,17 @@ var jiathis_config={
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -700,6 +700,22 @@ var jiathis_config={
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协方差"><span class="nav-number">2.</span> <span class="nav-text">协方差</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pearson相关性"><span class="nav-number">3.</span> <span class="nav-text">Pearson相关性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spearman相关性"><span class="nav-number">4.</span> <span class="nav-text">Spearman相关性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法流程"><span class="nav-number">4.1.</span> <span class="nav-text">算法流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

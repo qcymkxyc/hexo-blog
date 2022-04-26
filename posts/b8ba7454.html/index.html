@@ -81,12 +81,13 @@
 
 
 
-<meta name="description" content="## Question  * &#96;mAP&#96;的流程  ## mAP的流程  &#96;mAP&#96;是目标检测中最为常见的指标,要了解&#96;mAP(mean Average Precision)&#96;,就必须了解&#96;recall&#96;和&#96;precision&#96;(目标检测中这两个指标的计算和略有机器学习不同)  | 真\预 |  正  | 负   | | ----: | :--: | :--- | |    正 |  TP  |">
+<meta name="description" content="Question  mAP的流程  mAP的流程 mAP是目标检测中最为常见的指标,要了解mAP(mean Average Precision),就必须了解recall和precision(目标检测中这两个指标的计算和略有机器学习不同)    真 正 负     正 TP FN   负 FP TN    首先,在进行目标检测时,预测出一个BBox,和对应某类\(i\)的概率\(P_i\),给出一个">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mAP的计算总结">
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/b8ba7454.html/index.html">
 <meta property="og:site_name" content="冒烟的乔个人博客">
-<meta property="og:description" content="## Question  * &#96;mAP&#96;的流程  ## mAP的流程  &#96;mAP&#96;是目标检测中最为常见的指标,要了解&#96;mAP(mean Average Precision)&#96;,就必须了解&#96;recall&#96;和&#96;precision&#96;(目标检测中这两个指标的计算和略有机器学习不同)  | 真\预 |  正  | 负   | | ----: | :--: | :--- | |    正 |  TP  |">
+<meta property="og:description" content="Question  mAP的流程  mAP的流程 mAP是目标检测中最为常见的指标,要了解mAP(mean Average Precision),就必须了解recall和precision(目标检测中这两个指标的计算和略有机器学习不同)    真 正 负     正 TP FN   负 FP TN    首先,在进行目标检测时,预测出一个BBox,和对应某类\(i\)的概率\(P_i\),给出一个">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/2019042821031836.png">
 <meta property="article:published_time" content="2019-12-19T08:04:34.000Z">
 <meta property="article:modified_time" content="2021-10-13T01:52:49.720Z">
 <meta property="article:author" content="冒烟的乔">
@@ -94,6 +95,7 @@
 <meta property="article:tag" content="目标检测">
 <meta property="article:tag" content="计算机视觉">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/2019042821031836.png">
 
 
 
@@ -413,77 +415,37 @@
       
 
       
-        
-## Question
-
-* `mAP`的流程
-
-## mAP的流程
-
-`mAP`是目标检测中最为常见的指标,要了解`mAP(mean Average Precision)`,就必须了解`recall`和`precision`(目标检测中这两个指标的计算和略有机器学习不同)
-
-| 真\预 |  正  | 负   |
-| ----: | :--: | :--- |
-|    正 |  TP  | FN   |
-|    负 |  FP  | TN   |
-
-首先,在进行目标检测时,预测出一个`BBox`,和对应某类$i$的概率$P_i$,给出一个阈值$t$,即可以判断出预测是否是这一类,即判定上表中在第一列还是第二列.
-
-然后,对于上一部中分到第一列的,计算`BBox`和`Ground Truth`的`IOU`,大于0.5的标为`TP`,小于为`FP`.最后,对于1中第二列的标为`FN`.
-
-根据公式:
-
-<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-  <mrow>
-    <mo>{</mo>
-    <mtable columnalign="left left" rowspacing=".2em" columnspacing="1em" displaystyle="false">
-      <mtr>
-        <mtd>
-          <mi>R</mi>
-          <mo>=</mo>
-          <mfrac>
-            <mrow>
-              <mi>T</mi>
-              <mi>P</mi>
-            </mrow>
-            <mrow>
-              <mo stretchy="false">(</mo>
-              <mi>T</mi>
-              <mi>P</mi>
-              <mo>+</mo>
-              <mi>F</mi>
-              <mi>N</mi>
-              <mo stretchy="false">)</mo>
-            </mrow>
-          </mfrac>
-        </mtd>
-      </mtr>
-      <mtr>
-        <mtd>
-          <mi>P</mi>
-          <mo>=</mo>
-          <mfrac>
-            <mrow>
-              <mi>T</mi>
-              <mi>P</mi>
-            </mrow>
-            <mrow>
-              <mo stretchy="false">(</mo>
-              <mi>F</mi>
-              <mi>P</mi>
-              <mo>+</mo>
-              <mi>T</mi>
-              <mi>P</mi>
-              <mo stretchy="false">)</mo>
-            </mrow>
-          </mfrac>
-        </mtd>
-      </mtr>
-    </mtable>
-    <mo fence="true" stretchy="true" symmetric="true"></mo>
-  </mrow>
-</math>
-
+        <h2 id="question">Question</h2>
+<ul>
+<li><code>mAP</code>的流程</li>
+</ul>
+<h2 id="map的流程">mAP的流程</h2>
+<p><code>mAP</code>是目标检测中最为常见的指标,要了解<code>mAP(mean Average Precision)</code>,就必须了解<code>recall</code>和<code>precision</code>(目标检测中这两个指标的计算和略有机器学习不同)</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">真</th>
+<th align="center">正</th>
+<th align="left">负</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">正</td>
+<td align="center">TP</td>
+<td align="left">FN</td>
+</tr>
+<tr class="even">
+<td align="right">负</td>
+<td align="center">FP</td>
+<td align="left">TN</td>
+</tr>
+</tbody>
+</table>
+<p>首先,在进行目标检测时,预测出一个<code>BBox</code>,和对应某类<span class="math inline">\(i\)</span>的概率<span class="math inline">\(P_i\)</span>,给出一个阈值<span class="math inline">\(t\)</span>,即可以判断出预测是否是这一类,即判定上表中在第一列还是第二列.</p>
+<p>然后,对于上一部中分到第一列的,计算<code>BBox</code>和<code>Ground Truth</code>的<code>IOU</code>,大于0.5的标为<code>TP</code>,小于为<code>FP</code>.最后,对于1中第二列的标为<code>FN</code>.</p>
+<p>根据公式:</p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"> <mrow> <mo>{</mo> <mtable columnalign="left left" rowspacing=".2em" columnspacing="1em" displaystyle="false"> <mtr> <mtd> <mi>R</mi> <mo>=</mo> <mfrac> <mrow> <mi>T</mi> <mi>P</mi> </mrow> <mrow> <mo stretchy="false">(</mo> <mi>T</mi> <mi>P</mi> <mo>+</mo> <mi>F</mi> <mi>N</mi> <mo stretchy="false">)</mo> </mrow> </mfrac> </mtd> </mtr> <mtr> <mtd> <mi>P</mi> <mo>=</mo> <mfrac> <mrow> <mi>T</mi> <mi>P</mi> </mrow> <mrow> <mo stretchy="false">(</mo> <mi>F</mi> <mi>P</mi> <mo>+</mo> <mi>T</mi> <mi>P</mi> <mo stretchy="false">)</mo> </mrow> </mfrac> </mtd> </mtr> </mtable> <mo fence="true" stretchy="true" symmetric="true"></mo> </mrow> </math></p>
 <!--
 $$
 \begin{cases} R = \frac{TP}{(TP+FN)} \\ P=\frac{TP}{(FP + TP)}\end{cases}
@@ -492,14 +454,16 @@ $$
 
 
 -->
+<p>对于上述给定的阈值<span class="math inline">\(t\)</span>,逐渐减小,可形成多组<code>RP</code>数据对,在坐标上绘制,其与坐标轴围成的面积即为<code>AP</code>值.如下图所示：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/2019042821031836.png">
 
-对于上述给定的阈值$t$,逐渐减小,可形成多组`RP`数据对,在坐标上绘制,其与坐标轴围成的面积即为`AP`值.如下图所示：
+</div>
+<h2 id="参考">参考</h2>
+<ul>
+<li>https://blog.csdn.net/xiezongsheng1990/article/details/89608923</li>
+</ul>
 
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/2019042821031836.png)
-
-## 参考
-
-* https://blog.csdn.net/xiezongsheng1990/article/details/89608923
       
     </div>
     
@@ -626,8 +590,17 @@ var jiathis_config={
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -732,6 +705,22 @@ var jiathis_config={
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map的流程"><span class="nav-number">2.</span> <span class="nav-text">mAP的流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

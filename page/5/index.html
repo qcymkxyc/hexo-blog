@@ -417,15 +417,19 @@
       
         
           
-          
-## Question
+          Question
 
-> 1. 在numpy中协方差矩阵是以行为单位计算还是以列为单位计算
-> 2. 在numpy中计算协方差是有偏的还是无偏的
-> 3. 协方差以及Pearson相识度的计算流程
-> 4. Pearson相关度和协方差的区别
-> 5. 什么时候适合用spearman相关度
->
+
+在numpy中协方差矩阵是以行为单位计算还是以列为单位计算
+在numpy中计算协方差是有偏的还是无偏的
+协方差以及Pearson相识度的计算流程
+Pearson相关度和协方差的区别
+什么时候适合用spearman相关度
+spearman相似度计算的流程
+
+
+协方差
+首先说最简单
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -583,17 +587,14 @@
       
         
           
-          
-## Queston
+          Queston
 
-1. 欧氏距离和曼哈顿距离的在几何上的区别
-2. [Jaccard距离](#Jaccard距离)在什么场景用
+欧氏距离和曼哈顿距离的在几何上的区别
+Jaccard距离在什么场景用
 
-## 闵可夫斯基距离
-
+闵可夫斯基距离
 曼哈顿距离和欧式距离可以看成是特殊的闵可夫斯基距离。
-
-设有两个向量$P=(x_1,x_2,...,x_n)$和$Q=(y_1,y_2,.
+设有两个向量\(P=(x_1,x_2,...,x_n)\)和\(Q=(y_1,y_2,..,y_n)\),则两个向量的欧式距离和曼哈顿距离可
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -751,20 +752,21 @@
       
         
           
-          
-## FAR以及FRR
+          FAR以及FRR
+Question
 
-### Question
 
-> * FAR和FRR的全分别叫什么
-> * FAR和FRR表示什么意义
-> * FAR和FRR的如何计算
+FAR和FRR的全分别叫什么
+FAR和FRR表示什么意义
+FAR和FRR的如何计算
 
-### 概要
 
-> FAR和FRR是做指纹识别、人脸识别、手写识别等的常用指标，他们的全名如下
->
-> * 误识率（FAR，false
+概要
+
+FAR和FRR是做指纹识别、人脸识别、手写识别等的常用指标，他们的全名如下
+
+误识率（FAR，false acceptance rate）
+拒识率（FRR，fals
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -922,18 +924,16 @@
       
         
           
-          
+          Question
 
+笛卡尔坐标系中多点共线，在Hough空间中表现如何
+在Hough变换中，如何保证多点共线，即保证共线的原理是什么
+霍夫变换对图像的输入有什么要求
+以\(k\)和\(b\)为基的空间的缺点在哪儿
+霍夫变换的大体流程
 
-## Question
-
-1. 笛卡尔坐标系中多点共线，在Hough空间中表现如何
-2. 在Hough变换中，如何保证多点共线，即保证共线的原理是什么
-3. 霍夫变换对图像的输入有什么要求
-4. [以$k$和$b$为基的空间的缺点在哪儿](#霍夫变换原理)
-5. 霍夫变换的大体流程
-
-## 霍
+霍夫变换原理
+对于笛卡尔坐标系中的一条线\(y=kx+b\),可
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1091,21 +1091,20 @@
       
         
           
-          
-## DTW距离
+          DTW距离
+Question
 
-### Question
+DTW的作用
+DTW的大致流程
 
-1. DTW的作用
-2. DTW的大致流程
+DTW距离
 
-### DTW距离
+DTW全称Dynamic Time Warping，用于衡量两个不同长度的两个序列的距离
 
-> DTW全称Dynamic Time Warping，用于衡量两个不同长度的两个序列的距离
 
-1. 构造匹配矩阵
+构造匹配矩阵
 
-设序列1$Q=q_1,q_2,...,q_n$,序列2$C=c_
+设序列1\(Q=q_1,q_2,...,q_n\),序列2\(C=c_1,c_2,...,c_m\) ,其中\
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1263,23 +1262,21 @@
       
         
           
-          
-## LBP特征
+          LBP特征
+Question
 
-### Question
+LBP特征的流程
+LBP特征的改进点在哪里，解决了什么问题
 
-* LBP特征的流程
-* LBP特征的改进点在哪里，解决了什么问题
+LBP特征
 
-### LBP特征
+LBP特征用于提取纹理特征
 
-> LBP特征用于提取纹理特征
 
-1. 将图像切分block，比如切分成16*16
+将图像切分block，比如切分成16*16
+对每个block内以3*3为单位，提取LBP特征
 
-2. 对每个block内以3*3为单位，提取LBP特征
-
-   ​	对比
+​ 对比3*3的方格中周围的值和中间的值，如果周围的值大于中间的
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1437,15 +1434,17 @@
       
         
           
-          
-# Triplet Network
+          Triplet Network
+Question
 
-## Question
+Triplet Network和Siamese Network相比哪个效果好
+Triplet Network的大体流程
+Triplet NetWork的主体思想是什么
+loss中\(\alpha\)的作用
 
-1. `Triplet Network`和`Siamese Network`相比哪个效果好
-2. `Triplet Network`的大体流程
-3. `Triplet NetWork`的主体思想是什么
-4. `loss`中$\alph
+Triplet Network
+
+既然S
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1603,16 +1602,15 @@
       
         
           
-          
-# Siamese网络
+          Siamese网络
+Question
 
-## Question
-
-1. 孪生网络的两个网络结构需要相同吗？权重是否一定要一致？
-2. 孪生网络的大体流程
-3. 在生成的结果中，两个向量的相似程度如何计算？是直接算欧氏距离还是loss
-4. 孪生网络中的loss中m的作用，增大m会有什么影响
-5. 2-Chann
+孪生网络的两个网络结构需要相同吗？权重是否一定要一致？
+孪生网络的大体流程
+在生成的结果中，两个向量的相似程度如何计算？是直接算欧氏距离还是loss
+孪生网络中的loss中m的作用，增大m会有什么影响
+2-Channel的主体思想
+Triple Network
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1770,26 +1768,16 @@
       
         
           
-          
-# Cmd Markdown 简明语法手册
+          Cmd Markdown 简明语法手册
 
----
-
-### 1. 斜体和粗体
-
+1. 斜体和粗体
 使用 * 和 ** 表示斜体和粗体。
-
 示例：
-
-这是 *斜体*，这是 **粗体**。
-
-### 2. 分级标题
-
+这是 斜体，这是 粗体。
+2. 分级标题
 使用 === 表示一级标题，使用 --- 表示二级标题。
-
 示例：
-
-1234567这是一个一级标
+1234567这是一个一级标题============================
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1947,21 +1935,26 @@
       
         
           
-          
-
-# 效果  
-
-## 当前效果
-
+          效果
+当前效果
 本文章是对人物背景抠图的改进,先看效果图:
+原图像:
 
-**原图像:**
 
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/效果原图像-1580099162567.png)
 
-**本次替换后:**
 
-![
+本次替换后:
+
+
+
+
+原效果
+对比人物背景抠图中的效果:
+
+
+
+
+可以看到,针对原效果中结果不太好的有明显改进.例如第一行第四张图片,人物的头发处有许多的&quot;空洞&quot;,在改进后得到了填充;第二行第一张图片,
           ...
           <!--noindex-->
           <div class="post-button text-center">

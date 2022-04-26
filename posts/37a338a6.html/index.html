@@ -81,12 +81,14 @@
 
 
 
-<meta name="description" content="## Question  * [U-Net的大体结构如何](#网络架构) * [U-Net用哪几层从下采样向上采样复制](#网络架构) * [U-Net的整体Loss是怎样的](#整体loss) * [U-Net的权重如何计算](#权重参数)  ## 概述  &gt; &#96;U-Net&#96; 网络是一个图像分割的网络，主要用于医学图像的分割。  ## 网络架构  &#96;U-Net&#96;的结构非常简单，分为下采样和上采">
+<meta name="description" content="Question  U-Net的大体结构如何 U-Net用哪几层从下采样向上采样复制 U-Net的整体Loss是怎样的 U-Net的权重如何计算  概述  U-Net 网络是一个图像分割的网络，主要用于医学图像的分割。  网络架构 U-Net的结构非常简单，分为下采样和上采样两部分，即先对图像进项下采样，再对结果进行上采样。由于下采样和上采样是对称的，类似于一个U型网络，所以称为U-Net。其网络">
 <meta property="og:type" content="article">
 <meta property="og:title" content="U-Net总结">
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/37a338a6.html/index.html">
 <meta property="og:site_name" content="冒烟的乔个人博客">
-<meta property="og:description" content="## Question  * [U-Net的大体结构如何](#网络架构) * [U-Net用哪几层从下采样向上采样复制](#网络架构) * [U-Net的整体Loss是怎样的](#整体loss) * [U-Net的权重如何计算](#权重参数)  ## 概述  &gt; &#96;U-Net&#96; 网络是一个图像分割的网络，主要用于医学图像的分割。  ## 网络架构  &#96;U-Net&#96;的结构非常简单，分为下采样和上采">
+<meta property="og:description" content="Question  U-Net的大体结构如何 U-Net用哪几层从下采样向上采样复制 U-Net的整体Loss是怎样的 U-Net的权重如何计算  概述  U-Net 网络是一个图像分割的网络，主要用于医学图像的分割。  网络架构 U-Net的结构非常简单，分为下采样和上采样两部分，即先对图像进项下采样，再对结果进行上采样。由于下采样和上采样是对称的，类似于一个U型网络，所以称为U-Net。其网络">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210322111509.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210322141140.png">
 <meta property="article:published_time" content="2021-03-22T03:06:53.000Z">
 <meta property="article:modified_time" content="2021-10-13T01:52:49.720Z">
 <meta property="article:author" content="冒烟的乔">
@@ -94,6 +96,7 @@
 <meta property="article:tag" content="图像分割">
 <meta property="article:tag" content="语义分割">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210322111509.png">
 
 
 
@@ -413,62 +416,54 @@
       
 
       
-        
-## Question
+        <h2 id="question">Question</h2>
+<ul>
+<li><a href="#网络架构">U-Net的大体结构如何</a></li>
+<li><a href="#网络架构">U-Net用哪几层从下采样向上采样复制</a></li>
+<li><a href="#整体loss">U-Net的整体Loss是怎样的</a></li>
+<li><a href="#权重参数">U-Net的权重如何计算</a></li>
+</ul>
+<h2 id="概述">概述</h2>
+<blockquote>
+<p><code>U-Net</code> 网络是一个图像分割的网络，主要用于医学图像的分割。</p>
+</blockquote>
+<h2 id="网络架构">网络架构</h2>
+<p><code>U-Net</code>的结构非常简单，分为下采样和上采样两部分，即先对图像进项下采样，再对结果进行上采样。由于下采样和上采样是对称的，类似于一个U型网络，所以称为<code>U-Net</code>。其网络模型如下图所示：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210322111509.png">
 
-* [U-Net的大体结构如何](#网络架构)
-* [U-Net用哪几层从下采样向上采样复制](#网络架构)
-* [U-Net的整体Loss是怎样的](#整体loss)
-* [U-Net的权重如何计算](#权重参数)
+</div>
+<ul>
+<li>可以注意到，每进行一次下采样，其通道数<span class="math inline">\(\times 2\)</span>,每一次上采样，其通道数<span class="math inline">\(\div2\)</span>.</li>
+<li><strong><code>U-Net</code>的会将下采样的最后两层复制到上采样的最开始两层</strong></li>
+<li>所有的<code>Conv</code>层都是采用<code>unpad</code>模式（即不填充模式）</li>
+<li>可以注意到，<code>U-Net</code>的输出2通道，是因为文中用了<code>softmax</code>作为分类的结果，由于仅有前景和背景两类，所以<code>softmax</code>的结果数为2，故通道数为2。</li>
+</ul>
+<h2 id="loss函数">Loss函数</h2>
+<h3 id="整体loss">整体loss</h3>
+<p><code>U-Net</code>的<code>Loss Function</code>如下所示： <span class="math display">\[
+E=\sum_{x\in{\Omega}}w(x)log(p_{\iota(x)}(x))   \tag 1
+\]</span> 其中，<span class="math inline">\(\Omega\)</span>表示像素点的集合，即若一张图为<span class="math inline">\(w\times h\times c\)</span>,则<span class="math inline">\(\Omega\)</span>表示<span class="math inline">\(w \times h\)</span>.<span class="math inline">\(x\)</span>则表示每一个像素点（不包含通道）</p>
+<p><span class="math inline">\(p_{\iota(x)}\)</span>表示在<span class="math inline">\(x\)</span>位置上的第<span class="math inline">\(\iota(x)\)</span>个通道。由于在<code>U-Net</code>中每一个像素点对应一个<code>softmax</code>输出，所以在模型的输出中，一个通道可以看成是<code>softmax</code>的一个结果，<code>softmax</code>有<span class="math inline">\(n\)</span>个结果就有<span class="math inline">\(n\)</span>个通道。所以<span class="math inline">\(\iota(x)\)</span>表示<span class="math inline">\(x\)</span>位置上对应<code>softmax</code>的第<span class="math inline">\(\iota(x)\)</span>个结果。</p>
+<p><span class="math inline">\(w(x)\)</span>表示权重，这使得<code>U-Net</code>更加注重边缘信息，后面会详细阐述。</p>
+<p>从上面公式可以看出，<code>U-Net</code>的<code>loss</code>函数并不是一个标准的<code>Cross-Entropy</code>，而是用<span class="math inline">\(w(x)\)</span>代替<span class="math inline">\(p_{\iota(x)}(x)\)</span>,其目的是让模型更加注重边缘信息。原文如下：</p>
+<blockquote>
+<p>force the network to learn the small separation borders that we introduce between touching cells.</p>
+</blockquote>
+<h3 id="权重参数">权重参数</h3>
+<p>权重公式如下： <span class="math display">\[
+w(x)=w_c(x)+ w_0 \times exp(-\frac{(d_1(x)+d_2(x))^2}{2\sigma^2})   \tag 2
+\]</span> 其中，<span class="math inline">\(w_c(x)\)</span>为平衡参数。<span class="math inline">\(w_0\)</span>和<span class="math inline">\(\sigma\)</span>为超参数。<span class="math inline">\(d_1(x)\)</span>表示该像素点离最近边缘的距离，<span class="math inline">\(d_2(x)\)</span>表示对次最近边缘的距离。从上式可以看出，如果一个像素点离边缘的越远，<span class="math inline">\(d_1(x)\)</span>和<span class="math inline">\(d_2(x)\)</span>越大，其获得的权重越低。反之，其权重则越高。文中取超参数<span class="math inline">\(w_0=10\)</span>，<span class="math inline">\(\sigma \approx 5\)</span>.</p>
+<p>以下是文中权重的一个结果，c图表示边缘，d图表示计算出的边缘权重，可以看出边缘的权重明显高于中间区域。</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210322141140.png">
 
-## 概述
+</div>
+<h2 id="参考">参考</h2>
+<blockquote>
+<p><a href="https://arxiv.org/pdf/1505.04597.pdf" target="_blank" rel="noopener">U-Net论文</a></p>
+</blockquote>
 
-> `U-Net` 网络是一个图像分割的网络，主要用于医学图像的分割。
-
-## 网络架构
-
-`U-Net`的结构非常简单，分为下采样和上采样两部分，即先对图像进项下采样，再对结果进行上采样。由于下采样和上采样是对称的，类似于一个U型网络，所以称为`U-Net`。其网络模型如下图所示：
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210322111509.png)
-
-* 可以注意到，每进行一次下采样，其通道数$\times 2$,每一次上采样，其通道数$\div2$.
-* **`U-Net`的会将下采样的最后两层复制到上采样的最开始两层**
-* 所有的`Conv`层都是采用`unpad`模式（即不填充模式）
-* 可以注意到，`U-Net`的输出2通道，是因为文中用了`softmax`作为分类的结果，由于仅有前景和背景两类，所以`softmax`的结果数为2，故通道数为2。
-
-## Loss函数
-
-### 整体loss
-
-`U-Net`的`Loss Function`如下所示：
-$$
-E=\sum_{x\in{\Omega}}w(x)log(p_{\iota(x)}(x))	\tag 1
-$$
- 其中，$\Omega$表示像素点的集合，即若一张图为$w\times h\times c$,则$\Omega$表示$w \times h$.$x$则表示每一个像素点（不包含通道）
-
-$p_{\iota(x)}$表示在$x$位置上的第$\iota(x)$个通道。由于在`U-Net`中每一个像素点对应一个`softmax`输出，所以在模型的输出中，一个通道可以看成是`softmax`的一个结果，`softmax`有$n$个结果就有$n$个通道。所以$\iota(x)$表示$x$位置上对应`softmax`的第$\iota(x)$个结果。
-
-$w(x)$表示权重，这使得`U-Net`更加注重边缘信息，后面会详细阐述。
-
-从上面公式可以看出，`U-Net`的`loss`函数并不是一个标准的`Cross-Entropy`，而是用$w(x)$代替$p_{\iota(x)}(x)$,其目的是让模型更加注重边缘信息。原文如下：
-
-> force the network to learn the small separation borders that we introduce between touching cells.
-
-### 权重参数
-
-权重公式如下：
-$$
-w(x)=w_c(x)+ w_0 \times exp(-\frac{(d_1(x)+d_2(x))^2}{2\sigma^2})	\tag 2
-$$
-其中，$w_c(x)$为平衡参数。$w_0$和$\sigma$为超参数。$d_1(x)$表示该像素点离最近边缘的距离，$d_2(x)$表示对次最近边缘的距离。从上式可以看出，如果一个像素点离边缘的越远，$d_1(x)$和$d_2(x)$越大，其获得的权重越低。反之，其权重则越高。文中取超参数$w_0=10$，$\sigma \approx 5$.
-
-以下是文中权重的一个结果，c图表示边缘，d图表示计算出的边缘权重，可以看出边缘的权重明显高于中间区域。
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210322141140.png)
-
-## 参考
-
-> [U-Net论文](https://arxiv.org/pdf/1505.04597.pdf)
       
     </div>
     
@@ -595,8 +590,17 @@ var jiathis_config={
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -701,6 +705,22 @@ var jiathis_config={
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">2.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络架构"><span class="nav-number">3.</span> <span class="nav-text">网络架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#loss函数"><span class="nav-number">4.</span> <span class="nav-text">Loss函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#整体loss"><span class="nav-number">4.1.</span> <span class="nav-text">整体loss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权重参数"><span class="nav-number">4.2.</span> <span class="nav-text">权重参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

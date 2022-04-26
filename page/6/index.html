@@ -417,16 +417,23 @@
       
         
           
-          
-以下是`YOLO V3`的结构图：
+          以下是YOLO V3的结构图：
 
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210423111811.jpg)
 
-总的来说,YOLO V3针对V2的改进并不多,有以下几点: 
 
-1. 网络结构的改变
 
-   > YO
+总的来说,YOLO V3针对V2的改进并不多,有以下几点:
+
+网络结构的改变
+
+
+YOLO V3采用Darknet-53 的网络结构,整个网络采用全卷积结构,相比于ResNet-152和ResNet-101强很多,速度也更快
+
+
+Anchor Box
+
+
+由于
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -585,13 +592,12 @@
         
           
           
-
         .bbplayer{width: 100%; max-width: 850px; margin: auto}
         
         
         
         
-            document.getElementById("mmedia-ZuxuU
+            document.getElementById("mmedia-VTJMzX
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -749,16 +755,31 @@
       
         
           
-          
-## Question
+          Question
 
-* `mAP`的流程
+mAP的流程
 
-## mAP的流程
+mAP的流程
+mAP是目标检测中最为常见的指标,要了解mAP(mean Average Precision),就必须了解recall和precision(目标检测中这两个指标的计算和略有机器学习不同)
 
-`mAP`是目标检测中最为常见的指标,要了解`mAP(mean Average Precision)`,就必须了解`recall`和`precision`(目标检测中这两个指标的计算和略有机器学习不同)
 
-| 真\预 |  正
+
+真
+正
+负
+
+
+
+
+正
+TP
+FN
+
+
+负
+FP
+TN
+
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -916,16 +937,16 @@
       
         
           
-          
-# Question
+          Question
 
-* Better体现在哪些方面
-* Anchor Box的数据结构是怎样的
-* Anchor Box 聚类的衡量标准是什么
-* 约束预测边框的目的是什么，是怎么做的
-* pass through层是怎么做的
-* 对于Faster，YOLOV2采用了什么办法
-* 何为Word
+Better体现在哪些方面
+Anchor Box的数据结构是怎样的
+Anchor Box 聚类的衡量标准是什么
+约束预测边框的目的是什么，是怎么做的
+pass through层是怎么做的
+对于Faster，YOLOV2采用了什么办法
+何为WordTree，如何构成
+在WordTr
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1083,16 +1104,15 @@
       
         
           
-          
-YOLO​ v1的总结,备忘
+          YOLO​ v1的总结,备忘
+Question
 
-## Question
-
-* 对于不同尺寸的输入图像YOLO是怎么解决的
-* YOLO V1输出的数据结构如何（几维数据，每一维数据分别代表什么）
-* 为何YOLO V1要用两个BBox
-* 标签中的$Confidence$如何确定
-* $Confidence$是什
+对于不同尺寸的输入图像YOLO是怎么解决的
+YOLO V1输出的数据结构如何（几维数据，每一维数据分别代表什么）
+为何YOLO V1要用两个BBox
+标签中的\(Confidence\)如何确定
+\(Confidence\)是什么时候得到的
+YOLO
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1250,16 +1270,21 @@ YOLO​ v1的总结,备忘
       
         
           
-          
-## 示例图片
-
+          示例图片
 免冠照人物背景抠图实现,先展示一下示例结果:
 
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/原始示例图片.png)
+
+
 
 人物背景抠图后:
 
-![](https://blog-1253764997.cos.ap-
+
+
+
+执行步骤
+将RGB空间转换为HSV空间
+首先需要统计出背景(蓝色部分)的颜色范围,这里将RGB空间转换为HSV空间,然后只用H分量统计,就可以统计出蓝色背景的大概范围:
+1234import cv2blue_p
           ...
           <!--noindex-->
           <div class="post-button text-center">

@@ -417,16 +417,11 @@
       
         
           
-          
-## 1．桂枝汤类方歌（二十一首）
-
+          1．桂枝汤类方歌（二十一首）
 一、桂枝汤：桂枝汤方桂芍草，佐用生姜和大枣。啜粥温服取微汗，调和营卫解肌表。
-
 二、桂枝加葛根汤：桂加葛根走经输，项背几几反汗濡。解肌驱风滋经脉，用治柔痉理不殊。
-
 三、桂枝加附子汤：桂加附子治有三，风寒肢痛脉迟弦。汗漏不止恶风甚，肌肤麻木卫阳寒。
-
-四、桂枝
+四、桂枝去芍药汤：桂枝去
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -584,20 +579,18 @@
       
         
           
-          
+          Question
 
-## Question
+开操作和闭操作的作用
+击中的作用
+在形态学中如何进行边界提取
+孔洞填充和连通分量提取的局限性在哪里
+一般在灰度级的形态学中，结构元的特点
+顶帽的用途
 
-* 开操作和闭操作的作用
-* 击中的作用
-* 在形态学中如何进行边界提取
-* 孔洞填充和连通分量提取的局限性在哪里
-* 一般在灰度级的形态学中，结构元的特点
-* 顶帽的用途
-
-## 形态学
-
-所有的实现Demo源代码在这里：https://github.com/qcym
+形态学
+所有的实现Demo源代码在这里：https://github.com/qcymkxyc/Image-Process
+腐蚀
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -755,26 +748,25 @@
       
         
           
-          
-## Question
-
-## 概述
-
+          Question
+概述
 骨架算法是什么？
 
-> 下图中，左图是书法字，右图是骨架后的结果
+下图中，左图是书法字，右图是骨架后的结果
 
 骨架算法有什么用？
 
-> 例如，在基于毛笔OCR识别中，通常会使用字的骨架进行识别，而非原图像
+例如，在基于毛笔OCR识别中，通常会使用字的骨架进行识别，而非原图像
 
-## 骨架算法
-
-### 什么是好的骨架算法
-
+骨架算法
+什么是好的骨架算法
 好的骨架算法必须满足以下三点：
 
-* 不能删
+不能删除端点
+不能破坏连接性
+不能导致区域过度腐蚀
+
+
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -932,16 +924,15 @@
       
         
           
-          
+          Question
 
-## Question
-
-* 蒙特卡洛采样的作用
-* Inverse Sampling的适用范围
-* Inverse Sampling的过程
-* Rejection Sampling的大致思想
-* Rejection Sampling的流程
-* 什么是影响Rejection Sampling效率
+蒙特卡洛采样的作用
+Inverse Sampling的适用范围
+Inverse Sampling的过程
+Rejection Sampling的大致思想
+Rejection Sampling的流程
+什么是影响Rejection Sampling效率的关键因素
+Importance 
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1099,17 +1090,11 @@
       
         
           
-          
-
-## 基本用法
-
-### 创建一个datasets：
-
+          基本用法
+创建一个datasets：
 1234import tensorflow as tfdatasets = tf.data.DataSets.from_tensor_slices([1,2,3,4,5])datasets
-
-### 遍历datasets：
-
-12for e
+遍历datasets：
+12for elem in dataset:  
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1267,12 +1252,13 @@
       
         
           
+          产品文章
+
+B端和C端的本质区别
+2B中产品和定制的利弊权衡
+
+
           
-
-## 产品文章
-
-* [B端和C端的本质区别](https://www.zhihu.com/question/36016196/answer/311844945?utm_source=cn.ticktick.task&utm_medium=social&utm_oi=73415858964767
-          ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/posts/e989d30a.html/#more" rel="contents">
@@ -1429,21 +1415,17 @@
       
         
           
-          
+          Question
 
-## Question
+RANSAC有什么用
+RANSAC的中文名叫什么
+RANSAC的流程
 
-* RANSAC有什么用
-* RANSAC的中文名叫什么
-* RANSAC的流程
+RANSAC
+概述
 
-## RANSAC
-
-### 概述
-
-> RANSAC(Random Sample Consensus，随机采样一致）可以将数据中的噪声排除在外，从而使模型拟合正常点。
->
-> RANS
+RANSAC(Random Sample Consensus，随机采样一致）可以将数据中的噪声排除在外，从而使模型拟合正常点。
+RANSAC的基本假设是数据由“内点”和“外点”组成，内点
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1601,21 +1583,20 @@
       
         
           
-          
-## Question
+          Question
 
-* Haar特征的流程
-* 积分图的作用是什么
-* 用分类器做目标检测的思路
-* 为何人脸识别会用Adaboost
+Haar特征的流程
+积分图的作用是什么
+用分类器做目标检测的思路
+为何人脸识别会用Adaboost
 
-## Haar特征
-
-### Haar特征的流程
-
+Haar特征
+Haar特征的流程
 Haar特征实际上非常简单：
 
-> 即用一个类似于卷积层的模板滑过图片，用白色区域的和减去黑色区域的和
+即用一个类似于卷积层的模板滑过图片，用白色区域的和减去黑色区域的和即为Haar特征
+
+但在Haar特征的模板多种
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1773,19 +1754,19 @@ Haar特征实际上非常简单：
       
         
           
-          
-## Question
+          Question
 
-* KL散度有什么性质
-* KL散度主要的作用是什么
-* JS散度有什么性质
-* JS散度如何计算
+KL散度有什么性质
+KL散度主要的作用是什么
+JS散度有什么性质
+JS散度如何计算
 
-## KL散度
+KL散度
 
-> KL( Kullback–Leibler divergence)散度又名相对熵（relative entropy)，用来衡量两个分布之间的距离
+KL( Kullback–Leibler divergence)散度又名相对熵（relative entropy)，用来衡量两个分布之间的距离
 
-公
+公式为： \[
+D(P||Q)=\s
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1943,15 +1924,13 @@ Haar特征实际上非常简单：
       
         
           
-          
-**DeepLearningAi**上的Attention机制似乎和李宏毅教程上的有一定出入，本文以李宏毅教程上的为准
+          DeepLearningAi上的Attention机制似乎和李宏毅教程上的有一定出入，本文以李宏毅教程上的为准
+Question
 
-## Question
-
-* 和LSTM层相比，Attention机制的优势是什么
-* Attention 机制一般用在什么任务中
-* Attention的流程
-* Multi
+和LSTM层相比，Attention机制的优势是什么
+Attention 机制一般用在什么任务中
+Attention的流程
+Multi Head Attention好于
           ...
           <!--noindex-->
           <div class="post-button text-center">

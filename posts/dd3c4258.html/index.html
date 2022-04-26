@@ -81,12 +81,19 @@
 
 
 
-<meta name="description" content="## Question  * [RCNN大体流程](#RCNN) * [Fast RCNN大体流程](#Fast RCNN) * [Fast RCNN在RCNN的基础上有哪些优化](#整体流程) * [RPN的整体流程如何](#整体流程) * [RPN中有几个1 x1​的卷积](#1x1卷积) * [Anchro Box是在哪一步生成的](#补充：Anchor Box) * [RPN模型的输出">
+<meta name="description" content="Question  RCNN大体流程 Fast RCNN大体流程 Fast RCNN在RCNN的基础上有哪些优化 RPN的整体流程如何 RPN中有几个1 x1​的卷积 Anchro Box是在哪一步生成的 RPN模型的输出是什么 如何利用RPN生成Bounding Box,Bounding Box和Anchor Box又是什么关系 RPN如何训练  概述 Two Steps的目标检测是由RCNN到">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Faster-RCNN总结">
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/dd3c4258.html/index.html">
 <meta property="og:site_name" content="冒烟的乔个人博客">
-<meta property="og:description" content="## Question  * [RCNN大体流程](#RCNN) * [Fast RCNN大体流程](#Fast RCNN) * [Fast RCNN在RCNN的基础上有哪些优化](#整体流程) * [RPN的整体流程如何](#整体流程) * [RPN中有几个1 x1​的卷积](#1x1卷积) * [Anchro Box是在哪一步生成的](#补充：Anchor Box) * [RPN模型的输出">
+<meta property="og:description" content="Question  RCNN大体流程 Fast RCNN大体流程 Fast RCNN在RCNN的基础上有哪些优化 RPN的整体流程如何 RPN中有几个1 x1​的卷积 Anchro Box是在哪一步生成的 RPN模型的输出是什么 如何利用RPN生成Bounding Box,Bounding Box和Anchor Box又是什么关系 RPN如何训练  概述 Two Steps的目标检测是由RCNN到">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229151231.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229155337.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229161129.jpg">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229162606.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210105100025.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210106101329.png">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210107104422.jpg">
 <meta property="article:published_time" content="2021-01-08T03:14:31.000Z">
 <meta property="article:modified_time" content="2021-11-19T10:06:48.499Z">
 <meta property="article:author" content="冒烟的乔">
@@ -95,6 +102,7 @@
 <meta property="article:tag" content="目标检测">
 <meta property="article:tag" content="计算机视觉">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229151231.png">
 
 
 
@@ -414,262 +422,156 @@
       
 
       
-        
+        <h2 id="question">Question</h2>
+<ul>
+<li><a href="#RCNN">RCNN大体流程</a></li>
+<li><a href="#Fast%20RCNN">Fast RCNN大体流程</a></li>
+<li><a href="#整体流程">Fast RCNN在RCNN的基础上有哪些优化</a></li>
+<li><a href="#整体流程">RPN的整体流程如何</a></li>
+<li><a href="#1x1卷积">RPN中有几个1 x1​的卷积</a></li>
+<li><a href="#补充：Anchor%20Box">Anchro Box是在哪一步生成的</a></li>
+<li><a href="#补充：Anchor%20Box">RPN模型的输出是什么</a></li>
+<li><a href="#目标位置生成">如何利用RPN生成Bounding Box,Bounding Box和Anchor Box又是什么关系</a></li>
+<li><a href="#训练">RPN如何训练</a></li>
+</ul>
+<h2 id="概述">概述</h2>
+<p>Two Steps的目标检测是由RCNN到Fast RCNN再到Faster RCNN。</p>
+<h3 id="rcnn">RCNN</h3>
+<p><code>RCNN</code>的大体流程如下图所示：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229151231.png">
 
-## Question
+</div>
+<p>上图中，由于<code>RCNN</code>的<code>CNN</code>提取特征部分是对每一个<code>Region Proposal</code>用CNN网络进行特征提取，较为耗时。</p>
+<h3 id="fast-rcnn">Fast RCNN</h3>
+<p><code>Fast RCNN</code>基本上是在<code>RCNN</code>的后半部分做修改，修改如下：</p>
+<ol style="list-style-type: decimal">
+<li>用<code>CNN</code>整体图像进行特征提取，并建立<code>Feature Map</code>和原图像的映射关系。这样对于所有的<code>Region Proposal</code>就可以只提取一次</li>
+<li>由于在<code>Fast RCNN</code>仅建立<code>Feature Map</code>和原图的映射关系，并没有对每一个<code>Region Proposal</code>做拉伸（在<code>RCNN</code>中被称为<code>warp</code>），所以在Fast RCNN中使用<code>SPP layer</code>，以保证在后续的全连接的输入一致性。即<code>Fast RCNN</code>中的<code>ROI Pooling</code>层</li>
+<li>用<code>softmax</code>代替<code>SVM</code>，并且<code>loss</code>采用<code>L1</code>。所以<code>Faster RCNN</code>的输出为两个：<code>Bounding Box</code>的位置信息和<code>Softmax</code>的分类信息</li>
+</ol>
+<p><code>Fast RCNN</code>的大体流程图如下图所示：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229155337.png">
 
-* [RCNN大体流程](#RCNN)
-* [Fast RCNN大体流程](#Fast RCNN)
-* [Fast RCNN在RCNN的基础上有哪些优化](#整体流程)
-* [RPN的整体流程如何](#整体流程)
-* [RPN中有几个1 x1​的卷积](#1x1卷积)
-* [Anchro Box是在哪一步生成的](#补充：Anchor Box)
-* [RPN模型的输出是什么](#补充：Anchor Box)
-* [如何利用RPN生成Bounding Box,Bounding Box和Anchor Box又是什么关系](#目标位置生成)
-* [RPN如何训练](#训练)
+</div>
+<p><code>Faster RCNN</code>主要在Two Steps的前半段做文章。发现在<code>Fast RCNN</code>中，最耗时的是<code>Selective Search</code>部分（后半段的经过<code>Fast RCNN</code>的修改已经很快).所以，<code>Faster RCNN</code>主要基于<code>Selective Search</code>做修改，一是为了提高速度（<code>Selective Search用时大约2秒左右</code>）；二是由于有<code>Selective Search</code>组件，<code>Fast RCNN</code>还不完全算是一个end-to-end的模型。</p>
+<h2 id="整体流程">整体流程</h2>
+<p><code>Faster RCNN</code>的主要用<code>RPN</code>网路来代替<code>Selective Search</code>来给出<code>Region Proposal</code>，大体流程如下图所示：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229161129.jpg">
 
-## 概述
+</div>
+<p>从上图中可以看到，给出<code>Region Proposal</code>也可以分为两个部分：图像特征提取的<code>Conv层</code>和<code>RPN</code>。通常<code>Conv层</code>都采用成熟的图像模型，论文中是用的<code>VGG16</code>。更详细的整体流程图如下图所示：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229162606.png">
 
-Two Steps的目标检测是由RCNN到Fast RCNN再到Faster RCNN。
+</div>
+<p><code>Conv层</code>不再阐述，下节主要讲<code>RPN</code>网络</p>
+<h2 id="rpn网络">RPN网络</h2>
+<p><code>RPN</code>网络的目的是给出<code>Region Proposal</code>。RPN的流程如下图所示：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210105100025.png">
 
-### RCNN
+</div>
+<p><code>RPN</code>的大体步骤如下：</p>
+<ol style="list-style-type: decimal">
+<li><code>Sliding Window</code>层特征提取：利用<code>Sliding Window</code>层进行特征提取（实际上<code>Sliding Window</code>就是一个<span class="math inline">\(3\times3\)</span>的卷积层，<span class="math inline">\(filter\)</span>的个数为256，所以输出的维数是256维）</li>
+<li><span class="math inline">\(1 \times 1\)</span>卷积：对1中的结果做<span class="math inline">\(1\times1\)</span>的卷积操作（<span class="math inline">\(1\times1\)</span>的卷积相当于全连接层）</li>
+<li><code>RPN</code>输出：对于2中的结果有两个输出：1-目标的坐标输出，2-是否是目标的分数输出。分别为<span class="math inline">\(4k\)</span>个和<span class="math inline">\(2k\)</span>个。其中<span class="math inline">\(k\)</span>表示<code>Anchor Box</code>的个数。</li>
+</ol>
+<p>由于3中会涉及到<code>Anchor Box</code>，且过程相对复杂，所以第3步的具体过程在下面详述。</p>
+<h3 id="x1卷积">1x1卷积</h3>
+<p><span class="math inline">\(1 \times 1\)</span>的卷积操作相当于全连接层，但需要注意的是，由于<code>RPN</code>网络有两个输出，<strong>所以<span class="math inline">\(1 \times 1\)</span>的卷积也有两个，分别对应目标的坐标以及目标的分数</strong>。<span class="math inline">\(filter\)</span>的个数分别为<span class="math inline">\(4k\)</span>和<span class="math inline">\(2k\)</span></p>
+<h3 id="rpn的输出">RPN的输出</h3>
+<p>在介绍<code>RPN</code>之前，不得不提到<code>Anchor Box</code>，这里先补充<code>Anchor Box</code>的知识。</p>
+<h4 id="补充anchor-box">补充：Anchor Box</h4>
+<blockquote>
+<p>我们知道，实际上在<code>Feature Map</code>中的一点对应原图中一个区域（也就是感受野的概念），那么在<code>RPN</code>中的<span class="math inline">\(1 \times 1\)</span>的卷积层之中的一个像素点可以表示原图中的一个区域。对于`<span class="math inline">\(1 \times 1\)</span>卷积层的结果，就可以表示<span class="math inline">\(w \times h\)</span>个原图中的区域（<span class="math inline">\(w \times h\)</span>表示<span class="math inline">\(1 \times 1\)</span>卷积层的结果大小）。</p>
+<p>如果有目标存在，则目标必定在这些感受野之中（虽然感受野不一定完全框中）。既然通过感受野不一定框中目标，那么我们可以在感受野的基础上添加形变，多几个框，那么我们框中目标的几率肯定会大大增加（虽然也不一定百分百框中），这便是<code>Anchor Box</code>的由来。<code>Anchor Box</code>如下图所示：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210106101329.png">
 
-`RCNN`的大体流程如下图所示：
+</div>
+<p>从上图可以看到，<code>Anchor Box</code>包含三种比例的长宽比，分别为<span class="math inline">\(1:1\)</span>,<span class="math inline">\(1:2\)</span>和<span class="math inline">\(2:1\)</span>，且包含三种不同大小的框，所以一共<span class="math inline">\(9\)</span>种。</p>
+<p>例如，我们需要检测一个行人，行人的<code>Ground Truth</code>是一个长的矩形，如果用<code>Anchor Box</code>中<span class="math inline">\(2:1\)</span>的框，此时框中的几率会大大增加。实际上，我们可以看到<code>Anchor Box</code>的三种规格框实际上就是针对不同比例的目标。</p>
+</blockquote>
+<blockquote>
+<p>对于<code>RPN</code>中的两个输出：目标位置和目标分数。这里先介绍目标位置，再介绍目标的分类（也就是分类）</p>
+</blockquote>
+<p>首先，在经过<span class="math inline">\(1 \times 1\)</span>的卷积后，有一个<span class="math inline">\(w \times h\)</span>长宽的结果，我们通过<code>Anchor Box</code>可以找到在原图中<span class="math inline">\(w \times h \times k\)</span>个框，其中，<span class="math inline">\(k\)</span>表示<code>Anchor Box</code>的个数。</p>
+<p>并且，经过<span class="math inline">\(1 \times 1\)</span>的卷积，该层会产生<span class="math inline">\(w \times h \times 4 \times k\)</span>个预测结果（这里的结果算上<span class="math inline">\(Channel\)</span>）。其中<span class="math inline">\(4\)</span>表示位置的四个参数，<span class="math inline">\(k\)</span>表示<code>Anchor Box</code>的个数。<strong>（注意，这个预测结果表示的是<code>Anchor Box</code>和<code>Ground Truth</code>的偏差）</strong></p>
+<p>既然在<code>RPN</code>中预测的是两者之间的偏差，那么在训练时对应的标签也应该是两者之间的偏差。下面介绍偏差的生成过程。</p>
+<h4 id="目标位置生成">目标位置生成</h4>
+<p>我们知道，生成的<code>Anchor Box</code>和<code>Ground Truth</code>是有差距的，如下图所示：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210107104422.jpg">
 
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229151231.png)
-
-上图中，由于`RCNN`的`CNN`提取特征部分是对每一个`Region Proposal`用CNN网络进行特征提取，较为耗时。
-
-### Fast RCNN
-
-`Fast RCNN`基本上是在`RCNN`的后半部分做修改，修改如下：
-
-1. 用`CNN`整体图像进行特征提取，并建立`Feature Map`和原图像的映射关系。这样对于所有的`Region Proposal`就可以只提取一次
-2. 由于在`Fast RCNN`仅建立`Feature Map`和原图的映射关系，并没有对每一个`Region Proposal`做拉伸（在`RCNN`中被称为`warp`），所以在Fast RCNN中使用`SPP layer`，以保证在后续的全连接的输入一致性。即`Fast RCNN`中的`ROI Pooling`层
-3. 用`softmax`代替`SVM`，并且`loss`采用`L1`。所以`Faster RCNN`的输出为两个：`Bounding Box`的位置信息和`Softmax`的分类信息
-
-`Fast RCNN`的大体流程图如下图所示：
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229155337.png)
-
-`Faster RCNN`主要在Two Steps的前半段做文章。发现在`Fast RCNN`中，最耗时的是`Selective Search`部分（后半段的经过`Fast RCNN`的修改已经很快).所以，`Faster RCNN`主要基于`Selective Search`做修改，一是为了提高速度（`Selective Search用时大约2秒左右`）；二是由于有`Selective Search`组件，`Fast RCNN`还不完全算是一个end-to-end的模型。
-
-## 整体流程
-
-`Faster RCNN`的主要用`RPN`网路来代替`Selective Search`来给出`Region Proposal`，大体流程如下图所示：
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229161129.jpg)
-
-从上图中可以看到，给出`Region Proposal`也可以分为两个部分：图像特征提取的`Conv层`和`RPN`。通常`Conv层`都采用成熟的图像模型，论文中是用的`VGG16`。更详细的整体流程图如下图所示：
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20201229162606.png)
-
-`Conv层`不再阐述，下节主要讲`RPN`网络
-
-## RPN网络
-
-`RPN`网络的目的是给出`Region Proposal`。RPN的流程如下图所示：
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210105100025.png)
-
-`RPN`的大体步骤如下：
-
-1. `Sliding Window`层特征提取：利用`Sliding Window`层进行特征提取（实际上`Sliding Window`就是一个$3\times3$的卷积层，$filter$的个数为256，所以输出的维数是256维）
-2. $1 \times 1$卷积：对1中的结果做$1\times1$的卷积操作（$1\times1$的卷积相当于全连接层）
-3. `RPN`输出：对于2中的结果有两个输出：1-目标的坐标输出，2-是否是目标的分数输出。分别为$4k$个和$2k$个。其中$k$表示`Anchor Box`的个数。
-
-由于3中会涉及到`Anchor Box`，且过程相对复杂，所以第3步的具体过程在下面详述。
-
-### 1x1卷积
-
-$1 \times 1$的卷积操作相当于全连接层，但需要注意的是，由于`RPN`网络有两个输出，**所以$1 \times 1$的卷积也有两个，分别对应目标的坐标以及目标的分数**。$filter$的个数分别为$4k$和$2k$
-
-### RPN的输出
-
-在介绍`RPN`之前，不得不提到`Anchor Box`，这里先补充`Anchor Box`的知识。
-
-#### 补充：Anchor Box
-
-> 我们知道，实际上在`Feature Map`中的一点对应原图中一个区域（也就是感受野的概念），那么在`RPN`中的$1 \times 1$的卷积层之中的一个像素点可以表示原图中的一个区域。对于`$1 \times 1$卷积层的结果，就可以表示$w \times h$个原图中的区域（$w \times h$表示$1 \times 1$卷积层的结果大小）。
->
-> 如果有目标存在，则目标必定在这些感受野之中（虽然感受野不一定完全框中）。既然通过感受野不一定框中目标，那么我们可以在感受野的基础上添加形变，多几个框，那么我们框中目标的几率肯定会大大增加（虽然也不一定百分百框中），这便是`Anchor Box`的由来。`Anchor Box`如下图所示：
->
-> ![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210106101329.png)
->
-> 从上图可以看到，`Anchor Box`包含三种比例的长宽比，分别为$1:1$,$1:2$和$2:1$，且包含三种不同大小的框，所以一共$9$种。
->
-> 例如，我们需要检测一个行人，行人的`Ground Truth`是一个长的矩形，如果用`Anchor Box`中$2:1$的框，此时框中的几率会大大增加。实际上，我们可以看到`Anchor Box`的三种规格框实际上就是针对不同比例的目标。
-
-> 对于`RPN`中的两个输出：目标位置和目标分数。这里先介绍目标位置，再介绍目标的分类（也就是分类）
-
-首先，在经过$1 \times 1$的卷积后，有一个$w \times h$长宽的结果，我们通过`Anchor Box`可以找到在原图中$w \times h \times k$个框，其中，$k$表示`Anchor Box`的个数。
-
-并且，经过$1 \times 1$的卷积，该层会产生$w \times h \times 4 \times k$个预测结果（这里的结果算上$Channel$）。其中$4$表示位置的四个参数，$k$表示`Anchor Box`的个数。**（注意，这个预测结果表示的是`Anchor Box`和`Ground Truth `的偏差）**
-
-既然在`RPN`中预测的是两者之间的偏差，那么在训练时对应的标签也应该是两者之间的偏差。下面介绍偏差的生成过程。
-
-#### 目标位置生成
-
-我们知道，生成的`Anchor Box`和`Ground Truth`是有差距的，如下图所示：
-
-![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210107104422.jpg)
-
-图中，红色为`Anchor Box`的结果，而绿色为`Ground Truth`的结果。
-
-要想从`Anchor Box`到`Ground Truth`，只需要对`Anchor Box`做平移和拉伸即可，所以在`Faster RCNN`中，平移和和拉伸作为衡量两者间的差距的指标。
-
-设代表一个`Anchor Box`的四个参数为$A=(x_a,y_a,w_a,h_a)$,分别表示其中心点坐标和长宽。其对应的`Ground Truth`为$GT=(x,y,w,h)$,则两者间的平移可以表示为(**平移的单位为长或宽的比例**)：
-
-
-$$
-x \approx w_a .t_x + x_a	\tag 1
-$$
-
-$$
+</div>
+<p>图中，红色为<code>Anchor Box</code>的结果，而绿色为<code>Ground Truth</code>的结果。</p>
+<p>要想从<code>Anchor Box</code>到<code>Ground Truth</code>，只需要对<code>Anchor Box</code>做平移和拉伸即可，所以在<code>Faster RCNN</code>中，平移和和拉伸作为衡量两者间的差距的指标。</p>
+<p>设代表一个<code>Anchor Box</code>的四个参数为<span class="math inline">\(A=(x_a,y_a,w_a,h_a)\)</span>,分别表示其中心点坐标和长宽。其对应的<code>Ground Truth</code>为<span class="math inline">\(GT=(x,y,w,h)\)</span>,则两者间的平移可以表示为(<strong>平移的单位为长或宽的比例</strong>)：</p>
+<p><span class="math display">\[
+x \approx w_a .t_x + x_a    \tag 1
+\]</span></p>
+<p><span class="math display">\[
 y \approx h_a .t_y + y_a   \tag 2
-$$
-
-缩放关系可以表示为：
-$$
-w \approx w_a . exp(t_w)	\tag 3
-$$
-
-$$
-h \approx h_a . exp(t_h)	\tag 4
-$$
-
-上式中，$d_*(A)$为需要求的未知数。通过变换可以表示为：
-$$
-t_x = \frac{x - x_a}{w_a}	\tag	5
-$$
-
-$$
-t_y = \frac{y - y_a}{h_a}	\tag	6
-$$
-
-$$
-t_w=\log{(w/w_a)}		\tag	7
-$$
-
-$$
-t_h=\log{(h/h_a)}		\tag	8
-$$
-
-同理，设预测的`RPN`网路预测的结果为$(x^{\ast},y^{\ast},w^{\ast},h^{\ast})$,则预测框和`Anchor Box`的四个坐标的差距可以表示为：
-$$
-t_x^{\ast} = \frac{x^{\ast} - x_a}{w_a}	\tag	9
-$$
-
-$$
-t_y^{\ast} = \frac{y^{\ast} - y_a}{h_a}	\tag	{10}
-$$
-
-$$
-t_w^{\ast}=\log{(w^{\ast}/w_a)}		\tag	{11}
-$$
-
-$$
-t_h^{\ast}=\log{(h^{\ast}/h_a)}		\tag	{12}
-$$
-
-也就是说，我们`RPN`网络需要预测的实际上是$t_{\ast}^{\ast}$(下标的 * 表示$x,y,w,h$,上标的 * 表示预测框)，也就是`Predict Box`和`Anchor Box`的差距。我们也可以通过`Ground Truth`和`Anchor Box`计算得到标签，这样神经网络就能够训练了。
-
-总结一下目标位置的过程：
-
-1. $1 \times 1$的卷积
-2. 生成`Anchor Box`
-3. 利用`RPN`网络得到预测值，也就是生成偏差
-4. 再利用这个偏差还原成`Bounding Box`
-
-#### 目标分数
-
-> 目标分数就是我们所说的$confidence$,即模型认为是目标的置信度。
-
-相对于目标位置，目标分数较为简单，下面直接总结这条线的流程：
-
-1. $1 \times 1$的卷积
-2. 利用$softmax$分类（注意这里论文中是用的$softmax$，所以分数的结果有$w \times h \times 2 \times k$个）
-
-### Loss Function
-
-了解了`RPN`的流程，我们再来看看RPN的`loss Function`，`RPN`中一个 `Mini Batch` 的$loss$如下所示：
-$$
-loss(p_i,G_i)=\frac{1}{N_{cls}}\sum_{i}L_{cls}(p_i,p_i^{\ast})+ \lambda \frac{1}{N_{reg}}\sum_ip_i^{\ast}L_{reg}(t_i,t_i^{\ast})	\tag	{13}
-$$
-上式(13)中,可以看到前半部分为分类的$loss$,即普通的`cross Entropy`，$p_i$表示预测是目标的概率，而$p_i^{\ast}$表示的是label，当有目标时为1，无目标时为0。
-
-而后半部分为位置的$loss$，其中$L_{reg}$为`smooth L1 loss​`。有：
-$$
+\]</span></p>
+<p>缩放关系可以表示为： <span class="math display">\[
+w \approx w_a . exp(t_w)    \tag 3
+\]</span></p>
+<p><span class="math display">\[
+h \approx h_a . exp(t_h)    \tag 4
+\]</span></p>
+<p>上式中，<span class="math inline">\(d_*(A)\)</span>为需要求的未知数。通过变换可以表示为： <span class="math display">\[
+t_x = \frac{x - x_a}{w_a}   \tag    5
+\]</span></p>
+<p><span class="math display">\[
+t_y = \frac{y - y_a}{h_a}   \tag    6
+\]</span></p>
+<p><span class="math display">\[
+t_w=\log{(w/w_a)}       \tag    7
+\]</span></p>
+<p><span class="math display">\[
+t_h=\log{(h/h_a)}       \tag    8
+\]</span></p>
+<p>同理，设预测的<code>RPN</code>网路预测的结果为<span class="math inline">\((x^{\ast},y^{\ast},w^{\ast},h^{\ast})\)</span>,则预测框和<code>Anchor Box</code>的四个坐标的差距可以表示为： <span class="math display">\[
+t_x^{\ast} = \frac{x^{\ast} - x_a}{w_a} \tag    9
+\]</span></p>
+<p><span class="math display">\[
+t_y^{\ast} = \frac{y^{\ast} - y_a}{h_a} \tag    {10}
+\]</span></p>
+<p><span class="math display">\[
+t_w^{\ast}=\log{(w^{\ast}/w_a)}     \tag    {11}
+\]</span></p>
+<p><span class="math display">\[
+t_h^{\ast}=\log{(h^{\ast}/h_a)}     \tag    {12}
+\]</span></p>
+<p>也就是说，我们<code>RPN</code>网络需要预测的实际上是<span class="math inline">\(t_{\ast}^{\ast}\)</span>(下标的 * 表示<span class="math inline">\(x,y,w,h\)</span>,上标的 * 表示预测框)，也就是<code>Predict Box</code>和<code>Anchor Box</code>的差距。我们也可以通过<code>Ground Truth</code>和<code>Anchor Box</code>计算得到标签，这样神经网络就能够训练了。</p>
+<p>总结一下目标位置的过程：</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(1 \times 1\)</span>的卷积</li>
+<li>生成<code>Anchor Box</code></li>
+<li>利用<code>RPN</code>网络得到预测值，也就是生成偏差</li>
+<li>再利用这个偏差还原成<code>Bounding Box</code></li>
+</ol>
+<h4 id="目标分数">目标分数</h4>
+<blockquote>
+<p>目标分数就是我们所说的<span class="math inline">\(confidence\)</span>,即模型认为是目标的置信度。</p>
+</blockquote>
+<p>相对于目标位置，目标分数较为简单，下面直接总结这条线的流程：</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(1 \times 1\)</span>的卷积</li>
+<li>利用<span class="math inline">\(softmax\)</span>分类（注意这里论文中是用的<span class="math inline">\(softmax\)</span>，所以分数的结果有<span class="math inline">\(w \times h \times 2 \times k\)</span>个）</li>
+</ol>
+<h3 id="loss-function">Loss Function</h3>
+<p>了解了<code>RPN</code>的流程，我们再来看看RPN的<code>loss Function</code>，<code>RPN</code>中一个 <code>Mini Batch</code> 的<span class="math inline">\(loss\)</span>如下所示： <span class="math display">\[
+loss(p_i,G_i)=\frac{1}{N_{cls}}\sum_{i}L_{cls}(p_i,p_i^{\ast})+ \lambda \frac{1}{N_{reg}}\sum_ip_i^{\ast}L_{reg}(t_i,t_i^{\ast})    \tag    {13}
+\]</span> 上式(13)中,可以看到前半部分为分类的<span class="math inline">\(loss\)</span>,即普通的<code>cross Entropy</code>，<span class="math inline">\(p_i\)</span>表示预测是目标的概率，而<span class="math inline">\(p_i^{\ast}\)</span>表示的是label，当有目标时为1，无目标时为0。</p>
+<p>而后半部分为位置的<span class="math inline">\(loss\)</span>，其中<span class="math inline">\(L_{reg}\)</span>为<code>smooth L1 loss​</code>。有： <span class="math display">\[
 L_{reg}(t_i,t_i^{\ast})=\sum_{i\in\{x,y,p,t\}}smooth_{L1}(ti-t_i^{\ast})
-$$
-其中：
-
-<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-  <mi>s</mi>
-  <mi>m</mi>
-  <mi>o</mi>
-  <mi>o</mi>
-  <mi>t</mi>
-  <msub>
-    <mi>h</mi>
-    <mrow class="MJX-TeXAtom-ORD">
-      <mi>L</mi>
-      <mn>1</mn>
-    </mrow>
-  </msub>
-  <mo stretchy="false">(</mo>
-  <mi>x</mi>
-  <mo stretchy="false">)</mo>
-  <mo>=</mo>
-  <mrow>
-    <mo>{</mo>
-    <mtable columnalign="left left" rowspacing=".2em" columnspacing="1em" displaystyle="false">
-      <mtr>
-        <mtd>
-          <mn>0.5</mn>
-          <msup>
-            <mi>x</mi>
-            <mn>2</mn>
-          </msup>
-        </mtd>
-        <mtd>
-          <mrow>
-            <mtext>if&#xA0;</mtext>
-            <mrow class="MJX-TeXAtom-ORD">
-              <mrow class="MJX-TeXAtom-ORD">
-                <mo stretchy="false">|</mo>
-              </mrow>
-              <mi>x</mi>
-              <mrow class="MJX-TeXAtom-ORD">
-                <mo stretchy="false">|</mo>
-              </mrow>
-              <mo>&lt;</mo>
-              <mn>1</mn>
-            </mrow>
-          </mrow>
-        </mtd>
-      </mtr>
-      <mtr>
-        <mtd>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mo stretchy="false">|</mo>
-          </mrow>
-          <mi>x</mi>
-          <mrow class="MJX-TeXAtom-ORD">
-            <mo stretchy="false">|</mo>
-          </mrow>
-          <mo>&#x2212;<!-- − --></mo>
-          <mn>0.5</mn>
-        </mtd>
-        <mtd>
-          <mtext>otherwise</mtext>
-        </mtd>
-      </mtr>
-    </mtable>
-    <mo fence="true" stretchy="true" symmetric="true"></mo>
-  </mrow>
-</math>
-
+\]</span> 其中：</p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"> <mi>s</mi> <mi>m</mi> <mi>o</mi> <mi>o</mi> <mi>t</mi> <msub> <mi>h</mi> <mrow class="MJX-TeXAtom-ORD"> <mi>L</mi> <mn>1</mn> </mrow> </msub> <mo stretchy="false">(</mo> <mi>x</mi> <mo stretchy="false">)</mo> <mo>=</mo> <mrow> <mo>{</mo> <mtable columnalign="left left" rowspacing=".2em" columnspacing="1em" displaystyle="false"> <mtr> <mtd> <mn>0.5</mn> <msup> <mi>x</mi> <mn>2</mn> </msup> </mtd> <mtd> <mrow> <mtext>if </mtext> <mrow class="MJX-TeXAtom-ORD"> <mrow class="MJX-TeXAtom-ORD"> <mo stretchy="false">|</mo> </mrow> <mi>x</mi> <mrow class="MJX-TeXAtom-ORD"> <mo stretchy="false">|</mo> </mrow> <mo>&lt;</mo> <mn>1</mn> </mrow> </mrow> </mtd> </mtr> <mtr> <mtd> <mrow class="MJX-TeXAtom-ORD"> <mo stretchy="false">|</mo> </mrow> <mi>x</mi> <mrow class="MJX-TeXAtom-ORD"> <mo stretchy="false">|</mo> </mrow> <mo>−<!-- − --></mo> <mn>0.5</mn> </mtd> <mtd> <mtext>otherwise</mtext> </mtd> </mtr> </mtable> <mo fence="true" stretchy="true" symmetric="true"></mo> </mrow> </math></p>
 <!--
 $$
 smooth_{L1}(x)=\begin{cases}
@@ -678,28 +580,39 @@ smooth_{L1}(x)=\begin{cases}
 \end{cases}
 $$
 -->
+<p><span class="math inline">\(\lambda\)</span>平衡是用于两者差的一个参数，为10</p>
+<h3 id="训练">训练</h3>
+<p>在训练时，不会将所有的生成的<code>Anchor Box</code>拿去训练，在生成的<code>Anchor Box</code>中，首先会筛选<code>Anchor</code>与<code>GT</code>的<span class="math inline">\(IOU&gt;0.7\)</span>的作为正样本，<code>Anchor</code>与<code>GT</code>的<span class="math inline">\(IOU&lt;0.3\)</span>作为负样本，其他的不要。</p>
+<p>其次，为了保证样本的平衡性，在上述步骤生成的正负样本中个各选择128个送进网络中进行训练。</p>
+<h2 id="整体训练">整体训练</h2>
+<p>在<code>Faster RCNN</code>中，分为训练<code>RPN</code>和<code>Fast RCNN</code>两部分。步骤如下：</p>
+<ol style="list-style-type: decimal">
+<li>训练<code>RPN</code>网络（这是训练<code>RPN</code>的第一轮）</li>
+<li>利用训练好的<code>RPN</code>网络收集<code>Region Proposals</code></li>
+<li>利用2中的<code>Region Proposal</code>训练<code>Fast RCNN</code>(训练<code>Fast RCNN</code>的第一轮)</li>
+<li>训练<code>RPN</code>网络（这是训练<code>RPN</code>的第二轮）</li>
+<li>利用训练好的<code>RPN</code>网络收集<code>Region Proposals</code></li>
+<li>利用2中的<code>Region Proposal</code>训练<code>Fast RCNN</code>(训练<code>Fast RCNN</code>的第二轮)</li>
+</ol>
+<h2 id="思考">思考</h2>
+<h3 id="对anchor-box使用的疑惑">对Anchor Box使用的疑惑</h3>
+<p>在<code>Anchor Box</code>中，让我疑惑的是，为何不直接让<code>Predict Box</code>和<code>Ground Truth</code>的偏差做回归，在中间又夹一个<code>Anchor Box</code>。论文中中的解释是由于在<code>R-CNN</code>和<code>Fast RCNN</code>中用了<code>ROI-Pooling</code>,由于<code>ROI-Pooling</code>的缘故可以武断的用共享权值（[1] 和[2]分别表示<code>SPP Net</code>和<code>Fast RCNN</code>两个模型的论文）</p>
+<blockquote>
+<p>In [1],[2], bounding-box regression is performed on features pooled from arbitrarily sized RoIs, and the regression weights are shared by all region sizes.</p>
+</blockquote>
+<p>但由于在<code>RPN</code>中仅是用<span class="math inline">\(3 \times 3\)</span>的卷积形成<code>Feature Map</code>,而目标的大小和位置多变的（没有用<code>ROI Pooling</code>），所以这里用了<span class="math inline">\(k\)</span>个不共享权值的回归器，并且这<span class="math inline">\(k\)</span>个回归器不共享权值。（<span class="math inline">\(k\)</span>个预测可能，答对的可能性也大一些）</p>
+<blockquote>
+<p>In our formulation, the features used for regression are of the same spatial size (3 × 3) on the feature maps. To account for varying sizes, a set of k bounding-box regressors are learned. Each regressor is responsible for one scale and one aspect ratio, and the k regressors do not share weights. As such, it is still possible to predict boxes of various sizes even though the features are of a fixed size/scale, thanks to the design of anchors.</p>
+</blockquote>
+<p>但文中并没有解释为何引入<code>Anchor Box</code>能够让<code>Predict Box</code>准确的预测出<code>Ground Truth</code>，相较于<code>Predict Box</code>和<code>Ground Truth</code>直接回归的优势是什么。对于以上的<span class="math inline">\(k\)</span>，完全可以训练<code>Predict Box</code>和<code>Ground Truth</code>的<span class="math inline">\(k\)</span>个回归器，能够达到同样的效果</p>
+<p>对于以上，我的理解是<span class="math inline">\(3 \times 3\)</span>形成的感受野，在原图中对应的区域是有局限性的，一旦目标目标超出这个感受野，则效果不佳。所以引入了<code>Anchor Box</code>,</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://www.cnblogs.com/Terrypython/p/10584384.html" target="_blank" rel="noopener">RPN(区域生成网络)</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/31426458" target="_blank" rel="noopener">一文读懂Faster RCNN</a></li>
+<li><a href="https://blog.csdn.net/qq_30815237/article/details/93596163" target="_blank" rel="noopener">RPN网络</a></li>
+</ul>
 
-$\lambda$平衡是用于两者差的一个参数，为10
-
-### 训练
-
-在训练时，不会将所有的生成的`Anchor Box`拿去训练，在生成的`Anchor Box`中，首先会筛选`Anchor`与`GT`的$IOU>0.7$的作为正样本，`Anchor`与`GT`的$IOU<0.3$作为负样本，其他的不要。 其次，为了保证样本的平衡性，在上述步骤生成的正负样本中个各选择128个送进网络中进行训练。 ## 整体训练 在`faster rcnn`中，分为训练`rpn`和`fast rcnn`两部分。步骤如下： 1. 训练`rpn`网络（这是训练`rpn`的第一轮） 2. 利用训练好的`rpn`网络收集`region proposals` 3. 利用2中的`region proposal`训练`fast rcnn`(训练`fast rcnn`的第一轮) 4. 训练`rpn`网络（这是训练`rpn`的第二轮） 5. 6. rcnn`的第二轮) 思考 ### 对anchor box使用的疑惑 在`anchor box`中，让我疑惑的是，为何不直接让`predict box`和`ground truth`的偏差做回归，在中间又夹一个`anchor box`。论文中中的解释是由于在`r-cnn`和`fast rcnn`中用了`roi-pooling`,由于`roi-pooling`的缘故可以武断的用共享权值（[1] 和[2]分别表示`spp net`和`fast rcnn`两个模型的论文）>  In [1],[2], bounding-box regression is performed on features pooled from arbitrarily sized RoIs, and the regression weights are shared by all region sizes.  
-
-但由于在`RPN`中仅是用$3 \times 3$的卷积形成`Feature Map`,而目标的大小和位置多变的（没有用`ROI Pooling`），所以这里用了$k$个不共享权值的回归器，并且这$k$个回归器不共享权值。（$k$个预测可能，答对的可能性也大一些）
-
-> In our formulation, the features used for regression are of the same spatial size (3 × 3) on the feature maps. To account for varying sizes, a set of k bounding-box regressors are learned. Each regressor is responsible for one scale and one aspect ratio, and the k regressors do not share weights. As such, it is still possible to predict boxes of various sizes even though the features are of a fixed size/scale, thanks to the design of anchors.  
-
-但文中并没有解释为何引入`Anchor Box`能够让`Predict Box`准确的预测出`Ground Truth`，相较于`Predict Box`和`Ground Truth`直接回归的优势是什么。对于以上的$k$，完全可以训练`Predict Box`和`Ground Truth`的$k$个回归器，能够达到同样的效果
-
-对于以上，我的理解是$3 \times 3$形成的感受野，在原图中对应的区域是有局限性的，一旦目标目标超出这个感受野，则效果不佳。所以引入了`Anchor Box`,
-
-## 参考
-
-* [RPN(区域生成网络)](https://www.cnblogs.com/Terrypython/p/10584384.html)
-* [一文读懂Faster RCNN](https://zhuanlan.zhihu.com/p/31426458)
-* [RPN网络](https://blog.csdn.net/qq_30815237/article/details/93596163)
-
-</0.3$作为负样本，其他的不要。>
       
     </div>
     
@@ -828,8 +741,17 @@ var jiathis_config={
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -934,6 +856,22 @@ var jiathis_config={
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#question"><span class="nav-number">1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">2.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#rcnn"><span class="nav-number">2.1.</span> <span class="nav-text">RCNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fast-rcnn"><span class="nav-number">2.2.</span> <span class="nav-text">Fast RCNN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整体流程"><span class="nav-number">3.</span> <span class="nav-text">整体流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rpn网络"><span class="nav-number">4.</span> <span class="nav-text">RPN网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#x1卷积"><span class="nav-number">4.1.</span> <span class="nav-text">1x1卷积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rpn的输出"><span class="nav-number">4.2.</span> <span class="nav-text">RPN的输出</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#补充anchor-box"><span class="nav-number">4.2.1.</span> <span class="nav-text">补充：Anchor Box</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标位置生成"><span class="nav-number">4.2.2.</span> <span class="nav-text">目标位置生成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标分数"><span class="nav-number">4.2.3.</span> <span class="nav-text">目标分数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#loss-function"><span class="nav-number">4.3.</span> <span class="nav-text">Loss Function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练"><span class="nav-number">4.4.</span> <span class="nav-text">训练</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整体训练"><span class="nav-number">5.</span> <span class="nav-text">整体训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思考"><span class="nav-number">6.</span> <span class="nav-text">思考</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对anchor-box使用的疑惑"><span class="nav-number">6.1.</span> <span class="nav-text">对Anchor Box使用的疑惑</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

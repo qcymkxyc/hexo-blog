@@ -81,12 +81,12 @@
 
 
 
-<meta name="description" content="# Triplet Network  ## Question  1. &#96;Triplet Network&#96;和&#96;Siamese Network&#96;相比哪个效果好 2. &#96;Triplet Network&#96;的大体流程 3. &#96;Triplet NetWork&#96;的主体思想是什么 4. &#96;loss&#96;中$\alpha$的作用  ## Triplet Network  &gt; 既然&#96;Siamese&#96;网络是衡量两个样本间">
+<meta name="description" content="Triplet Network Question  Triplet Network和Siamese Network相比哪个效果好 Triplet Network的大体流程 Triplet NetWork的主体思想是什么 loss中\(\alpha\)的作用  Triplet Network  既然Siamese网络是衡量两个样本间的相似度，Triple Network是衡量三个样本间的相似度 且T">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Triple网络">
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/d5b27990.html/index.html">
 <meta property="og:site_name" content="冒烟的乔个人博客">
-<meta property="og:description" content="# Triplet Network  ## Question  1. &#96;Triplet Network&#96;和&#96;Siamese Network&#96;相比哪个效果好 2. &#96;Triplet Network&#96;的大体流程 3. &#96;Triplet NetWork&#96;的主体思想是什么 4. &#96;loss&#96;中$\alpha$的作用  ## Triplet Network  &gt; 既然&#96;Siamese&#96;网络是衡量两个样本间">
+<meta property="og:description" content="Triplet Network Question  Triplet Network和Siamese Network相比哪个效果好 Triplet Network的大体流程 Triplet NetWork的主体思想是什么 loss中\(\alpha\)的作用  Triplet Network  既然Siamese网络是衡量两个样本间的相似度，Triple Network是衡量三个样本间的相似度 且T">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1338991-20181213135951412-1275320373.png">
 <meta property="article:published_time" content="2020-03-14T08:40:53.000Z">
 <meta property="article:modified_time" content="2021-10-13T01:52:49.720Z">
@@ -414,61 +414,54 @@
       
 
       
-        
-# Triplet Network
-
-## Question
-
-1. `Triplet Network`和`Siamese Network`相比哪个效果好
-2. `Triplet Network`的大体流程
-3. `Triplet NetWork`的主体思想是什么
-4. `loss`中$\alpha$的作用
-
-## Triplet Network
-
-> 既然`Siamese`网络是衡量两个样本间的相似度，`Triple Network`是衡量三个样本间的相似度
->
-> 且**Triple Network的效果要好于Siamese Network**
-
-`Triple Network`的主体思想是：
-
-> 相同类别间的距离尽可能的小，不同类别间的距离尽可能的大
-
-### 网络结构图：
-
-<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1338991-20181213135951412-1275320373.png" style="zoom:80%;">
-
-**输入解释**
-
-* Anchor表示需要衡量的图片（输入）
-* Postive表示正类图片
-* negative表示负类图片
-
-### Loss函数
-
-$$
+        <h1 id="triplet-network">Triplet Network</h1>
+<h2 id="question">Question</h2>
+<ol style="list-style-type: decimal">
+<li><code>Triplet Network</code>和<code>Siamese Network</code>相比哪个效果好</li>
+<li><code>Triplet Network</code>的大体流程</li>
+<li><code>Triplet NetWork</code>的主体思想是什么</li>
+<li><code>loss</code>中<span class="math inline">\(\alpha\)</span>的作用</li>
+</ol>
+<h2 id="triplet-network-1">Triplet Network</h2>
+<blockquote>
+<p>既然<code>Siamese</code>网络是衡量两个样本间的相似度，<code>Triple Network</code>是衡量三个样本间的相似度</p>
+<p>且<strong>Triple Network的效果要好于Siamese Network</strong></p>
+</blockquote>
+<p><code>Triple Network</code>的主体思想是：</p>
+<blockquote>
+<p>相同类别间的距离尽可能的小，不同类别间的距离尽可能的大</p>
+</blockquote>
+<h3 id="网络结构图">网络结构图：</h3>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1338991-20181213135951412-1275320373.png" style="zoom:80%;"></p>
+<p><strong>输入解释</strong></p>
+<ul>
+<li>Anchor表示需要衡量的图片（输入）</li>
+<li>Postive表示正类图片</li>
+<li>negative表示负类图片</li>
+</ul>
+<h3 id="loss函数">Loss函数</h3>
+<p><span class="math display">\[
 L(A,P,N)=max(D_w(A,P)-D_w(A,N)+\alpha,0)
-$$
-
->  $D_w$表示两个输入值在经过子网络后的距离，有：
->  $$
->  D_w(X,Y)=\sqrt{[G_w(X)-G_w(Y)]^2}
->  $$
->  其中，$G_w$表示经过网络的输出（也就是`Embedding`层）
-
-对`loss`函数的理解：
-
-> 同`Siamese`网络，$\alpha$的大小直接衡量了学习的难度，$\alpha$越大，则学习的难度越大,要求：
-> $$
-> D_w(A,P) + \alpha \leqslant D_w(A,N)
-> $$
-
-## 参考
-
-> * https://www.cnblogs.com/Lee-yl/p/10113386.html
->* https://blog.csdn.net/koala_tree/article/details/78647528
-> * [论文原文](https://arxiv.org/pdf/1412.6622.pdf)
-
+\]</span></p>
+<blockquote>
+<p><span class="math inline">\(D_w\)</span>表示两个输入值在经过子网络后的距离，有： <span class="math display">\[
+ D_w(X,Y)=\sqrt{[G_w(X)-G_w(Y)]^2}
+ \]</span> 其中，<span class="math inline">\(G_w\)</span>表示经过网络的输出（也就是<code>Embedding</code>层）</p>
+</blockquote>
+<p>对<code>loss</code>函数的理解：</p>
+<blockquote>
+<p>同<code>Siamese</code>网络，<span class="math inline">\(\alpha\)</span>的大小直接衡量了学习的难度，<span class="math inline">\(\alpha\)</span>越大，则学习的难度越大,要求： <span class="math display">\[
+D_w(A,P) + \alpha \leqslant D_w(A,N)
+\]</span></p>
+</blockquote>
+<h2 id="参考">参考</h2>
+<blockquote>
+<ul>
+<li>https://www.cnblogs.com/Lee-yl/p/10113386.html</li>
+<li>https://blog.csdn.net/koala_tree/article/details/78647528</li>
+<li><a href="https://arxiv.org/pdf/1412.6622.pdf" target="_blank" rel="noopener">论文原文</a></li>
+</ul>
+</blockquote>
 
       
     </div>
@@ -594,8 +587,17 @@ var jiathis_config={
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -700,6 +702,22 @@ var jiathis_config={
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#triplet-network"><span class="nav-number">1.</span> <span class="nav-text">Triplet Network</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#question"><span class="nav-number">1.1.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#triplet-network-1"><span class="nav-number">1.2.</span> <span class="nav-text">Triplet Network</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络结构图"><span class="nav-number">1.2.1.</span> <span class="nav-text">网络结构图：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#loss函数"><span class="nav-number">1.2.2.</span> <span class="nav-text">Loss函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.3.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
