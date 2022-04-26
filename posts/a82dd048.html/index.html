@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="计算机视觉,数字图像处理," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="冒烟的乔个人博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="## 概述  &#96;SITF&#96;全名&#96;Scale-invariant feature transform&#96;,即尺度不变特征变换。实质上，&#96;SIFT&#96;所提取的特征是角点上的特征，且一定程度上保证它的旋转、尺度不变性。所以，&#96;SIFT&#96;本身并非一种匹配算法，&#96;SIFT&#96;实质上只是一种特征，由于&#96;SIFT&#96;提取的特征点比较稳定，我们在实际操作中仅仅是利用这种特征来做特征点匹配而已。  &#96;SIFT&#96;较为复杂，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SIFT算法总结">
+<meta property="og:url" content="http://blog.zhangqi2019.top/posts/a82dd048.html/index.html">
+<meta property="og:site_name" content="冒烟的乔个人博客">
+<meta property="og:description" content="## 概述  &#96;SITF&#96;全名&#96;Scale-invariant feature transform&#96;,即尺度不变特征变换。实质上，&#96;SIFT&#96;所提取的特征是角点上的特征，且一定程度上保证它的旋转、尺度不变性。所以，&#96;SIFT&#96;本身并非一种匹配算法，&#96;SIFT&#96;实质上只是一种特征，由于&#96;SIFT&#96;提取的特征点比较稳定，我们在实际操作中仅仅是利用这种特征来做特征点匹配而已。  &#96;SIFT&#96;较为复杂，">
+<meta property="article:published_time" content="2021-11-25T07:42:29.000Z">
+<meta property="article:modified_time" content="2022-03-03T03:25:48.270Z">
+<meta property="article:author" content="冒烟的乔">
+<meta property="article:tag" content="计算机视觉">
+<meta property="article:tag" content="数字图像处理">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.zhangqi2019.top/posts/a82dd048.html/"/>
+
+
+
+
+
+  <title>SIFT算法总结 | 冒烟的乔个人博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7374299231a2a42c206c16c03b80cea2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+	  <div class="headband"></div>
+
+	  <a href="https://github.com/qcymkxyc" target="_blank" rel="noopener">
+		  <img width="149" height="149" style="position: absolute; top: 0; right: 0; border: 0;"  src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+
+	  <!-- <a href="https://your-url" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style> -->
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">冒烟的乔个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.zhangqi2019.top/posts/a82dd048.html/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="冒烟的乔">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="冒烟的乔个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">SIFT算法总结</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-25T15:42:29+08:00">
+                2021-11-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机视觉</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/a82dd048.html/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/posts/a82dd048.html/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+## 概述
+
+`SITF`全名`Scale-invariant feature transform`,即尺度不变特征变换。实质上，`SIFT`所提取的特征是角点上的特征，且一定程度上保证它的旋转、尺度不变性。所以，`SIFT`本身并非一种匹配算法，`SIFT`实质上只是一种特征，由于`SIFT`提取的特征点比较稳定，我们在实际操作中仅仅是利用这种特征来做特征点匹配而已。
+
+`SIFT`较为复杂，共分为以下几个步骤：
+
+* 建立尺度空间
+* 检测局部极值
+* 计算关键点方向
+* 建立关键点描述子
+
+## 尺度空间
+
+### 高斯金字塔
+
+尺度空间用更通俗的说法就是高斯金字塔，高斯金字塔实际上就是隔点取点，对图像进行多次下采样。每做一次下采样图像的大小就变为了以前的一半，多次下采样之后就形成了一个类似金字塔的形状。如下图所示：
+
+![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/1337254665_2720.jpg)
+
+但仅仅是图像求高斯金字塔是不够的，我们需要对多次下采样的多个结果图像进行高斯模糊，每幅图的高斯模糊的$\sigma$的值是不同的。下面分别详述。
+
+### 尺度空间
+
+首先，在上述的求金字塔的过程中，需要补充一点:每一次下采样会下采样多张图片。例如，对原图$M \times N$大小的图片进行一次下采样，得到$\frac{M}{2} \times \frac{N}{2} $大小的图片是多张，而非一张。这样的多张图片称为一组（论文中被称为一个`octave`），这里的一组即一次下采样产生的多张图片。每一组的图片称为“层”，那么层的个数就为一组图像中图像的个数。
+
+此时，对于每一组中的每一层图像，之前提到过，我们对他们的高斯模糊的$\sigma$是不同的，所以需要确定$\sigma$的值。
+
+综上，现在对于尺度空间，我们需要确定以下三个数值：
+
+* 尺度空间的组数。也就是下采样的次数
+* 每一组的层数。一次下采样产生多少张图片
+* 每一层的$\sigma$的值。每张图片高斯模糊的$\sigma$值
+
+#### 尺度空间组数的确定
+
+组数（$O$）：
+$$
+O=\lfloor log_2(min(M,N)) \rfloor - 	3 \tag {1}
+$$
+其中，$M$和$N$分别表示图片的长和宽.
+
+#### 尺度空间层数的确定
+
+层数$S$可以表示为：
+$$
+S = n+ 3 \tag 2
+$$
+其中，$n$表示需要提取的特征层的层数（后面会讲到）。
+
+#### 高斯滤波参数的确定
+
+每层和每组的$\sigma$之间的关系如下图所示：
+
+![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/火狐截图_2021-12-06T11-24-57.869Z.png)
+
+其中，$k=2^{\frac{1}{n}}$,$\sigma_1=\sqrt{1.6^2-0.5^2}=1.52$。
+
+上图中，第一组的第一层的$\sigma$值为$1.52$,第二层就为$k \times 1.52$,第三层就为$k^2 \times 1.52$,以此类推。第二组的起始$\sigma$为$2\sigma_1$也就是$2 \times 1.52$,后面的$\sigma$以$k$倍递增。
+
+至此，我们就得到一个完整的高斯金字塔。
+
+## 检测局部极值
+
+本小节的目的在于选出特征点，也就局部特征点。
+
+在`SIFT`算法中，局部极值点就是角点。在本小节中，共分为3个步骤：
+
+* 找到图像的边缘点
+* 求所有的边缘点在$x$,$y$和$\sigma$三个方向上的极值点，并做第一轮的筛选
+* 求角点，做第二轮的筛选
+
+### 查找初始关键点
+
+在`SIFT`算法中，初始关键点定义为边缘点。那么，如何获取边缘点呢，我们最容易想到的就是`Canny`边缘检测，`Sobel`,`Laplacian`等。但在 `SIFT`算法中，是采用的高斯差分算法（`DoG`,`Difference of Gauss`）。
+
+**采用高斯差分算法的目的就是边缘检测**,这里实际上是参考了<a href="/posts/d6a12e0a.html/" title="Marr-Hildreth算子">Marr-Hildreth算子</a>的边缘检测。
+
+我们通过高斯差分算法得到了图像在不同尺度下的边缘点。
+
+具体做法如下：
+
+在[尺度空间](#尺度空间)中，我们得到了高斯金字塔，我只需要对相邻的两个层做差，即得到了高斯差分金字塔，示意图如下图所示：
+
+![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/火狐截图_2021-12-06T11-16-16.630Z.png)
+
+从上图可以看出，我们已经得到了基本的图像边缘点，也就是图像的初始关键点。
+
+### 改进关键点位置的精度
+
+我们现在得到的是图像的边缘。`SIFT`算法认为一个特征点不仅是在$x$和$y$方向有较高的梯度，而且在$\sigma$方向上也有较高的梯度，也就是在上一节我们提到的“层”上有较高的梯度。我们可以把$\sigma$轴看成$z$轴，然后在$x$,$y$和$z$三个方向上查找极值。
+
+![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/火狐截图_2021-12-16T10-47-55.229Z.png)
+
+然而，在图像中，$x$,$y$和$\sigma$的值都是离散值，如果利用直接求差分的方式并不准确。所以算法利用了函数拟合的方式，即先用几个点拟合一个函数，再在拟合好的函数中求极值。
+
+对于函数的拟合我们可以利用插值的方式，例如`三次样条插值`，`多项式插值`等。在论文中，作者采用了`泰勒展开式`。
+
+令向量$(x,y,\sigma)$为$s$,由泰勒展开式为：
+$$
+f(s)=f(s_0)+\frac{\partial f}{\partial s}(s - s_0)+ \frac{1}{2} \cdot \frac{\partial^2f}{\partial s^2}(s - s_0)^2 + R_n(s)		\tag 3
+$$
+其中，$R_n(s)$为近似量。
+
+令上式的$s_0$为$0$，上式可以近似为：
+$$
+f(s)=f(0)+\frac{\partial f}{\partial s}s+ \frac{\partial^2f}{\partial s^2}s^2 		\tag 4
+$$
+其中
+$$
+\frac{\partial f}{\partial s}=
+\nabla f=
+\begin{bmatrix}
+\frac{\partial f}{\partial x} \\
+\frac{\partial f}{\partial y} \\
+\frac{\partial f}{\partial \sigma}
+\end{bmatrix}
+\tag 5
+$$
+$\frac{\partial^2f}{\partial s^2}$实际上为一个海森矩阵，令 $\frac{\partial^2f}{\partial s^2}$得到的海森矩阵为$H$，则$H$表示为：
+
+$$
+H=
+\begin{bmatrix}
+\partial^2D/\partial x^2 & \partial^2D/\partial x \partial y & \partial^2D/\partial x \partial \sigma \\
+ \partial^2D/\partial x \partial y & \partial^2D/\partial y^2  & \partial^2D/\partial y \partial \sigma \\
+ \partial^2D/\partial x \partial \sigma &  \partial^2D/\partial y \partial \sigma   & \partial^2D/\partial \sigma^2
+\end{bmatrix}
+\tag 6
+$$
+所以，公式（4）可以表示为：
+$$
+f(s)=f(0)+\nabla f \cdot s+\frac{1}{2}s^THs		\tag 7
+$$
+对式子（7）求导，并令导数为0，设可求得极值$\hat{s}$为：
+$$
+\hat{s}=-H^{-1}(\nabla f)		\tag 8
+$$
+这里得到的极值$\hat{s}$有可能是极大值也可能是极小值，算法中将极值代入$f(s)$中，也就是求$f(\hat{s})$的值，给定一个阈值$t_s$，若有$f(\hat{s}) > t_s$,则保留该点，认为它是关键点；否则删除该点。算法中给出的阈值$t_s$为$0.03$.
+
+至此，我们边缘点的极值做一轮的筛选。
+
+### 消除边缘响应
+
+消除边缘特征相当于仅保留角点，在`SIFT`算法中，这一步基本上是照搬的`Harris`算法。所以，介绍这一部分就是直接介绍`Harris`.
+
+> 对于图像中的一个点，分以为以下三种情况：
+>
+> ![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/v2-4cb0479e245d307e6b2ffe07f38067fd_720w.jpg)
+>
+> 即我们说的非边缘点，边缘点，以及角点。
+>
+> 对于图像中的一点$f(x,y)$,在$x$方向上移动$u$个像素值，在$y$方向上移动$v$个像素值。根据以上三种情况，可以得到数值的三种变化：
+>
+> * 在非边缘点上。由于像素点的值不怎么变化，则$f(x+u,y+v) - f(x,y)$较小
+> * 在边缘点上。像素点只在一个方向上有变换，如上图中中间的小图 ，$f(x+u,y+v) - f(x,y)$大于非边缘点上的值
+> * 在角点上。像素点在两个方向上有较大的变化，一般来说$f(x+u,y+v) - f(x,y)$的值最大
+>
+> 根据以上三种情况，我们由此建模：
+> $$
+> E(u,v)=\sum_{x,y}[f(x+u,y+v)-f(x,y)]^2			\tag 9
+> $$
+> 其中，$f(x,y)$表示图中像素点坐标$(x,y)$的值，$f(x+u,y+v)$表示将坐标$(x,y)$向$x$方向平移$u$个点，向$y$方向平移$v$个点的像素值。$[f(x+u,y+v)-f(x,y)]^2$表示$(x,y)$平移$(u,v)$后的差异。
+>
+> 这里的求和需要说明：这里的求和并非将图像中所有的像素点求和，而是一个过滤器框的求和，类似于`Sobel`这样的过滤器框，对框内所有的点进行求和。
+>
+> 所以，公式(9)实际上计算的就是对于一个以$(x,y)$为中心的过滤器框，平移了$(u,v)$之后，其像素值的差值$E(u,v)$
+>
+> 但是，类似于空间核的高斯滤波器，`Harris`在位置上越靠近$(x,y)$的像素点的贡献越大，越远离$(x,y)$的像素点的贡献越小。所以在`Harris`中加入了权重参数，由此，公式（9）演变为：
+> $$
+> E(u,v)=\sum_{x,y}W(x,y)[f(x+u,y+v)-f(x,y)]^2			\tag {10}
+> $$
+> 其中，$W(x,y)$表示在位置$(x,y)$上的权重。
+>
+> 在上式中，计算$E(u,v)$的值会非常慢，所以，在`SIFT`中，用了泰勒展开式来简化计算。我们知道，二维的泰勒展开式为：
+> $$
+> f(x,y)=
+> f(x_a,y_a)+ 
+> f_x(x_a,y_a)(x-x_a) +  f_y(x,y)(y-y_a) + \\
+> \frac{1}{2!}f_{xx}(x-x_a)^2+\frac{1}{2!}f_{xy}(x-x_a)(y-y_a) + \frac{1}{2!}f_{yx}(x-x_a)(y-y_a) + \\
+> \frac{1}{2!}f_{xy}(x-x_a)(y-y_a) + \frac{1}{2!}f_{yy}(y-y_a)^2 + O(n)
+> \tag {11}
+> $$
+> 其中，$f_x$和$f_{xx}$分别表示对$f(x,y)$在$x$方向上的一阶和二阶求导，$y$同理。$O(n)$为一个无穷小量.
+>
+> 现在我们对$f(x+u,y+v)$进行泰勒一阶展开，如下所示：
+> $$
+> f(x+u,y+v) \approx f(x,y) + f_x(x,y)u + f_y(x,y)v		\tag {12}
+> $$
+> 则公式(10)可以化简为：
+> $$
+> E(u,v)= \sum_{x,y}W(x,y)[f_x(x,y)u + f_y(x,y)v]^2		\tag {13}
+> $$
+> 我们再次对公式（13）中的$[f_x(x,y)u+f_y(x,y)v]^2$化简，有：
+> $$
+> [f_x(x,y)u+f_y(x,y)v]^2=
+> \begin{bmatrix}
+> [f_x(x,y) ,f_y(x,y)]
+> \begin{bmatrix}
+> u \\
+> v
+> \end{bmatrix}
+> \end{bmatrix}^2
+> \\=\begin{bmatrix}
+> [f_x(x,y) ,f_y(x,y)]
+> \begin{bmatrix}
+> u \\
+> v
+> \end{bmatrix}
+> \end{bmatrix}^T
+> \begin{bmatrix}
+> [f_x(x,y) ,f_y(x,y)]
+> \begin{bmatrix}
+> u \\
+> v
+> \end{bmatrix}
+> \end{bmatrix} \\
+> = [u,v]\begin{bmatrix}
+> f_x(x,y)  \\
+> f_y(x,y)
+> \end{bmatrix}
+> [f_x(x,y) ,f_y(x,y)]
+> \begin{bmatrix}
+> u \\
+> v
+> \end{bmatrix} \\
+> = [u,v] 
+> \begin{bmatrix}
+> f_x^2(x,y) & f_x(x,y) f_y(x,y) \\
+> f_x(x,y) f_y(x,y) & f_y^2(x,y)
+> \end{bmatrix}
+> \begin{bmatrix}
+> u \\
+> v
+> \end{bmatrix} 
+> \tag {14}
+> $$
+> 令矩阵$\begin{bmatrix}
+> f_x^2(x,y) & f_x(x,y) f_y(x,y) \\
+> f_x(x,y) f_y(x,y) & f_y^2(x,y)
+> \end{bmatrix}$为$M$,实质上$M$就是一个海森矩阵，则公式(13)可以化简为：
+> $$
+> E(u,v)=\sum_{x,y}W(x,y)[u,v]M
+> \begin{bmatrix}
+> u \\
+> v
+> \end{bmatrix}
+> \tag {15}
+> $$
+> 其中，$u$,$v$和$W(x,y)$的值我们都是知道的。
+>
+> 前面我们说到，如果一个点角点上，其在两个方向上的变化都比较大，现在我们对$M$进行主成分分解（$M$为实对称矩阵，一定存在两个特征向量，且这两个特征向量正交）.设$M$对应的两个特征值分别为$\lambda_1$和$\lambda_2$,其中$\lambda_1> \lambda_2$.分以下三种情况：
+>
+> * 如果分解的特征值均比较大，即$\lambda_1 \approx  \lambda_2$说明在两个方向上的都有较大的变动，此时说明该点在角点上
+> * 如果分解的特征值有一个比较大，且远大于另一个，即$\lambda_1 >> \lambda_2$，则说明该点在边缘上
+> * 如果两个特征值都比较小，此时也有$\lambda_1 \approx  \lambda_2$，此时在平坦区域
+>
+> 所以我们现在要找角点，即找上述的第一种情况，两个特征值都比较大的点
+>
+> 在`Harris`中，并没有直接求$M$的特征值，因为求$M$的特征值计算速度过慢，而是利用另一种方式筛选第一种情况的点.
+>
+> 下面补充两条公式：
+>
+> > 矩阵的迹等于特征值的和,同时，也等于对角线上的元素之和.对于(15)中的$M$,有：
+> > $$
+> > Tr(M)=\lambda_1  +  \lambda_2=f_x^2(x,y) + f_y^2(x,y)		\tag {16}
+> > $$
+> > 其中,$Tr(M)$表示矩阵$M$的迹
+> >
+> > 矩阵的行列式等于特征值之积，有：
+> > $$
+> > Det(M)= \lambda_1\lambda_2=f_x^2(x,y)f_y^2(x,y)-[f_{xy}(x,y)]^2			\tag {17}
+> > $$
+> > 其中，$Det(M)$表示矩阵$M$的行列式
+>
+> 在`Harris`中，是用响应函数$R$来选择第一种情况点,响应函数$R$定义为：
+> $$
+> R=Det(M)-k \cdot (Tr(M))^2		\tag {18}
+> $$
+> 其中，$Det(M)$和$Tr(M)$分别表示$M$的行列式和迹，$k$为一个常数，通常取$0.04$到$0.06$.
+>
+> 响应函数$R$​有三种情况：
+>
+> * $R$大于0且$|R|$较大，说明该点为角点
+> * $R$小于0，说明该点为边缘点
+> * $R$大于0且$|R|$较小，说明该点为平坦地方的点
+>
+> 我们需要选择第一种情况，即$R$大于0且$|R|$较大的点
+>
+> 下面说明为何会这样判断。
+>
+> 由式（18），可以变换为：
+> $$
+> R=\lambda_1 \lambda_2 - k(\lambda_1 + \lambda_2)^2			\\
+> =(1 - 2k)\lambda_1 \lambda_2 - k(\lambda_1^2 + \lambda_2^2)
+> \tag {19}
+> $$
+>
+> * 若是角点的情况，$\lambda_1$和$\lambda_2$均较大，且$\lambda_1 \approx  \lambda_2$,上式可以改成：
+>
+> $$
+> R \approx (1-2k) \lambda_1^2-2k\lambda_1^2		\\
+> =(1-4k) \lambda_1^2
+> \tag {20}
+> $$
+>
+> 由式（20）可知，此时$R$较大
+>
+> * 若是在平坦区域的情况，$\lambda_1$和$\lambda_2$均较小，且$\lambda_1 \approx  \lambda_2$，则式（20），很小
+>
+> * 若是在边缘部分的情况，$\lambda_1 >> \lambda_2$​，此时$\lambda_2$相比于$\lambda_1$可以忽略不计，式(19)可以改写成：
+>   $$
+>   R \approx (1-2k) \lambda_1 \lambda_2 - k \lambda_1^2  \\
+>   = [(1-k) \lambda_2 - k \lambda_1] \lambda_1
+>   \tag {21}
+>   $$
+>   式（21）中，由于$\lambda_1 >> \lambda_2$，则$(1-k) \lambda_2 - k \lambda_1$必为负数。
+
+## 关键点方向
+
+在得到关键点之后，我们需要计算出关键点的方向。
+
+实际上，确定关键点的方向很简单，我们只要算出该点的梯度方向，即为关键点的方向。但论文中并未只求该点的梯度，而是求该点周围的点的梯度，然后进行统计，频度最高的方向即为该点的方向。
+
+在[改进关键点位置的精度](#改进关键点位置的精度)一节中，我们求得关键点的$\sigma$的值，也就是式（3）泰勒展开式的极值点。首先，我们需要根据$\sigma$的值找出在高斯金字塔中（注意，不是高斯差分金字塔）距离$\sigma$最近的层，设该层为$F$.
+
+在层$F$中，以该关键点为圆心,$1.5 \sigma$为半径划定一个领域，求此领域内所有点的梯度幅值和梯度方向。设领域内的任意一点为$(x^F,y^F)$,则其梯度幅值$M(x^F,y^F)$为：
+$$
+M(x,y)=[(F(x^F+1,y^F)-F(x^F-1,y^F))^2+(F(x^F,y^F+1)-F(x^F,y^F-1))^2]^{1/2}			\tag {22}
+$$
+其中，$F(x^F,y^F)$表示在层$F$中坐标$(x^F,y^F)$的像素值。
+
+方向角$\theta(x,y)$表示为：
+$$
+\theta (x,y)=arctan
+\left[
+\frac{F(x^F,y^F+1)-F(x^F,y^F-1)}{F(x^F+1,y^F)-F(x^F-1,y^F)}
+\right]
+\tag {23}
+$$
+像`HOG`算子一样，我们对梯度方向进行直方图统计，**但进行统计叠加的并不是频数，而是幅度值乘以高斯权重**。
+
+上述幅度值即为式（22）的幅度值，高斯权重是以$1.5 \sigma$为参数的高斯权重。
+
+在得到直方图之后，值最大对应的方向即为该点的方向。若第二大值超过第一大值的$80 \%$,则该关键点有一个副方向。
+
+## 关键点描述子
+
+由于我们需要计算关键点之间的距离，所以我们需要量化关键点，这一步就是量化关键点，更确切的说是将一个关键点变为一个向量，以便计算相互之间的距离。
+
+这里量化的指标还是梯度。同确定[关键点方向](#关键点方向)一样，还是以该关键点为中心，确定一个领域，这里选定的领域为$16 \times 16$的像素点，计算其梯度方向。如下图的左上图所示：
+
+![](https://blog-1253764997.cos.ap-chongqing.myqcloud.com/屏幕截图.png)
+
+上图中$16 \times 16$的领域以$4 \times 4$的子区域为一个单位计算直方图。在此直方图中，以$45^ \circ$为一个bin进行统计，那么共有$8$个bin，以梯度幅值为直方图统计的量，再乘以高斯权重（这里步骤完全同[关键点方向](#关键点方向)，这里不再详细阐述）。如上图右上和右下所示。
+
+那个共有$16$个子区域，每个子区域有$8$个bin,也就是$8$维的向量。所以，一个关键点的描述子为$16 \times 8= 128$维的向量（16代表16个子区域，8代表每个子区域的8维的bin）
+
+为了保证`SIFT`的旋转不变性，这里在计算梯度方向时，**是将方向旋转到关键点的主方向，再进行统计直方图计算的。**（也就是说，以主方向为0角度）
+
+为了降低光照对结果的影响，`SIFT`对描述子的结果进行了归一化，这样线性的光照变换就不会对结果有影响（例如光照增强，像素值同比例增加等）
+
+## 参考资料
+
+* 冈萨雷斯《数字图像处理》第四版
+* [B站SIFT讲解(会飞的吴克)](https://www.bilibili.com/video/BV1Qb411W7cK?from=search&seid=2827726263307974389&spm_id_from=333.337.0.0)
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" rel="tag"><i class="fa fa-tag"></i> 计算机视觉</a>
+          
+            <a href="/tags/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> 数字图像处理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/562ce80d.html/" rel="next" title="胸痹心痛短气病脉证治">
+                <i class="fa fa-chevron-left"></i> 胸痹心痛短气病脉证治
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/d6a12e0a.html/" rel="prev" title="Marr-Hildreth算子">
+                Marr-Hildreth算子 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/header1.jpg"
+                alt="冒烟的乔" />
+            
+              <p class="site-author-name" itemprop="name">冒烟的乔</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/qcymkxyc" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:qcymkxyc@163.com.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zhangqi2019.top" title="个人网站" target="_blank">个人网站</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.zhangqi2019.top" title="个人博客" target="_blank">个人博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">冒烟的乔</span>
+
+  
+</div>
+
+
+
+
+
+<div class="BbeiAn-info">
+<a target="_blank" href="http://www.beian.miit.gov.cn" style="text-decoration:none;padding-left:30px;background:url(https://s1.ax1x.com/2018/09/29/ilmwIH.png) no-repeat left center" rel="nofollow">渝ICP备18010901号</a>	  <!--这里将图标作为了背景，以使得能和后面的文字在同一行-->
+</div>
+
+
+
+
+
+
+  <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+    <script>
+	    if (window.mermaid) {
+			      mermaid.initialize({theme: 'forest'});
+				      }
+  </script>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'IniPBxAF6TYJBVXarXhzSjGv-gzGzoHsz',
+        appKey: 'q4s1P3VFP84G5XCis8bO9gKa',
+        placeholder: '各位道友，请举手发言',
+        avatar:'mp',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
