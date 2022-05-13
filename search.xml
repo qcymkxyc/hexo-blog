@@ -126,12 +126,12 @@
 
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-vutlZfkA" src="//player.bilibili.com/player.html?aid=86257908&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
+        <iframe class="bbplayer" id="mmedia-BvStpnQI" src="//player.bilibili.com/player.html?aid=86257908&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-vutlZfkA").style.height=document.getElementById("mmedia-vutlZfkA").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-BvStpnQI").style.height=document.getElementById("mmedia-BvStpnQI").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-vutlZfkA").style.height=document.getElementById("mmedia-vutlZfkA").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-BvStpnQI").style.height=document.getElementById("mmedia-BvStpnQI").scrollWidth*0.76+"px";
             };
         </script>
         
@@ -139,12 +139,12 @@
 
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-ELSntlsj" src="//player.bilibili.com/player.html?aid=86258451&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
+        <iframe class="bbplayer" id="mmedia-QKcVQVQo" src="//player.bilibili.com/player.html?aid=86258451&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-ELSntlsj").style.height=document.getElementById("mmedia-ELSntlsj").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-QKcVQVQo").style.height=document.getElementById("mmedia-QKcVQVQo").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-ELSntlsj").style.height=document.getElementById("mmedia-ELSntlsj").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-QKcVQVQo").style.height=document.getElementById("mmedia-QKcVQVQo").scrollWidth*0.76+"px";
             };
         </script>
         
@@ -207,12 +207,12 @@
 
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-UxOdMnEs" src="//player.bilibili.com/player.html?aid=86258451&page=2&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
+        <iframe class="bbplayer" id="mmedia-qoOTAZnV" src="//player.bilibili.com/player.html?aid=86258451&page=2&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-UxOdMnEs").style.height=document.getElementById("mmedia-UxOdMnEs").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-qoOTAZnV").style.height=document.getElementById("mmedia-qoOTAZnV").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-UxOdMnEs").style.height=document.getElementById("mmedia-UxOdMnEs").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-qoOTAZnV").style.height=document.getElementById("mmedia-qoOTAZnV").scrollWidth*0.76+"px";
             };
         </script>
         
@@ -467,6 +467,8 @@
 </table>
 <h2 id="五行八卦">五行八卦</h2>
 <p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/3ac79f3df8dcd1009903550b7a8b4710b9122f78.webp" style="zoom:50%;"></p>
+<h2 id="五行四象">五行四象</h2>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/五脏四象图.png" style="zoom: 33%;"></p>
 <h1 id="心">心</h1>
 <p>心为离卦（“☲”），属火</p>
 <h2 id="心主血脉">心主血脉</h2>
@@ -731,6 +733,101 @@ F --生成--> G(营气卫气)</pre>
 <li>涎少：有一种分型是胃阴虚</li>
 </ul>
 <h2 id="与长夏对应">与长夏对应</h2>
+<h1 id="肝">肝</h1>
+<p>肝为震卦（☳），属木，对应东方，四季属春，故主生发。</p>
+<h2 id="肝主疏泄">肝主疏泄</h2>
+<h3 id="调畅气机">调畅气机</h3>
+<p>气有升降出入，肝主升，肝的主升功能能够帮助气的“升”。故肝的疏泄功能病理包括两个方面：</p>
+<ul>
+<li>升发不足：即肝气郁结。此时气停留在肝经，出现少腹，两肋，乳房胀闷（痛）</li>
+<li>生发太过：即肝阳上亢。此时气的下降就不及时，出现头痛，易怒等。</li>
+</ul>
+<h3 id="促进血液与津液运行疏布">促进血液与津液运行疏布</h3>
+<p>实质这是气和血的关系，气推血走，若肝气郁结，气不行则血不行；气不行则津不行。在血即形成血瘀，在津液则形成痰</p>
+<ul>
+<li>血：称为癥瘕（zheng，jia）：血瘀为癥，气聚为瘕</li>
+<li>津液：水臌</li>
+<li>痰：瘿瘤</li>
+</ul>
+<h3 id="促进脾胃运化">促进脾胃运化</h3>
+<p>肝升助脾升，肝郁则肝气犯脾（胃）</p>
+<h3 id="促进胆汁的分泌">促进胆汁的分泌</h3>
+<p>肝病，则会导致胆汁分泌异常，胆汁一但分泌异常就会表现出怕油腻，例如乙肝</p>
+<h3 id="调畅情志">调畅情志</h3>
+<p>肝喜调达而恶抑郁。病理则闷闷不乐，心烦。弦脉</p>
+<h3 id="促进男子排精与女子排卵行经">促进男子排精与女子排卵行经</h3>
+<p>病理：肝气郁结部分不排精</p>
+<h2 id="肝藏血">肝藏血</h2>
+<p>肝调节血量，人动则血运于诸经，人静则血归于肝脏</p>
+<blockquote>
+<p>此外，丑时属肝，根据以上理论，丑时睡觉应是血回流肝脏。肝藏魂，血回流肝脏以养魂，若血不归肝，则血不养魂，魂不守舍。出现惊骇多梦，梦游，失眠等。（故梦游一般在中医认为与肝有关）</p>
+</blockquote>
+<h2 id="肝为刚脏">肝为刚脏</h2>
+<p>肝脏易亢易逆。故一般而言，肝没有虚症（肾无实证，肝无虚症）</p>
+<h2 id="肝主升">肝主升</h2>
+<p>肝气以升为顺</p>
+<h2 id="在志为怒">在志为怒</h2>
+<p>怒则气往上走，故肝火旺，则脾气大。</p>
+<h2 id="在窍为目">在窍为目</h2>
+<p>肝精气上通于目</p>
+<p>五脏六腑之精气，皆上注于目而为精。（在肝的五行互藏）</p>
+<p>所以，有五轮学说，如下图所示：</p>
+<div class="figure">
+<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/五轮学说.jpg">
+
+</div>
+<h2 id="与春相通">与春相通</h2>
+<p>根据同气相求原理，在春天肝火上沿和肝阳上亢会加重。</p>
+<p>而<strong>肝气郁结可能减轻也可能加重</strong>。</p>
+<blockquote>
+<p>肝气郁结成因认为有二：</p>
+<ol style="list-style-type: decimal">
+<li>气机郁</li>
+<li>情志郁</li>
+</ol>
+<p>两者相互影响，根据同气相求原理，气机郁为主的肝气郁结会减轻。而情志郁反而加重。（由于情志郁主要由外因引起，春天生发肝气，憋气也就更多）</p>
+</blockquote>
+<h2 id="病理">病理</h2>
+<h3 id="肝火上炎以及肝阳上亢">肝火上炎以及肝阳上亢</h3>
+<p>两者都是火旺，但肝火上炎属于实证，而肝阳上亢属于虚症（阴虚）。既然都是火旺，则症状脉象等有共同点，也有不同点，共同点如下：</p>
+<p>脉弦，面红耳赤，头晕头胀，烦躁易怒，舌边红</p>
+<p>肝火上炎：苔黄，口苦，小便黄，大便干，脉弦数</p>
+<p>肝阳上亢：舌红少苔，少津，脉弦细数，腰膝酸软（即肝阳上亢兼有阴虚的症状，且肝肾同源，一般来说兼肾阴虚）</p>
+<p>对于肝阳上亢理当滋阴潜阳，代表方：镇肝熄风汤</p>
+<blockquote>
+<p>怀牛膝，生赭石，生龙骨，生牡蛎，生龟板，生杭芍，玄参，天冬，川楝子，生麦芽，茵陈，甘草</p>
+</blockquote>
+<blockquote>
+<p>我的理解：方中生赭石，生龙骨，生牡蛎重镇潜阳，以压制肝火上冲。</p>
+<p>茵陈，和麦芽疏肝，微有升发之气</p>
+</blockquote>
+<h3 id="肝气郁结">肝气郁结</h3>
+<p>肝气郁结主要影响肝的<a href="#肝主疏泄">疏泄</a>功能，病理上当然也和其生理功能相反</p>
+<h4 id="气滞">气滞</h4>
+<p>表现为少腹，两肋，乳房闷痛（足厥阴肝经穿过少腹，走两肋，故会引起少腹疼痛）</p>
+<h4 id="血瘀">血瘀</h4>
+<p>形成癥瘕，且一般肝气郁结的血瘀都在两肋，即肝经循行的部位</p>
+<h4 id="津液淤堵">津液淤堵</h4>
+<p>形成水臌等</p>
+<h4 id="痰湿淤堵">痰湿淤堵</h4>
+<p>形成瘿瘤，瘰疬，乳癖，痰核等（祛痰主药瓜蒌，半夏）</p>
+<h4 id="肝气翻脾肝气犯胃">肝气翻脾，肝气犯胃</h4>
+<p>犯脾则下利清谷，犯胃则有上逆症候，且还有嗳气，纳呆等症候</p>
+<p>药用逍遥丸</p>
+<h4 id="心情抑郁">心情抑郁</h4>
+<h3 id="肝血虚">肝血虚</h3>
+<p>肝血虚则面色无华，舌淡，脉细弦，头晕目眩，目干涩，视物模糊，夜盲，手足麻木，关节痉挛，抽搐，爪甲不荣，月经量少甚至闭经。</p>
+<h3 id="肝阴虚">肝阴虚</h3>
+<p>肝阴虚通常由于肾阴虚（水生木，肾阴虚则水不涵木）所致。肝阴虚则会引起<a href="#肝火上炎以及肝阳上亢">肝阳上亢</a>的症候。肝火一旦旺盛则可能热入血室，迫血妄行，造成鼻衄等。</p>
+<blockquote>
+<p>补充：一般出血辩证的两大分类</p>
+<p>中医一般将出血成因分为两大类：</p>
+<ul>
+<li>气不摄血：气的固摄作用</li>
+<li>迫血妄行：热入血室所致（火为阳邪，其性上炎，耗血伤津，生风动血，易扰心神，易致疮痈）</li>
+</ul>
+</blockquote>
+<p><strong>由于肝主升的特性，肝火导致的出血一般上部多见，脾导致的出血一般下部多见，且脾导致的出血一般为气不摄血</strong></p>
 <h1 id="大肠">大肠</h1>
 <p>大肠与肺互为表里</p>
 <p>大肠接收小肠的残渣，吸收水分，形成粪便。故大肠作用有二：</p>
@@ -770,6 +867,22 @@ F --生成--> G(营气卫气)</pre>
 </ul>
 <h2 id="胃火">胃火</h2>
 <p>胃火：面红，舌红，舌苔黄，脉数，口渴，小便黄，大便干，嗳气，呃逆，易饥，牙龈肿痛，口疮，齿纽，痤疮等</p>
+<h1 id="胆">胆</h1>
+<h2 id="存储和排泄胆汁">存储和排泄胆汁</h2>
+<p>胆汁的主要作用是分泌到小肠，帮助消化脂肪（故胆汁分泌出现问题，就会表现出厌食油腻）</p>
+<h2 id="主决断">主决断</h2>
+<p>胆者，中正之官，决断出焉</p>
+<p>凡十一脏，取决于胆</p>
+<p><strong>若胆气虚，则胆小易惊，治心胆同补</strong></p>
+<h2 id="肝与胆">肝与胆</h2>
+<p>肝胆经络相通，同司疏泄，共主勇怯（肝主谋略，胆主决断）</p>
+<h2 id="病理-1">病理</h2>
+<h3 id="胆汁分泌於堵">胆汁分泌於堵</h3>
+<p>胆汁分泌於堵则出现<strong>右肋痛</strong>，甚至绞痛，就而形成胆结石，腹胀，纳呆，厌食油腻</p>
+<h3 id="胆汁上逆">胆汁上逆</h3>
+<p>口苦，呕吐，黄绿苦水</p>
+<h3 id="胆汁外溢">胆汁外溢</h3>
+<p>黄疸，目黄，身黄，小便黄</p>
 ]]></content>
       <categories>
         <category>中医</category>
@@ -1073,8 +1186,8 @@ C --作用于--> A</pre>
         <category>产品</category>
       </categories>
       <tags>
-        <tag>阅读</tag>
         <tag>产品</tag>
+        <tag>阅读</tag>
       </tags>
   </entry>
   <entry>
@@ -3538,9 +3651,9 @@ $$
         <category>计算机视觉</category>
       </categories>
       <tags>
+        <tag>目标检测</tag>
         <tag>深度学习</tag>
         <tag>神经网络</tag>
-        <tag>目标检测</tag>
         <tag>计算机视觉</tag>
       </tags>
   </entry>
@@ -6216,12 +6329,12 @@ cond(no)->sub->io</textarea><textarea id="flowchart-0-options" style="display: n
     <content><![CDATA[
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-wMtXMwAK" src="//player.bilibili.com/player.html?aid=85098088&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
+        <iframe class="bbplayer" id="mmedia-nOYFOotI" src="//player.bilibili.com/player.html?aid=85098088&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-wMtXMwAK").style.height=document.getElementById("mmedia-wMtXMwAK").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-nOYFOotI").style.height=document.getElementById("mmedia-nOYFOotI").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-wMtXMwAK").style.height=document.getElementById("mmedia-wMtXMwAK").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-nOYFOotI").style.height=document.getElementById("mmedia-nOYFOotI").scrollWidth*0.76+"px";
             };
         </script>
         
