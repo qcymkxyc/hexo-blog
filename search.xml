@@ -113,8 +113,8 @@
         <category>中医</category>
       </categories>
       <tags>
-        <tag>伤寒论</tag>
         <tag>中医</tag>
+        <tag>伤寒论</tag>
       </tags>
   </entry>
   <entry>
@@ -126,12 +126,12 @@
 
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-BvStpnQI" src="//player.bilibili.com/player.html?aid=86257908&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
+        <iframe class="bbplayer" id="mmedia-eaTCbOaC" src="//player.bilibili.com/player.html?aid=86257908&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-BvStpnQI").style.height=document.getElementById("mmedia-BvStpnQI").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-eaTCbOaC").style.height=document.getElementById("mmedia-eaTCbOaC").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-BvStpnQI").style.height=document.getElementById("mmedia-BvStpnQI").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-eaTCbOaC").style.height=document.getElementById("mmedia-eaTCbOaC").scrollWidth*0.76+"px";
             };
         </script>
         
@@ -139,12 +139,12 @@
 
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-QKcVQVQo" src="//player.bilibili.com/player.html?aid=86258451&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
+        <iframe class="bbplayer" id="mmedia-YglafYcc" src="//player.bilibili.com/player.html?aid=86258451&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-QKcVQVQo").style.height=document.getElementById("mmedia-QKcVQVQo").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-YglafYcc").style.height=document.getElementById("mmedia-YglafYcc").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-QKcVQVQo").style.height=document.getElementById("mmedia-QKcVQVQo").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-YglafYcc").style.height=document.getElementById("mmedia-YglafYcc").scrollWidth*0.76+"px";
             };
         </script>
         
@@ -207,12 +207,12 @@
 
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-qoOTAZnV" src="//player.bilibili.com/player.html?aid=86258451&page=2&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
+        <iframe class="bbplayer" id="mmedia-GAYyRSTn" src="//player.bilibili.com/player.html?aid=86258451&page=2&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-qoOTAZnV").style.height=document.getElementById("mmedia-qoOTAZnV").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-GAYyRSTn").style.height=document.getElementById("mmedia-GAYyRSTn").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-qoOTAZnV").style.height=document.getElementById("mmedia-qoOTAZnV").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-GAYyRSTn").style.height=document.getElementById("mmedia-GAYyRSTn").scrollWidth*0.76+"px";
             };
         </script>
         
@@ -828,6 +828,110 @@ F --生成--> G(营气卫气)</pre>
 </ul>
 </blockquote>
 <p><strong>由于肝主升的特性，肝火导致的出血一般上部多见，脾导致的出血一般下部多见，且脾导致的出血一般为气不摄血</strong></p>
+<h1 id="肾">肾</h1>
+<p>肾为水坎（），坎卦两阴夹一阳。故肾为水火之脏。阴为肾水，即肾阴，阳为命门，即肾阳。</p>
+<p>肾主一身之阴阳，肾阴肾阳为脏腑阴阳之本。</p>
+<p>肾属北方，四季属冬。主藏。</p>
+<h2 id="肾藏精">肾藏精</h2>
+<p>肾者主水,受五藏六腑之精而藏之。</p>
+<p>此外，精生髓，髓入脑</p>
+<h3 id="精的分类以及流程">精的分类以及流程</h3>
+<p>精是构成人体的基本物质,也是人体生长发育及各种功能活动的物质基础。精是一切的原料基础。</p>
+<p>精分为先天和后天，先天之精来源于父母。后天之精主要来源于水谷的消化腐熟</p>
+<p>后天之精的形成流程如下图所示：</p>
+<pre class="mermaid">graph LR
+A[水谷之精] --> |脾胃吸收|B[脏腑之精] 
+B--> |多余部分| C[后天之精]
+B -->|生成| 脏腑之气
+C -->|充养| E[先天之精]
+E -->|生成| 元气
+E -->|生成| F[生殖之精]</pre>
+<h3 id="精气阴阳">精气阴阳</h3>
+<p>精是元气的来源，元气是最基础，最重要的气。在形成元气后，通过<strong>三焦</strong>内达脏腑，外达皮毛腠理。</p>
+<p>而气分阴阳，阳助精化气，阴助气化精</p>
+<pre class="mermaid">graph LR
+A[精] --->|阳帮助化生| B[元气]
+B --->|阴帮助化生| A
+B --->|分| C[阴]
+B --->|分| D[阳]
+B --->|分| E[气]</pre>
+<p>肾阴主一身之阴，阴虚则舌红，少苔（甚至光剥苔），脉细，五心烦热，甚至盗汗等。甚至肾阴虚导致肝阴虚（水生木，水不涵木，肝肾同源）</p>
+<p>肾阳虚，则少气懒言，畏寒肢冷，苔白，脉沉弱，尿多或尿少，小便清长等。甚至影响脾阳（火生土，出现脾不健运，泄泻等）</p>
+<h2 id="肾主水">肾主水</h2>
+<h3 id="肾的蒸腾作用">肾的蒸腾作用</h3>
+<p>津液中“浊中之清”需要肾阳的蒸腾作用,津液中的“浊中之浊”需要肾的过滤，形成尿液之源。以下是津液运行图：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/津液运行图.jpg" style="zoom: 67%;"></p>
+<h3 id="肾控制膀胱的开合">肾控制膀胱的开合</h3>
+<p>肾阳虚则可能膀胱失控，失控有两种可能：尿多以及尿少。</p>
+<ul>
+<li>尿液多：肾阳虚则上节所提的蒸腾作用下降，水不上走，人体无法利用，则此时通过尿液排出体外。故此时就会尿液多</li>
+<li>尿液少：此时控制膀胱能力降低，导致排尿障碍，形成水肿。此症状再往严重发展就是癃闭。</li>
+</ul>
+<h2 id="肾主纳气">肾主纳气</h2>
+<p>肺为气之主，肾为气之根。<strong>肺吸入之清气，必须下达于肾</strong>。</p>
+<h2 id="在志为恐">在志为恐</h2>
+<h2 id="在液为唾">在液为唾</h2>
+<p>唾和液的区别：唾为浓，液为清</p>
+<p>肾阴阳两虚均可导致：唾液不足。阴虚是因为津少，阳虚是因为肾的蒸腾作用降低，津液无法上达。</p>
+<h2 id="与冬相通">与冬相通</h2>
+<h2 id="在体为骨主骨生髓">在体为骨，主骨生髓</h2>
+<p>肾主骨</p>
+<h2 id="其华在发">其华在发</h2>
+<p>中医认为，头发一般和两个脏有关，肝和肾。</p>
+<ul>
+<li>在肾主要和肾精有关，故若是肾上的问题补肾精</li>
+<li>在肝主要和血有关（肝藏血），故补血。（发为血之余）</li>
+</ul>
+<blockquote>
+<p>倪海夏说：头发的颜色一般和肾有关，头发的脱落一般和肝有关</p>
+</blockquote>
+<h2 id="主蛰守位">主蛰守位</h2>
+<h3 id="主蛰">主蛰</h3>
+<p>蛰，蛰藏。肾有潜藏，封藏，闭藏之生理功能。<strong>故补肾药通常加收敛药</strong></p>
+<h3 id="守位">守位</h3>
+<p>肾阳涵于肾中，潜藏不露，以发挥其温煦与推动作用。</p>
+<p>故而相火妄动，上热下寒。应潜阳重镇。代表方：潜阳封隋丹：砂仁，黄柏，附子，龟板，甘草</p>
+<h2 id="开窍于耳及二阴">开窍于耳及二阴</h2>
+<p>一般辨别急性耳鸣和慢性耳鸣：</p>
+<ul>
+<li>急性耳鸣：肝胆火（少阳经过耳），通常声音大，越捂越响</li>
+<li>慢性耳鸣：</li>
+<li>肾虚（阴阳气血精均有可能）</li>
+<li>脾不升清（清窍失养）</li>
+</ul>
+<h2 id="病理-1">病理</h2>
+<p><strong>肝无虚证，肾无实证</strong></p>
+<h3 id="肾精虚">肾精虚</h3>
+<p>肾主蛰藏，藏精，精生髓，髓入脑。肾主骨。一般肾精虚和脑以及骨的关系较大。</p>
+<p>肾精虚在不同年龄段的表现不同</p>
+<h4 id="小孩">小孩</h4>
+<p>小孩主要表现为发育迟缓，<strong>尤其是智力</strong>：五迟五软，头发黄，干枯，方颅，卤门迟闭，解颅，XO型腿，智力低下。</p>
+<p>治用：龟鹿二仙胶，紫河车，鹿胎</p>
+<h4 id="青壮年">青壮年</h4>
+<p>不孕不育，性功能下降。少气懒言。</p>
+<p>治用：五子衍宗丸，龟鹿二仙胶</p>
+<h4 id="老人">老人</h4>
+<p>须发早白，齿摇，齿落，骨脆易折，骨刺，反应迟钝</p>
+<p>治用：龟鹿二仙胶</p>
+<h3 id="肾阴虚">肾阴虚</h3>
+<p>阴虚则热，则津少：低热，潮热，五心烦热，口干，大便干，少苔，面色潮红/颧红，盗汗,在男则阳强，遗精。在女则月经多月经少均有可能。</p>
+<p>治用：六位地黄汤，左归丸，左归饮</p>
+<h3 id="肾阳虚">肾阳虚</h3>
+<p>肾阳虚有肾气虚的症状+畏寒肢冷（畏寒肢冷可能是全身性的也可能是下焦畏寒，这在老年人中多见），腰膝酸冷，耳鸣。</p>
+<p>肾阳虚则尿多尿少均有可能发生，见<a href="#肾控制膀胱的开合">肾主水</a></p>
+<p>另一组症状：男子阳痿，女子阴冷，性功能下降</p>
+<h3 id="肾气虚">肾气虚</h3>
+<p>肾气虚分也为两组症状</p>
+<h4 id="肾气不固">肾气不固</h4>
+<ul>
+<li>在尿方面则余沥不尽，小便清长（肾阳虚也有可能）</li>
+<li>精：滑精，早泄</li>
+<li>带：带下清稀（偏黄粘稠是湿热）</li>
+</ul>
+<h4 id="肾不纳气">肾不纳气</h4>
+<p>肾不纳气表现为声低，声哑，呼多吸少，以及气虚症状</p>
+<p>治用：人参+蛤蚧（gejie），即补气药加纳气药</p>
+<p>此外，下沉药均可：冬虫夏草，核桃仁，磁石，沉香，代赭石</p>
 <h1 id="大肠">大肠</h1>
 <p>大肠与肺互为表里</p>
 <p>大肠接收小肠的残渣，吸收水分，形成粪便。故大肠作用有二：</p>
@@ -876,13 +980,17 @@ F --生成--> G(营气卫气)</pre>
 <p><strong>若胆气虚，则胆小易惊，治心胆同补</strong></p>
 <h2 id="肝与胆">肝与胆</h2>
 <p>肝胆经络相通，同司疏泄，共主勇怯（肝主谋略，胆主决断）</p>
-<h2 id="病理-1">病理</h2>
+<h2 id="病理-2">病理</h2>
 <h3 id="胆汁分泌於堵">胆汁分泌於堵</h3>
 <p>胆汁分泌於堵则出现<strong>右肋痛</strong>，甚至绞痛，就而形成胆结石，腹胀，纳呆，厌食油腻</p>
 <h3 id="胆汁上逆">胆汁上逆</h3>
 <p>口苦，呕吐，黄绿苦水</p>
 <h3 id="胆汁外溢">胆汁外溢</h3>
 <p>黄疸，目黄，身黄，小便黄</p>
+<h1 id="膀胱">膀胱</h1>
+<p>膀胱位于小腹，居肾之下，大肠之前</p>
+<p>膀胱湿热：八正散：车前子、瞿麦、扁蓄、滑石、山栀子仁、甘草、木通、大黄</p>
+<p>小肠实热：导赤散：木通、生地黄、生甘草梢、竹叶</p>
 ]]></content>
       <categories>
         <category>中医</category>
@@ -1804,8 +1912,8 @@ M(x,y)=[(F(x^F+1,y^F)-F(x^F-1,y^F))^2+(F(x^F,y^F+1)-F(x^F,y^F-1))^2]^{1/2}      
         <category>中医</category>
       </categories>
       <tags>
-        <tag>伤寒论</tag>
         <tag>中医</tag>
+        <tag>伤寒论</tag>
         <tag>太阳病</tag>
       </tags>
   </entry>
@@ -2115,8 +2223,8 @@ F(\mu), &amp; \text {if $|\mu| &lt; \mu_{max}$} \\
         <category>中医</category>
       </categories>
       <tags>
-        <tag>伤寒论</tag>
         <tag>中医</tag>
+        <tag>伤寒论</tag>
       </tags>
   </entry>
   <entry>
@@ -2507,8 +2615,8 @@ f(x)=\psi(2x-1)+\psi(x)+\phi(x)
         <category>中医</category>
       </categories>
       <tags>
-        <tag>伤寒论</tag>
         <tag>中医</tag>
+        <tag>伤寒论</tag>
         <tag>太阳病</tag>
       </tags>
   </entry>
@@ -2900,8 +3008,8 @@ L(x,c,l,g) = \frac{1}{N}(L_{conf}(x,c)+ \alpha L_{loc}(x,l,g)) \tag 1
         <category>中医</category>
       </categories>
       <tags>
-        <tag>伤寒论</tag>
         <tag>中医</tag>
+        <tag>伤寒论</tag>
         <tag>太阳病</tag>
       </tags>
   </entry>
@@ -3101,8 +3209,8 @@ L(x,c,l,g) = \frac{1}{N}(L_{conf}(x,c)+ \alpha L_{loc}(x,l,g)) \tag 1
         <category>中医</category>
       </categories>
       <tags>
-        <tag>伤寒论</tag>
         <tag>中医</tag>
+        <tag>伤寒论</tag>
         <tag>太阳病</tag>
       </tags>
   </entry>
@@ -3448,8 +3556,8 @@ BF[I]_q=\frac{1}{W_p}\sum_{p\in{S}}G_{\sigma_s}(||p - q||)G_{\sigma_r}(|I_p-I_q|
         <category>中医</category>
       </categories>
       <tags>
-        <tag>伤寒论</tag>
         <tag>中医</tag>
+        <tag>伤寒论</tag>
         <tag>太阳病</tag>
       </tags>
   </entry>
@@ -4305,8 +4413,8 @@ R_c=\frac{4\pi A}{P^2}
         <category>中医</category>
       </categories>
       <tags>
-        <tag>伤寒论</tag>
         <tag>中医</tag>
+        <tag>伤寒论</tag>
       </tags>
   </entry>
   <entry>
@@ -5340,8 +5448,8 @@ Pearson-correlation = \frac{cov(x,y)}{\sqrt{cov(x,x)*cov(y,y)}}
       </categories>
       <tags>
         <tag>机器学习</tag>
-        <tag>相似度</tag>
         <tag>距离度量</tag>
+        <tag>相似度</tag>
       </tags>
   </entry>
   <entry>
@@ -6329,12 +6437,12 @@ cond(no)->sub->io</textarea><textarea id="flowchart-0-options" style="display: n
     <content><![CDATA[
         <style>.bbplayer{width: 100%; max-width: 850px; margin: auto}</style>
         <div class="bbplayer">
-        <iframe class="bbplayer" id="mmedia-nOYFOotI" src="//player.bilibili.com/player.html?aid=85098088&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
+        <iframe class="bbplayer" id="mmedia-XtGjwzYp" src="//player.bilibili.com/player.html?aid=85098088&page=1&high_quality=1&danmaku=true" allowfullscreen="no" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
         </div>
         <script>
-            document.getElementById("mmedia-nOYFOotI").style.height=document.getElementById("mmedia-nOYFOotI").scrollWidth*0.76+"px";
+            document.getElementById("mmedia-XtGjwzYp").style.height=document.getElementById("mmedia-XtGjwzYp").scrollWidth*0.76+"px";
             window.onresize = function(){
-              document.getElementById("mmedia-nOYFOotI").style.height=document.getElementById("mmedia-nOYFOotI").scrollWidth*0.76+"px";
+              document.getElementById("mmedia-XtGjwzYp").style.height=document.getElementById("mmedia-XtGjwzYp").scrollWidth*0.76+"px";
             };
         </script>
         
