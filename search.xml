@@ -274,6 +274,28 @@
       </tags>
   </entry>
   <entry>
+    <title>少阳病</title>
+    <url>/posts/d964119d.html/</url>
+    <content><![CDATA[<h1 id="少阳病概说">少阳病概说</h1>
+<h2 id="少阳病来源">少阳病来源</h2>
+<p>少阳病来源有两个，1.本经直接受邪。2.邪由它经传来。如下：</p>
+<pre class="mermaid">graph LR
+A[少阳病] --- B[本经直接受邪]
+A --- C[它经传来]
+C --- D[太阳病传少阳]
+C --- E[厥阴脏邪还腑,阴病出阳]</pre>
+<p>其中，邪由它经传来有两个来源1. 太阳受邪，失治或误治导致邪传少阳 2.厥阴经和少阳经相表里，厥阴阳气恢复，厥阴之邪外出少阳，脏邪还腑。</p>
+]]></content>
+      <categories>
+        <category>中医</category>
+      </categories>
+      <tags>
+        <tag>中医</tag>
+        <tag>伤寒论</tag>
+        <tag>少阳病</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>《驭人经》总结</title>
     <url>/posts/f4f694cf.html/</url>
     <content><![CDATA[<p>《驭人经》是千古一相张居正的著作。</p>
