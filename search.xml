@@ -169,10 +169,23 @@ Q(Z;\theta^{(i)}) log{
 }\right)
 }
 \tag {21}
-\]</span> 由于<span class="math inline">\(\theta^{(i+1)}\)</span>来源于在给定了<span class="math inline">\(\theta^{(i)}\)</span>之后估计的最大值（即<code>M步</code>，见式（18）），所以一定有： $$ {_y _Z ( P(Z|Y;^{(i)}) log{ }) } \ {_y _Z ( P(Z|Y;^{(i)}) log{ }) } = G(^{(i)})</p>
-<p><span class="math display">\[
-故有：
-\]</span> G(^{(i+1)}) G(^{(i)}) $$ 故式（16）得证。</p>
+\]</span> 由于<span class="math inline">\(\theta^{(i+1)}\)</span>来源于在给定了<span class="math inline">\(\theta^{(i)}\)</span>之后估计的最大值（即<code>M步</code>，见式（18）），所以一定有： <span class="math display">\[
+{\sum_y \sum_Z
+\left(
+P(Z|Y;\theta^{(i)}) log{
+\left[ \frac{P(Y|Z;\theta^{(i+1)})P(Z; \theta^{(i+1)})} {P(Z|Y;\theta^{(i)})} \right]
+}\right)
+} \ge \\
+{\sum_y \sum_Z
+\left(
+P(Z|Y;\theta^{(i)}) log{
+\left[ \frac{P(Y|Z;\theta^{(i)})P(Z; \theta^{(i)})} {P(Z|Y;\theta^{(i)})} \right]
+}\right)
+} = G(\theta^{(i)})\tag {22}
+\]</span></p>
+<p>故有： <span class="math display">\[
+G(\theta^{(i+1)}) \ge G(\theta^{(i)})
+\]</span> 故式（16）得证。</p>
 <h2 id="对于统计学习方法的疑惑">对于《统计学习方法》的疑惑</h2>
 <p>李航博士的《统计学习方法》（第二版）对于EM算法的讲解和网上以及CS229上的略有不同，</p>
 <p>书中主要是利用<span class="math inline">\(L(\theta) - L(\theta^{(i)})\)</span>的方式来衡量当前迭代次数<span class="math inline">\(i\)</span>和最终结果的差异<span class="math inline">\(s\)</span>，然后利用差异<span class="math inline">\(s\)</span>反过来表示<span class="math inline">\(L(\theta)\)</span>,再求最大值。（而在CS229中其实是直接求<span class="math inline">\(\mathop{\arg\max_{\theta}}{L(\theta)}\)</span>）.即 <span class="math display">\[

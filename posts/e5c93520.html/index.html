@@ -89,7 +89,7 @@
 <meta property="og:description" content="概述 最近重新看EM算法，看了网上一些博客，发现很多都是抄来抄去，而且我发现其实很多博客上并没有真正讲清楚这个算法的思想，尤其是对于后验分布\(Q(Z|Y)\)(\(Z\)表示隐变量，\(Y\)表示观测变量),并没有解释为什么要这么做，怎么来的，仅仅是照着公式推导了一番而已。这里我按照我的理解写一遍EM算法，或许和网上的其他博客有一些出入。 EM算法全称（Expectation Maximizat">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/v2-b08e375b0a476cd6bc5fc2446b8a95f1_1440w.png">
 <meta property="article:published_time" content="2022-09-01T03:20:54.000Z">
-<meta property="article:modified_time" content="2022-09-01T03:26:34.067Z">
+<meta property="article:modified_time" content="2022-09-01T03:33:57.887Z">
 <meta property="article:author" content="冒烟的乔">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="数学">
@@ -571,10 +571,23 @@ Q(Z;\theta^{(i)}) log{
 }\right)
 }
 \tag {21}
-\]</span> 由于<span class="math inline">\(\theta^{(i+1)}\)</span>来源于在给定了<span class="math inline">\(\theta^{(i)}\)</span>之后估计的最大值（即<code>M步</code>，见式（18）），所以一定有： $$ {_y _Z ( P(Z|Y;^{(i)}) log{ }) } \ {_y _Z ( P(Z|Y;^{(i)}) log{ }) } = G(^{(i)})</p>
-<p><span class="math display">\[
-故有：
-\]</span> G(^{(i+1)}) G(^{(i)}) $$ 故式（16）得证。</p>
+\]</span> 由于<span class="math inline">\(\theta^{(i+1)}\)</span>来源于在给定了<span class="math inline">\(\theta^{(i)}\)</span>之后估计的最大值（即<code>M步</code>，见式（18）），所以一定有： <span class="math display">\[
+{\sum_y \sum_Z
+\left(
+P(Z|Y;\theta^{(i)}) log{
+\left[ \frac{P(Y|Z;\theta^{(i+1)})P(Z; \theta^{(i+1)})} {P(Z|Y;\theta^{(i)})} \right]
+}\right)
+} \ge \\
+{\sum_y \sum_Z
+\left(
+P(Z|Y;\theta^{(i)}) log{
+\left[ \frac{P(Y|Z;\theta^{(i)})P(Z; \theta^{(i)})} {P(Z|Y;\theta^{(i)})} \right]
+}\right)
+} = G(\theta^{(i)})\tag {22}
+\]</span></p>
+<p>故有： <span class="math display">\[
+G(\theta^{(i+1)}) \ge G(\theta^{(i)})
+\]</span> 故式（16）得证。</p>
 <h2 id="对于统计学习方法的疑惑">对于《统计学习方法》的疑惑</h2>
 <p>李航博士的《统计学习方法》（第二版）对于EM算法的讲解和网上以及CS229上的略有不同，</p>
 <p>书中主要是利用<span class="math inline">\(L(\theta) - L(\theta^{(i)})\)</span>的方式来衡量当前迭代次数<span class="math inline">\(i\)</span>和最终结果的差异<span class="math inline">\(s\)</span>，然后利用差异<span class="math inline">\(s\)</span>反过来表示<span class="math inline">\(L(\theta)\)</span>,再求最大值。（而在CS229中其实是直接求<span class="math inline">\(\mathop{\arg\max_{\theta}}{L(\theta)}\)</span>）.即 <span class="math display">\[
