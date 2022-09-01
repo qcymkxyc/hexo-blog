@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="机器学习,数学,NLP," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="冒烟的乔个人博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="概述 最近重新看EM算法，看了网上一些博客，发现很多都是抄来抄去，而且我发现其实很多博客上并没有真正讲清楚这个算法的思想，尤其是对于后验分布\(Q(Z|Y)\)(\(Z\)表示隐变量，\(Y\)表示观测变量),并没有解释为什么要这么做，怎么来的，仅仅是照着公式推导了一番而已。这里我按照我的理解写一遍EM算法，或许和网上的其他博客有一些出入。 EM算法全称（Expectation Maximizat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EM算法理解">
+<meta property="og:url" content="http://blog.zhangqi2019.top/posts/e5c93520.html/index.html">
+<meta property="og:site_name" content="冒烟的乔个人博客">
+<meta property="og:description" content="概述 最近重新看EM算法，看了网上一些博客，发现很多都是抄来抄去，而且我发现其实很多博客上并没有真正讲清楚这个算法的思想，尤其是对于后验分布\(Q(Z|Y)\)(\(Z\)表示隐变量，\(Y\)表示观测变量),并没有解释为什么要这么做，怎么来的，仅仅是照着公式推导了一番而已。这里我按照我的理解写一遍EM算法，或许和网上的其他博客有一些出入。 EM算法全称（Expectation Maximizat">
+<meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/v2-b08e375b0a476cd6bc5fc2446b8a95f1_1440w.png">
+<meta property="article:published_time" content="2022-09-01T03:20:54.000Z">
+<meta property="article:modified_time" content="2022-09-01T03:26:34.067Z">
+<meta property="article:author" content="冒烟的乔">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="NLP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/v2-b08e375b0a476cd6bc5fc2446b8a95f1_1440w.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.zhangqi2019.top/posts/e5c93520.html/"/>
+
+
+
+
+
+  <title>EM算法理解 | 冒烟的乔个人博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7374299231a2a42c206c16c03b80cea2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+	  <div class="headband"></div>
+
+	  <a href="https://github.com/qcymkxyc" target="_blank" rel="noopener">
+		  <img width="149" height="149" style="position: absolute; top: 0; right: 0; border: 0;"  src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+
+	  <!-- <a href="https://your-url" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style> -->
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">冒烟的乔个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.zhangqi2019.top/posts/e5c93520.html/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="冒烟的乔">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="冒烟的乔个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">EM算法理解</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-09-01T11:20:54+08:00">
+                2022-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index">
+                    <span itemprop="name">数学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="概述">概述</h2>
+<p>最近重新看<code>EM算法</code>，看了网上一些博客，发现很多都是抄来抄去，而且我发现其实很多博客上并没有真正讲清楚这个算法的思想，尤其是对于后验分布<span class="math inline">\(Q(Z|Y)\)</span>(<span class="math inline">\(Z\)</span>表示隐变量，<span class="math inline">\(Y\)</span>表示观测变量),并没有解释为什么要这么做，怎么来的，仅仅是照着公式推导了一番而已。这里我按照我的理解写一遍<code>EM算法</code>，或许和网上的其他博客有一些出入。</p>
+<p><code>EM算法</code>全称（<code>Expectation Maximization Algorithm</code>），是一个迭代优化求解算法，在求解概率模型中，只要有隐变量的模型求解几乎都要用到它，例如<code>HMM模型</code>、<code>GMM模型</code>等</p>
+<h2 id="问题引入三硬币模型">问题引入（三硬币模型）</h2>
+<p>三硬币模型是最简单的含有隐变量的概率模型了，这里还是以三硬币模型举例。</p>
+<p>设有3枚硬币，分别记作A、B、C。这些硬币正面出现的概率分别为<span class="math inline">\(\pi,p,q\)</span>.进行如下投硬币试验：先投掷硬币A，根据其结果选出硬币B或硬币C，正面选硬币B，反面选硬币C；然后掷选出的硬币，掷硬币的结果，出现正面记作1，出现反面记作0；独立地重复<span class="math inline">\(n\)</span>次试验（这里，<span class="math inline">\(n=10\)</span>）,观测结果如下： <span class="math display">\[
+1,1,0,1,0,0,1,0,1,1
+\]</span> 求三硬币模型的参数（即求<span class="math inline">\(\pi,p,q\)</span>）</p>
+<p>设观测变量硬币结果为<span class="math inline">\(Y\)</span>，模型参数为<span class="math inline">\(\theta\)</span>(即<span class="math inline">\(\pi,p,q\)</span>)，隐变量也就是硬币A投掷的结果为<span class="math inline">\(Z\)</span>，则有 <span class="math display">\[
+P(Y;\theta)=\sum_ZP(Y,Z;\theta)=\sum_ZP(Y|Z;\theta)P(Z;\theta)  \tag{1}
+\]</span> 即 <span class="math display">\[
+P(Y;\theta)=\pi \times p^y \times (1-p)^{1-y}+(1-\pi) \times q^y \times (1-q)^{1-y} \tag {2}
+\]</span> 对于上式求极大似然函数，有： <span class="math display">\[
+\mathop{\arg\max_{\theta}}{ \sum_ylogP(Y;\theta)}= \\
+\mathop{\arg\max_{\theta}}\sum_ylog[\pi \times p^y \times (1-p)^{1-y}+(1-\pi) \times q^y \times (1-q)^{1-y}]        \tag{3}
+\]</span> 上式由于在<span class="math inline">\(log\)</span>中有加法，故上式是没有解析解的。</p>
+<p><code>EM算法</code>就是解决上式没有解析解得问题，当然不是用解析解，是用迭代解。</p>
+<h2 id="隐变量概率模型的化简">隐变量概率模型的化简</h2>
+<p>现在还是设观测变量为<span class="math inline">\(Y\)</span>,隐变量为<span class="math inline">\(Z\)</span>,模型参数为<span class="math inline">\(\theta\)</span>,同式（3），求极大似然为 <span class="math display">\[
+\mathop{\arg\max_{\theta}}{ \sum_ylogP(Y;\theta)}   \tag {4}
+\]</span> 展开为 <span class="math display">\[
+\mathop{\arg\max_{\theta}}{ \sum_ylog \sum_{Z}P(Y|Z;\theta)P(Z;\theta)} \tag {5}
+\]</span> 如式（3），上式是没有解析解的。如果上式能够将<span class="math inline">\(log\)</span>划到对<span class="math inline">\(Z\)</span>求和的里面，那么此时我们就能够用解析解（实质上最终的<code>EM算法</code>是用的迭代解）。式（5） 利用利用<code>Jensen不等式</code>可以化简为： <span class="math display">\[
+\mathop{\arg\max_{\theta}}{ \sum_ylog \sum_{Z}P(Y|Z;\theta)P(Z;\theta)} \\
+= \mathop{\arg\max_{\theta}}{\sum_y log \sum_Z Q(Z) \frac{P(Y|Z;\theta)P(Z; \theta)} {Q(Z)}} \\
+\geqslant \mathop{\arg\max_{\theta}}{\sum_y \sum_Z
+\left(
+Q(Z) log{
+\left[ \frac{P(Y|Z;\theta)P(Z; \theta)} {Q(Z)} \right]
+}\right)
+}   \tag{6}
+\]</span> 其中，<span class="math inline">\(Q(Z)\)</span>表示关于隐变量<span class="math inline">\(Z\)</span>的任意分布。</p>
+<p>在式（6）中，如果我们能够利用<code>Jensen不等式</code>的相等条件，就能将<code>log</code>函数划入关于<span class="math inline">\(Z\)</span>求和的里面，此时我们就可以用解析解了。</p>
+<blockquote>
+<p>补充：Jensen不等式</p>
+<p>若函数<span class="math inline">\(f\)</span>是凸函数，对于随机变量<span class="math inline">\(X\)</span>有下列不等式成立： <span class="math display">\[
+E[f(X)] \ge f(E[X])   
+\]</span> 其中，<span class="math inline">\(E\)</span>表示取期望。</p>
+<p>当<span class="math inline">\(X\)</span>为常数时，不等式的等号成立。</p>
+<p>补充：凸函数的定义</p>
+<p>凸函数是一个定义在某个向量空间的凸子集<span class="math inline">\(C\)</span>区间上的实值函数<span class="math inline">\(f\)</span>,如果在其定义域<span class="math inline">\(C\)</span>上的任意两点<span class="math inline">\(x_1\)</span>,<span class="math inline">\(x_2\)</span>,<span class="math inline">\(0 \le \lambda \le 1\)</span>,有 <span class="math display">\[
+\lambda f(x_1) + (1 - \lambda)f(x_2) \ge f(\lambda x_1 + (1- \lambda) x_2)
+\]</span> 则称函数<span class="math inline">\(f\)</span>为凸函数。</p>
+<p>也就是说凸函数的任意两点的割线位于函数图形上方。</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/v2-b08e375b0a476cd6bc5fc2446b8a95f1_1440w.png"></p>
+</blockquote>
+<p><code>Jensen不等式</code>的相等条件为<span class="math inline">\(log\)</span>函数里面为常数，有 <span class="math display">\[
+\frac{P(Y|Z;\theta)P(Z; \theta)} {Q(Z)}=c   \tag {7}
+\]</span> 其中，<span class="math inline">\(c\)</span>表示常数。整理得： <span class="math display">\[
+Q(Z)=\frac{1}{c}P(Y|Z;\theta)P(Z; \theta)   \tag {8}
+\]</span> 由于<span class="math inline">\(Q(Z)\)</span>为概率函数，有<span class="math inline">\(\sum_ZQ(Z)=1\)</span>, <span class="math display">\[
+\sum_ZQ(Z)=\sum_Z\frac{1}{c}P(Y|Z;\theta)P(Z; \theta)=1 \tag{9}
+\]</span> 上式整理得： <span class="math display">\[
+c=\sum_ZP(Y|Z; \theta)P(Z;\theta)=P(Y;\theta)   \tag {10}
+\]</span> 联立式（7）和式（10）得： <span class="math display">\[
+Q(Z)=\frac{P(Y|Z;\theta)P(Z; \theta)}{c}=\frac{P(Y|Z;\theta)P(Z; \theta)}{P(Y; \theta)}=P(Z|Y; \theta)  \tag{11}
+\]</span> 可知，式（11）得到的<span class="math inline">\(Q(Z)\)</span>是一个关于<span class="math inline">\(Z\)</span>的后验分布。换句话说，当<span class="math inline">\(Q(Z)\)</span>为后验分布<span class="math inline">\(P(Z|Y;\theta)\)</span>时，式（6）中的等号成立。现在把<span class="math inline">\(Q(Z)\)</span>代入到式（6）中，有 <span class="math display">\[
+\mathop{\arg\max_{\theta}}{ \sum_ylog \sum_{Z}P(Y|Z;\theta)P(Z;\theta)} \\
+= \mathop{\arg\max_{\theta}}{\sum_y \sum_Z
+\left(
+P(Z|Y;\theta) log{
+\left[ \frac{P(Y|Z;\theta)P(Z; \theta)} {P(Z|Y;\theta)} \right]
+}\right)
+}   \tag{12}
+\]</span> <strong>所以，其实引入<code>Jensen不等式</code>的目的是将<span class="math inline">\(log\)</span>函数划入到关于隐变量<span class="math inline">\(Z\)</span>的求和里面，实际上，和<code>E</code>步和<code>M步</code>迭代求解的关系并不大。也不是用来确定函数<span class="math inline">\(\sum_ylog \sum_{Z}P(Y|Z;\theta)P(Z;\theta)\)</span>的下界</strong>。</p>
+<hr>
+<p>现在我们对式（12）求解析解，由于<span class="math inline">\(P(Y|Z;\theta)\)</span> 是一个后验分布，在求解时我们需要转化一下，利用贝叶斯公式： <span class="math display">\[
+P(Z|Y; \theta)=
+\frac{P(Z,Y; \theta)}
+{P(Y; \theta)}
+=\frac{
+P(Y|Z; \theta)P(Z;\theta)
+}{\sum_Z{P(Y|Z; \theta)P(Z; \theta)}}   \tag {13}
+\]</span> 将式（13）代入式（12）中，有 <span class="math display">\[
+\mathop{\arg\max_{\theta}}{\sum_y \sum_Z
+\left(
+\frac{
+P(Y|Z; \theta)P(Z;\theta)
+}{\sum_Z{P(Y|Z; \theta)P(Z; \theta)}} log{
+\left[ \frac{P(Y|Z;\theta)P(Z; \theta)} {\frac{
+P(Y|Z; \theta)P(Z;\theta)
+}{\sum_Z{P(Y|Z; \theta)P(Z; \theta)}}} \right]
+}\right)
+}= \\
+\mathop{\arg\max_{\theta}}{\sum_y \sum_Z
+\left(
+\frac{
+P(Y|Z; \theta)P(Z;\theta)
+}{\sum_Z{P(Y|Z; \theta)P(Z; \theta)}} log{
+\left[ \frac{P(Y|Z;\theta)P(Z; \theta)\sum_Z{P(Y|Z; \theta)P(Z; \theta)}} {
+P(Y|Z; \theta)P(Z;\theta)
+} \right]
+}\right)
+}
+ \tag {14}
+\]</span> 实质上，将参数代入式（14）相当之复杂，如果利用拉格朗日对上式在求一个偏导数，就更加复杂了。你可以将上面的<a href="#问题引入（三硬币模型）">三硬币模型</a>的参数代入其中，尝试一下。对于像<code>GMM</code> ,<code>HMM</code>模型的参数，就更复杂了，所以需要引入迭代解。</p>
+<p><strong>其实EM算法引入迭代解和<code>Jensen不等式</code>的关系并不大，<code>Jensen不等式</code>也不是用来确定似然函数的下界的，最多在收敛性的证明部分用得到</strong></p>
+<h2 id="em迭代的引入">EM迭代的引入</h2>
+<p>令式（12）为函数<span class="math inline">\(G(\theta)\)</span>： <span class="math display">\[
+\mathop{\arg\max_{\theta}}{\sum_y \sum_Z
+\left(
+P(Z|Y;\theta) log{
+\left[ \frac{P(Y|Z;\theta)P(Z; \theta)} {P(Z|Y;\theta)} \right]
+}\right)
+}=\mathop{\arg\max_{\theta}}{G(\theta)}     \tag{15}
+\]</span> 要使迭代成立，我们仅需第<span class="math inline">\(i+1\)</span>次迭代的结果大于第<span class="math inline">\(i\)</span>次迭代的结果即可，有 <span class="math display">\[
+G(\theta^{(i+1)}) \ge G(\theta^{(i)})   \tag {16}
+\]</span> 换句话说，我们仅需要找到一种迭代方式，使得式（16）成立即可，用更通俗的话说，就是保证函数<span class="math inline">\(G(\theta)\)</span>每一步都在爬楼梯。在<code>EM</code>算法中，先用第<span class="math inline">\(i\)</span>次的迭代计算<span class="math inline">\(P(Z|Y; \theta)\)</span>,</p>
+<p>也就是： <span class="math display">\[
+P(Z|Y; \theta^{(i)})=\frac{P(Z,Y; \theta^{(i)})}
+{P(Y; \theta^{(i)})}
+=\frac{
+P(Y|Z; \theta^{(i)})P(Z;\theta^{(i)})
+}{\sum_Z{P(Y|Z; \theta^{(i)})P(Z; \theta^{(i)})}}   \tag {17}
+\]</span> 由于<span class="math inline">\(\theta^{(i)}\)</span>我们是知道的，所以我们可以计算出<span class="math inline">\(P(Z|Y; \theta^{(i)})\)</span>,这就是<code>EM算法</code>的<code>E步</code>。</p>
+<p>计算出<span class="math inline">\(P(Z|Y; \theta^{(i)})\)</span>后，<span class="math inline">\(P(Z|Y; \theta^{(i)})\)</span>就可以看成常数了，此时求<span class="math inline">\(G(\theta)\)</span>的极大似然函数就较为简单： <span class="math display">\[
+\mathop{\arg\max_{\theta}}{G(\theta)}=\mathop{\arg\max_{\theta}}{\sum_y \sum_Z
+\left(
+P(Z|Y;\theta^{(i)}) log{
+\left[ \frac{P(Y|Z;\theta)P(Z; \theta)} {P(Z|Y;\theta^{(i)})} \right]
+}\right)
+}   \tag {18}
+\]</span> 这就是<code>EM算法</code>的<code>M步</code>。</p>
+<p>综上，</p>
+<p><code>E步</code>为计算第<span class="math inline">\(i\)</span>轮的后验分布： <span class="math display">\[
+P(Z|Y; \theta^{(i)})=\frac{P(Z,Y; \theta^{(i)})}
+{P(Y; \theta^{(i)})}
+=\frac{
+P(Y|Z; \theta^{(i)})P(Z;\theta^{(i)})
+}{\sum_Z{P(Y|Z; \theta^{(i)})P(Z; \theta^{(i)})}}
+\]</span> <code>M步</code>为计算加入后验估计后的极大似然： <span class="math display">\[
+\mathop{\arg\max_{\theta}}{\sum_y \sum_Z
+\left(
+P(Z|Y;\theta^{(i)}) log{
+\left[ \frac{P(Y|Z;\theta)P(Z; \theta)} {P(Z|Y;\theta^{(i)})} \right]
+}\right)
+}
+\]</span></p>
+<h2 id="收敛性证明">收敛性证明</h2>
+<p>收敛性证明即证明式（16）成立.</p>
+<p>最初的我们要求极大似然函数为： <span class="math display">\[
+L(\theta)= \sum_ylog \sum_{Z}P(Y|Z;\theta)P(Z;\theta)   \tag {19}
+\]</span> 第<span class="math inline">\((i +1)\)</span>轮<code>Jensen不等式</code>的相等条件为： <span class="math display">\[
+L(\theta^{(i+1)})= \sum_ylog \sum_{Z}P(Y|Z;\theta^{(i+1)})P(Z;\theta^{(i+1)})=\\
+={\sum_y \sum_Z
+\left(
+P(Z|Y;\theta^{(i+1)}) log{
+\left[ \frac{P(Y|Z;\theta^{(i+1)})P(Z; \theta^{(i+1)})} {P(Z|Y;\theta^{(i+1)})} \right]
+}\right)
+} = G(\theta^{(i+1)}) \\
+={\sum_y \sum_Z
+\left(
+Q(Z;\theta^{(i+1)}) log{
+\left[ \frac{P(Y|Z;\theta^{(i+1)})P(Z; \theta^{(i+1)})} {Q(Z;\theta^{(i+1)})} \right]
+}\right)
+}
+\tag {20}
+\]</span> 对于式（20），由<code>Jensen不等式</code>，当<span class="math inline">\(Q(Z;\theta)\)</span>不取<span class="math inline">\(\theta^{(i+1)}\)</span>时，必然有其值小于<span class="math inline">\(L(\theta^{(i+1)})\)</span>,故有 <span class="math display">\[
+L(\theta^{(i+1)}) &gt; 
+{\sum_y \sum_Z
+\left(
+Q(Z;\theta^{(i)}) log{
+\left[ \frac{P(Y|Z;\theta^{(i+1)})P(Z; \theta^{(i+1)})} {Q(Z;\theta^{(i)})} \right]
+}\right)
+}
+\tag {21}
+\]</span> 由于<span class="math inline">\(\theta^{(i+1)}\)</span>来源于在给定了<span class="math inline">\(\theta^{(i)}\)</span>之后估计的最大值（即<code>M步</code>，见式（18）），所以一定有： $$ {_y _Z ( P(Z|Y;^{(i)}) log{ }) } \ {_y _Z ( P(Z|Y;^{(i)}) log{ }) } = G(^{(i)})</p>
+<p><span class="math display">\[
+故有：
+\]</span> G(^{(i+1)}) G(^{(i)}) $$ 故式（16）得证。</p>
+<h2 id="对于统计学习方法的疑惑">对于《统计学习方法》的疑惑</h2>
+<p>李航博士的《统计学习方法》（第二版）对于EM算法的讲解和网上以及CS229上的略有不同，</p>
+<p>书中主要是利用<span class="math inline">\(L(\theta) - L(\theta^{(i)})\)</span>的方式来衡量当前迭代次数<span class="math inline">\(i\)</span>和最终结果的差异<span class="math inline">\(s\)</span>，然后利用差异<span class="math inline">\(s\)</span>反过来表示<span class="math inline">\(L(\theta)\)</span>,再求最大值。（而在CS229中其实是直接求<span class="math inline">\(\mathop{\arg\max_{\theta}}{L(\theta)}\)</span>）.即 <span class="math display">\[
+L(\theta) = L(\theta^{(i)}) + s     \tag {23}
+\]</span></p>
+<p><span class="math display">\[
+\mathop{\arg\max_{\theta}}{L(\theta)} =\mathop{\arg\max_{\theta}}{[L(\theta^{(i)}) +  s]}       \tag {24}
+\]</span></p>
+<hr>
+<p>但在 179页，利用<code>Jensen</code>不等式得到下界，为何凑的任意分布就一定是<span class="math inline">\(P(Z|Y,\theta^{(i)})\)</span>（虽然用上述的方式得到的结果和这里相同） <span class="math display">\[
+L(\theta) - L(\theta^{(i)})=
+log  \left( \sum_ZP(Y|Z,\theta)P(Z|\theta)  \right)
+- logP(Y| \theta^{(i)})
+\tag {25}
+\]</span> 上式利用<code>Jensen不等式</code>得到下界 <span class="math display">\[
+L(\theta) - L(\theta^{(i)}) =
+log \left(
+\sum_ZP(Z|Y,\theta^{(i)}) \frac{P(Y|Z,\theta)P(Z| \theta)}{P(Z|Y,\theta^{(i)})} 
+\right) - logP(Y| \theta^{(i)})  \\
+\ge \sum_ZP(Z|Y, \theta^{(i)})log\frac{P(Y|Z,\theta)P(Z| \theta)}{P(Z|Y,\theta^{(i)})}-logP(Y| \theta^{(i)})
+\tag {26}
+\]</span> 式（25）和（26）中，<span class="math inline">\(Z\)</span>表示隐变量，<span class="math inline">\(Y\)</span>表示观测变量，<span class="math inline">\(\theta^{(i)}\)</span>表示第<span class="math inline">\(i\)</span>次迭代的参数。式（26）为何凑的分布就一定是<span class="math inline">\(P(Z|Y,\theta^{(i)})\)</span>.</p>
+<h2 id="参考">参考</h2>
+<blockquote>
+<ul>
+<li>CS229 Part IX EM algorithm</li>
+<li>统计学习方法(第二版) 李航著</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
+          
+            <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"><i class="fa fa-tag"></i> 数学</a>
+          
+            <a href="/tags/NLP/" rel="tag"><i class="fa fa-tag"></i> NLP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/44b32924.html/" rel="next" title="少阴病">
+                <i class="fa fa-chevron-left"></i> 少阴病
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/header1.jpg"
+                alt="冒烟的乔" />
+            
+              <p class="site-author-name" itemprop="name">冒烟的乔</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/qcymkxyc" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:qcymkxyc@163.com.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zhangqi2019.top" title="个人网站" target="_blank">个人网站</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.zhangqi2019.top" title="个人博客" target="_blank">个人博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题引入三硬币模型"><span class="nav-number">2.</span> <span class="nav-text">问题引入（三硬币模型）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐变量概率模型的化简"><span class="nav-number">3.</span> <span class="nav-text">隐变量概率模型的化简</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#em迭代的引入"><span class="nav-number">4.</span> <span class="nav-text">EM迭代的引入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#收敛性证明"><span class="nav-number">5.</span> <span class="nav-text">收敛性证明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对于统计学习方法的疑惑"><span class="nav-number">6.</span> <span class="nav-text">对于《统计学习方法》的疑惑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">冒烟的乔</span>
+
+  
+</div>
+
+
+
+
+
+<div class="BbeiAn-info">
+<a target="_blank" href="http://www.beian.miit.gov.cn" style="text-decoration:none;padding-left:30px;background:url(https://s1.ax1x.com/2018/09/29/ilmwIH.png) no-repeat left center" rel="nofollow">渝ICP备18010901号</a>	  <!--这里将图标作为了背景，以使得能和后面的文字在同一行-->
+</div>
+
+
+
+
+
+
+  <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+    <script>
+	    if (window.mermaid) {
+			      mermaid.initialize({theme: 'forest'});
+				      }
+  </script>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

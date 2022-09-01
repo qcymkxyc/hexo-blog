@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.zhangqi2019.top/posts/1626e75d.html/</loc>
+    <loc>http://blog.zhangqi2019.top/posts/e5c93520.html/</loc>
     
     <lastmod>2022-09-01</lastmod>
     
@@ -12,6 +12,15 @@
   
   <url>
     <loc>http://blog.zhangqi2019.top/posts/4df0af3c.html/</loc>
+    
+    <lastmod>2022-09-01</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.zhangqi2019.top/posts/1626e75d.html/</loc>
     
     <lastmod>2022-09-01</lastmod>
     
