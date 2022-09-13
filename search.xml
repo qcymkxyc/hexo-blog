@@ -522,6 +522,46 @@ log \left(
       </tags>
   </entry>
   <entry>
+    <title>矩阵运算总结</title>
+    <url>/posts/d5b0d2e1.html/</url>
+    <content><![CDATA[<p>设矩阵<span class="math inline">\(A\)</span>为<span class="math inline">\(n \times n\)</span>的方阵</p>
+<h2 id="矩阵的逆求导">矩阵的逆求导</h2>
+<p><span class="math display">\[
+\frac{dA^{-1}}{dt}=-A^{-1}\frac{dA}{dt}A^{-1}
+\]</span></p>
+<h2 id="矩阵行列式求导">矩阵行列式求导</h2>
+<p><span class="math display">\[
+\frac{d|A|}{dt}=|A|tr\left( A^{-1} \frac{dA}{dt} \right)
+\]</span></p>
+<p>其中，<span class="math inline">\(tr\)</span>表示矩阵的迹</p>
+<h2 id="矩阵的迹">矩阵的迹</h2>
+<p><span class="math display">\[
+tr(A) = tr(A^T)
+\]</span></p>
+<p><span class="math display">\[
+tr(AB)=tr(BA)
+\]</span></p>
+<p><span class="math display">\[
+tr(ABC)=tr(BCA)+tr(CAB)
+\]</span></p>
+<p>实数的迹等于本身，即： <span class="math display">\[
+tr(a)=a
+\]</span> 其中，a为实数</p>
+]]></content>
+      <categories>
+        <category>数学</category>
+      </categories>
+      <tags>
+        <tag>数学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GMM算法推导</title>
+    <url>/posts/986a13b4.html/</url>
+    <content><![CDATA[
+]]></content>
+  </entry>
+  <entry>
     <title>少阴病</title>
     <url>/posts/44b32924.html/</url>
     <content><![CDATA[<h3 id="阴盛格阳证">阴盛格阳证</h3>
