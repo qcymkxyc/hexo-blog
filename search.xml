@@ -634,7 +634,7 @@ tr \left(\frac{\partial B(\theta)}{\partial \Sigma} \right) =
 \]</span> 化简得： <span class="math display">\[
 \sum_{i=1}^{N} w_j^{(i)} \left[tr(\Sigma_j^{-1}) -tr \left(  \Sigma_j^{-1} (x^{(i)} - \mu_j)  \cdot (x^{(i)} - \mu_j)^T  \Sigma_j^{-1} \right)  \right] = 0  \tag{17}
 \]</span> 整理以上步骤得： <span class="math display">\[
-\sum_{i=1}^{N} w_j^{(i)} \tr(\Sigma_j^{-1})=\sum_{i=1}^{N}w_j^{(i)}tr \left(  \Sigma_j^{-1} (x^{(i)} - \mu_j)  \cdot (x^{(i)} - \mu_j)^T  \Sigma_j^{-1} \right) \tag{18}
+\sum_{i=1}^{N} w_j^{(i)} tr(\Sigma_j^{-1})=\sum_{i=1}^{N}w_j^{(i)}tr \left(  \Sigma_j^{-1} (x^{(i)} - \mu_j)  \cdot (x^{(i)} - \mu_j)^T  \Sigma_j^{-1} \right)  \tag{18}
 \]</span> 两边同时去迹，并同时右乘<span class="math inline">\(\Sigma\)</span>,有 <span class="math display">\[
 \sum_{i=1}^{N} w_j^{(i)} =\sum_{i=1}^{N}w_j^{(i)}  \Sigma_j^{-1} (x^{(i)} - \mu_j)  \cdot (x^{(i)} - \mu_j)^T  \tag{19}
 \]</span> 上式整理，得： <span class="math display">\[

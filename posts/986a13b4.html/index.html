@@ -88,7 +88,7 @@
 <meta property="og:site_name" content="冒烟的乔个人博客">
 <meta property="og:description" content="概述 GMM（Gaussian Mixture Model）算法是一个非常经典的聚类算法，是混合模型的代表。理论上，如果掌握了GMM算法，基于其他分布的混合模型都可以推导出来。GMM算法的思想并不复杂，关键在于求解。如果你了解EM算法，GMM实际上并不难。所以，在看本文之前，我建议先学EM算法。关于EM算法，可以看我的这篇博文：EM算法理解 模型假设 设某数据的概率\(P(X)\)并不是来自于单个">
 <meta property="article:published_time" content="2022-09-11T03:55:39.000Z">
-<meta property="article:modified_time" content="2022-09-16T07:42:31.021Z">
+<meta property="article:modified_time" content="2022-09-16T08:13:43.508Z">
 <meta property="article:author" content="冒烟的乔">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="数学">
@@ -478,7 +478,7 @@ tr \left(\frac{\partial B(\theta)}{\partial \Sigma} \right) =
 \]</span> 化简得： <span class="math display">\[
 \sum_{i=1}^{N} w_j^{(i)} \left[tr(\Sigma_j^{-1}) -tr \left(  \Sigma_j^{-1} (x^{(i)} - \mu_j)  \cdot (x^{(i)} - \mu_j)^T  \Sigma_j^{-1} \right)  \right] = 0  \tag{17}
 \]</span> 整理以上步骤得： <span class="math display">\[
-\sum_{i=1}^{N} w_j^{(i)} \tr(\Sigma_j^{-1})=\sum_{i=1}^{N}w_j^{(i)}tr \left(  \Sigma_j^{-1} (x^{(i)} - \mu_j)  \cdot (x^{(i)} - \mu_j)^T  \Sigma_j^{-1} \right) \tag{18}
+\sum_{i=1}^{N} w_j^{(i)} tr(\Sigma_j^{-1})=\sum_{i=1}^{N}w_j^{(i)}tr \left(  \Sigma_j^{-1} (x^{(i)} - \mu_j)  \cdot (x^{(i)} - \mu_j)^T  \Sigma_j^{-1} \right)  \tag{18}
 \]</span> 两边同时去迹，并同时右乘<span class="math inline">\(\Sigma\)</span>,有 <span class="math display">\[
 \sum_{i=1}^{N} w_j^{(i)} =\sum_{i=1}^{N}w_j^{(i)}  \Sigma_j^{-1} (x^{(i)} - \mu_j)  \cdot (x^{(i)} - \mu_j)^T  \tag{19}
 \]</span> 上式整理，得： <span class="math display">\[
