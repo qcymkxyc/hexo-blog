@@ -558,8 +558,108 @@ tr(a)=a
   <entry>
     <title>GMM算法推导</title>
     <url>/posts/986a13b4.html/</url>
-    <content><![CDATA[
+    <content><![CDATA[<h2 id="概述">概述</h2>
+<p><code>GMM（Gaussian Mixture Model）</code>算法是一个非常经典的聚类算法，是混合模型的代表。理论上，如果掌握了<code>GMM</code>算法，基于其他分布的混合模型都可以推导出来。<code>GMM</code>算法的思想并不复杂，关键在于求解。如果你了解<code>EM算法</code>，<code>GMM</code>实际上并不难。所以，在看本文之前，我建议先学<code>EM算法</code>。关于<code>EM算法</code>，可以看我的这篇博文：<a href="https://www.zhangqi2019.top/posts/e5c93520.html/" target="_blank" rel="noopener">EM算法理解</a></p>
+<h2 id="模型假设">模型假设</h2>
+<p>设某数据的概率<span class="math inline">\(P(X)\)</span>并不是来自于单个的高斯分布，而是来自于多个高斯分布的混合（叠加）。 <span class="math display">\[
+P(X; \theta) = \sum_Z P(X | Z ; \theta) P(Z; \theta)    \tag {1}
+\]</span> 在上式中，<span class="math inline">\(P(Z; \theta)\)</span>为一个多项式分布， <span class="math inline">\(P(X|Z; \theta)\)</span>表示一个高斯分布。</p>
+<p>如果我们对数据进行聚类，设聚类的个数为<span class="math inline">\(k\)</span>,那么这时的<span class="math inline">\(P(Z; \theta)\)</span>就是一个类别为<span class="math inline">\(k\)</span>的多项式分布，每一类有一个高斯分布<span class="math inline">\(P(X|Z; \theta)\)</span>,最终该样本的概率是上述所有条件分布的叠加。</p>
+<p>更简单的说，就是多个高斯模型的加权平均。</p>
+<h2 id="算法推导">算法推导</h2>
+<p>我们对一个<code>GMM</code>做极大似然估计，有： <span class="math display">\[
+\mathop{\text{argmin}}_{\theta} L(\theta)=\mathop{\text{argmin}}_{\theta} \prod_X P(X; \theta) \\
+\Rightarrow \mathop{\text{argmin}}_{\theta} \sum_X log[P(X; \theta)] \\
+=  \mathop{\text{argmin}}_{\theta} \sum_X log \sum_{j=0}^{k}[P(X|Z=j; \theta)P(Z=j; \theta)] \tag{2}
+\]</span> 其中，<span class="math inline">\(k\)</span>表示多项式分布的个数，<span class="math inline">\(P(Z; \theta)\)</span>表示多项式分布，<span class="math inline">\(P(X|Z; \theta)\)</span>表示在<span class="math inline">\(Z\)</span>条件下的高斯分布</p>
+<p>根据<a href="https://www.zhangqi2019.top/posts/e5c93520.html/" target="_blank" rel="noopener">EM算法</a>，在<code>EM算法</code>的<code>M步</code>我们可以把式（2）表示为： <span class="math display">\[
+\mathop{\text{argmin}}_{\theta} L(\theta)=\mathop{\text{argmin}}_{\theta} \sum_X  \sum_{j=0}^{k}P(Z=j|X; \theta) log[\frac{P(X|Z=j; \theta)P(Z=j; \theta)}{P(Z=j|X ; \theta)}] \tag{3}
+\]</span> 式（3）中，后验分布<span class="math inline">\(P(Z|X; \theta)\)</span>就是<code>Jensen不等式</code>中的<span class="math inline">\(Q\)</span>分布。</p>
+<p>我们将式（3）写成概率分布的形式,并设样本个数为<span class="math inline">\(N\)</span>个，第<span class="math inline">\(i\)</span>个样本表示为<span class="math inline">\(x^{(i)}\)</span> <span class="math display">\[
+\mathop{\text{argmin}}_{\theta} L(\theta)=\mathop{\text{argmin}}_{\theta} \sum_{i=1}^{N}\sum_{j=0}^{k} w_j^{(i)}
+log \left[ 
+\frac{1}{w_j^{(i)}} \times
+\frac{1}{(2 \pi)^{n/2} \cdot |\Sigma_j|^{1/2} } \cdot
+exp\left(-\frac{1}{2} (x^{(i)} - \mu_j)^T  \Sigma_j^{-1} (x^{(i)} - \mu_j) \right) \cdot \phi_j
+\right]  \\
+s.t. \sum_{j=0}^k \phi_j =1
+\tag {4}
+\]</span> 其中，<span class="math inline">\(w_j^{(i)}\)</span>表示后验分布$P(Z=j|x=x^{(i)}; ) <span class="math inline">\(,\)</span>_j<span class="math inline">\(和\)</span>_j<span class="math inline">\(分别表示第\)</span>j<span class="math inline">\(个高斯分布的期望和方差，\)</span>_j<span class="math inline">\(表示第\)</span>j$个多项式分布。</p>
+<p>我们用拉格朗日求最大值，有： <span class="math display">\[
+B(\theta)=\sum_{i=1}^{N}\sum_{j=0}^{k} w_j^{(i)}
+log \left[ 
+\frac{1}{w_j^{(i)}} \times
+\frac{1}{(2 \pi)^{n/2} \cdot |\Sigma_j|^{1/2} } \cdot
+exp\left(-\frac{1}{2} (x^{(i)} - \mu_j)^T  \Sigma_j^{-1} (x^{(i)} - \mu_j) \right) \cdot \phi_j
+\right]+
+\lambda \left( (\sum_{j=0}^{k} \phi_j) -1 \right)
+\tag {5}
+\]</span> 对<span class="math inline">\(\phi_j\)</span>和<span class="math inline">\(\lambda\)</span>求导，有 <span class="math display">\[
+\begin{cases}
+\frac{\partial B(\theta)}{\partial \phi_j}=\sum_{i=1}^{N} w_j^{(i)} \cdot \frac{1}{\phi_j} + \lambda =0  \\
+\frac{\partial B(\theta)}{\partial \lambda} =\sum_{j=0}^k \phi_j =1
+\end{cases} 
+\tag {6}
+\]</span> 上式方程组解得： <span class="math display">\[
+\phi_j = \frac{\sum_{i=1}^{m}w_j^{(i)}}{m}  \tag{7}
+\]</span></p>
+<hr>
+<p>下面对<span class="math inline">\(\mu_j\)</span> 求导： <span class="math display">\[
+\frac{\partial B(\theta)}{\partial \mu_j}=\sum_{i=1}^{m}w_j^{(i)}(-\frac{1}{2}) \cdot \Sigma_j^{-1}(x^{(i)}-\mu_j)(-1)=0    \tag{8}
+\]</span> 可以解得 <span class="math display">\[
+\mu_j=\frac{\sum_{i=1}^{N}w_j^{(i)} \cdot x^{(i)}}{\sum_{i=1}^{N}w_j^{(i)}}     \tag{9}
+\]</span></p>
+<hr>
+<p>下面对<span class="math inline">\(\Sigma_j\)</span>的求导：</p>
+<blockquote>
+<p>补充：矩阵行列式的求导 <span class="math display">\[
+\frac{d|A|}{dt}=|A|tr\left( A^{-1} \frac{dA}{dt} \right)   \tag{10}
+\]</span> 其中，<span class="math inline">\(tr\)</span>表示矩阵的迹</p>
+<p>矩阵的逆的求导： <span class="math display">\[
+\frac{dA^{-1}}{dt}=-A^{-1}\frac{dA}{dt}A^{-1}  \tag{11}
+\]</span> 矩阵的迹： <span class="math display">\[
+tr(ABC)=tr(BCA)+tr(CAB)        \tag{12}
+\]</span></p>
+</blockquote>
+<p>对式（5）进行<span class="math inline">\(\Sigma\)</span>求导，由式（10）和式（11）有： <span class="math display">\[
+\frac{\partial B(\theta)}{\partial \Sigma} = \sum_{i=1}^{N} w_j^{(i)} \left[tr(\Sigma^{-1}) -\frac{1}{2} (x^{(i)} - \mu_j)^T  \Sigma_j^{-1} \cdot \Sigma_j^{-1} (x^{(i)} - \mu_j) \right]       \tag {13}
+\]</span> 其中,<span class="math inline">\(tr\)</span>表示矩阵的迹</p>
+<p>式（12）可以在其中加入一个单位矩阵<span class="math inline">\(E\)</span>,变形为： <span class="math display">\[
+\frac{\partial B(\theta)}{\partial \Sigma} = \sum_{i=1}^{N} w_j^{(i)} \left[tr(\Sigma^{-1}) -\frac{1}{2} (x^{(i)} - \mu_j)^T  \Sigma_j^{-1} \cdot E \cdot \Sigma_j^{-1} (x^{(i)} - \mu_j) \right] \tag{14}
+\]</span> 对式（13）左右两边求迹，有： <span class="math display">\[
+tr \left(\frac{\partial B(\theta)}{\partial \Sigma} \right) =
+\sum_{i=1}^{N} w_j^{(i)} \left[tr(\Sigma^{-1}) -\frac{1}{2} tr \left( (x^{(i)} - \mu_j)^T  \Sigma_j^{-1} \cdot E \cdot \Sigma_j^{-1} (x^{(i)} - \mu_j) \right) \right]   = 0\tag{15}
+\]</span> 由式（12），有： <span class="math display">\[
+\sum_{i=1}^{N} w_j^{(i)} \left[tr(\Sigma^{-1}) -\frac{1}{2} \left[ tr \left(  \Sigma_j^{-1} (x^{(i)} - \mu_j)  \cdot (x^{(i)} - \mu_j)^T  \Sigma_j^{-1} \right) +  tr \left(  \Sigma_j^{-1} (x^{(i)} - \mu_j)  \cdot (x^{(i)} - \mu_j)^T  \Sigma_j^{-1} \right) \right] \right]  \tag{16}
+\]</span> 化简得： <span class="math display">\[
+\sum_{i=1}^{N} w_j^{(i)} \left[tr(\Sigma_j^{-1}) -tr \left(  \Sigma_j^{-1} (x^{(i)} - \mu_j)  \cdot (x^{(i)} - \mu_j)^T  \Sigma_j^{-1} \right)  \right] = 0  \tag{17}
+\]</span> 整理以上步骤得： <span class="math display">\[
+\sum_{i=1}^{N} w_j^{(i)} \tr(\Sigma_j^{-1})=\sum_{i=1}^{N}w_j^{(i)}tr \left(  \Sigma_j^{-1} (x^{(i)} - \mu_j)  \cdot (x^{(i)} - \mu_j)^T  \Sigma_j^{-1} \right) \tag{18}
+\]</span> 两边同时去迹，并同时右乘<span class="math inline">\(\Sigma\)</span>,有 <span class="math display">\[
+\sum_{i=1}^{N} w_j^{(i)} =\sum_{i=1}^{N}w_j^{(i)}  \Sigma_j^{-1} (x^{(i)} - \mu_j)  \cdot (x^{(i)} - \mu_j)^T  \tag{19}
+\]</span> 上式整理，得： <span class="math display">\[
+\Sigma_j= \frac{ \sum_{i=1}^{N}w_j^{(i)}(x^{(i)} - \mu_j)  \cdot (x^{(i)} - \mu_j)^T  }{\sum_{i=1}^{N}w_j^{(i)}}        \tag{20}
+\]</span> 以上是<code>GMM算法</code>求值的<code>M步</code>，对于<code>E步</code>的后验估计，和<code>EM算法</code>一样： <span class="math display">\[
+w_{j}^{(i)}=P(Z=j|x=x^{(i)}; \theta)=\frac{P(Z=j,x=x^{(i)})}{P(x=x^{(i)})}=\frac{P(x=x^{(i)}|Z=j)}{\sum_{j=0}^{k}p(x=x^{(i)}|Z=j)P(Z=j)} \\
+= \frac{
+\frac{1}{(2 \pi)^{n/2} \cdot |\Sigma_j|^{1/2} } \cdot
+exp\left(-\frac{1}{2} (x^{(i)} - \mu_j)^T  \Sigma_j^{-1} (x^{(i)} - \mu_j) \right)}
+{\sum_{j=0}^{k}\frac{1}{(2 \pi)^{n/2} \cdot |\Sigma_j|^{1/2} } \cdot
+exp\left(-\frac{1}{2} (x^{(i)} - \mu_j)^T  \Sigma_j^{-1} (x^{(i)} - \mu_j) \right) \cdot \phi_j}
+\tag{21}
+\]</span></p>
+<h2 id="参考">参考</h2>
+<ul>
+<li>CS229</li>
+</ul>
 ]]></content>
+      <categories>
+        <category>数学</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>数学</tag>
+      </tags>
   </entry>
   <entry>
     <title>少阴病</title>
