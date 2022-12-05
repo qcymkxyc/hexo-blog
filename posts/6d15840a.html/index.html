@@ -81,13 +81,15 @@
 
 
 
+<meta name="description" content="概述 隐马尔科夫模型（Hidden Markov model,HMM）是经典的时序模型。在NLP和语音领域有许多应用。例如中文分词，文本标注，早期的语音识别等。 相关定义 补充：马尔科夫链 假设现在有一个任务，我们在获取了一个地区前一个月的天气情况后预测明天的天气情况。假设天气情况值有三种可能：（天晴，下雨，阴天），我们分别用\(q_1,q_2,q_3\)表示.前三十天的天气状况我们分别用\(i_">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HMM总结">
+<meta property="og:title" content="HMM算法推导">
 <meta property="og:url" content="http://blog.zhangqi2019.top/posts/6d15840a.html/index.html">
 <meta property="og:site_name" content="冒烟的乔个人博客">
+<meta property="og:description" content="概述 隐马尔科夫模型（Hidden Markov model,HMM）是经典的时序模型。在NLP和语音领域有许多应用。例如中文分词，文本标注，早期的语音识别等。 相关定义 补充：马尔科夫链 假设现在有一个任务，我们在获取了一个地区前一个月的天气情况后预测明天的天气情况。假设天气情况值有三种可能：（天晴，下雨，阴天），我们分别用\(q_1,q_2,q_3\)表示.前三十天的天气状况我们分别用\(i_">
 <meta property="og:image" content="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210324172511.jpg">
 <meta property="article:published_time" content="2021-03-24T07:57:43.000Z">
-<meta property="article:modified_time" content="2021-10-13T01:52:49.720Z">
+<meta property="article:modified_time" content="2022-11-07T03:38:24.221Z">
 <meta property="article:author" content="冒烟的乔">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="数学">
@@ -128,7 +130,7 @@
 
 
 
-  <title>HMM总结 | 冒烟的乔个人博客</title>
+  <title>HMM算法推导 | 冒烟的乔个人博客</title>
   
 
 
@@ -330,7 +332,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">HMM总结</h2>
+          <h2 class="post-title" itemprop="name headline">HMM算法推导</h2>
         
 
         <div class="post-meta">
@@ -402,10 +404,52 @@
       
 
       
-        <div class="figure">
-<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210324172511.jpg">
-
-</div>
+        <h2 id="概述">概述</h2>
+<p>隐马尔科夫模型<code>（Hidden Markov model,HMM）</code>是经典的时序模型。在<code>NLP</code>和语音领域有许多应用。例如中文分词，文本标注，早期的语音识别等。</p>
+<h2 id="相关定义">相关定义</h2>
+<h3 id="补充马尔科夫链">补充：马尔科夫链</h3>
+<p>假设现在有一个任务，我们在获取了一个地区前一个月的天气情况后预测明天的天气情况。假设天气情况值有三种可能：（天晴，下雨，阴天），我们分别用<span class="math inline">\(q_1,q_2,q_3\)</span>表示.前三十天的天气状况我们分别用<span class="math inline">\(i_1,i_2,....,i_{30}\)</span>表示。则预测第31天（也就是明天）的天气情况用概率表示为： <span class="math display">\[
+P(i_{31}|i_1,i_2,....,i_{30})       \tag 1
+\]</span> 在马尔科夫链中，<span class="math inline">\(i\)</span>被称为状态（也就是上文所说的天气情况）.<strong>当前状态只和上一时刻的状态有关，和其他时刻无关</strong>，即： <span class="math display">\[
+P(i_t|i_1,i_2,....,i_{t-1})=P(i_t|i_{t-1})      \tag 2
+\]</span> 即我们所说的马尔科夫性。</p>
+<p>则公式可以表示为： <span class="math display">\[
+P(i_{31}|i_1,i_2,....,i_{30}) = P(i_{31}|i_{30})        \tag 3
+\]</span> 则预测天气则可以表示为： <span class="math display">\[
+\underset {i_{31}\in Q}  {argmax} P(i_{31}| i_{30})     \tag 4
+\]</span> 其中,<span class="math inline">\(Q\)</span>表示状态的集合，<span class="math inline">\(Q= \{q_1,q_2,q_3\}\)</span>.</p>
+<h3 id="hmm的符号定义">HMM的符号定义</h3>
+<p>在<code>HMM</code>中，状态<span class="math inline">\(i\)</span>之间的关系同马尔科夫链，有马尔科夫性，即当前状态<span class="math inline">\(i_t\)</span>仅与上一时刻<span class="math inline">\(t-1\)</span>的状态<span class="math inline">\(i_{t-1}\)</span>有关。但在每一个状态<span class="math inline">\(i\)</span>之上，新增一个观测变量<span class="math inline">\(o\)</span>,每一时刻的观测变量<span class="math inline">\(o_t\)</span>仅与当前时刻的状态<span class="math inline">\(i_t\)</span>有关。如下图所示</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210324172511.jpg"></p>
+<p>设在<code>HMM</code>模型中，状态为<span class="math inline">\(i\)</span>，那么一个到<span class="math inline">\(T\)</span>个时刻共有<span class="math inline">\(T\)</span>个状态值产生，为一个序列，表示为： <span class="math display">\[
+  i_1,i_2,....,i_T      \tag {5}
+\]</span> 对应的，也有<span class="math inline">\(T\)</span>个观测变量产生，表示为： <span class="math display">\[
+o_1,o_2,....,o_T
+\]</span> 对于状态<span class="math inline">\(i\)</span>共有<span class="math inline">\(N\)</span>个取值，也就是说有<span class="math inline">\(N\)</span>个可能性，则状态集合<span class="math inline">\(Q\)</span>表示为： <span class="math display">\[
+Q=\{ q_1,q_2,...,q_N \}         \tag 6
+\]</span> 有<span class="math inline">\(i_t \in Q\)</span>,其中<span class="math inline">\(i_t\)</span>表示第<span class="math inline">\(t\)</span>时刻的状态</p>
+<p>同理，也有一个观测集合<span class="math inline">\(V\)</span>，表示为： <span class="math display">\[
+V=\{ v_1,v_2,...,v_M\}          \tag 7
+\]</span> 有<span class="math inline">\(o_t \in V\)</span>,其中<span class="math inline">\(o_t\)</span>表示第<span class="math inline">\(t\)</span>时刻的观测结果。</p>
+<p>并设状态的初始状态为<span class="math inline">\(\pi\)</span>,即当<span class="math inline">\(t=1\)</span>时的状态概率，有： <span class="math display">\[
+\pi_j=P(i_1=q_j)    )   (j=1,2,...,N)       \tag 8
+\]</span> 此外，<code>HMM</code>还满足两个假设</p>
+<p>​ （1）齐次马尔科夫性假设，即在马尔科夫链中的马尔科夫性，有 <span class="math display">\[
+P(i_t|i_{t-1},o_{t-1},....,i_1,o_1)=P(i_t|i_{t-1})  \tag 9
+\]</span> ​ （2） 观测独立性假设，即假设当前观测状态仅与当前隐状态，与其他状态和观测值无关，有： <span class="math display">\[
+P(o_t|i_T,o_T,,i_{T-1},o_{T-1},....,i_1,o_1)=P(o_t|i_t)     \tag {10}
+\]</span> 由于隐状态有<span class="math inline">\(N\)</span>个（即<span class="math inline">\(q_1,q_2,...,q_N\)</span>）,则状态转移矩阵<span class="math inline">\(A\)</span>是一个<span class="math inline">\(N \times N\)</span>的矩阵，则在状态转移矩阵<span class="math inline">\(A_{N \times N}\)</span>中的第<span class="math inline">\(i\)</span>行<span class="math inline">\(j\)</span>列的值表示隐状态转移概率，有： <span class="math display">\[
+A_{N \times N}= [a_{ij}],其中 a_{ij}=P(i_{t+1}=q_j|i_t=q_i)       \tag {11}
+\]</span> <span class="math inline">\(B\)</span>表示发射矩阵（也叫观测矩阵），表示从隐状态<span class="math inline">\(i\)</span>到观测状态<span class="math inline">\(o\)</span>的转移概率，有： <span class="math display">\[
+B_{N \times M} =[b_j(k)], 其中b_j(k)=P(o_t=v_k|i_t=q_j)       \tag {12}
+\]</span></p>
+<h2 id="概率计算问题">概率计算问题</h2>
+<p>概率计算问题是计算观测序列的置信度，即<span class="math inline">\(P(o_1,o_2,...,o_T|\pi,A,B)\)</span>的值</p>
+<h3 id="前向算法">前向算法</h3>
+<h2 id="学习问题">学习问题</h2>
+<h2 id="预测问题">预测问题</h2>
+<h2 id="应用">应用</h2>
+<p>HMM模型是</p>
 
       
     </div>
@@ -531,8 +575,17 @@ var jiathis_config={
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -551,7 +604,7 @@ var jiathis_config={
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -562,7 +615,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -573,7 +626,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -637,6 +690,22 @@ var jiathis_config={
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关定义"><span class="nav-number">2.</span> <span class="nav-text">相关定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#补充马尔科夫链"><span class="nav-number">2.1.</span> <span class="nav-text">补充：马尔科夫链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hmm的符号定义"><span class="nav-number">2.2.</span> <span class="nav-text">HMM的符号定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概率计算问题"><span class="nav-number">3.</span> <span class="nav-text">概率计算问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前向算法"><span class="nav-number">3.1.</span> <span class="nav-text">前向算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学习问题"><span class="nav-number">4.</span> <span class="nav-text">学习问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预测问题"><span class="nav-number">5.</span> <span class="nav-text">预测问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">6.</span> <span class="nav-text">应用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

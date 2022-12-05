@@ -522,6 +522,252 @@ log \left(
       </tags>
   </entry>
   <entry>
+    <title>卡尔曼滤波器推导</title>
+    <url>/posts/864c2819.html/</url>
+    <content><![CDATA[<p>一般而言，对于卡尔曼滤波器，网上的切入点有两套：一是从控制和机器人领域，一是从机器学习领域。从机器学习领域切入一般以统计为出发点进行推导，由<code>HMM</code>到<code>Kalman Filter</code>再到粒子滤波层层递进。这里，本文也以统计为切入点对卡尔曼滤波进行推导。</p>
+<h2 id="概述">概述</h2>
+<p>卡尔曼滤波器是在<a href="/posts/6d15840a.html/" title="HMM">HMM</a>的基础上进行演化，在<a href="/posts/6d15840a.html/" title="HMM">HMM</a>中，由于隐变量和观测变量都是离散的，无法对连续的变量进行建模，卡尔曼滤波器为了弥补这个缺陷应运而生。所以卡尔曼滤波模型结构和<a href="/posts/6d15840a.html/" title="HMM">HMM</a>完全相同，仅是隐变量的分布和观测变量的分布变成了连续分布（高斯分布），如下图所示：</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210324172511.jpg"></p>
+<h2 id="建模">建模</h2>
+<p>现在我们设隐变量为<span class="math inline">\(Z\)</span>,观察变量为<span class="math inline">\(X\)</span>。同<a href="/posts/6d15840a.html/" title="HMM">HMM</a>，隐变量序列表示为： <span class="math display">\[
+z_1,z_2,z_3,....,z_T        \tag 1
+\]</span> 观测变量序列表示为： <span class="math display">\[
+x_1,x_2,....,x_T    \tag 2
+\]</span> 在卡尔曼滤波(<code>KF,Kalman Filter</code>)（以下简称<code>KF</code>）中，由于隐变量<span class="math inline">\(Z\)</span>和观测变量<span class="math inline">\(X\)</span>都为连续变量了，所以我们无法用一个转移矩阵来指代其中的变换关系，取而代之的，我们需要用一个函数来表示之间的关系，在<code>KF</code>中，我们假定转移的关系是线性的，有 <span class="math display">\[
+z_t = A_tz_{t-1} + B_t + \omega_t           \tag 3
+\]</span> 其中，<span class="math inline">\(A_{N \times N}\)</span> 为一个<span class="math inline">\(N \times N\)</span>的矩阵，<span class="math inline">\(N\)</span>表示隐变量<span class="math inline">\(z_t\)</span>的维数,<span class="math inline">\(B_{N \times 1}\)</span>表示偏移量,<span class="math inline">\(\omega_t\)</span>为高斯白噪声，有 <span class="math display">\[
+\omega_t \backsim N(0,Q_t)  \tag 4
+\]</span> 发射也是线性的，有： <span class="math display">\[
+x_t = H_tz_t + C_t + \upsilon_t     \tag 5
+\]</span> 其中，<span class="math inline">\(H_t\)</span>为一个<span class="math inline">\(M \times N\)</span>的矩阵,C_t为一个<span class="math inline">\(M \times 1\)</span>的向量,<span class="math inline">\(v_t\)</span>为白噪声，有</p>
+<p><span class="math display">\[
+v_t \backsim N(0,R_t)   \tag 6
+\]</span> 除此之外，像<code>HMM</code>中的<span class="math inline">\(\pi\)</span>一样，我们还应该有一个初始变量，即<span class="math inline">\(z_1\)</span>的分布，有 <span class="math display">\[
+z_1 \sim N(\mu_1,\Sigma_1)  \tag 7
+\]</span></p>
+<h2 id="filtering-问题">Filtering 问题</h2>
+<p>在<code>KF</code>中，实际上就是计算概率 <span class="math display">\[
+\alpha(t) = P(z_t|x_1,x_2,...,x_t)      \tag 8
+\]</span> 这被称为<code>Filtering</code>问题(在<code>HMM</code>中，decoding问题是知道了所有时刻<span class="math inline">\(T\)</span>的观测变量<span class="math inline">\((x_1,x_2,...,x_T)\)</span>后计算隐变量序列的概率,所以decoding问题是off-line问题，而filtering是on-line问题)。</p>
+<p>用更通俗的话讲，Filtering问题是知道当前观测变量即时估计状态的问题。</p>
+<h2 id="推导">推导</h2>
+<p>由式（8），由于<span class="math inline">\(P(x_1,x_2,...,x_t)\)</span>是一个常数，有 <span class="math display">\[
+P(z_t|x_1,x_2,...,x_t) \implies P(z_t,x_1,x_2,...,x_t)      \tag 9
+\]</span> 再化简，由马尔科夫齐次性，有 <span class="math display">\[
+P(x_t|z_t,x_1,x_2,...,x_{t-1})P(z_t,x_1,x_2,...,x_{t-1})    \\
+ =P(x_t|z_t)P(z_t,x_1,x_2,...,x_{t-1}) \\
+ =P(x_t|z_t) \int_{z_{t-1}} P(z_t,z_{t-1},x_1,x_2,...,x_{t-1}) d_{z_{t-1}} \\
+ =P(x_t|z_t) \int_{z_{t-1}} P(z_t|z_{t-1},x_1,x_2,...,x_{t-1})P(z_{t-1},x_1,x_2,...,x_{t-1}) d_{z_{t-1}}    \\
+  =P(x_t|z_t) \int_{z_{t-1}} P(z_t|z_{t-1})P(z_{t-1},x_1,x_2,...,x_{t-1}) d_{z_{t-1}}
+ \tag {10}
+\]</span> 在式（10）中，结合式（8）可知，<span class="math inline">\(P(z_{t-1},x_1,x_2,...,x_{t-1})\)</span>式是关于时刻<span class="math inline">\(t-1\)</span>的<code>KF</code>。结合式（8），式（10）可以简写成 <span class="math display">\[
+\overbrace{
+\alpha(t) \cong P(x_t|z_t) 
+\underbrace{
+\int_{z_{t-1}} P(z_t|z_{t-1}) \alpha(t-1) d_{z_{t-1}}}
+_{Prediction}
+}^{Updating}
+\tag {11}
+\]</span> 式（11）中，后半部分被称为<code>Prediction</code>更新，也就是计算<span class="math inline">\(P(z_t,x_1,x_2,...,x_{t-1})\)</span>。整个式计算被称为<code>Updating</code>更新。</p>
+<p><strong>实际上，这就是<code>HMM</code>中的前向算法</strong>,如同前向算法一样，我们计算<code>Kalman Filtering</code>就不断的迭代更新就好</p>
+<h3 id="prediction更新">Prediction更新</h3>
+<p>下面讲如何推导式（11）的<code>Prediction</code>部分</p>
+<p>设<span class="math inline">\(z_{t-1}|x_1,x_2,...,x_{t-1}\)</span>服从高斯分布(可证递推式的<code>KF</code>一定服从高斯分布)： <span class="math display">\[
+z_{t-1}|x_1,x_2,...,x_{t-1} \sim N(\mu_{t-1},\Sigma_{t-1})  \tag {12}
+\]</span> 且由式（3）和（4），有： <span class="math display">\[
+z_t \sim N(A_tz_{t-1}+B_t,Q_t)      \tag {13}
+\]</span> 由式（11）的<code>Prediction</code>部分，有 <span class="math display">\[
+\int_{z_{t-1}} P(z_t|z_{t-1}) \alpha(t-1) d_{z_{t-1}} \\
+=\int_{z_{t-1}} P(z_t|z_{t-1}) P(z_{t-1},x_1,x_2,...,x_{t-1}) d_{z_{t-1}} \\
+=\int_{z_{t-1}} \frac{1}{\sqrt{|2 \pi Q_t|}} exp(-\frac{1}{2}(x_t - A_tx_{t-1}-B_t)^TQ_t^{-1}(x_t - A_tx_{t-1}-B_t)) \cdot \\
+\frac{1}{\sqrt{|2 \pi \Sigma_{t-1}|}} exp(-\frac{1}{2}(x_{t-1} - \mu_{t-1})^T \Sigma_{t-1}^{-1}(x_{t-1} - \mu_{t-1}))   d_{z_{t-1}} \tag {14}
+\]</span> 化简式（14），由于<span class="math inline">\(\frac{1}{\sqrt{|2 \pi Q_t|}}\)</span>和<span class="math inline">\(\frac{1}{\sqrt{|2 \pi \Sigma_{t-1}|}}\)</span>是常数，有： <span class="math display">\[
+\Rightarrow
+\int_{z_{t-1}}
+exp 
+\left(
+-\frac{1}{2}
+\left[(z_t - A_tz_{t-1}-B_t)^TQ_t^{-1}(z_t - A_tz_{t-1}-B_t)  \\
++ (z_{t-1} - \mu_{t-1})^T \Sigma_{t-1}^{-1}(z_{t-1} - \mu_{t-1})
+\right]
+\right)
+d_{z_{t-1}}
+\tag {15}
+\]</span> 由于式（15）式关于<span class="math inline">\(z_{t-1}\)</span>的积分，又有指数形式，故我们可以把式（15）凑成一个关于<span class="math inline">\(z_{t-1}\)</span>的高斯分布形式，由于概率的积分为<span class="math inline">\(1\)</span>，我们就可以消除掉式（15）的积分。</p>
+<p>准确的说，是将式（15）中的指数函数: <span class="math display">\[
+-\frac{1}{2} \left[(z_t - A_tz_{t-1}-B_t)^TQ_t^{-1}(z_t - A_t z_{t-1}-B_t)
++ (z_{t-1} - \mu_{t-1})^T \Sigma_{t-1}^{-1}(z_{t-1} - \mu_{t-1})
+\right]     \tag {16}
+\]</span> 化为关于<span class="math inline">\(x_{t-1}\)</span>的标准的二次形式。也就是说，类似于将二次函数化为<span class="math inline">\(a(x-h)^2 +k\)</span>的形式。</p>
+<p>先求<span class="math inline">\(h\)</span>,设： <span class="math display">\[
+L_t = -\frac{1}{2} \left[(z_t - A_t z_{t-1}-B_t)^TQ_t^{-1}(z_t - A_t z_{t-1}-B_t)
++ (z_{t-1} - \mu_{t-1})^T \Sigma_{t-1}^{-1}(z_{t-1} - \mu_{t-1})
+\right]     \tag {17}
+\]</span> 对式（17）求导数，有： <span class="math display">\[
+\frac{\partial L_t}{\partial z_{t-1}}=-\frac{1}{2}
+\left[
+(z_t - A_t z_{t-1}-B_t)^T (2 Q_t^{-1})(-A_t) +
+ (z_{t-1} - \mu_{t-1})^T (2 \Sigma_{t-1}^{-1})
+\right] = 0     \tag {18}
+\]</span> 求解式（18），有： <span class="math display">\[
+z_{t-1}=
+(A_t^TQ_t^{-1}A_t +  
+\Sigma_{t-1}^{-1})^{-1}(A_t^TQ_t^{-1} z_t^T + \Sigma_{t-1}^{-1} \mu_t - A_t^T Q_t^{-1}B_t)
+\tag {19}
+\]</span></p>
+<p>再求，对式（17）求二阶导。得到的二阶导就是标准二次型中的<span class="math inline">\(a\)</span>,(这里出自<a href="https://zhuanlan.zhihu.com/p/58675854" target="_blank" rel="noopener">卡尔曼滤波详细解析</a>中的式(14)，这里原理并不复杂，但是挺巧妙，求二阶导就相当于过滤掉了<span class="math inline">\(0\)</span>次和<span class="math inline">\(1\)</span>次）。其实将式（19）的结果代入式（17）中计算<span class="math inline">\(a\)</span>也是一样的，但要复杂许多。 <span class="math display">\[
+\frac{\partial^2 L_t}{ \partial z_{t-1}^2} = -\frac{1}{2} 
+\left[
+A_t^TQ_t^{-1}A_t + \Sigma_{t-1}^{-1}
+\right]
+\tag {20}
+\]</span></p>
+<p>令式（20）中的<span class="math inline">\(A_t^TQ_t^{-1}A_t + \Sigma_{t-1}^{-1}\)</span>为<span class="math inline">\(\Psi\)</span>,则式（19）和式（20）可以写成： <span class="math display">\[
+z_{t-1}=
+\Psi ^{-1}(A_t^TQ_t^{-1} z_t^T + \Sigma_{t-1}^{-1} \mu_t - A_t^T Q_t^{-1}B_t) \tag{21}
+\]</span></p>
+<p><span class="math display">\[
+\frac{\partial^2 L_t}{ \partial z_{t-1}^2} = -\frac{1}{2} \Psi  \tag {22}
+\]</span></p>
+<p>将式（21）和式（22）代入式（17），计算二次型中的<span class="math inline">\(k\)</span>值，有： $$ L_t - (</p>
+<p>^T (- ^{-1}) ) \ = - (z_t - B_t - A_t <em>{t-1})^T(A_t </em>{t-1}A_t^T + R_t)^{-1}(z_t - B_t <em>t -A_t</em>{t-1})  <span class="math display">\[
+故式（17）可以写成：
+\]</span> L_t =</p>
+<p>^T(- ^{-1}) \ - (z_t - B_t - A_t <em>{t-1})^T(A_t </em>{t-1}A_t^T + R_t)^{-1}(z_t - B_t <em>t -A_t</em>{t-1})<br>
+ $$ 其中，<span class="math inline">\(\Psi = A_t^TQ_t^{-1}A_t + \Sigma_{t-1}^{-1}\)</span></p>
+<p>现在，我们可以对式（15）化简了 <span class="math display">\[
+\int_{z_{t-1}}
+exp 
+\left(
+-\frac{1}{2}
+\left[(z_t - A_t z_{t-1}-B_t)^T Q_t^{-1}(z_t - A_t z_{t-1}-B_t)  \\
++ (z_{t-1} - \mu_{t-1})^T \Sigma_{t-1}^{-1}(z_{t-1} - \mu_{t-1})
+\right]
+\right)
+d_{z_{t-1}} \\
+=
+\int_{z_{t-1}}
+exp \left(
+\left [
+z_{t-1} - \Psi ^{-1}(A_t^TQ_t^{-1} z_t^T + \Sigma_{t-1}^{-1} \mu_t - A_t^T Q_t^{-1}B_t)
+\right ]^T(-\frac{1}{2} \Psi^{-1})
+\left [
+z_{t-1} - \Psi ^{-1}(A_t^TQ_t^{-1} z_t^T + \Sigma_{t-1}^{-1} \mu_t - A_t^T Q_t^{-1}B_t)
+\right ]
+\right) \\
+\cdot 
+exp \left( 
+-\frac{1}{2} (z_t - B_t - A_t \mu_{t-1})^T(A_t \Sigma_{t-1}A_t^T + R_t)^{-1}(z_t - B_t \mu_t -A_t\mu_{t-1}) 
+\right)
+d_{z_{t-1}}
+\tag {25}
+\]</span> 对式（25）的前半部分凑高斯分布，后半部分由于和<span class="math inline">\(x_{t-1}\)</span>无关，可以提到最前面，有</p>
+<p>$$   exp ( - (z_t - B_t - A_t <em>{t-1})^T(A_t </em>{t-1}A_t^T + R_t)^{-1}(z_t - B_t <em>t -A_t</em>{t-1}) )  \ <em>{z</em>{t-1}}  exp ( ^T(- ^{-1}) ) d_{z_{t-1}} \</p>
+<p>$$</p>
+<p>式（26）化简为： <span class="math display">\[
+exp \left( 
+-\frac{1}{2} (z_t - B_t - A_t \mu_{t-1})^T(A_t \Sigma_{t-1}A_t^T + R_t)^{-1}(z_t - B_t \mu_t -A_t\mu_{t-1}) 
+\right) 
+\tag {27}
+\]</span> 对式（27），也可以凑高斯分布,于是有<code>prediction</code>部分： $$ P(z_t,x_1,x_2,…,x_{t-1}) = \  exp ( - (z_t - B_t - A_t <em>{t-1})^T(A_t </em>{t-1}A_t^T + R_t)^{-1}(z_t - B_t <em>t -A_t</em>{t-1}) )</p>
+<p><span class="math display">\[
+简写成：
+\]</span> P(z_t,x_1,x_2,…,x_{t-1}) N(B_t + A_t <em>{t-1},A_t </em>{t-1}A_t^T + R_t)  $$</p>
+<h3 id="updating更新">Updating更新</h3>
+<p>由式（5），<span class="math inline">\(x_t\)</span>也服从一个高斯分布： <span class="math display">\[
+x_t|z_t \sim N(H_tz_t + C_t,R_t)        \tag {30}
+\]</span> 根据式（10），结合式（29），我们得到<span class="math inline">\(\alpha(t)\)</span>，也就是<span class="math inline">\(P(z_t|x_1,x_2,...,x_t)\)</span>,有： $$ (t)=P(x_t|z_t)P(z_t,x_1,x_2,…,x_{t-1}) \ = exp\ exp</p>
+<p><span class="math display">\[
+类似于式（17）的凑标准二次型的方式，式（31）也可以凑二次型，得：
+\]</span> (t) N ( +K_t(x_t -C_t ), (I -K_tC_t) <br>
+)</p>
+<p><span class="math display">\[
+其中，$\overline{\mu_t}$和$\overline{ \Sigma_t}$表示式（29）的均值和方差，即：
+\]</span>  = B_t + A_t <em>{t-1} \  = A_t </em>{t-1}A_t^T + R_t<br>
+ $$</p>
+<p><span class="math display">\[
+K_t = \overline{\Sigma_t} C_t^T(C_t \overline{\Sigma_t}C_t^T + R_t)^{-1}    \tag {34}
+\]</span></p>
+<h2 id="应用">应用</h2>
+<h3 id="图像跟踪">图像跟踪</h3>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/58675854" target="_blank" rel="noopener">卡尔曼滤波详细解析</a></li>
+<li>徐亦达卡尔曼滤波器视频</li>
+<li>白板机器学习</li>
+</ul>
+]]></content>
+      <categories>
+        <category>数学</category>
+      </categories>
+      <tags>
+        <tag>数学</tag>
+        <tag>图像跟踪</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>广义霍夫变换</title>
+    <url>/posts/34de9ec2.html/</url>
+    <content><![CDATA[
+]]></content>
+  </entry>
+  <entry>
+    <title>圆拟合</title>
+    <url>/posts/db42b5d1.html/</url>
+    <content><![CDATA[
+]]></content>
+  </entry>
+  <entry>
+    <title>直线查找</title>
+    <url>/posts/77a6d8ad.html/</url>
+    <content><![CDATA[
+]]></content>
+      <categories>
+        <category>机器视觉</category>
+      </categories>
+      <tags>
+        <tag>数学</tag>
+        <tag>机器视觉</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>心阳虚(伤寒论)</title>
+    <url>/posts/1f03b116.html/</url>
+    <content><![CDATA[<h2 id="桂枝甘草汤证">桂枝甘草汤证</h2>
+<p>发汗过多，其人叉手自冒心,心下悸，欲得按者，桂枝甘草汤主之。（64）</p>
+<p>桂枝四两（去皮） 甘草二两（炙）</p>
+<p>上两味，以水三升，煮取一升，去滓，顿服。</p>
+<blockquote>
+<p>病因：汗出过多，则伤心阳，心阳爆虚（汗为心之液）</p>
+<p>主症：心中悸动不安，双手交叉按护于胸前</p>
+<p>此方重用桂枝，峻补心阳，顿服，可用于急救。如老年人突然情绪波动的心痛，突发心源性心脏病</p>
+<p>但见心悸心痛而喜按，就可用。</p>
+</blockquote>
+<h2 id="桂枝甘草龙骨牡蛎汤">桂枝甘草龙骨牡蛎汤</h2>
+<p>火逆下之，因烧针烦躁者，桂枝甘草龙骨牡蛎汤主之。（118）</p>
+<p>桂枝一两（去皮） 甘草二两（炙） 牡蛎二两（熬） 龙骨二两</p>
+<p>上四味，以水五升，煮取二升半，去滓，温服八合，日三服。</p>
+<blockquote>
+<p>病因：太阳病，误用火疗，又误用攻下，致使心阳受损。心神失养，以致心神浮越，因此心神不宁，故生烦躁</p>
+<p>主症：心神不宁，注意力不集中，甚至精神恍惚，惶恐不安。此方用于心阳虚引起的轻微的神经衰弱证</p>
+<p>治法：补益心阳，潜镇安神</p>
+<p>方义：桂枝甘草温补心阳。龙骨牡蛎重镇潜阳，敛浮越之心神</p>
+<p><strong>一般认为烦躁多属热证，而本条提出心阳虚损而见烦躁。</strong></p>
+</blockquote>
+<h2 id="桂枝去芍药加蜀漆牡蛎龙骨救逆汤">桂枝去芍药加蜀漆牡蛎龙骨救逆汤</h2>
+<p>伤寒脉浮，医以火迫劫之，亡阳，必惊狂，卧起不安者，桂枝去芍药加蜀漆牡蛎龙骨救逆汤主之。（112）</p>
+<p>桂枝三两（去皮） 甘草二两（炙） 生姜三两（切） 大枣十二枚（擘） 牡蛎五两（熬） 蜀漆三两（洗去腥） 龙骨四两</p>
+<p>上七味，以水一斗，先煮蜀漆，减二升，内诸药，煮取三升，去滓，温服一升。本云桂枝汤，今去芍药，加蜀漆，牡蛎，龙骨。</p>
+]]></content>
+      <categories>
+        <category>中医</category>
+      </categories>
+      <tags>
+        <tag>中医</tag>
+        <tag>伤寒论</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>矩阵运算总结</title>
     <url>/posts/d5b0d2e1.html/</url>
     <content><![CDATA[<p>设矩阵<span class="math inline">\(A\)</span>为<span class="math inline">\(n \times n\)</span>的方阵</p>
@@ -3799,12 +4045,54 @@ L(x,c,l,g) = \frac{1}{N}(L_{conf}(x,c)+ \alpha L_{loc}(x,l,g)) \tag 1
       </tags>
   </entry>
   <entry>
-    <title>HMM总结</title>
+    <title>HMM算法推导</title>
     <url>/posts/6d15840a.html/</url>
-    <content><![CDATA[<div class="figure">
-<img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210324172511.jpg">
-
-</div>
+    <content><![CDATA[<h2 id="概述">概述</h2>
+<p>隐马尔科夫模型<code>（Hidden Markov model,HMM）</code>是经典的时序模型。在<code>NLP</code>和语音领域有许多应用。例如中文分词，文本标注，早期的语音识别等。</p>
+<h2 id="相关定义">相关定义</h2>
+<h3 id="补充马尔科夫链">补充：马尔科夫链</h3>
+<p>假设现在有一个任务，我们在获取了一个地区前一个月的天气情况后预测明天的天气情况。假设天气情况值有三种可能：（天晴，下雨，阴天），我们分别用<span class="math inline">\(q_1,q_2,q_3\)</span>表示.前三十天的天气状况我们分别用<span class="math inline">\(i_1,i_2,....,i_{30}\)</span>表示。则预测第31天（也就是明天）的天气情况用概率表示为： <span class="math display">\[
+P(i_{31}|i_1,i_2,....,i_{30})       \tag 1
+\]</span> 在马尔科夫链中，<span class="math inline">\(i\)</span>被称为状态（也就是上文所说的天气情况）.<strong>当前状态只和上一时刻的状态有关，和其他时刻无关</strong>，即： <span class="math display">\[
+P(i_t|i_1,i_2,....,i_{t-1})=P(i_t|i_{t-1})      \tag 2
+\]</span> 即我们所说的马尔科夫性。</p>
+<p>则公式可以表示为： <span class="math display">\[
+P(i_{31}|i_1,i_2,....,i_{30}) = P(i_{31}|i_{30})        \tag 3
+\]</span> 则预测天气则可以表示为： <span class="math display">\[
+\underset {i_{31}\in Q}  {argmax} P(i_{31}| i_{30})     \tag 4
+\]</span> 其中,<span class="math inline">\(Q\)</span>表示状态的集合，<span class="math inline">\(Q= \{q_1,q_2,q_3\}\)</span>.</p>
+<h3 id="hmm的符号定义">HMM的符号定义</h3>
+<p>在<code>HMM</code>中，状态<span class="math inline">\(i\)</span>之间的关系同马尔科夫链，有马尔科夫性，即当前状态<span class="math inline">\(i_t\)</span>仅与上一时刻<span class="math inline">\(t-1\)</span>的状态<span class="math inline">\(i_{t-1}\)</span>有关。但在每一个状态<span class="math inline">\(i\)</span>之上，新增一个观测变量<span class="math inline">\(o\)</span>,每一时刻的观测变量<span class="math inline">\(o_t\)</span>仅与当前时刻的状态<span class="math inline">\(i_t\)</span>有关。如下图所示</p>
+<p><img src="https://blog-1253764997.cos.ap-chongqing.myqcloud.com/20210324172511.jpg"></p>
+<p>设在<code>HMM</code>模型中，状态为<span class="math inline">\(i\)</span>，那么一个到<span class="math inline">\(T\)</span>个时刻共有<span class="math inline">\(T\)</span>个状态值产生，为一个序列，表示为： <span class="math display">\[
+  i_1,i_2,....,i_T      \tag {5}
+\]</span> 对应的，也有<span class="math inline">\(T\)</span>个观测变量产生，表示为： <span class="math display">\[
+o_1,o_2,....,o_T
+\]</span> 对于状态<span class="math inline">\(i\)</span>共有<span class="math inline">\(N\)</span>个取值，也就是说有<span class="math inline">\(N\)</span>个可能性，则状态集合<span class="math inline">\(Q\)</span>表示为： <span class="math display">\[
+Q=\{ q_1,q_2,...,q_N \}         \tag 6
+\]</span> 有<span class="math inline">\(i_t \in Q\)</span>,其中<span class="math inline">\(i_t\)</span>表示第<span class="math inline">\(t\)</span>时刻的状态</p>
+<p>同理，也有一个观测集合<span class="math inline">\(V\)</span>，表示为： <span class="math display">\[
+V=\{ v_1,v_2,...,v_M\}          \tag 7
+\]</span> 有<span class="math inline">\(o_t \in V\)</span>,其中<span class="math inline">\(o_t\)</span>表示第<span class="math inline">\(t\)</span>时刻的观测结果。</p>
+<p>并设状态的初始状态为<span class="math inline">\(\pi\)</span>,即当<span class="math inline">\(t=1\)</span>时的状态概率，有： <span class="math display">\[
+\pi_j=P(i_1=q_j)    )   (j=1,2,...,N)       \tag 8
+\]</span> 此外，<code>HMM</code>还满足两个假设</p>
+<p>​ （1）齐次马尔科夫性假设，即在马尔科夫链中的马尔科夫性，有 <span class="math display">\[
+P(i_t|i_{t-1},o_{t-1},....,i_1,o_1)=P(i_t|i_{t-1})  \tag 9
+\]</span> ​ （2） 观测独立性假设，即假设当前观测状态仅与当前隐状态，与其他状态和观测值无关，有： <span class="math display">\[
+P(o_t|i_T,o_T,,i_{T-1},o_{T-1},....,i_1,o_1)=P(o_t|i_t)     \tag {10}
+\]</span> 由于隐状态有<span class="math inline">\(N\)</span>个（即<span class="math inline">\(q_1,q_2,...,q_N\)</span>）,则状态转移矩阵<span class="math inline">\(A\)</span>是一个<span class="math inline">\(N \times N\)</span>的矩阵，则在状态转移矩阵<span class="math inline">\(A_{N \times N}\)</span>中的第<span class="math inline">\(i\)</span>行<span class="math inline">\(j\)</span>列的值表示隐状态转移概率，有： <span class="math display">\[
+A_{N \times N}= [a_{ij}],其中 a_{ij}=P(i_{t+1}=q_j|i_t=q_i)       \tag {11}
+\]</span> <span class="math inline">\(B\)</span>表示发射矩阵（也叫观测矩阵），表示从隐状态<span class="math inline">\(i\)</span>到观测状态<span class="math inline">\(o\)</span>的转移概率，有： <span class="math display">\[
+B_{N \times M} =[b_j(k)], 其中b_j(k)=P(o_t=v_k|i_t=q_j)       \tag {12}
+\]</span></p>
+<h2 id="概率计算问题">概率计算问题</h2>
+<p>概率计算问题是计算观测序列的置信度，即<span class="math inline">\(P(o_1,o_2,...,o_T|\pi,A,B)\)</span>的值</p>
+<h3 id="前向算法">前向算法</h3>
+<h2 id="学习问题">学习问题</h2>
+<h2 id="预测问题">预测问题</h2>
+<h2 id="应用">应用</h2>
+<p>HMM模型是</p>
 ]]></content>
       <categories>
         <category>机器学习</category>
