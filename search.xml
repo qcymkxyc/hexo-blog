@@ -629,12 +629,29 @@ z_{t-1}=
 <p><span class="math display">\[
 \frac{\partial^2 L_t}{ \partial z_{t-1}^2} = -\frac{1}{2} \Psi  \tag {22}
 \]</span></p>
-<p>将式（21）和式（22）代入式（17），计算二次型中的<span class="math inline">\(k\)</span>值，有： $$ L_t - (</p>
-<p>^T (- ^{-1}) ) \ = - (z_t - B_t - A_t <em>{t-1})^T(A_t </em>{t-1}A_t^T + R_t)^{-1}(z_t - B_t <em>t -A_t</em>{t-1})  <span class="math display">\[
-故式（17）可以写成：
-\]</span> L_t =</p>
-<p>^T(- ^{-1}) \ - (z_t - B_t - A_t <em>{t-1})^T(A_t </em>{t-1}A_t^T + R_t)^{-1}(z_t - B_t <em>t -A_t</em>{t-1})<br>
- $$ 其中，<span class="math inline">\(\Psi = A_t^TQ_t^{-1}A_t + \Sigma_{t-1}^{-1}\)</span></p>
+<p>将式（21）和式（22）代入式（17），计算二次型中的<span class="math inline">\(k\)</span>值，有： <span class="math display">\[
+L_t - 
+\left(
+\left [
+z_{t-1} - \Psi ^{-1}(A_t^TQ_t^{-1} z_t^T + \Sigma_{t-1}^{-1} \mu_t - A_t^T Q_t^{-1}B_t)
+\right ]^T (-\frac{1}{2} \Psi^{-1})
+\left [
+z_{t-1} - \Psi ^{-1}(A_t^TQ_t^{-1} z_t^T + \Sigma_{t-1}^{-1} \mu_t - A_t^T Q_t^{-1}B_t)
+\right ]
+\right) \\
+= -\frac{1}{2} (z_t - B_t - A_t \mu_{t-1})^T(A_t \Sigma_{t-1}A_t^T + R_t)^{-1}(z_t - B_t \mu_t -A_t\mu_{t-1})   \tag {23}
+\]</span> 故式（17）可以写成： <span class="math display">\[
+L_t =
+\left [
+z_{t-1} - \Psi ^{-1}(A_t^TQ_t^{-1} z_t^T + \Sigma_{t-1}^{-1} \mu_t - A_t^T Q_t^{-1}B_t)
+\right ]^T(-\frac{1}{2} \Psi^{-1})
+\left [
+z_{t-1} - \Psi ^{-1}(A_t^TQ_t^{-1} z_t^T + \Sigma_{t-1}^{-1} \mu_t - A_t^T Q_t^{-1}B_t)
+\right ]
+  \\
+-\frac{1}{2} (z_t - B_t - A_t \mu_{t-1})^T(A_t \Sigma_{t-1}A_t^T + R_t)^{-1}(z_t - B_t \mu_t -A_t\mu_{t-1})     
+\tag {24}
+\]</span> 其中，<span class="math inline">\(\Psi = A_t^TQ_t^{-1}A_t + \Sigma_{t-1}^{-1}\)</span></p>
 <p>现在，我们可以对式（15）化简了 <span class="math display">\[
 \int_{z_{t-1}}
 exp 
@@ -662,29 +679,64 @@ exp \left(
 d_{z_{t-1}}
 \tag {25}
 \]</span> 对式（25）的前半部分凑高斯分布，后半部分由于和<span class="math inline">\(x_{t-1}\)</span>无关，可以提到最前面，有</p>
-<p>$$   exp ( - (z_t - B_t - A_t <em>{t-1})^T(A_t </em>{t-1}A_t^T + R_t)^{-1}(z_t - B_t <em>t -A_t</em>{t-1}) )  \ <em>{z</em>{t-1}}  exp ( ^T(- ^{-1}) ) d_{z_{t-1}} \</p>
-<p>$$</p>
+<p><span class="math display">\[
+\sqrt{ |2 \pi \Psi|} 
+\cdot 
+exp \left( 
+-\frac{1}{2} (z_t - B_t - A_t \mu_{t-1})^T(A_t \Sigma_{t-1}A_t^T + R_t)^{-1}(z_t - B_t \mu_t -A_t\mu_{t-1}) 
+\right) 
+\times
+\\
+\int_{z_{t-1}}
+\frac{1}{\sqrt {|2 \pi \Psi|}}
+exp \left(
+\left [
+z_{t-1} - \Psi ^{-1}(A_t^TQ_t^{-1} z_t^T + \Sigma_{t-1}^{-1} \mu_t - A_t^T Q_t^{-1}B_t)
+\right ]^T(-\frac{1}{2} \Psi^{-1})
+\left [
+z_{t-1} - \Psi ^{-1}(A_t^TQ_t^{-1} z_t^T + \Sigma_{t-1}^{-1} \mu_t - A_t^T Q_t^{-1}B_t)
+\right ]
+\right) d_{z_{t-1}} \\
+\tag {26}
+\]</span></p>
 <p>式（26）化简为： <span class="math display">\[
 exp \left( 
 -\frac{1}{2} (z_t - B_t - A_t \mu_{t-1})^T(A_t \Sigma_{t-1}A_t^T + R_t)^{-1}(z_t - B_t \mu_t -A_t\mu_{t-1}) 
 \right) 
 \tag {27}
-\]</span> 对式（27），也可以凑高斯分布,于是有<code>prediction</code>部分： $$ P(z_t,x_1,x_2,…,x_{t-1}) = \  exp ( - (z_t - B_t - A_t <em>{t-1})^T(A_t </em>{t-1}A_t^T + R_t)^{-1}(z_t - B_t <em>t -A_t</em>{t-1}) )</p>
-<p><span class="math display">\[
-简写成：
-\]</span> P(z_t,x_1,x_2,…,x_{t-1}) N(B_t + A_t <em>{t-1},A_t </em>{t-1}A_t^T + R_t)  $$</p>
+\]</span> 对式（27），也可以凑高斯分布,于是有<code>prediction</code>部分： <span class="math display">\[
+P(z_t,x_1,x_2,...,x_{t-1}) = \\
+\frac{1}{\sqrt{|2 \pi A_t \Sigma_{t-1}A_t^T + R_t|}}
+exp \left( 
+-\frac{1}{2} (z_t - B_t - A_t \mu_{t-1})^T(A_t \Sigma_{t-1}A_t^T + R_t)^{-1}(z_t - B_t \mu_t -A_t\mu_{t-1}) 
+\right)
+\tag {28}
+\]</span> 简写成： <span class="math display">\[
+P(z_t,x_1,x_2,...,x_{t-1}) \sim N(B_t + A_t \mu_{t-1},A_t \Sigma_{t-1}A_t^T + R_t)  \tag {29}
+\]</span></p>
 <h3 id="updating更新">Updating更新</h3>
 <p>由式（5），<span class="math inline">\(x_t\)</span>也服从一个高斯分布： <span class="math display">\[
 x_t|z_t \sim N(H_tz_t + C_t,R_t)        \tag {30}
-\]</span> 根据式（10），结合式（29），我们得到<span class="math inline">\(\alpha(t)\)</span>，也就是<span class="math inline">\(P(z_t|x_1,x_2,...,x_t)\)</span>,有： $$ (t)=P(x_t|z_t)P(z_t,x_1,x_2,…,x_{t-1}) \ = exp\ exp</p>
-<p><span class="math display">\[
-类似于式（17）的凑标准二次型的方式，式（31）也可以凑二次型，得：
-\]</span> (t) N ( +K_t(x_t -C_t ), (I -K_tC_t) <br>
-)</p>
-<p><span class="math display">\[
-其中，$\overline{\mu_t}$和$\overline{ \Sigma_t}$表示式（29）的均值和方差，即：
-\]</span>  = B_t + A_t <em>{t-1} \  = A_t </em>{t-1}A_t^T + R_t<br>
- $$</p>
+\]</span> 根据式（10），结合式（29），我们得到<span class="math inline">\(\alpha(t)\)</span>，也就是<span class="math inline">\(P(z_t|x_1,x_2,...,x_t)\)</span>,有： <span class="math display">\[
+\alpha(t)=P(x_t|z_t)P(z_t,x_1,x_2,...,x_{t-1})  \\
+= \frac{1}{\sqrt{|2 \pi R_t |}}exp\left[(x_t - H_tz_t - C_t)^T 
+R_t^{-1} (x_t - H_tz_t - C_t)\right]
+\times \\
+\frac{1}{\sqrt{|2 \pi (A_t \Sigma_{t-1}A_t^T + R_t) |}}exp\left[(z_t - B_t - A_t \mu_{t-1})^T 
+(A_t \Sigma_{t-1}A_t^T + R_t)^{-1} (z_t - B_t - A_t \mu_{t-1})\right]
+\tag {31}
+\]</span> 类似于式（17）的凑标准二次型的方式，式（31）也可以凑二次型，得： <span class="math display">\[
+\alpha(t) \sim N 
+\left(
+\overline{\mu_t}+K_t(x_t -C_t \overline{\mu_t}),
+(I -K_tC_t) \overline{ \Sigma_t}    
+\right)
+\tag {32}
+\]</span> 其中，<span class="math inline">\(\overline{\mu_t}\)</span>和<span class="math inline">\(\overline{ \Sigma_t}\)</span>表示式（29）的均值和方差，即： <span class="math display">\[
+\overline{\mu_t} = B_t + A_t \mu_{t-1} \\
+\overline{\Sigma_t} = A_t \Sigma_{t-1}A_t^T + R_t   
+\tag {33}
+\]</span></p>
 <p><span class="math display">\[
 K_t = \overline{\Sigma_t} C_t^T(C_t \overline{\Sigma_t}C_t^T + R_t)^{-1}    \tag {34}
 \]</span></p>
@@ -4089,6 +4141,10 @@ B_{N \times M} =[b_j(k)], 其中b_j(k)=P(o_t=v_k|i_t=q_j)       \tag {12}
 <h2 id="概率计算问题">概率计算问题</h2>
 <p>概率计算问题是计算观测序列的置信度，即<span class="math inline">\(P(o_1,o_2,...,o_T|\pi,A,B)\)</span>的值</p>
 <h3 id="前向算法">前向算法</h3>
+<p>设观测序列<span class="math inline">\(o_1,o_2,....,o_T\)</span>表示为<span class="math inline">\(\vec{O}\)</span>,对应的状态序列<span class="math inline">\(i_1,i_2,...,i_T\)</span>表示为<span class="math inline">\(\vec{I}\)</span>,参数集<span class="math inline">\(\pi,A,B\)</span>表示为<span class="math inline">\(\lambda\)</span>,则</p>
+<p>设 <span class="math display">\[
+\alpha_t(i)= P(o_1,o_2,...,o_t,i_t=q_i| \lambda)        \tag {13}
+\]</span> 则</p>
 <h2 id="学习问题">学习问题</h2>
 <h2 id="预测问题">预测问题</h2>
 <h2 id="应用">应用</h2>
